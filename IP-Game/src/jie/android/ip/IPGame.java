@@ -1,6 +1,7 @@
 package jie.android.ip;
 
 import jie.android.ip.CommonConsts.ScreenConfig;
+import jie.android.ip.screen.TestScreen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -11,16 +12,22 @@ public class IPGame extends Game {
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	
+	private Resources resources;
+	
 	@Override
 	public void create() {
 		initCamera();
 		initSpriteBatch();
+		initResources();
+		
+		this.setScreen(new TestScreen(this));
 	}
 
 	@Override
 	public void dispose() {
 		super.dispose();
 		
+		resources.dispose();
 		batch.dispose();
 	}
 
@@ -41,4 +48,13 @@ public class IPGame extends Game {
 		batch = new SpriteBatch();
 		batch.setProjectionMatrix(camera.combined);
 	}
+	
+	public final Resources getResources() {
+		return resources;
+	}
+	
+	private void initResources() {
+		resources = new Resources();
+	}
+	
 }
