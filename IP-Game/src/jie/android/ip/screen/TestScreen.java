@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 import jie.android.ip.IPGame;
 import jie.android.ip.screen.actor.ImageActor;
-import jie.android.ip.screen.actor.SpriteActor;
 
 public class TestScreen extends BaseScreen {
 
@@ -43,7 +42,7 @@ public class TestScreen extends BaseScreen {
 		ia.tweenToX(tweenManager, 100, 10.0f);
 		
 		group.setBounds(0, 0, 200, 200);
-		group.setScale(1.0f);
+		group.setScale(10.0f);
 		
 		
 		
