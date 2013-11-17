@@ -63,15 +63,16 @@ public class BaseScreen extends Stage implements Screen {
 
 	@Override
 	public void dispose() {
+		tweenManager.killAll();
 		super.dispose();
 	}
 	
 	@Override
 	public void act(float delta) {
 		super.act(delta);
-		if (tweenManager.getRunningTweensCount() > 0) {
+		//if (tweenManager.getRunningTweensCount() > 0) {
 			tweenManager.update(delta);
-		}		
+		//}		
 	}	
 
 }

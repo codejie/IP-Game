@@ -1,4 +1,4 @@
-package jie.android.ip.screen;
+package jie.android.ip.group;
 
 import java.util.HashMap;
 
