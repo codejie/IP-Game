@@ -14,6 +14,7 @@ public class ImageActorAccessor implements TweenAccessor<ImageActor> {
 	public static final int ROTATION = 5;
 	public static final int OPACITY = 6;
 	public static final int TINT = 7;
+	public static final int SCALE_TO_XY = 8;
 	
 	@Override
 	public int getValues(ImageActor target, int tweenType, float[] returnValues) {
@@ -43,6 +44,10 @@ public class ImageActorAccessor implements TweenAccessor<ImageActor> {
 			returnValues[1] = target.getColor().g;
 			returnValues[2] = target.getColor().b;
 			return 3;
+		case SCALE_TO_XY:
+			returnValues[0] = target.getX();
+			returnValues[1] = target.getY();
+			return 2;			
 		default:
 			return -1;
 		}
@@ -51,8 +56,12 @@ public class ImageActorAccessor implements TweenAccessor<ImageActor> {
 	@Override
 	public void setValues(ImageActor target, int tweenType, float[] newValues) {
         switch (tweenType) {
-        case POSITION_X: target.setX(newValues[0]); break;
-        case POSITION_Y: target.setY(newValues[0]); break;
+        case POSITION_X: 
+        	target.setX(newValues[0]);
+        	break;
+        case POSITION_Y:
+        	target.setY(newValues[0]);
+        	break;
         case POSITION_XY:
             target.setX(newValues[0]);
             target.setY(newValues[1]);
@@ -74,7 +83,11 @@ public class ImageActorAccessor implements TweenAccessor<ImageActor> {
 				c.set(newValues[0], newValues[1], newValues[2], c.a);
 				target.setColor(c);
 			}
-			break;			
+			break;
+		case SCALE_TO_XY:
+			target.setWidth(newValues[0]);
+			target.setHeight(newValues[1]);
+			break;
         default:
         	break;
         }
