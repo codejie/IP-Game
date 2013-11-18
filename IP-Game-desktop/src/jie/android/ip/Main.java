@@ -1,5 +1,7 @@
 package jie.android.ip;
 
+import jie.android.ip.CommonConsts.ScreenConfig;
+
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 
@@ -8,8 +10,8 @@ public class Main {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "IP-Game";
 		cfg.useGL20 = false;
-		cfg.width = 480;
-		cfg.height = 320;
+		cfg.width = (int) ((int) ScreenConfig.WIDTH * 0.8f);
+		cfg.height = (int) ((int) ScreenConfig.HEIGHT * 0.8f);//320;
 		
 		new LwjglApplication(new IPGame(), cfg);
 	}

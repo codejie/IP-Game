@@ -42,7 +42,7 @@ public class Resources implements Disposable {
 	}
 	
 	private void initTextureAtlas() {
-		textureAtlas = new TextureAtlas(Gdx.files.internal("data/title.atlas"));
+		textureAtlas = new TextureAtlas(Gdx.files.internal("data/title.pack"));
 	}
 	
 }

@@ -17,30 +17,43 @@ public class StartScreen extends BaseScreen {
 	private static final float SCALE_1 = 1.5f;
 	private static final float SCALE_2 = 6.0f;
 	private static final float DURATION_1 = 0.5f;
-	private static final float DURATION_2 = 0.3f;
-	private static final float DURATION_3 = 0.5f;
+	private static final float DURATION_2 = 0.5f;
+	private static final float DURATION_3 = 1.0f;
+	private static final float DURATION_4 = 0.5f;	
 	private static final float DELAY_1 = 0.5f;
-	private static final float DELAY_2 = 0.5f;
+	private static final float DELAY_2 = -0.8f;
 	
-	private static final float SPACEX_1 = 20.0f;
-	private static final float SPACEX_2 = 10.0f;
-	private static final float SPACEY_1 = 15.0f;
+	private static final float SPACEX_1 = 15.0f;
+	private static final float SPACEX_2 = 6.0f;
+	private static final float SPACEY_1 = 0.0f;
 	
-	private static final float LINE1_X_1 = -100.0f;	
+	private static final float LINE1_X_1 = 0.0f;	
 	private static final float LINE1_Y_1 = 300.0f;
-	private static final float LINE1_X_2 = 40.0f;	
+	private static final float LINE1_X_2 = 80.0f;	
 //	private static final float LINE1_Y_2 = 300.0f;
 
-	private static final float LINE2_X_1 = -100.0f;
-	private static final float LINE2_Y_1 = 100.0f;	
+	private static final float LINE2_X_1 = 0.0f;
+	private static final float LINE2_Y_1 = 140.0f;	
 	private static final float LINE2_X_2 = 80.0f;
 //	private static final float LINE2_Y_2 = 100.0f;
+
+	private static final float LINE3_X_1 = 0.0f;
+	private static final float LINE3_Y_1 = 140.0f;	
+	private static final float LINE3_X_2 = ScreenConfig.WIDTH - 80.0f;
+	
+	private static final float LINE4_X_1 = -100.0f;
+	private static final float LINE4_Y_1 = 110.0f;	
+	private static final float LINE4_X_2 = ScreenConfig.WIDTH - 80.0f;
+
+	private static final float LINE5_X_1 = ScreenConfig.WIDTH;
+	private static final float LINE5_Y_1 = 60.0f;	
+	private static final float LINE5_X_2 = 80.0f;
 	
 	
-	private static final float FINAL_X_I = 100.0f;	
-	private static final float FINAL_Y_I = 200.0f;
+	private static final float FINAL_X_I = 200.0f;	
+	private static final float FINAL_Y_I = 260.0f;
 	
-	private static final float FINAL_Y_OTHER = 8000.0f;
+	private static final float FINAL_Y_OTHER = 800.0f;
 	
 	private ImageActor bg;
 	private ImageActor i, am, a, p, p1, semi;
@@ -80,9 +93,9 @@ public class StartScreen extends BaseScreen {
 		p1 = new ImageActor("p1", game.getResources().getTextureAtlas().findRegion("p1"));
 		semi = new ImageActor("semi", game.getResources().getTextureAtlas().findRegion("semi"));
 
-		bg = new ImageActor("bg", game.getResources().getTextureAtlas().findRegion("s_bg"));		
+		bg = new ImageActor("bg", game.getResources().getTextureAtlas().findRegion("s-bg"));		
 		title = new ImageActor("title", game.getResources().getTextureAtlas().findRegion("title"));
-		ver = new ImageActor("ver", game.getResources().getTextureAtlas().findRegion("version"));
+		ver = new ImageActor("ver", game.getResources().getTextureAtlas().findRegion("ver"));
 		author = new ImageActor("author", game.getResources().getTextureAtlas().findRegion("author"));
 		
 		this.addActor(bg);
@@ -136,6 +149,8 @@ public class StartScreen extends BaseScreen {
 			.push(tweenState1())
 			.pushPause(DELAY_1)
 			.push(tweenState2())
+			.pushPause(DELAY_2)
+			.push(tweenState3())
 			.setCallback(tweenCompleteCallback)
 			.start(tweenManager);
 		
@@ -151,8 +166,8 @@ public class StartScreen extends BaseScreen {
 	private Timeline tweenSet() {
 		return Timeline.createParallel()
 				//bg
-				.push(Tween.set(i, ImageActorAccessor.POSITION_XY).target(0, ScreenConfig.HEIGHT))
-				.push(Tween.set(i, ImageActorAccessor.SCALE_TO_XY).target(ScreenConfig.WIDTH, ScreenConfig.HEIGHT))
+				.push(Tween.set(bg, ImageActorAccessor.POSITION_XY).target(0, ScreenConfig.HEIGHT))
+				.push(Tween.set(bg, ImageActorAccessor.SCALE_TO_XY).target(ScreenConfig.WIDTH, ScreenConfig.HEIGHT))
 				//i
 				.push(Tween.set(i, ImageActorAccessor.POSITION_XY).target(LINE1_X_1 - i.getWidth() * SCALE_1, LINE1_Y_1))
 				.push(Tween.set(i, ImageActorAccessor.SCALE_XY).target(SCALE_1, SCALE_1))
@@ -170,7 +185,12 @@ public class StartScreen extends BaseScreen {
 				.push(Tween.set(p1, ImageActorAccessor.SCALE_XY).target(SCALE_1, SCALE_1))
 				//semicolon
 				.push(Tween.set(semi, ImageActorAccessor.POSITION_XY).target(LINE2_X_1 - semi.getWidth() * SCALE_1, LINE2_Y_1))
-				.push(Tween.set(semi, ImageActorAccessor.SCALE_XY).target(SCALE_1, SCALE_1));
+				.push(Tween.set(semi, ImageActorAccessor.SCALE_XY).target(SCALE_1, SCALE_1))
+				//title, ver
+				.push(Tween.set(title, ImageActorAccessor.POSITION_XY).target(LINE3_X_1 - title.getWidth(), LINE3_Y_1))
+				.push(Tween.set(ver, ImageActorAccessor.POSITION_XY).target(LINE4_X_1 - ver.getWidth(), LINE4_Y_1))
+				//author
+				.push(Tween.set(author, ImageActorAccessor.POSITION_XY).target(LINE5_X_1 + author.getWidth(), LINE5_Y_1));		
 	}
 	
 	private Timeline tweenState1() {
@@ -195,7 +215,7 @@ public class StartScreen extends BaseScreen {
 	private Timeline tweenState2() {
 		return Timeline.createParallel()
 				//bg
-				.push(Tween.to(bg, ImageActorAccessor.POSITION_XY, DURATION_2).target(0, ScreenConfig.HEIGHT /3 * 2).ease(Bounce.OUT))
+				.push(Tween.to(bg, ImageActorAccessor.POSITION_XY, DURATION_3).target(0, (float) (ScreenConfig.HEIGHT * 0.382)).ease(Bounce.OUT))
 				//i
 				.push(Tween.to(i, ImageActorAccessor.POSITION_XY, DURATION_2).target(FINAL_X_I, FINAL_Y_I))
 				.push(Tween.to(i, ImageActorAccessor.SCALE_XY, DURATION_2).target(SCALE_2, SCALE_2))
@@ -208,7 +228,17 @@ public class StartScreen extends BaseScreen {
 				//am, a, p1
 				.push(Tween.to(am, ImageActorAccessor.POSITION_Y, DURATION_2).target(FINAL_Y_OTHER + am.getHeight() * SCALE_1).ease(Expo.OUT))
 				.push(Tween.to(a, ImageActorAccessor.POSITION_Y, DURATION_2).target(FINAL_Y_OTHER + a.getHeight() * SCALE_1).ease(Expo.OUT))
-				.push(Tween.to(p1, ImageActorAccessor.POSITION_Y, DURATION_2).target(FINAL_Y_OTHER + p1.getHeight() * SCALE_1).ease(Expo.OUT));
+				.push(Tween.to(p1, ImageActorAccessor.POSITION_Y, DURATION_2).target(FINAL_Y_OTHER + p1.getHeight() * SCALE_1).ease(Expo.OUT));		
+	}
+	
+	private Timeline tweenState3() {
+		return Timeline.createParallel()
+				//title, ver
+				.push(Tween.to(title, ImageActorAccessor.POSITION_X, DURATION_4).target(LINE3_X_2 - title.getWidth()))
+				.push(Tween.to(ver, ImageActorAccessor.POSITION_X, DURATION_4).target(LINE4_X_2 - ver.getWidth()))
+				//author
+				.push(Tween.to(author, ImageActorAccessor.POSITION_X, DURATION_4).target(LINE5_X_2));
+
 	}
 	
 }
