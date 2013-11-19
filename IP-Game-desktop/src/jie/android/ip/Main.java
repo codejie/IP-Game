@@ -10,8 +10,8 @@ public class Main {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "IP-Game";
 		cfg.useGL20 = false;
-		cfg.width = (int) ((int) ScreenConfig.WIDTH * 0.8f);
-		cfg.height = (int) ((int) ScreenConfig.HEIGHT * 0.8f);//320;
+		cfg.width = (int) ((int) ScreenConfig.WIDTH * 0.4f);
+		cfg.height = (int) ((int) ScreenConfig.HEIGHT * 0.4f);//320;
 		
 		new LwjglApplication(new IPGame(), cfg);
 	}

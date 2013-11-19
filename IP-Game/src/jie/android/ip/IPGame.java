@@ -21,8 +21,8 @@ public class IPGame extends Game {
 		initSpriteBatch();
 		initResources();
 		
-		//this.setScreen(new TestScreen(this));
-		this.setScreen(new StartScreen(this));
+		this.setScreen(new TestScreen(this));
+		//this.setScreen(new StartScreen(this));
 	}
 
 	@Override

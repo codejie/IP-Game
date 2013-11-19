@@ -21,7 +21,8 @@ public class StartScreen extends BaseScreen {
 	private static final float DURATION_3 = 1.0f;
 	private static final float DURATION_4 = 0.5f;	
 	private static final float DELAY_1 = 0.5f;
-	private static final float DELAY_2 = -0.8f;
+	private static final float DELAY_2 = -0.6f;
+	private static final float DELAY_3 = 1.2f;
 	
 	private static final float SPACEX_1 = 15.0f;
 	private static final float SPACEX_2 = 6.0f;
@@ -63,7 +64,7 @@ public class StartScreen extends BaseScreen {
 		@Override
 		public void onEvent(int type, BaseTween<?> source) {
 			Utils.log("tween event", "type = " + type + " source = " + source.toString());
-			//game.setScreen(new TestScreen(game));
+			game.setScreen(new TestScreen(game));
 		}
 		
 	};
@@ -151,6 +152,7 @@ public class StartScreen extends BaseScreen {
 			.push(tweenState2())
 			.pushPause(DELAY_2)
 			.push(tweenState3())
+			.pushPause(DELAY_3)
 			.setCallback(tweenCompleteCallback)
 			.start(tweenManager);
 		
