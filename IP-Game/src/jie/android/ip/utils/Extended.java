@@ -3,8 +3,8 @@ package jie.android.ip.utils;
 public class Extended {
 
 	public static class Pair<T, U> {
-		private T first;
-		private U second;
+		private final T first;
+		private final U second;
 		
 		public Pair(T first, U second) {
 			this.first = first;
@@ -13,19 +13,27 @@ public class Extended {
 
 		@Override
 		public boolean equals(Object obj) {
-			if (obj instanceof Pair) {
-				Pair right = (Pair)obj;
-				if (right)
+			if (obj != null && obj instanceof Pair) {
+				Pair<T, U> right = (Pair<T, U>)(obj);
+				if (right.first.equals(first) && right.second.equals(second)) {
+					return true;
+				}
 			}
-			return super.equals(obj);
+			return false;
 		}
 
 		@Override
 		public int hashCode() {
-			// TODO Auto-generated method stub
-			return super.hashCode();
+			return (first != null ? first.hashCode() : 0) ^ (second != null ? second.hashCode() : 0);
 		}
 		
+		public final T first() {
+			return first;
+		}
+		
+		public final U second() {
+			return second;
+		}		
 	}
 	
 }

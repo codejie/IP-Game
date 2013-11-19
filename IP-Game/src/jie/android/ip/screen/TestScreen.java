@@ -17,6 +17,8 @@ import jie.android.ip.group.BaseGroup;
 import jie.android.ip.screen.actor.ImageActor;
 import jie.android.ip.screen.actor.ImageActorAccessor;
 import jie.android.ip.screen.actor.OnActorInputListener;
+import jie.android.ip.screen.data.BoxManager;
+import jie.android.ip.script.Script;
 import jie.android.ip.utils.Utils;
 
 public class TestScreen extends BaseScreen {
@@ -80,9 +82,21 @@ public class TestScreen extends BaseScreen {
 //			
 //		};
 		
-		initActors();
+		//initActors();
 		
-		initCmds();
+		//initCmds();
+		
+		
+		BaseGroup group = new BaseGroup();		
+		
+		Script script = new Script();
+		script.load("");
+		
+		BoxManager bmanager = new BoxManager(game.getResources());
+		bmanager.load(script);
+		bmanager.putSource(group);
+		
+		this.addActor(group);
 		
 	}
 
