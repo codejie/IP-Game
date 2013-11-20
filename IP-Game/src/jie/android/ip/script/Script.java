@@ -33,6 +33,9 @@ public class Script {
 	public boolean load(final String file) {
 		source = new ArrayList<BlockData>();
 		source.add(new BlockData(1, 1, 1));
+		source.add(new BlockData(2, 2, 1));
+		source.add(new BlockData(3, 3, 1));
+		source.add(new BlockData(4, 3, 1));
 		return false;
 	}
 	

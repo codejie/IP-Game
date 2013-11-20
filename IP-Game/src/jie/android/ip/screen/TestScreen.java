@@ -2,6 +2,7 @@ package jie.android.ip.screen;
 
 import aurelienribon.tweenengine.Tween;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -9,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import jie.android.ip.IPGame;
+import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.executor.Analyser;
 import jie.android.ip.executor.CommandSet;
 import jie.android.ip.executor.Executor;
@@ -27,6 +29,8 @@ public class TestScreen extends BaseScreen {
 	private ImageActor block;
 	private Button btn;
 	
+	private BoxManager bmanager;
+	
 	private OnCommandListener cmdListener = new OnCommandListener() {
 
 		@Override
@@ -44,7 +48,7 @@ public class TestScreen extends BaseScreen {
 		@Override
 		public void onAct(int func, int index, Object param1, Object param2) {
 			
-			Tween.to(block, ImageActorAccessor.POSITION_X, 0.1f).target(block.getX() + 100).start(tweenManager);
+			//Tween.to(block, ImageActorAccessor.POSITION_X, 0.1f).target(block.getX() + 100).start(tweenManager);
 			
 //			block.setPosition(block.getX() + 100, block.getY());
 		}
@@ -83,41 +87,48 @@ public class TestScreen extends BaseScreen {
 //			
 //		};
 		
-		//initActors();
+		initActors();
 		
 		//initCmds();
 		
 		
-		BaseGroup group = new BaseGroup();		
+		BaseGroup group = new BaseGroup();
+		group.setBounds(100, 100, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);
+//		group.setBounds(200, 100, 100, 100);
+//		group.setScale(0.5f);
 		
 		Script script = new Script();
 		script.load("");
 		
 		BoxConfig config = new BoxConfig();
 		config.setSourceGroup(group);
-		config.setResources(game.getResources());		
+		config.setResources(game.getResources());
+		config.setTweenManager(this.tweenManager);
 		
-		BoxManager bmanager = new BoxManager(config);
+		bmanager = new BoxManager(config);
 		bmanager.loadScript(script);
 //		bmanager.putSource(group);
 		
 		this.addActor(group);
-		
+	
+//		Gdx.input.setInputProcessor(this);
 	}
 
 	private void initActors() {
 		
-		block = new ImageActor("ic", game.getResources().getSkin().getRegion("ic"));
-		block.setPosition(0, 100);
-		this.addActor(block);
+//		block = new ImageActor("ic", game.getResources().getSkin().getRegion("ic"));
+//		block.setPosition(0, 100);
+//		this.addActor(block);
 		
 		btn = new Button(game.getResources().getSkin().getDrawable("ic"));
+		btn.setBounds(0, 0, 64, 64);
 		btn.addListener(new ClickListener() {
 
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				Utils.log("testscreen", "clicked");
-				run();
+				bmanager.moveBlock(2, BoxManager.Direction.DOWN);
+				//run();
 			}			
 		});
 		this.addActor(btn);

@@ -1,14 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<IP-Command-Format>
-	<CommandSet>
-		<Function id="0">
-			<Command p1="0" p2="1" type="act" />
-			<Command p1="2" p2="1" type="check" />
-			<Command p1="1" p2="1" type="act" />
-			<Command p1="1" type="call" />
-		</Function>
-		<Function id="1">
-			<Command p1="2" type="act" />
-		</Function>
-	</CommandSet>
-</IP-Command-Format>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><IP-Command-Format><CommandSet><Function id="0"><Command p1="0" p2="1" type="act"/><Command p1="2" p2="1" type="check"/><Command p1="1" p2="1" type="act"/><Command p1="1" type="call"/></Function><Function id="1"><Command p1="2" type="act"/></Function></CommandSet></IP-Command-Format>
