@@ -2,36 +2,55 @@ package jie.android.ip.script;
 
 import java.util.ArrayList;
 
+import jie.android.ip.script.Script.TrayData;
+
 public class Script {
-	public static class Unit {
+	public class BlockData {
 		public int row;
 		public int col;
-		public int type;
-		public int status;
+		public int style;
 		
-		public Unit(int row, int col, int type, int status) {
+		public BlockData(int row, int col, int style) {
 			this.row = row;
 			this.col = col;
-			this.type = type;
-			this.status = status;
+			this.style = style;
 		}
 	}
 	
-	public ArrayList<Unit> source;
-	public ArrayList<Unit> target;
+	public class TrayData {
+		public int style;
+		public int col;		
+		
+		public TrayData(int style, int col) {
+			this.style = style;
+			this.col = col;
+		}
+	}
+	
+	public ArrayList<BlockData> source;
+	public ArrayList<BlockData> target;
 	
 	public boolean load(final String file) {
-		source = new ArrayList<Unit>();
-		source.add(new Unit(1, 1, 1, 1));
+		source = new ArrayList<BlockData>();
+		source.add(new BlockData(1, 1, 1));
 		return false;
 	}
 	
-	public final ArrayList<Unit> getSource() {
+	public final ArrayList<BlockData> getSource() {
 		return source;
 	}
 	
-	public final ArrayList<Unit> getTarget() {
+	public final ArrayList<BlockData> getTarget() {
 		return target;
+	}
+
+	public int getTrayPositon() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public final TrayData getTray() {
+		return new TrayData(1, 1);
 	}
 
 }
