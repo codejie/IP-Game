@@ -86,8 +86,10 @@ public class TestScreen extends BaseScreen {
 //			}
 //			
 //		};
-		
+//		initExecutor();
+//		initGroups();
 		initActors();
+		
 		
 		//initCmds();
 		

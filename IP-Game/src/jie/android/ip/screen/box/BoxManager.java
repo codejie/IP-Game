@@ -61,7 +61,7 @@ public class BoxManager {
 			return super.put(tkey, block) == null;
 		}
 		
-		public final Block getByRow(int col) {
+		public final Block getInRow(int col) {
 			for (int i = 1; i < maxRow; ++ i) {//start from 1
 				Block block = get(i, col);
 				if (block != null) {
@@ -69,6 +69,15 @@ public class BoxManager {
 				}
 			}
 			return null;
+		}
+		
+		public int checkInRow(int col) {
+			for (int i = 1; i < maxRow; ++ i) {//start from 1
+				if (get(i, col) != null) {
+					return i;
+				}
+			}
+			return -1;
 		}
 	}
 	
@@ -88,6 +97,9 @@ public class BoxManager {
 		}		
 	}
 	
+	public interface OnRenderTweenListener {
+		public void onCompleted(int srow, int scol, int trow, int tcol);
+	}	
 
 	private final BoxConfig config;
 	
@@ -96,6 +108,22 @@ public class BoxManager {
 	private BlockArray blockSource;
 	private BlockArray blockTarget;
 	private Tray tray;
+	
+	private OnRenderTweenListener onTweenSuccListener = new OnRenderTweenListener() {
+
+		@Override
+		public void onCompleted(int srow, int scol, int trow, int tcol) {			
+		}
+		
+	};
+
+	private OnRenderTweenListener onTweenFailListener = new OnRenderTweenListener() {
+
+		@Override
+		public void onCompleted(int srow, int scol, int trow, int tcol) {
+		}
+		
+	};
 	
 	public BoxManager(final BoxConfig config) {
 		this.config = config;
@@ -143,8 +171,50 @@ public class BoxManager {
 		renderer.putTray(tray);
 	}	
 
-	public void moveBlock(int row, Direction direction) {
+	public void moveBlock(int col, Direction direction) {
 		//updata block
-		renderer.moveBlock(row, 2, row - 1, 2);
+		if (direction == Direction.DOWN) {
+			//check tray
+			if (tray.posCol != col || tray.status != Tray.STATUS_EMPTY) {
+				//error
+			}
+			
+			int row = blockSource.checkInRow(col);
+			if (row != -1) {
+				blockSource.update(row, col, 0, col);
+				tray.status = Tray.STATUS_ATTACHED;
+				renderer.moveBlock(row, col, 0, col, onTweenSuccListener);				
+			} else {
+				// call event listener - fail
+			}			
+			
+		} else if (direction == Direction.UP){
+			//row must be 0
+			int row = blockSource.checkInRow(col);
+			if (row == -1) {
+				row = config.getMaxRow() - 1;
+			} else if (row == 1){
+				// call event listenr - fail
+				return;
+			}
+			
+			blockSource.update(0, col, row, col);
+			tray.status = Tray.STATUS_EMPTY;			
+			renderer.moveBlock(0, col, row, col, onTweenSuccListener);
+			
+		} else {
+			// impossible.
+		}
 	}
+	
+	public void moveTray(int row, Direction direction) {
+		if (direction == Direction.LEFT) {
+			 
+		} else if (direction == Direction.RIGHT) {
+			
+		} else {
+			//No
+		}
+	}
+	
 }
