@@ -98,7 +98,7 @@ public class BoxManager {
 	}
 	
 	public interface OnRenderTweenListener {
-		public void onCompleted(int srow, int scol, int trow, int tcol);
+		public void onCompleted(boolean isTray, int srow, int scol, int trow, int tcol);
 	}	
 
 	private final BoxConfig config;
@@ -112,7 +112,12 @@ public class BoxManager {
 	private OnRenderTweenListener onTweenSuccListener = new OnRenderTweenListener() {
 
 		@Override
-		public void onCompleted(int srow, int scol, int trow, int tcol) {			
+		public void onCompleted(boolean isTray, int srow, int scol, int trow, int tcol) {
+			if (isTray) {
+				onTrayMoveEnd(scol < tcol, true);
+			} else {
+				onBlockMoveEnd(srow > trow);
+			}
 		}
 		
 	};
@@ -120,10 +125,18 @@ public class BoxManager {
 	private OnRenderTweenListener onTweenFailListener = new OnRenderTweenListener() {
 
 		@Override
-		public void onCompleted(int srow, int scol, int trow, int tcol) {
+		public void onCompleted(boolean isTray, int srow, int scol, int trow, int tcol) {
+			if (isTray) {
+				onTrayMoveEnd(scol < tcol, false);
+			} else {
+				onBlockMoveEnd(srow > trow);
+			}			
 		}
 		
 	};
+	
+	private OnBoxEventListener onEventListener;
+	
 	
 	public BoxManager(final BoxConfig config) {
 		this.config = config;
@@ -183,7 +196,7 @@ public class BoxManager {
 			if (row != -1) {
 				blockSource.update(row, col, 0, col);
 				tray.status = Tray.STATUS_ATTACHED;
-				renderer.moveBlock(row, col, 0, col, onTweenSuccListener);				
+				renderer.moveBlock(row, col, 0, col, onTweenSuccListener);
 			} else {
 				// call event listener - fail
 			}			
@@ -199,22 +212,71 @@ public class BoxManager {
 			}
 			
 			blockSource.update(0, col, row, col);
-			tray.status = Tray.STATUS_EMPTY;			
+			tray.status = Tray.STATUS_EMPTY;
 			renderer.moveBlock(0, col, row, col, onTweenSuccListener);
 			
 		} else {
 			// impossible.
 		}
+		
+		onBlockMoveStart(direction == Direction.DOWN);
 	}
 	
-	public void moveTray(int row, Direction direction) {
+	public void moveTray(int col, Direction direction) {
+		int tcol = -1;
 		if (direction == Direction.LEFT) {
-			 
+			 tcol = col - 1;
 		} else if (direction == Direction.RIGHT) {
-			
+			tcol = col + 1;
 		} else {
-			//No
+			return;
 		}
+		
+		OnRenderTweenListener callback = null; 
+		if (tcol > 0 && tcol < config.getMaxCol()) {
+			callback = onTweenSuccListener;
+		} else {
+			callback = onTweenFailListener;
+		}
+		
+		tray.posCol = tcol;
+		
+		if (tray.status == Tray.STATUS_ATTACHED) {
+			blockSource.update(0, col, 0, tcol);
+			renderer.moveTrayWithBlock(col, tcol, callback);
+		} else {
+			renderer.moveTray(col, tcol, callback);
+		}
+		onTrayMoveStart(direction == Direction.RIGHT);
+	}
+
+	public void setOnEventListener(OnBoxEventListener listener) {
+		onEventListener = listener;
+	}
+
+	private void onBlockMoveStart(boolean down) {
+		if (onEventListener != null) {
+			onEventListener.onBlockMoveStart(down);
+			onEventListener.onTrayStatusChanged(down);
+		}
+	}
+	
+	private void onBlockMoveEnd(boolean down) {
+		if (onEventListener != null) {
+			onEventListener.onBlockMoveEnd(down);
+		}		
+	}
+	
+	private void onTrayMoveStart(boolean right) {
+		if (onEventListener != null) {
+			onEventListener.onTrayMoveStart(right);
+		}		
+	}
+	
+	private void onTrayMoveEnd(boolean right, boolean succ) {
+		if (onEventListener != null) {
+			onEventListener.onTrayMoveEnd(right, succ);
+		}		
 	}
 	
 }

@@ -1,7 +1,5 @@
 package jie.android.ip.group;
 
-import java.util.HashMap;
-
 import jie.android.ip.screen.actor.ImageActor;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -9,15 +7,13 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 
 public class BaseGroup extends Group {
 
-	private HashMap<String, Actor> mapActor = new HashMap<String, Actor>();
-	
 	public void addActor(final String name, Actor actor) {
-		mapActor.put(name, actor);
+		actor.setName(name);
 		super.addActor(actor);
 	}
 	
 	public void removeActor(final String name) {
-		Actor actor = mapActor.get(name);
+		Actor actor = super.findActor(name);
 		if (actor != null) {
 			super.removeActor(actor);
 		}
