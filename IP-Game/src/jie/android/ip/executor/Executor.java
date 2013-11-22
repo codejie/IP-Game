@@ -32,6 +32,9 @@ public class Executor {
 	}
 	
 	private class CommandStack extends Stack<InnerCommand> {
+
+		private static final long serialVersionUID = 1L;
+
 		public void loadCommand(final CommandSet cmdset, int func) {
 			CommandSet.CommandQueue cmds = cmdset.get(func);
 			if (cmds != null) {
@@ -74,6 +77,8 @@ public class Executor {
 	}
 	
 	private class BreakDataSet extends HashSet<BreakData> {
+		
+		private static final long serialVersionUID = 1L;
 		
 		private boolean enabled = false;
 		private Object lock = new Object();

@@ -53,7 +53,7 @@ public class Script {
 	}
 
 	public final TrayData getTray() {
-		return new TrayData(1, 1);
+		return new TrayData(0, 2);
 	}
 
 }

@@ -1,5 +1,7 @@
 package jie.android.ip;
 
+import jie.android.ip.CommonConsts.BoxConfig;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -31,10 +33,8 @@ public class Resources implements Disposable {
 		
 		TextureRegion rt = new TextureRegion(new Texture(Gdx.files.internal("data/ic.png")));		
 		skin.add("ic", rt);
+		skin.add("t", new TextureRegion(new Texture(Gdx.files.internal("data/t.png")), BoxConfig.TRAY_WIDTH, BoxConfig.TRAY_HEIGHT));
 		
-//		skin.add("i", new TextureRegion(new Texture(Gdx.files.internal("data/I.png"))));
-//		skin.add("am", new TextureRegion(new Texture(Gdx.files.internal("data/am.png"))));
-//		skin.add("pro", new TextureRegion(new Texture(Gdx.files.internal("data/pro.png"))));
 	}
 	
 	public final TextureAtlas getTextureAtlas() {

@@ -14,7 +14,7 @@ public class ImageActor extends Image {
 
 	private boolean isSelected = false;
 	private OnActorInputListener onInputListener;
-
+	
 	public ImageActor(final String name, TextureRegion region) {
 		super(region);
 		this.name = name;
@@ -22,6 +22,10 @@ public class ImageActor extends Image {
 		initListener();
 	}
 
+	public ImageActor(TextureRegion region) {
+		this(null, region);
+	}
+	
 	public final String getName() {
 		return name;
 	}

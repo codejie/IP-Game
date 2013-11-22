@@ -3,9 +3,9 @@ package jie.android.ip.screen.box;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import jie.android.ip.Resources;
-import jie.android.ip.group.BaseGroup;
-import jie.android.ip.screen.actor.ImageActor;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+
+import jie.android.ip.CommonConsts.BoxConfig;
 import jie.android.ip.script.Script;
 import jie.android.ip.script.Script.BlockData;
 import jie.android.ip.utils.Extended.Pair;
@@ -22,6 +22,7 @@ public class BoxManager {
 		
 		public int style = -1;
 		public int status = STATUS_EMPTY;
+		public Actor actor;
 		
 		public Block(int style) {
 			this.style = style;
@@ -30,7 +31,10 @@ public class BoxManager {
 	
 	private class BlockArray extends HashMap<Pair<Integer, Integer>, Block> {
 		
-		private int maxRow, maxCol;
+		private static final long serialVersionUID = 1L;
+		
+		private int maxRow;
+		private int maxCol;
 		
 		public BlockArray(int maxrow, int maxcol) {
 			this.maxRow = maxrow;
@@ -41,24 +45,29 @@ public class BoxManager {
 			return super.get(new Pair<Integer, Integer>(Integer.valueOf(row), Integer.valueOf(col)));
 		}
 		
-		public boolean put(int row, int col, final Block block) {
-			return super.put(new Pair<Integer, Integer>(Integer.valueOf(row), Integer.valueOf(col)), block) == null;
+		public final Block add(int row, int col, final Block block) {
+			return add(new Pair<Integer, Integer>(Integer.valueOf(row), Integer.valueOf(col)), block);
 		}
 		
-		public boolean update(int srow, int scol, int trow, int tcol) {
+		private final Block add(final Pair<Integer, Integer> key, final Block block) {
+			super.put(key, block);
+			return block;
+		}
+		
+		public final Block update(int srow, int scol, int trow, int tcol) {
 
-			final Pair<Integer, Integer> tkey = new Pair<Integer, Integer>(Integer.valueOf(srow), Integer.valueOf(scol));
-			if (super.get(tkey) != null) {
-				return false;
+			final Pair<Integer, Integer> tkey = new Pair<Integer, Integer>(Integer.valueOf(trow), Integer.valueOf(tcol));
+			if (super.get(tkey) != null) { // target is not empty
+				return null;
 			}
 			
 			final Pair<Integer, Integer> skey = new Pair<Integer, Integer>(Integer.valueOf(srow), Integer.valueOf(scol));
 			final Block block = super.remove(skey);
 			if (block == null) {
-				return false;
+				return null;
 			}
 			
-			return super.put(tkey, block) == null;
+			return add(tkey, block);
 		}
 		
 		public final Block getInRow(int col) {
@@ -86,10 +95,14 @@ public class BoxManager {
 		public static final int STATUS_EMPTY = 0;
 		public static final int STATUS_ATTACHED = 1;
 		
+		public static final String name = "tray";
+		
 		public int style = -1;
 		public int status = STATUS_EMPTY;
 		
 		public int posCol = 0;
+		
+		public Actor actor;
 		
 		public Tray(int style, int col) {
 			this.style = style;
@@ -101,7 +114,7 @@ public class BoxManager {
 		public void onCompleted(boolean isTray, int srow, int scol, int trow, int tcol);
 	}	
 
-	private final BoxConfig config;
+	private final BoxRenderConfig config;
 	
 	private BoxRenderer renderer;
 	
@@ -138,20 +151,20 @@ public class BoxManager {
 	private OnBoxEventListener onEventListener;
 	
 	
-	public BoxManager(final BoxConfig config) {
+	public BoxManager(final BoxRenderConfig config) {
 		this.config = config;
 	}
 	
 	public boolean loadScript(final Script script) {
 		
-		blockSource = new BlockArray(config.getMaxRow(), config.getMaxCol());
+		blockSource = new BlockArray(BoxConfig.MAX_ROW, BoxConfig.MAX_COL);
 		if (script.getSource() != null) {
 			for (final Script.BlockData data : script.getSource()) {
 				inflateBlock(blockSource, data);
 			}
 		}
 		
-		blockTarget = new BlockArray(config.getMaxRow(), config.getMaxCol());
+		blockTarget = new BlockArray(BoxConfig.MAX_ROW, BoxConfig.MAX_COL);
 		if (script.getTarget() != null) {
 			for (final Script.BlockData data : script.getTarget()) {
 				inflateBlock(blockTarget, data);
@@ -167,7 +180,7 @@ public class BoxManager {
 	}
 
 	private void inflateBlock(BlockArray block, BlockData unit) {
-		block.put(unit.row,  unit.col, new Block(unit.style));
+		block.add(unit.row,  unit.col, new Block(unit.style));
 	}
 
 	private void initRenderer() {
@@ -194,9 +207,9 @@ public class BoxManager {
 			
 			int row = blockSource.checkInRow(col);
 			if (row != -1) {
-				blockSource.update(row, col, 0, col);
+				final Block block = blockSource.update(row, col, 0, col);
 				tray.status = Tray.STATUS_ATTACHED;
-				renderer.moveBlock(row, col, 0, col, onTweenSuccListener);
+				renderer.moveBlock(block, row, col, 0, col, onTweenSuccListener);
 			} else {
 				// call event listener - fail
 			}			
@@ -205,15 +218,15 @@ public class BoxManager {
 			//row must be 0
 			int row = blockSource.checkInRow(col);
 			if (row == -1) {
-				row = config.getMaxRow() - 1;
+				row = BoxConfig.MAX_ROW - 1;
 			} else if (row == 1){
 				// call event listenr - fail
 				return;
 			}
 			
-			blockSource.update(0, col, row, col);
+			final Block block = blockSource.update(0, col, row, col);
 			tray.status = Tray.STATUS_EMPTY;
-			renderer.moveBlock(0, col, row, col, onTweenSuccListener);
+			renderer.moveBlock(block, 0, col, row, col, onTweenSuccListener);
 			
 		} else {
 			// impossible.
@@ -222,7 +235,8 @@ public class BoxManager {
 		onBlockMoveStart(direction == Direction.DOWN);
 	}
 	
-	public void moveTray(int col, Direction direction) {
+	public void moveTray(Direction direction) {
+		int col = tray.posCol;
 		int tcol = -1;
 		if (direction == Direction.LEFT) {
 			 tcol = col - 1;
@@ -233,7 +247,7 @@ public class BoxManager {
 		}
 		
 		OnRenderTweenListener callback = null; 
-		if (tcol > 0 && tcol < config.getMaxCol()) {
+		if (tcol > 0 && tcol < BoxConfig.MAX_COL) {
 			callback = onTweenSuccListener;
 		} else {
 			callback = onTweenFailListener;
@@ -242,10 +256,10 @@ public class BoxManager {
 		tray.posCol = tcol;
 		
 		if (tray.status == Tray.STATUS_ATTACHED) {
-			blockSource.update(0, col, 0, tcol);
-			renderer.moveTrayWithBlock(col, tcol, callback);
+			final Block block = blockSource.update(0, col, 0, tcol);
+			renderer.moveTrayWithBlock(tray, block, col, tcol, callback);
 		} else {
-			renderer.moveTray(col, tcol, callback);
+			renderer.moveTray(tray, col, tcol, callback);
 		}
 		onTrayMoveStart(direction == Direction.RIGHT);
 	}
@@ -279,4 +293,19 @@ public class BoxManager {
 		}		
 	}
 	
+	public void doAction() {
+		if (tray.status == Tray.STATUS_EMPTY) {
+			this.moveBlock(tray.posCol, Direction.DOWN);
+		} else {
+			this.moveBlock(tray.posCol, Direction.UP);
+		}
+	}
+	
+	public void doMove(boolean right) {
+		if (right) {
+			this.moveTray(Direction.RIGHT);
+		} else {
+			this.moveTray(Direction.LEFT);
+		}
+	}
 }

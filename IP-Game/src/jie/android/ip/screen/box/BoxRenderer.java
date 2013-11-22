@@ -5,6 +5,7 @@ import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.equations.Expo;
+import jie.android.ip.CommonConsts.BoxConfig;
 import jie.android.ip.screen.actor.ImageActor;
 import jie.android.ip.screen.actor.ImageActorAccessor;
 import jie.android.ip.screen.box.BoxManager.Block;
@@ -13,56 +14,53 @@ import jie.android.ip.screen.box.BoxManager.Tray;
 
 public class BoxRenderer {
 
-	private final BoxConfig config;
-	
-	private ImageActor tray;
-	
-	public BoxRenderer(final BoxConfig config) {
+	private final BoxRenderConfig config;
+
+	public BoxRenderer(final BoxRenderConfig config) {
 		this.config = config;
 	}
 
-	private float colToBlockX(int col) {
-		return config.getColBase() + col * (config.getBlockWidth() + config.getColSpace());
+	private int colToBlockX(int col) {
+		return BoxConfig.COL_BASE + col * (BoxConfig.BLOCK_WIDTH + BoxConfig.COL_SPACE);
 	}
 	
-	private float rowToBlockY(int row) {
-		return config.getRowBase() + row * (config.getBlockHeight() + config.getRowSpace());
+	private int rowToBlockY(int row) {
+		return BoxConfig.ROW_BASE + row * (BoxConfig.BLOCK_HEIGHT + BoxConfig.ROW_SPACE);
 	}
 	
-	private float colToTrayX(int col) {
-		return 0.0f;
+	private int colToTrayX(int col) {
+		return BoxConfig.TRAY_SPACE + col * (BoxConfig.TRAY_WIDTH);
+	}
+	
+	private int rowToTrayY() {
+		return BoxConfig.TRAY_BASE;
 	}
 	
 	public void putSourceBlock(int row, int col, final Block block) {
-		final String name = String.format("s.%d.%d", col, row);
-		final ImageActor actor = makeActor(name, block.style, block.status);
-//		actor.setPosition(config.getRowBase() + row * config.getBlockHeight() + , col + 100);
-		actor.setPosition(config.getColBase() + col * (config.getBlockWidth() + config.getColSpace())
-				, config.getRowBase() + row * (config.getBlockHeight() + config.getRowSpace()));
-		config.getSourceGroup().addActor(actor);
+		block.actor = makeActor(block.style, block.status);
+		block.actor.setPosition(colToBlockX(col), rowToBlockY(row));
+		config.getSourceGroup().addActor(block.actor);
 	}
 
 	public void putTargetBlock(int row, int col, final Block block) {
-		// TODO Auto-generated method stub
-		
+		block.actor = makeActor(block.style, block.status);
+		block.actor.setPosition(colToBlockX(col), rowToBlockY(row));
+		config.getTargetGroup().addActor(block.actor);		
 	}
 
 	public void putTray(final Tray tray) {
-		// TODO Auto-generated method stub
-		
+		tray.actor = new ImageActor(config.getResources().getSkin().getRegion("t"));
+		tray.actor.setPosition(colToTrayX(tray.posCol), rowToTrayY());
+		config.getSourceGroup().addActor(tray.actor);
 	}
 		
-	private final ImageActor makeActor(final String name, int style, int status) {
-		return new ImageActor(name, config.getResources().getSkin().getRegion("ic"));
+	private final ImageActor makeActor(int style, int status) {
+		return new ImageActor(config.getResources().getSkin().getRegion("ic"));
 	}
 
-	public void moveBlock(final int srow, final int scol, final int trow, final int tcol, final OnRenderTweenListener onTweenListener) {
-		final String name = String.format("s.%d.%d", srow, scol);
-		final ImageActor actor = (ImageActor) config.getSourceGroup().findActor(name);
-		if (actor != null) {
-			float tx = config.getColBase() + tcol * (config.getBlockWidth() + config.getColSpace());
-			float ty = config.getRowBase() + trow * (config.getBlockHeight() + config.getRowSpace());
-			Tween.to(actor, ImageActorAccessor.POSITION_Y, 0.2f).target(ty).ease(Expo.OUT).setCallback(new TweenCallback() {
+	public void moveBlock(final Block block, final int srow, final int scol, final int trow, final int tcol, final OnRenderTweenListener onTweenListener) {
+		if (block.actor != null) {
+			Tween.to(block.actor, ImageActorAccessor.POSITION_Y, 0.2f).target(rowToBlockY(trow)).ease(Expo.OUT).setCallback(new TweenCallback() {
 				@Override
 				public void onEvent(int type, BaseTween<?> source) {
 					onTweenListener.onCompleted(false, srow, scol, trow, tcol);
@@ -71,15 +69,13 @@ public class BoxRenderer {
 		}
 	}
 
-	public void moveTrayWithBlock(final int scol, final int tcol, final OnRenderTweenListener onTweenListener) {
-		final String name = String.format("s.%d.%d", 0, scol);
-		final ImageActor actor = (ImageActor) config.getSourceGroup().findActor(name);
-		if (actor != null) {
+	public void moveTrayWithBlock(final Tray tray, final Block block, final int scol, final int tcol, final OnRenderTweenListener onTweenListener) {
+		if (block.actor != null) {
 			float tbx = colToBlockX(tcol);
 			float ttx = colToTrayX(tcol);
 			Timeline.createParallel()
-				.push(Tween.to(actor, ImageActorAccessor.POSITION_Y, 0.2f).target(tbx))
-				.push(Tween.to(tray, ImageActorAccessor.POSITION_X, 0.2f).target(ttx))
+				.push(Tween.to(block.actor, ImageActorAccessor.POSITION_X, 0.2f).target(tbx))
+				.push(Tween.to(tray.actor, ImageActorAccessor.POSITION_X, 0.2f).target(ttx))
 			.setCallback(new TweenCallback() {
 
 				@Override
@@ -91,9 +87,9 @@ public class BoxRenderer {
 		}		
 	}
 
-	public void moveTray(final int scol, final int tcol, final OnRenderTweenListener onTweenListener) {
+	public void moveTray(final Tray tray, final int scol, final int tcol, final OnRenderTweenListener onTweenListener) {
 		float ttx = colToTrayX(tcol);
-		Tween.to(tray, ImageActorAccessor.POSITION_X, 0.2f).target(ttx).setCallback(new TweenCallback() {
+		Tween.to(tray.actor, ImageActorAccessor.POSITION_X, 0.2f).target(ttx).setCallback(new TweenCallback() {
 
 			@Override
 			public void onEvent(int type, BaseTween<?> source) {
