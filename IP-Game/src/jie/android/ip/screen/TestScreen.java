@@ -35,6 +35,8 @@ public class TestScreen extends BaseScreen {
 	private Executor exe = new Executor();
 	private BoxManager bmanager;
 	
+	private BaseGroup srcGroup, tgtGroup;
+	
 	private OnCommandListener cmdListener = new OnCommandListener() {
 
 		@Override
@@ -66,10 +68,12 @@ public class TestScreen extends BaseScreen {
 
 		@Override
 		public void onCheck(int func, int index, Object param1, Object param2) {
+//			exe.stepOver();
 		}
 
 		@Override
-		public void onBreakPoint(int func, int index, String cmd, Object param1, Object param2) {			
+		public void onBreakPoint(int func, int index, String cmd, Object param1, Object param2) {
+//			exe.stepOver();
 		}		
 	};
 	
@@ -89,7 +93,8 @@ public class TestScreen extends BaseScreen {
 
 		@Override
 		public void onBlockMoveEnd(boolean down) {
-			bmanager.moveTray(Direction.RIGHT);
+//			bmanager.moveTray(Direction.RIGHT);
+//			exe.stepOver();
 		}
 
 		@Override
@@ -100,8 +105,11 @@ public class TestScreen extends BaseScreen {
 
 		@Override
 		public void onTrayMoveEnd(boolean right, boolean succ) {
-			// TODO Auto-generated method stub
-			
+			if (!succ) {				
+				exe.stop();
+				Utils.log("error", "out of range.");
+			}
+//			exe.stepOver();			
 		}
 		
 	};
@@ -131,22 +139,25 @@ public class TestScreen extends BaseScreen {
 //		};
 //		initExecutor();
 //		initGroups();
-		initActors();
-		
-		
-		initCmds();
-		
+		initCmds();	
 		
 		BaseGroup group = new BaseGroup();
-		group.setBounds(0, 100, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);
+		group.setBounds(0, 0, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);
 //		group.setBounds(200, 100, 100, 100);
-//		group.setScale(0.5f);
+		group.setScale(1f);
+		
+		BaseGroup tgroup = new BaseGroup();
+		tgroup.setBounds(400, 0, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);
+//		tgroup.setBounds(400, 100, 100, 100);
+		tgroup.setScale(1f);
+		
 		
 		Script script = new Script();
-		script.load("");
+		script.load(".\\doc\\script.xml");
 		
 		BoxRenderConfig config = new BoxRenderConfig();
 		config.setSourceGroup(group);
+		config.setTargetGroup(tgroup);
 		config.setResources(game.getResources());
 		config.setTweenManager(this.tweenManager);
 		
@@ -157,6 +168,8 @@ public class TestScreen extends BaseScreen {
 //		bmanager.putSource(group);
 		
 		this.addActor(group);
+		this.addActor(tgroup);
+		initActors();		
 	
 //		Gdx.input.setInputProcessor(this);
 	}
@@ -174,8 +187,8 @@ public class TestScreen extends BaseScreen {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
 				Utils.log("testscreen", "clicked");
-				bmanager.moveBlock(2, BoxManager.Direction.DOWN);
-				//run();
+//				bmanager.moveBlock(2, BoxManager.Direction.DOWN);
+				run();
 			}			
 		});
 		this.addActor(btn);
@@ -189,7 +202,7 @@ public class TestScreen extends BaseScreen {
 		CommandSet cmdset = Analyser.makeCommandSet(".\\doc\\test.xml");
 
 		exe.setDelay(100);
-		exe.enableOneStep(true);
+//		exe.enableOneStep(true);
 		exe.start(cmdset, cmdListener);		
 	}
 	

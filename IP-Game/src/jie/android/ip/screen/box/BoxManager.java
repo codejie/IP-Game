@@ -197,12 +197,12 @@ public class BoxManager {
 		renderer.putTray(tray);
 	}	
 
-	public void moveBlock(int col, Direction direction) {
+	public void moveBlock(int col, Direction direction) throws BoxException {
 		//updata block
 		if (direction == Direction.DOWN) {
 			//check tray
 			if (tray.posCol != col || tray.status != Tray.STATUS_EMPTY) {
-				//error
+				throw new BoxException(BoxException.E_TRAY_MISSING);
 			}
 			
 			int row = blockSource.checkInRow(col);
@@ -211,17 +211,22 @@ public class BoxManager {
 				tray.status = Tray.STATUS_ATTACHED;
 				renderer.moveBlock(block, row, col, 0, col, onTweenSuccListener);
 			} else {
-				// call event listener - fail
-			}			
-			
+				//Nothing
+				//throw new BoxException(BoxException.E_BLOCK_NOTFOUND);
+				return;
+			}
 		} else if (direction == Direction.UP){
-			//row must be 0
+			if (tray.status != Tray.STATUS_ATTACHED) { // do nothing
+				return;
+			}
 			int row = blockSource.checkInRow(col);
 			if (row == -1) {
 				row = BoxConfig.MAX_ROW - 1;
-			} else if (row == 1){
-				// call event listenr - fail
-				return;
+			} else if (row == 1) {
+				throw new BoxException(BoxException.E_BLOCK_NOTROOM);
+				//error
+			} else {
+				row = row - 1;
 			}
 			
 			final Block block = blockSource.update(0, col, row, col);
@@ -229,13 +234,13 @@ public class BoxManager {
 			renderer.moveBlock(block, 0, col, row, col, onTweenSuccListener);
 			
 		} else {
-			// impossible.
+			throw new BoxException(BoxException.E_DIRECTION_UNSUPPORT);
 		}
 		
 		onBlockMoveStart(direction == Direction.DOWN);
 	}
 	
-	public void moveTray(Direction direction) {
+	public void moveTray(Direction direction) throws BoxException {
 		int col = tray.posCol;
 		int tcol = -1;
 		if (direction == Direction.LEFT) {
@@ -243,7 +248,7 @@ public class BoxManager {
 		} else if (direction == Direction.RIGHT) {
 			tcol = col + 1;
 		} else {
-			return;
+			throw new BoxException(BoxException.E_DIRECTION_UNSUPPORT);
 		}
 		
 		OnRenderTweenListener callback = null; 
@@ -294,18 +299,29 @@ public class BoxManager {
 	}
 	
 	public void doAction() {
-		if (tray.status == Tray.STATUS_EMPTY) {
-			this.moveBlock(tray.posCol, Direction.DOWN);
-		} else {
-			this.moveBlock(tray.posCol, Direction.UP);
-		}
+		try {	
+			if (tray.status == Tray.STATUS_EMPTY) {
+					this.moveBlock(tray.posCol, Direction.DOWN);
+			} else {
+				this.moveBlock(tray.posCol, Direction.UP);
+			}
+		} catch (BoxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 	}
 	
 	public void doMove(boolean right) {
-		if (right) {
-			this.moveTray(Direction.RIGHT);
-		} else {
-			this.moveTray(Direction.LEFT);
+		try {
+			if (right) {
+				this.moveTray(Direction.RIGHT);
+			} else {
+				this.moveTray(Direction.LEFT);
+			}
+		} catch (BoxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		
 	}
 }
