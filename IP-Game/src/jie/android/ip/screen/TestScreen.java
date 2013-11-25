@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import jie.android.ip.CommonConsts.BoxConfig;
 import jie.android.ip.IPGame;
 import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.executor.Analyser;
@@ -141,7 +142,7 @@ public class TestScreen extends BaseScreen {
 		BaseGroup group = new BaseGroup();
 		group.setBounds(0, 0, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);
 //		group.setBounds(200, 100, 100, 100);
-		group.setScale(1f);
+		group.setScale(BoxConfig.SOURCE_SCALE);
 		
 		BaseGroup tgroup = new BaseGroup();
 		tgroup.setBounds(400, 0, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);

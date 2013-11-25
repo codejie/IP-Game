@@ -26,7 +26,7 @@ public interface CommonConsts {
 		public static int TRAY_BASE = 0;
 		public static int TRAY_SPACE = 0;
 		
-		public static float SOURCE_SCALE = 1.0f;
+		public static float SOURCE_SCALE = 0.5f;
 		public static float TARGET_SCALE = 1.0f;
 	}
 }
