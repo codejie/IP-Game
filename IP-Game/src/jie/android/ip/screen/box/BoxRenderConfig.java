@@ -12,6 +12,9 @@ public class BoxRenderConfig {
 	private BaseGroup targetGroup;
 	
 	private TweenManager tweenManager;
+	
+	private float executeDelay = 0.1f;
+	private float renderDelay = 0.2f; 
 
 	public Resources getResources() {
 		return resources;
@@ -43,6 +46,22 @@ public class BoxRenderConfig {
 
 	public void setTweenManager(TweenManager tweenManager) {
 		this.tweenManager = tweenManager;
+	}
+
+	public float getExecuteDelay() {
+		return executeDelay;
+	}
+
+	public void setExecuteDelay(float executeDelay) {
+		this.executeDelay = executeDelay;
+	}
+
+	public float getRenderDelay() {
+		return renderDelay;
+	}
+
+	public void setRenderDelay(float renderDelay) {
+		this.renderDelay = renderDelay;
 	}
 	
 }

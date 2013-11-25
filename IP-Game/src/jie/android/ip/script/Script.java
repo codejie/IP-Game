@@ -21,22 +21,24 @@ public class Script {
 	public class BlockData {
 		public int row;
 		public int col;
-		public int style;
+		public int value;
+		public int style;		
 		
-		public BlockData(int row, int col, int style) {
+		public BlockData(int row, int col, int value, int style) {
 			this.row = row;
 			this.col = col;
-			this.style = style;
+			this.value = value;
+			this.style = style;			
 		}
 	}
 	
 	public class TrayData {
-		public int style;
-		public int col;		
+		public int col;
+		public int style;		
 		
-		public TrayData(int style, int col) {
-			this.style = style;
+		public TrayData(int col, int style) {
 			this.col = col;
+			this.style = style;			
 		}
 	}
 	
@@ -103,6 +105,7 @@ public class Script {
 			String v = attr.getNamedItem("row").getNodeValue();
 			BlockData data = new BlockData(Integer.valueOf(attr.getNamedItem("row").getNodeValue()).intValue()
 					, Integer.valueOf(attr.getNamedItem("col").getNodeValue()).intValue()
+					, Integer.valueOf(attr.getNamedItem("value").getNodeValue()).intValue()
 					, Integer.valueOf(attr.getNamedItem("style").getNodeValue()).intValue());
 			block.add(data);
 		}
@@ -126,7 +129,7 @@ public class Script {
 	}
 
 	public final TrayData getTray() {
-		return new TrayData(0, 2);
+		return tray;
 	}
 
 }

@@ -1,12 +1,7 @@
 package jie.android.ip.screen;
 
-import aurelienribon.tweenengine.Tween;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import jie.android.ip.IPGame;
@@ -16,14 +11,12 @@ import jie.android.ip.executor.CommandConsts.ActType;
 import jie.android.ip.executor.CommandSet;
 import jie.android.ip.executor.Executor;
 import jie.android.ip.executor.OnCommandListener;
+import jie.android.ip.executor.SyncExecutor;
 import jie.android.ip.group.BaseGroup;
 import jie.android.ip.screen.actor.ImageActor;
-import jie.android.ip.screen.actor.ImageActorAccessor;
-import jie.android.ip.screen.actor.OnActorInputListener;
 import jie.android.ip.screen.box.BoxRenderConfig;
 import jie.android.ip.screen.box.BoxManager;
 import jie.android.ip.screen.box.OnBoxEventListener;
-import jie.android.ip.screen.box.BoxManager.Direction;
 import jie.android.ip.script.Script;
 import jie.android.ip.utils.Utils;
 
@@ -32,6 +25,7 @@ public class TestScreen extends BaseScreen {
 	private ImageActor block;
 	private Button btn;
 	
+	BoxRenderConfig config = new BoxRenderConfig();
 	private Executor exe = new Executor();
 	private BoxManager bmanager;
 	
@@ -48,7 +42,7 @@ public class TestScreen extends BaseScreen {
 		}
 
 		@Override
-		public void onCall(int func, int index) {
+		public void onCall(int func, int index, Object param1, boolean found) {
 		}
 
 		@Override
@@ -61,6 +55,7 @@ public class TestScreen extends BaseScreen {
 			} else if (action == ActType.MOVE_RIGHT.getId()){
 				bmanager.doMove(true);
 			}
+//			exe.stepOver();
 			//Tween.to(block, ImageActorAccessor.POSITION_X, 0.1f).target(block.getX() + 100).start(tweenManager);
 			
 //			block.setPosition(block.getX() + 100, block.getY());
@@ -87,14 +82,12 @@ public class TestScreen extends BaseScreen {
 
 		@Override
 		public void onBlockMoveStart(boolean down) {
-			// TODO Auto-generated method stub
-			
 		}
 
 		@Override
 		public void onBlockMoveEnd(boolean down) {
 //			bmanager.moveTray(Direction.RIGHT);
-//			exe.stepOver();
+			exe.stepOver();
 		}
 
 		@Override
@@ -109,9 +102,13 @@ public class TestScreen extends BaseScreen {
 				exe.stop();
 				Utils.log("error", "out of range.");
 			}
-//			exe.stepOver();			
+			exe.stepOver();			
 		}
-		
+
+		@Override
+		public void onBoxCompleted() {
+			Utils.log("error", "COMPLETED!");			
+		}		
 	};
 	
 //	private OnActorInputListener listener;
@@ -155,7 +152,6 @@ public class TestScreen extends BaseScreen {
 		Script script = new Script();
 		script.load(".\\doc\\script.xml");
 		
-		BoxRenderConfig config = new BoxRenderConfig();
 		config.setSourceGroup(group);
 		config.setTargetGroup(tgroup);
 		config.setResources(game.getResources());
@@ -201,8 +197,8 @@ public class TestScreen extends BaseScreen {
 	private void run() {
 		CommandSet cmdset = Analyser.makeCommandSet(".\\doc\\test.xml");
 
-		exe.setDelay(100);
-//		exe.enableOneStep(true);
+		exe.setDelay((int)(config.getExecuteDelay() * 1000));
+		exe.enableOneStep(true);
 		exe.start(cmdset, cmdListener);		
 	}
 	

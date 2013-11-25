@@ -60,7 +60,6 @@ public class Analyser {
 
 	private static void addFunction(CommandSet cmdset, Node func) {
 		int id = Integer.valueOf(func.getAttributes().getNamedItem("id").getNodeValue()).intValue();
-		Utils.logDebug("func id = " + id);
 				
 		NodeList cmd = ((Element)func).getElementsByTagName("Command");// .getChildNodes();
 		if (cmd == null || cmd.getLength() == 0) {

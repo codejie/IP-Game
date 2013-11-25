@@ -6,4 +6,5 @@ public interface OnBoxEventListener {
 	public void onBlockMoveEnd(boolean down);
 	public void onTrayMoveStart(boolean right);
 	public void onTrayMoveEnd(boolean right, boolean succ);
+	public void onBoxCompleted();
 }

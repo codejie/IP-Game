@@ -3,7 +3,7 @@
 	<CommandSet>
 		<Function id="0">
 			<Command p1="0" p2="1" type="act" />
-			<Command p1="2" p2="1" type="check" />
+			<Command p1="1" p2="1" type="check" />
 			<Command p1="1" p2="1" type="act" />
 			<Command p1="1" type="call" />
 		</Function>

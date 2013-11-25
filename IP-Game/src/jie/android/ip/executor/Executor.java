@@ -7,43 +7,11 @@ import jie.android.ip.executor.CommandConsts.ActType;
 import jie.android.ip.executor.CommandConsts.CommandType;
 import jie.android.ip.utils.Utils;
 
-public class Executor {
+public class Executor extends BaseExecutor {
 
 	public static void main(String[] args) {
 		System.out.println("helloworld");
 		test();
-	}
-	
-	private class InnerCommand {
-		public CommandSet.Command cmd;
-		public int func;
-		public int index;
-		
-		public InnerCommand(CommandSet.Command cmd, int func, int index) {
-			this.cmd = cmd;
-			this.func = func;
-			this.index = index;
-		}
-
-		@Override
-		public String toString() {
-			return String.format("[%d:%d] cmd = %s (%s,%s)", func, index, cmd.getType().getTitle(), (cmd.getParam(0) != null ? cmd.getParamAsString(0) : "null"), (cmd.getParam(1) != null ? cmd.getParamAsString(1) : "null")); 
-		}		
-	}
-	
-	private class CommandStack extends Stack<InnerCommand> {
-
-		private static final long serialVersionUID = 1L;
-
-		public void loadCommand(final CommandSet cmdset, int func) {
-			CommandSet.CommandQueue cmds = cmdset.get(func);
-			if (cmds != null) {
-				int idx = cmds.size();
-				for (final CommandSet.Command cmd : cmds) {				
-					push(new InnerCommand(cmd, func, -- idx));
-				}
-			}			
-		}
 	}
 	
 	private class BreakData {
@@ -146,7 +114,6 @@ public class Executor {
 		private Object stepLock = new Object();
 		
 		private CommandStack cmdStack;
-
 		
 		public CoreExecutor(final CommandSet cmdSet, OnCommandListener cmdListener) {
 			this.cmdSet = cmdSet;
@@ -179,15 +146,19 @@ public class Executor {
 			}			
 		}
 		
-		public void setStepOver() {
+		public void stepPause() {
+			setStepPause();
+		}
+		
+		private void setStepOver() {
 			synchronized(stepLock) {
 				if (isOneStep) {
 					stepLock.notify();
 				}
 			}
 		}
-		
-		private void stepPause() {
+	
+		private void setStepPause() {
 			synchronized(stepLock) {
 				try {
 					stepLock.wait();
@@ -199,15 +170,7 @@ public class Executor {
 		}
 		
 		public void stop() {
-//			synchronized(this) {
-				this.stopRun = true;
-//				if (breakSet != null && breakSet.enabled()) {
-//					breakSet.stepOver();
-//				}
-//				if (isOneStep) {
-//					stepLock.notify();
-//				}
-//			}
+			stopRun = true;
 		}
 		
 		public void setBreakDataSet(BreakDataSet breakSet) {
@@ -256,26 +219,26 @@ public class Executor {
 					}
 				} else if (cmd.getType() == CommandType.CHECK) {
 					if (!cmd.getParam(0).equals(cmd.getParam(1))) {
-						cmdStack.pop();
-						if (cmdListener != null) {
-							cmdListener.onCheck(icmd.func, icmd.index, cmd.getParam(0), cmd.getParam(1));
-						}					
+						cmdStack.pop();					
 					}
+					if (cmdListener != null) {
+						cmdListener.onCheck(icmd.func, icmd.index, cmd.getParam(0), cmd.getParam(1));
+					}					
 				} else if (cmd.getType() == CommandType.CALL) {
 					int func = cmd.getParamAsInt(0, -1);
 					if (func != -1) {
 						cmdStack.loadCommand(cmdSet, func);
-						if (cmdListener != null) {
-							cmdListener.onCall(icmd.func, icmd.index);
-						}
 					}
+					if (cmdListener != null) {
+						cmdListener.onCall(icmd.func, icmd.index, cmd.getParam(0), (func != -1));
+					}					
 				} else {
 					Utils.logDebug("Unknown command - " + cmd.getType().getTitle());
 					break;
 				}
 
 				if (isOneStep) {
-					stepPause();
+					setStepPause();
 				}
 				
 				if (stopRun) {
@@ -306,6 +269,7 @@ public class Executor {
 	private boolean isOneStep = false;
 	private BreakDataSet breakData = new BreakDataSet();	
 	
+	@Override
 	public boolean start(final CommandSet cmdset, OnCommandListener listener) {
 		
 		if (executor != null) {
@@ -341,24 +305,27 @@ public class Executor {
 		return breakData.contains(new BreakData(cmd.func, cmd.index));
 	}
 	
+	@Override
 	public void stop() {
 		if (executor != null && executor.isRunning()) {
 			executor.stop();
 			executor.stepOver();
 		}
 	}
-	
-	
+
 	public void stepOver() {
 		if (executor != null && executor.isRunning()) {
 			executor.stepOver();
-//			executor.setStepOver();
-//			if (breakData != null && breakData.enabled()) {
-//				breakData.stepOver();				
-//			}
 		}
 	}
 	
+	public void stepPause() {
+		if (executor != null && executor.isRunning()) {
+			executor.stepPause();
+		}		
+	}
+	
+	@Override
 	public void setDelay(int delay) {
 		execDelay = delay;
 	}

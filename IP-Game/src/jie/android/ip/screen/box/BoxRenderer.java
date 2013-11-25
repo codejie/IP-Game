@@ -5,6 +5,7 @@ import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.equations.Expo;
+import aurelienribon.tweenengine.equations.Quint;
 import jie.android.ip.CommonConsts.BoxConfig;
 import jie.android.ip.screen.actor.ImageActor;
 import jie.android.ip.screen.actor.ImageActorAccessor;
@@ -37,13 +38,13 @@ public class BoxRenderer {
 	}
 	
 	public void putSourceBlock(int row, int col, final Block block) {
-		block.actor = makeActor(block.style, block.status);
+		block.actor = makeActor(block.value, block.style);
 		block.actor.setPosition(colToBlockX(col), rowToBlockY(row));
 		config.getSourceGroup().addActor(block.actor);
 	}
 
 	public void putTargetBlock(int row, int col, final Block block) {
-		block.actor = makeActor(block.style, block.status);
+		block.actor = makeActor(block.value, block.style);
 		block.actor.setPosition(colToBlockX(col), rowToBlockY(row));
 		config.getTargetGroup().addActor(block.actor);		
 	}
@@ -54,13 +55,13 @@ public class BoxRenderer {
 		config.getSourceGroup().addActor(tray.actor);
 	}
 		
-	private final ImageActor makeActor(int style, int status) {
+	private final ImageActor makeActor(int value, int style) {
 		return new ImageActor(config.getResources().getSkin().getRegion("ic"));
 	}
 
 	public void moveBlock(final Block block, final int srow, final int scol, final int trow, final int tcol, final OnRenderTweenListener onTweenListener) {
 		if (block.actor != null) {
-			Tween.to(block.actor, ImageActorAccessor.POSITION_Y, 0.2f).target(rowToBlockY(trow)).ease(Expo.OUT).setCallback(new TweenCallback() {
+			Tween.to(block.actor, ImageActorAccessor.POSITION_Y, makeRowDelay(trow - srow)).target(rowToBlockY(trow)).ease(Quint.INOUT).setCallback(new TweenCallback() {
 				@Override
 				public void onEvent(int type, BaseTween<?> source) {
 					onTweenListener.onCompleted(false, srow, scol, trow, tcol);
@@ -73,9 +74,10 @@ public class BoxRenderer {
 		if (block.actor != null) {
 			float tbx = colToBlockX(tcol);
 			float ttx = colToTrayX(tcol);
+			float delay = makeColDelay(tcol - scol);
 			Timeline.createParallel()
-				.push(Tween.to(block.actor, ImageActorAccessor.POSITION_X, 0.2f).target(tbx))
-				.push(Tween.to(tray.actor, ImageActorAccessor.POSITION_X, 0.2f).target(ttx))
+				.push(Tween.to(block.actor, ImageActorAccessor.POSITION_X, delay).target(tbx))
+				.push(Tween.to(tray.actor, ImageActorAccessor.POSITION_X, delay).target(ttx))
 			.setCallback(new TweenCallback() {
 
 				@Override
@@ -89,7 +91,7 @@ public class BoxRenderer {
 
 	public void moveTray(final Tray tray, final int scol, final int tcol, final OnRenderTweenListener onTweenListener) {
 		float ttx = colToTrayX(tcol);
-		Tween.to(tray.actor, ImageActorAccessor.POSITION_X, 0.2f).target(ttx).setCallback(new TweenCallback() {
+		Tween.to(tray.actor, ImageActorAccessor.POSITION_X, makeColDelay(tcol - scol)).target(ttx).setCallback(new TweenCallback() {
 
 			@Override
 			public void onEvent(int type, BaseTween<?> source) {
@@ -98,7 +100,13 @@ public class BoxRenderer {
 		}).start(config.getTweenManager());
 	}
 	
+	private float makeRowDelay(int row) {
+		return Math.abs(row) * config.getRenderDelay();
+	}
 	
+	private float makeColDelay(int col) {
+		return Math.abs(col) * config.getRenderDelay();
+	}
 
 
 

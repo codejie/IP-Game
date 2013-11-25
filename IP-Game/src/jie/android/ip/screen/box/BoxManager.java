@@ -18,14 +18,15 @@ public class BoxManager {
 	
 	public class Block {
 		
-		public static final int STATUS_EMPTY = 0;
+		public static final int VALUE_0 = 0;
 		
-		public int style = -1;
-		public int status = STATUS_EMPTY;
+		public int value = VALUE_0;
+		public int style = -1;		
 		public Actor actor;
 		
-		public Block(int style) {
-			this.style = style;
+		public Block(int value, int style) {
+			this.value = value;
+			this.style = style;			
 		}
 	}
 	
@@ -71,7 +72,7 @@ public class BoxManager {
 		}
 		
 		public final Block getInRow(int col) {
-			for (int i = 1; i < maxRow; ++ i) {//start from 1
+			for (int i = 1; i <= maxRow; ++ i) {//start from 1
 				Block block = get(i, col);
 				if (block != null) {
 					return block;
@@ -81,12 +82,29 @@ public class BoxManager {
 		}
 		
 		public int checkInRow(int col) {
-			for (int i = 1; i < maxRow; ++ i) {//start from 1
+			for (int i = 1; i <= maxRow; ++ i) {//start from 1
 				if (get(i, col) != null) {
 					return i;
 				}
 			}
 			return -1;
+		}
+		
+		public boolean isMatch(final BlockArray right) {
+			for (int col = 1; col < maxCol; ++ col) {
+				for (int row = 1; row <= maxRow; ++ row) {
+					final Block l = this.get(row, col);
+					final Block r = right.get(row, col);
+					if ((l == null && r != null) || (l != null && r == null)) {
+						return false;
+					} else if (l != null && r != null) {
+						if (l.value != r.value) {
+							return false;
+						}
+					}					
+				}
+			}
+			return true;
 		}
 	}
 	
@@ -179,8 +197,12 @@ public class BoxManager {
 		return true;
 	}
 
+	private boolean checkBlock() {
+		return blockTarget.isMatch(blockSource);
+	}
+	
 	private void inflateBlock(BlockArray block, BlockData unit) {
-		block.add(unit.row,  unit.col, new Block(unit.style));
+		block.add(unit.row,  unit.col, new Block(unit.value, unit.style));
 	}
 
 	private void initRenderer() {
@@ -221,7 +243,7 @@ public class BoxManager {
 			}
 			int row = blockSource.checkInRow(col);
 			if (row == -1) {
-				row = BoxConfig.MAX_ROW - 1;
+				row = BoxConfig.MAX_ROW;
 			} else if (row == 1) {
 				throw new BoxException(BoxException.E_BLOCK_NOTROOM);
 				//error
@@ -252,7 +274,7 @@ public class BoxManager {
 		}
 		
 		OnRenderTweenListener callback = null; 
-		if (tcol > 0 && tcol < BoxConfig.MAX_COL) {
+		if (tcol > 0 && tcol <= BoxConfig.MAX_COL) {
 			callback = onTweenSuccListener;
 		} else {
 			callback = onTweenFailListener;
@@ -281,8 +303,13 @@ public class BoxManager {
 	}
 	
 	private void onBlockMoveEnd(boolean down) {
+		boolean completed = checkBlock();
 		if (onEventListener != null) {
-			onEventListener.onBlockMoveEnd(down);
+			if (!completed) {
+				onEventListener.onBlockMoveEnd(down);
+			} else {
+				onEventListener.onBoxCompleted();
+			}
 		}		
 	}
 	
@@ -293,15 +320,20 @@ public class BoxManager {
 	}
 	
 	private void onTrayMoveEnd(boolean right, boolean succ) {
+		boolean completed = checkBlock();
 		if (onEventListener != null) {
-			onEventListener.onTrayMoveEnd(right, succ);
+			if (!completed) {
+				onEventListener.onTrayMoveEnd(right, succ);
+			} else {
+				onEventListener.onBoxCompleted();
+			}
 		}		
 	}
 	
 	public void doAction() {
 		try {	
 			if (tray.status == Tray.STATUS_EMPTY) {
-					this.moveBlock(tray.posCol, Direction.DOWN);
+				this.moveBlock(tray.posCol, Direction.DOWN);
 			} else {
 				this.moveBlock(tray.posCol, Direction.UP);
 			}
