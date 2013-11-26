@@ -27,7 +27,7 @@ public class DDTestScreen extends BaseScreen {
 	private void initGroup() {
 		group = new BaseGroup();
 		group.setBounds(0, 0, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);
-		group.setScale(0.5f);
+		group.setScale(1.0f);
 		
 		group.addListener(new ClickListener() {
 			@Override
@@ -35,6 +35,7 @@ public class DDTestScreen extends BaseScreen {
 				if (group.hit(x, y, true) == group) {
 					if (isSelected) {
 						actor.setPosition(x - cx, y - cy);
+						actor.setState(2);
 						isSelected = false;
 					}
 				}
@@ -42,6 +43,7 @@ public class DDTestScreen extends BaseScreen {
 		});
 		
 		actor = new StateImageActor(1, game.getResources().getSkin().getRegion("ic"));
+		actor.addState(2, game.getResources().getSkin().getRegion("t"));
 		actor.setPosition(0, 0);
 		actor.addListener(new ClickListener() {
 			@Override

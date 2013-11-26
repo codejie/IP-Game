@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <IP-Script-Format>
-    <Comment>
-        This is the template of script.
-    </Comment>
+    <Information>
+    	<Author></Author>
+    	<Addr></Addr>
+    	<Date></Date>
+    	<Comment>
+        	This is the template of script.
+    	</Comment>
+	</Information>    
     <Config>
         <Row>7</Row>
         <Col>6</Col>
