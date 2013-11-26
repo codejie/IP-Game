@@ -1,76 +1,74 @@
 package jie.android.ip.screen.actor;
 
-import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenManager;
-
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
-public class ImageActor extends Image {
+public class ImageActor extends Actor {
 
-	private final String name;
-
-	private boolean isSelected = false;
-	private OnActorInputListener onInputListener;
+	private Drawable drawable;
 	
-	public ImageActor(final String name, TextureRegion region) {
-		super(region);
-		this.name = name;
-
-		initListener();
+	public ImageActor(Drawable drawable) {
+		setDrawable(drawable);
 	}
-
+	
+	public ImageActor() {
+		this((Drawable)null);
+	}
+	
 	public ImageActor(TextureRegion region) {
-		this(null, region);
+		this(new TextureRegionDrawable(region));
 	}
 	
-	public final String getName() {
-		return name;
+	private float getMinWidth() {
+		if (drawable != null) {
+			return drawable.getMinWidth();
+		}
+		return 0;
+	}
+	
+	private float getMinHeight() {
+		if (drawable != null) {
+			return drawable.getMinHeight();			
+		}
+		return 0;
 	}
 
-	private void initListener() {
-		final ImageActor actor = this;
-		this.addListener(new InputListener() {
-			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				if (onInputListener != null) {
-					onInputListener.onTouchDown(actor, x, y, pointer, button);
-				}
-				return true;
+	@Override
+	public void draw(SpriteBatch batch, float parentAlpha) {
+
+		if (drawable == null) {
+			return;
+		}
+		
+		Color color = getColor();
+		batch.setColor(color.r, color.g, color.b, color.a * parentAlpha);
+
+		float x = getX();
+		float y = getY();
+		float scaleX = getScaleX();
+		float scaleY = getScaleY();
+		
+		if (drawable.getClass() == TextureRegionDrawable.class) {
+			TextureRegion region = ((TextureRegionDrawable)drawable).getRegion();
+			float rotation = getRotation();
+			if (scaleX == 1 && scaleY == 1 && rotation == 0)
+				batch.draw(region, x, y, getWidth(), getHeight());
+			else {
+				batch.draw(region, x, y, getOriginX(), getOriginY(), getWidth(), getHeight(),
+					scaleX, scaleY, rotation);
 			}
-
-			@Override
-			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-				if (onInputListener != null) {
-					onInputListener.onTouchUp(actor, x, y, pointer, button);
-				}
-			}
-
-			@Override
-			public void touchDragged(InputEvent event, float x, float y, int pointer) {
-				if (onInputListener != null) {
-					onInputListener.onTouchDragged(actor, x, y, pointer);
-				}
-			}
-
-		});
+		} else {
+			drawable.draw(batch, x, y, getWidth() * scaleX, getHeight() * scaleY);
+		}
 	}
-
-	public void tweenToX(TweenManager manager, float target, float duration) {
-		Tween.to(this, ImageActorAccessor.POSITION_X, duration).target(target).start(manager);
-	}
-
-	public void setSelected(boolean selected) {
-		isSelected = selected;
-	}
-
-	public boolean isSelected() {
-		return isSelected;
-	}
-
-	public void setInputListener(OnActorInputListener listener) {
-		onInputListener = listener;
+	
+	public void setDrawable(Drawable drawable) {
+		this.drawable = drawable;
+		setWidth(getMinWidth());
+		setHeight(getMinHeight());		
 	}
 }

@@ -1,6 +1,7 @@
 package jie.android.ip;
 
 import jie.android.ip.CommonConsts.ScreenConfig;
+import jie.android.ip.screen.DDTestScreen;
 import jie.android.ip.screen.StartScreen;
 import jie.android.ip.screen.TestScreen;
 
@@ -21,8 +22,9 @@ public class IPGame extends Game {
 		initSpriteBatch();
 		initResources();
 		
-		this.setScreen(new TestScreen(this));
+		//this.setScreen(new TestScreen(this));
 		//this.setScreen(new StartScreen(this));
+		this.setScreen(new DDTestScreen(this));
 	}
 
 	@Override

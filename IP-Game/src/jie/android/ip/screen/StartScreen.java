@@ -87,17 +87,17 @@ public class StartScreen extends BaseScreen {
 
 	private void initActors() {
 	
-		i = new ImageActor("i", game.getResources().getTextureAtlas().findRegion("I"));
-		am = new ImageActor("am", game.getResources().getTextureAtlas().findRegion("am"));
-		a = new ImageActor("a", game.getResources().getTextureAtlas().findRegion("a"));
-		p = new ImageActor("p", game.getResources().getTextureAtlas().findRegion("p"));
-		p1 = new ImageActor("p1", game.getResources().getTextureAtlas().findRegion("p1"));
-		semi = new ImageActor("semi", game.getResources().getTextureAtlas().findRegion("semi"));
+		i = new ImageActor(game.getResources().getTextureAtlas().findRegion("I"));
+		am = new ImageActor( game.getResources().getTextureAtlas().findRegion("am"));
+		a = new ImageActor(game.getResources().getTextureAtlas().findRegion("a"));
+		p = new ImageActor(game.getResources().getTextureAtlas().findRegion("p"));
+		p1 = new ImageActor(game.getResources().getTextureAtlas().findRegion("p1"));
+		semi = new ImageActor(game.getResources().getTextureAtlas().findRegion("semi"));
 
-		bg = new ImageActor("bg", game.getResources().getTextureAtlas().findRegion("s-bg"));		
-		title = new ImageActor("title", game.getResources().getTextureAtlas().findRegion("title"));
-		ver = new ImageActor("ver", game.getResources().getTextureAtlas().findRegion("ver"));
-		author = new ImageActor("author", game.getResources().getTextureAtlas().findRegion("author"));
+		bg = new ImageActor(game.getResources().getTextureAtlas().findRegion("s-bg"));		
+		title = new ImageActor(game.getResources().getTextureAtlas().findRegion("title"));
+		ver = new ImageActor(game.getResources().getTextureAtlas().findRegion("ver"));
+		author = new ImageActor(game.getResources().getTextureAtlas().findRegion("author"));
 		
 		this.addActor(bg);
 		

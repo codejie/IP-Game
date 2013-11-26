@@ -14,7 +14,7 @@ public class BoxRenderConfig {
 	private TweenManager tweenManager;
 	
 	private float executeDelay = 0.1f;
-	private float renderDelay = 0.2f; 
+	private float renderDelay = 0.1f; 
 
 	public Resources getResources() {
 		return resources;
