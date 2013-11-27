@@ -22,8 +22,7 @@ public class ScreenCanvas  implements Disposable {
 	}
 
 	public void addSprite(Sprite sprite) {
-		// TODO Auto-generated method stub
-		
+		spriteArray.add(sprite);
 	}
 
 	public void render(float delta) {

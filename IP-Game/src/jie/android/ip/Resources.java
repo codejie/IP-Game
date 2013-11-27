@@ -40,6 +40,7 @@ public class Resources implements Disposable {
 		assetManager = new AssetManager();
 		assetManager.load("data/box.pack", TextureAtlas.class);
 		assetManager.load("data/font/arial-18.fnt", BitmapFont.class);
+		assetManager.finishLoading();
 	}
 	
 	public final Skin getSkin() {
