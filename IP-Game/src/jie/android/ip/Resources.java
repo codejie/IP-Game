@@ -3,7 +3,9 @@ package jie.android.ip;
 import jie.android.ip.CommonConsts.BoxConfig;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -14,15 +16,31 @@ public class Resources implements Disposable {
 	private Skin skin;
 	private TextureAtlas textureAtlas;
 	
+	private AssetManager assetManager;
+	
 	public Resources() {
+		initAssetManager();
 		initSkin();
 		initTextureAtlas();
 	}
 
 	@Override
 	public void dispose() {
+		if (assetManager != null) {
+			assetManager.dispose();
+		}
 		skin.dispose();
-	} 
+	}
+	
+	public final AssetManager getAssetManager() {
+		return assetManager;
+	}
+	
+	private void initAssetManager() {
+		assetManager = new AssetManager();
+		assetManager.load("data/box.pack", TextureAtlas.class);
+		assetManager.load("data/font/arial-18.fnt", BitmapFont.class);
+	}
 	
 	public final Skin getSkin() {
 		return skin;

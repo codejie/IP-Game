@@ -1,14 +1,20 @@
 package jie.android.ip.screen;
 
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+
 import jie.android.ip.IPGame;
 import jie.android.ip.group.BaseGroup;
 
 public class BoxScreen extends BaseScreen {
 
+	private TextureAtlas boxTextureAtlas;
+	
 	private BaseGroup groupSource, groupTarget, groupConsole;
 	
 	public BoxScreen(IPGame game) {
 		super(game);
+
+		boxTextureAtlas = game.getResources().getAssetManager().get("data/box.pack", TextureAtlas.class);
 		
 		initBackgroup();
 		initGroups();
@@ -18,7 +24,7 @@ public class BoxScreen extends BaseScreen {
 	}
 
 	private void initBackgroup() {
-
+		
 	}
 
 	private void initGroups() {

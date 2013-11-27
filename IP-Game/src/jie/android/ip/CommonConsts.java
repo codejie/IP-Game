@@ -29,4 +29,10 @@ public interface CommonConsts {
 		public static float SOURCE_SCALE = 0.5f;
 		public static float TARGET_SCALE = 1.0f;
 	}
+	
+	public interface ResourceConfig {
+		public static String BOX_PACK_NAME = "data/box.pack";
+		
+		public static String BACKGROUND_NAME = "background";
+	}
 }
