@@ -1,5 +1,7 @@
 package jie.android.ip.screen.box;
 
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
@@ -7,6 +9,7 @@ import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.equations.Expo;
 import aurelienribon.tweenengine.equations.Quint;
 import jie.android.ip.CommonConsts.BoxConfig;
+import jie.android.ip.CommonConsts.ResourceConfig;
 import jie.android.ip.screen.actor.ImageActor;
 import jie.android.ip.screen.actor.ImageActorAccessor;
 import jie.android.ip.screen.box.BoxManager.Block;
@@ -16,9 +19,12 @@ import jie.android.ip.screen.box.BoxManager.Tray;
 public class BoxRenderer {
 
 	private final BoxRenderConfig config;
+	
+	private final TextureAtlas textureAtlas;
 
 	public BoxRenderer(final BoxRenderConfig config) {
 		this.config = config;
+		this.textureAtlas = config.getResources().getAssetManager().get(ResourceConfig.BOX_PACK_NAME, TextureAtlas.class);;
 	}
 
 	private int colToBlockX(int col) {
@@ -50,13 +56,13 @@ public class BoxRenderer {
 	}
 
 	public void putTray(final Tray tray) {
-		tray.actor = new ImageActor(config.getResources().getSkin().getRegion("t"));
+		tray.actor = new ImageActor(textureAtlas.findRegion("t"));// config.getResources().getSkin().getRegion("t"));
 		tray.actor.setPosition(colToTrayX(tray.posCol), rowToTrayY());
 		config.getSourceGroup().addActor(tray.actor);
 	}
 		
 	private final ImageActor makeActor(int value, int style) {
-		return new ImageActor(config.getResources().getSkin().getRegion("ic"));
+		return new ImageActor(textureAtlas.findRegion("ic"));// config.getResources().getSkin().getRegion("ic"));
 	}
 
 	public void moveBlock(final Block block, final int srow, final int scol, final int trow, final int tcol, final OnRenderTweenListener onTweenListener) {

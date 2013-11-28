@@ -1,6 +1,7 @@
 package jie.android.ip;
 
 import jie.android.ip.CommonConsts.BoxConfig;
+import jie.android.ip.CommonConsts.ResourceConfig;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
@@ -19,9 +20,12 @@ public class Resources implements Disposable {
 	private AssetManager assetManager;
 	
 	public Resources() {
-		initAssetManager();
+//		initAssetManager();
 		initSkin();
 		initTextureAtlas();
+		
+		//for Debug
+		loadAssetManager();
 	}
 
 	@Override
@@ -36,10 +40,10 @@ public class Resources implements Disposable {
 		return assetManager;
 	}
 	
-	private void initAssetManager() {
+	public final void loadAssetManager() {
 		assetManager = new AssetManager();
-		assetManager.load("data/box.pack", TextureAtlas.class);
-		assetManager.load("data/font/arial-18.fnt", BitmapFont.class);
+		assetManager.load(ResourceConfig.BOX_PACK_NAME, TextureAtlas.class);
+		assetManager.load(ResourceConfig.FONT_18_NAME, BitmapFont.class);
 		assetManager.finishLoading();
 	}
 	
@@ -52,8 +56,7 @@ public class Resources implements Disposable {
 		
 		TextureRegion rt = new TextureRegion(new Texture(Gdx.files.internal("data/ic.png")));		
 		skin.add("ic", rt);
-		skin.add("t", new TextureRegion(new Texture(Gdx.files.internal("data/t.png")), BoxConfig.TRAY_WIDTH, BoxConfig.TRAY_HEIGHT));
-		
+		skin.add("t", new TextureRegion(new Texture(Gdx.files.internal("data/t.png")), BoxConfig.TRAY_WIDTH, BoxConfig.TRAY_HEIGHT));		
 	}
 	
 	public final TextureAtlas getTextureAtlas() {

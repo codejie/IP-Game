@@ -5,8 +5,29 @@ filter: Nearest,Nearest
 repeat: none
 background
   rotate: false
-  xy: 1, 1
+  xy: 1, 197
   size: 1000, 750
   orig: 1000, 750
+  offset: 0, 0
+  index: -1
+t
+  rotate: false
+  xy: 1, 67
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+ic
+  rotate: false
+  xy: 1, 1
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+frame
+  rotate: false
+  xy: 1003, 931
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1

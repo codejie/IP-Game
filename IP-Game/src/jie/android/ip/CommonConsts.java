@@ -32,7 +32,9 @@ public interface CommonConsts {
 	
 	public interface ResourceConfig {
 		public static String BOX_PACK_NAME = "data/box.pack";
+		public static String FONT_18_NAME = "data/font/arial-18.fnt";
 		
 		public static String BACKGROUND_NAME = "background";
+		public static String FRANE_NAME = "frame";
 	}
 }

@@ -22,7 +22,7 @@ public class StartScreen extends BaseScreen {
 	private static final float DURATION_4 = 0.5f;	
 	private static final float DELAY_1 = 0.5f;
 	private static final float DELAY_2 = -0.6f;
-	private static final float DELAY_3 = 3.0f;
+	private static final float DELAY_3 = 1.0f;
 	
 	private static final float SPACEX_1 = 15.0f;
 	private static final float SPACEX_2 = 6.0f;
@@ -64,7 +64,10 @@ public class StartScreen extends BaseScreen {
 		@Override
 		public void onEvent(int type, BaseTween<?> source) {
 			Utils.log("tween event", "type = " + type + " source = " + source.toString());
-			game.setScreen(new TestScreen(game));
+			
+			game.getResources().loadAssetManager();
+			game.setScreen(new BoxScreen(game));
+			//game.setScreen(new TestScreen(game));
 		}
 		
 	};
@@ -114,36 +117,6 @@ public class StartScreen extends BaseScreen {
 	}
 
 	private void initTween() {
-//		i.setPosition(-1100, 0);
-//		am.setPosition(-1050, 0);
-		
-//		Timeline.createSequence()// .createParallel()
-//		.push(Tween.set(i, ImageActorAccessor.POSITION_XY).target(-1100, 100))
-//		.push(Tween.set(am, ImageActorAccessor.POSITION_XY).target(-1050, 100))
-//		.push(Tween.set(p, ImageActorAccessor.POSITION_XY).target(-1000, 0))
-//		.push(Tween.set(p1, ImageActorAccessor.POSITION_XY).target(-990, 0))
-//		.push(Tween.set(p2, ImageActorAccessor.POSITION_XY).target(-200, 0))
-//		.push(Tween.to(i, ImageActorAccessor.POSITION_X, 1.0f).target(10))
-//		.push(Tween.to(am, ImageActorAccessor.POSITION_X, 1.0f).target(60))
-//		.push(Tween.to(p, ImageActorAccessor.POSITION_X, 1.0f).target(200))
-//		.push(Tween.to(p1, ImageActorAccessor.POSITION_X, 1.0f).target(300))
-//		.push(Tween.to(p2, ImageActorAccessor.POSITION_X, 1.0f).target(1100))
-//		.pushPause(1.0f)
-//		.beginSequence()
-//			//.push(Tween.to(am, ImageActorAccessor.POSITION_Y, 0.2f).target(800).ease(Expo.OUT))
-//			.push(Tween.to(p1, ImageActorAccessor.POSITION_Y, 0.2f).target(800).ease(Expo.OUT))
-//		//.push(Tween.to(p2, ImageActorAccessor.POSITION_Y, 1.0f).target(800))
-//		.end()
-//		.pushPause(-0.5f)
-//		.beginParallel()
-//			.push(Tween.to(p, ImageActorAccessor.SCALE_XY, 1.0f).target(20, 20).repeat(4, 0.5f).setCallbackTriggers(TweenCallback.BEGIN | TweenCallback.START).setCallback(pScaleCallback))
-//			.push(Tween.to(p, ImageActorAccessor.OPACITY, 1.0f).target(1.0f))
-//			.push(Tween.to(p, ImageActorAccessor.POSITION_XY, 0.1f).target(0, 0))
-//			.push(Tween.to(p, ImageActorAccessor.TINT, 1.0f).target(0.9f, 0.9f, 0.1f))
-//		.end()
-//		.pushPause(1.0f)
-//		.setCallback(callback )
-//		.start(tweenManager);
 		
 		Timeline.createSequence()
 			.push(tweenSet())
@@ -155,14 +128,6 @@ public class StartScreen extends BaseScreen {
 			.pushPause(DELAY_3)
 			.setCallback(tweenCompleteCallback)
 			.start(tweenManager);
-		
-//		Timeline.createParallel()
-//				.push(Tween.set(i, ImageActorAccessor.POSITION_XY).target(LINE1_X_1, LINE1_Y_1))
-//				.push(Tween.set(i, ImageActorAccessor.SCALE_XY).target(SCALE_1))
-//				.beginSequence()
-//					.push(Tween.to(i, ImageActorAccessor.POSITION_X, DURATIN_1).target(LINE1_X_2))
-//				.end()
-//				.start(tweenManager);
 	}
 	
 	private Timeline tweenSet() {
