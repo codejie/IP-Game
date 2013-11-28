@@ -13,7 +13,7 @@ public class BoxGroup extends BaseGroup {
 	private final Resources resources;
 	private final TextureAtlas atlas;
 	
-	public BoxGroup(Resources resources) {
+	public BoxGroup(final Resources resources) {
 		
 		this.setBounds(0, 0, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);
 		
