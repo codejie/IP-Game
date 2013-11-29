@@ -8,6 +8,7 @@ import jie.android.ip.IPGame;
 import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.group.BaseGroup;
 import jie.android.ip.group.BoxGroup;
+import jie.android.ip.group.ConsoleGroup;
 import jie.android.ip.screen.box.BoxExecutor;
 import jie.android.ip.screen.box.BoxRenderConfig;
 
@@ -16,7 +17,7 @@ public class BoxScreen extends BaseScreen {
 	private TextureAtlas boxTextureAtlas;
 	
 	private BoxGroup groupSource, groupTarget;
-	private BaseGroup groupConsole;
+	private ConsoleGroup groupConsole;
 	
 	private BoxExecutor boxExecutor;
 	
@@ -51,6 +52,10 @@ public class BoxScreen extends BaseScreen {
 		groupTarget.setPosition(ScreenConfig.WIDTH / 2, ScreenConfig.HEIGHT / 2);
 		this.addActor(groupTarget);
 		
+		groupConsole = new ConsoleGroup(game.getResources());
+		groupConsole.setScaleY(0.5f);
+		groupConsole.setPosition(0, 0);
+		this.addActor(groupConsole);
 		
 //		initBoxGroup(groupTarget);
 //		initConsoleGroup(groupConsole);

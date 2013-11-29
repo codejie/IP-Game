@@ -44,6 +44,7 @@ public class Resources implements Disposable {
 		assetManager = new AssetManager();
 		assetManager.load(ResourceConfig.BOX_PACK_NAME, TextureAtlas.class);
 		assetManager.load(ResourceConfig.FONT_18_NAME, BitmapFont.class);
+		assetManager.load(ResourceConfig.CONSOLE_PACK_NAME, TextureAtlas.class);
 		assetManager.finishLoading();
 	}
 	
