@@ -10,9 +10,12 @@ import jie.android.ip.group.BaseGroup;
 import jie.android.ip.group.BoxGroup;
 import jie.android.ip.group.ConsoleGroup;
 import jie.android.ip.screen.box.BoxExecutor;
-import jie.android.ip.screen.box.BoxRenderConfig;
+import jie.android.ip.screen.console.ConsoleManager;
+import jie.android.ip.utils.Utils;
 
 public class BoxScreen extends BaseScreen {
+
+	protected static final String Tag = BoxScreen.class.getSimpleName();
 
 	private TextureAtlas boxTextureAtlas;
 	
@@ -20,6 +23,25 @@ public class BoxScreen extends BaseScreen {
 	private ConsoleGroup groupConsole;
 	
 	private BoxExecutor boxExecutor;
+	private ConsoleManager consoleManager;
+	
+	private BoxScreenEventListener listener = new BoxScreenEventListener() {
+
+		@Override
+		public void onConsoleButtonClick(int type, int state) {
+			boxExecutor.execute(".\\doc\\test.xml");			
+		}
+
+		@Override
+		public void onBoxMoveCompleted(boolean succ) {
+			if (succ) {
+				Utils.log(Tag, "succ");
+			} else {
+				Utils.log(Tag, "failed");
+			}
+		}
+		
+	};
 	
 	public BoxScreen(IPGame game) {
 		super(game);
@@ -32,7 +54,7 @@ public class BoxScreen extends BaseScreen {
 		initExecutor();
 		
 		boxExecutor.loadScript(".\\doc\\script.xml");
-		boxExecutor.execute(".\\doc\\test.xml");
+//		boxExecutor.execute(".\\doc\\test.xml");
 	}
 
 	private void initBackgroup() {
@@ -65,10 +87,13 @@ public class BoxScreen extends BaseScreen {
 		BoxRenderConfig config = new BoxRenderConfig();
 		config.setSourceGroup(groupSource);
 		config.setTargetGroup(groupTarget);
+		config.setConsoleGroup(groupConsole);
 		config.setResources(game.getResources());
 		config.setTweenManager(this.tweenManager);
+		config.setScreenListener(listener);
 		
 		boxExecutor = new BoxExecutor(config);
+		consoleManager = new ConsoleManager(config);
 	}
 		
 

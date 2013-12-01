@@ -1,8 +1,9 @@
-package jie.android.ip.screen.box;
+package jie.android.ip.screen;
 
 import aurelienribon.tweenengine.TweenManager;
 import jie.android.ip.Resources;
 import jie.android.ip.group.BaseGroup;
+import jie.android.ip.group.ConsoleGroup;
 
 public class BoxRenderConfig {
 
@@ -10,11 +11,14 @@ public class BoxRenderConfig {
 	
 	private BaseGroup sourceGroup;
 	private BaseGroup targetGroup;
+	private BaseGroup consoleGroup;
 	
 	private TweenManager tweenManager;
 	
 	private float executeDelay = 0.1f;
-	private float renderDelay = 0.1f; 
+	private float renderDelay = 0.1f;
+	
+	private BoxScreenEventListener screenListener; 
 
 	public Resources getResources() {
 		return resources;
@@ -40,6 +44,14 @@ public class BoxRenderConfig {
 		this.targetGroup = targetGroup;
 	}
 
+	public BaseGroup getConsoleGroup() {
+		return this.consoleGroup;
+	}
+	
+	public void setConsoleGroup(BaseGroup consoleGroup) {
+		this.consoleGroup = consoleGroup;
+	}
+	
 	public TweenManager getTweenManager() {
 		return tweenManager;
 	}
@@ -62,6 +74,14 @@ public class BoxRenderConfig {
 
 	public void setRenderDelay(float renderDelay) {
 		this.renderDelay = renderDelay;
+	}
+
+	public BoxScreenEventListener getScreenListener() {
+		return screenListener;
+	}
+
+	public void setScreenListener(BoxScreenEventListener screenListener) {
+		this.screenListener = screenListener;
 	}
 	
 }

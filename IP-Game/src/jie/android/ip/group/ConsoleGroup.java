@@ -1,10 +1,12 @@
 package jie.android.ip.group;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
 import jie.android.ip.Resources;
 import jie.android.ip.CommonConsts.ResourceConfig;
 import jie.android.ip.screen.actor.ImageActor;
+import jie.android.ip.screen.console.OnCmdButtonListener;
 
 public class ConsoleGroup extends BaseGroup {
 
@@ -19,12 +21,10 @@ public class ConsoleGroup extends BaseGroup {
 	}
 
 	private void makeStage() {
-		final ImageActor run = new ImageActor(atlas.findRegion(ResourceConfig.RUN_BUTTON_NAME));
-		run.setPosition(0, 0);
-		run.addListener(new ClickListener() {
-			
-		});
-		this.addActor(run);
+	}
+
+	public void addButton(Actor actor) {
+		this.addActor(actor);
 	}
 	
 }

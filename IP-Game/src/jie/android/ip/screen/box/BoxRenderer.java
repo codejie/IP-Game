@@ -10,6 +10,7 @@ import aurelienribon.tweenengine.equations.Expo;
 import aurelienribon.tweenengine.equations.Quint;
 import jie.android.ip.CommonConsts.BoxConfig;
 import jie.android.ip.CommonConsts.ResourceConfig;
+import jie.android.ip.screen.BoxRenderConfig;
 import jie.android.ip.screen.actor.ImageActor;
 import jie.android.ip.screen.actor.ImageActorAccessor;
 import jie.android.ip.screen.box.BoxManager.Block;

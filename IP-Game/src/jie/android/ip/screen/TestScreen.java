@@ -15,7 +15,6 @@ import jie.android.ip.executor.OnCommandListener;
 import jie.android.ip.executor.SyncExecutor;
 import jie.android.ip.group.BaseGroup;
 import jie.android.ip.screen.actor.ImageActor;
-import jie.android.ip.screen.box.BoxRenderConfig;
 import jie.android.ip.screen.box.BoxManager;
 import jie.android.ip.screen.box.OnBoxEventListener;
 import jie.android.ip.script.Script;
