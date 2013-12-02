@@ -26,6 +26,7 @@ public class ConsoleRenderer {
 
 	public void addButton(final CmdButton btn) {
 		btn.actor = new ImageActor(atlas.findRegion(ResourceConfig.RUN_BUTTON_NAME));
+		btn.actor.setPosition(0, 0);
 		btn.actor.addListener(new ClickListener() {
 
 			@Override
