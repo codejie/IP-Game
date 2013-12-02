@@ -8,8 +8,10 @@ import jie.android.ip.IPGame;
 import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.group.BaseGroup;
 import jie.android.ip.group.BoxGroup;
+import jie.android.ip.group.CodeGroup;
 import jie.android.ip.group.ConsoleGroup;
 import jie.android.ip.screen.box.BoxExecutor;
+import jie.android.ip.screen.code.CodeManager;
 import jie.android.ip.screen.console.ConsoleManager;
 import jie.android.ip.utils.Utils;
 
@@ -21,9 +23,11 @@ public class BoxScreen extends BaseScreen {
 	
 	private BoxGroup groupSource, groupTarget;
 	private ConsoleGroup groupConsole;
+	private CodeGroup groupCode;
 	
 	private BoxExecutor boxExecutor;
 	private ConsoleManager consoleManager;
+	private CodeManager codeManager;
 	
 	private BoxScreenEventListener listener = new BoxScreenEventListener() {
 
@@ -51,7 +55,7 @@ public class BoxScreen extends BaseScreen {
 		initBackgroup();
 		initGroups();
 		
-		initExecutor();
+		initManager();
 		
 		boxExecutor.loadScript(".\\doc\\script.xml");
 //		boxExecutor.execute(".\\doc\\test.xml");
@@ -75,25 +79,33 @@ public class BoxScreen extends BaseScreen {
 		this.addActor(groupTarget);
 		
 		groupConsole = new ConsoleGroup(game.getResources());
-		groupConsole.setScaleY(0.5f);
+//		groupConsole.setScaleY(0.5f);
 		groupConsole.setPosition(0, 0);
 		this.addActor(groupConsole);
+		
+		groupCode = new CodeGroup(game.getResources());
+		groupCode.setScale(0.5f);
+		groupCode.setPosition(0, 0);
+//		this.addActor(groupCode);
+		
 		
 //		initBoxGroup(groupTarget);
 //		initConsoleGroup(groupConsole);
 	}
 	
-	private void initExecutor() {
+	private void initManager() {
 		BoxRenderConfig config = new BoxRenderConfig();
 		config.setSourceGroup(groupSource);
 		config.setTargetGroup(groupTarget);
 		config.setConsoleGroup(groupConsole);
+		config.setCodeGroup(groupCode);
 		config.setResources(game.getResources());
 		config.setTweenManager(this.tweenManager);
 		config.setScreenListener(listener);
 		
 		boxExecutor = new BoxExecutor(config);
 		consoleManager = new ConsoleManager(config);
+		codeManager = new CodeManager(config);
 	}
 		
 

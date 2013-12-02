@@ -1,5 +1,7 @@
 package jie.android.ip.group;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
+
 import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.Resources;
 
@@ -25,6 +27,10 @@ public class CodeGroup extends BaseGroup {
 		
 		this.addActor(groupLines);
 		this.addActor(groupPanel);
+	}
+
+	public void addPanelButton(Actor actor) {
+		groupPanel.addActor(actor);
 	}
 	
 }

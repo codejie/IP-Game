@@ -44,7 +44,7 @@ public class CodeManager {
 		
 		public CodePanel() {
 			CodeType[] type = CodeType.values();
-			for (int i = 1; i < type.length; ++ i) {
+			for (int i = 0; i < type.length; ++ i) {
 				codeButton[i] = new CodeButton(type[i], onPanelButtonListener);
 			}
 		}
@@ -56,10 +56,34 @@ public class CodeManager {
 	}
 	
 	private OnCodeButtonListener onPanelButtonListener = new OnCodeButtonListener() {
+
+		@Override
+		public void onPanelButtonClick(CodeType code, int state) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onLineButonClick(int func, int pos, CodeType code, int state) {
+			// TODO Auto-generated method stub
+			
+		}
 		
 	};
 	
 	private OnCodeButtonListener onLinesButtonListener = new OnCodeButtonListener() {
+
+		@Override
+		public void onPanelButtonClick(CodeType code, int state) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onLineButonClick(int func, int pos, CodeType code, int state) {
+			// TODO Auto-generated method stub
+			
+		}
 		
 	};
 	
