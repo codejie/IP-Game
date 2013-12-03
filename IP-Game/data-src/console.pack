@@ -5,8 +5,64 @@ filter: Nearest,Nearest
 repeat: none
 run
   rotate: false
-  xy: 1, 1
+  xy: 1, 99
   size: 144, 144
   orig: 144, 144
+  offset: 0, 0
+  index: -1
+122
+  rotate: false
+  xy: 147, 121
+  size: 122, 122
+  orig: 122, 122
+  offset: 0, 0
+  index: -1
+112
+  rotate: false
+  xy: 271, 131
+  size: 112, 112
+  orig: 112, 112
+  offset: 0, 0
+  index: -1
+96
+  rotate: false
+  xy: 1, 1
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+72
+  rotate: false
+  xy: 385, 171
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: -1
+64
+  rotate: false
+  xy: 99, 33
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+48
+  rotate: false
+  xy: 459, 195
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+32
+  rotate: false
+  xy: 385, 137
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+16
+  rotate: false
+  xy: 147, 103
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1

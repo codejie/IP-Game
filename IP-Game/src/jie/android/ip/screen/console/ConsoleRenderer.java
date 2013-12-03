@@ -13,9 +13,12 @@ import jie.android.ip.screen.console.Code.Button;
 
 public class ConsoleRenderer {
 
+	private static final int BASE_X_CODE_PANEL = ScreenConfig.WIDTH * 2 / 3;
+	private static final int BASE_Y_CODE_PANEL = 0;
+	
 	private final BoxRenderConfig config;		
 	private final ConsoleGroup group;
-	private final TextureAtlas atlas;	
+	private final TextureAtlas atlas;
 	
 	public ConsoleRenderer(BoxRenderConfig config) {
 		this.config = config;
@@ -35,8 +38,7 @@ public class ConsoleRenderer {
 				if (btn.listener != null) {
 					btn.listener.onClick(btn.type, btn.state);
 				}
-			}
-			
+			}			
 		});
 		group.addButton(btn.actor);
 	}
@@ -44,12 +46,12 @@ public class ConsoleRenderer {
 	public void addCodePanelButton(final Code.Button btn) {
 		
 		int x = 110, y = 0;
-		if (btn.type == Code.Type.CALL_0) {
-			x = 188;
-			y = ScreenConfig.HEIGHT - 32; 
-		}
+//		if (btn.type == Code.Type.CALL_0) {
+			y = ScreenConfig.HEIGHT - 320; 
+//		}
 		
-		btn.actor = new ImageActor(atlas.findRegion(ResourceConfig.RUN_BUTTON_NAME));
+		btn.actor = new ImageActor(atlas.findRegion("72"));
+		x = (int) (btn.type.getId() * (btn.actor.getWidth() + 10));		
 		btn.actor.setPosition(x, y);
 		btn.actor.addListener(new ClickListener() {
 
