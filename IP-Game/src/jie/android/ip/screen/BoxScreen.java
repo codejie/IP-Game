@@ -6,12 +6,10 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import jie.android.ip.CommonConsts.ResourceConfig;
 import jie.android.ip.IPGame;
 import jie.android.ip.CommonConsts.ScreenConfig;
-import jie.android.ip.group.BaseGroup;
 import jie.android.ip.group.BoxGroup;
 import jie.android.ip.group.CodeGroup;
 import jie.android.ip.group.ConsoleGroup;
 import jie.android.ip.screen.box.BoxExecutor;
-import jie.android.ip.screen.code.CodeManager;
 import jie.android.ip.screen.console.ConsoleManager;
 import jie.android.ip.utils.Utils;
 
@@ -27,7 +25,6 @@ public class BoxScreen extends BaseScreen {
 	
 	private BoxExecutor boxExecutor;
 	private ConsoleManager consoleManager;
-	private CodeManager codeManager;
 	
 	private BoxScreenEventListener listener = new BoxScreenEventListener() {
 
@@ -105,7 +102,7 @@ public class BoxScreen extends BaseScreen {
 		
 		boxExecutor = new BoxExecutor(config);
 		consoleManager = new ConsoleManager(config);
-		codeManager = new CodeManager(config);
+
 	}
 		
 

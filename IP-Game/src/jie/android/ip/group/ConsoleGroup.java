@@ -6,7 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import jie.android.ip.Resources;
 import jie.android.ip.CommonConsts.ResourceConfig;
 import jie.android.ip.screen.actor.ImageActor;
-import jie.android.ip.screen.console.OnCmdButtonListener;
 
 public class ConsoleGroup extends BaseGroup {
 
