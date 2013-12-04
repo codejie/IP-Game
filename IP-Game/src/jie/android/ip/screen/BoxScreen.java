@@ -7,7 +7,6 @@ import jie.android.ip.CommonConsts.ResourceConfig;
 import jie.android.ip.IPGame;
 import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.group.BoxGroup;
-import jie.android.ip.group.CodeGroup;
 import jie.android.ip.group.ConsoleGroup;
 import jie.android.ip.screen.box.BoxExecutor;
 import jie.android.ip.screen.console.ConsoleManager;
@@ -21,7 +20,6 @@ public class BoxScreen extends BaseScreen {
 	
 	private BoxGroup groupSource, groupTarget;
 	private ConsoleGroup groupConsole;
-	private CodeGroup groupCode;
 	
 	private BoxExecutor boxExecutor;
 	private ConsoleManager consoleManager;
@@ -77,17 +75,9 @@ public class BoxScreen extends BaseScreen {
 		
 		groupConsole = new ConsoleGroup(game.getResources());
 //		groupConsole.setScaleY(0.5f);
-		groupConsole.setPosition(0, 0);
+		groupConsole.setBounds(0, 0, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);
 		this.addActor(groupConsole);
 		
-		groupCode = new CodeGroup(game.getResources());
-		groupCode.setScale(0.5f);
-		groupCode.setPosition(0, 0);
-//		this.addActor(groupCode);
-		
-		
-//		initBoxGroup(groupTarget);
-//		initConsoleGroup(groupConsole);
 	}
 	
 	private void initManager() {
@@ -95,7 +85,6 @@ public class BoxScreen extends BaseScreen {
 		config.setSourceGroup(groupSource);
 		config.setTargetGroup(groupTarget);
 		config.setConsoleGroup(groupConsole);
-		config.setCodeGroup(groupCode);
 		config.setResources(game.getResources());
 		config.setTweenManager(this.tweenManager);
 		config.setScreenListener(listener);

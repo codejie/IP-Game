@@ -14,27 +14,35 @@ public final class Cmd {
 			return this.ordinal();
 		}		
 	};
-
-	public interface OnButtonListener {
-		public void onClick(final Type type, int state);
-	}	
 	
+	public enum State {
+		NONE, SELECTED;
+		
+		public int getId() {
+			return this.ordinal();
+		}
+	}
 	public static class Button {
 		
 		public final Type type;
 		public final OnButtonListener listener;
 		public Actor actor;
-		public int state;
+		public State state = State.NONE;
 		
 		public Button(final Type type, final OnButtonListener listener) {
 			this.type = type;
 			this.listener = listener;
-			this.state = 0;
 		}
+	}
+	
+	public interface OnButtonListener {
+		public void onClick(final Button button);
 	}	
 	
 	public static class Panel extends ArrayList<Button> {
 		
+		private static final long serialVersionUID = 1L;
+
 		public Panel(final OnButtonListener listener) {
 			Type type[] = Type.values();
 			for (int i = 0; i < type.length; ++ i) {

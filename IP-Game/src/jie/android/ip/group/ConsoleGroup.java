@@ -2,6 +2,7 @@ package jie.android.ip.group;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import jie.android.ip.Resources;
 import jie.android.ip.CommonConsts.ResourceConfig;
@@ -11,6 +12,8 @@ public class ConsoleGroup extends BaseGroup {
 
 	private final Resources resources;
 	private final TextureAtlas atlas;
+	
+	private ClickListener clickListener;
 	
 	public ConsoleGroup(final Resources resources) {
 		this.resources = resources;
@@ -24,6 +27,14 @@ public class ConsoleGroup extends BaseGroup {
 
 	public void addButton(Actor actor) {
 		this.addActor(actor);
+	}
+
+	public void setClickListener(final ClickListener clickListener) {
+		if (this.clickListener != null) {
+			this.removeListener(this.clickListener);
+		}
+		this.clickListener = clickListener;
+		this.addListener(this.clickListener);		
 	}
 	
 }

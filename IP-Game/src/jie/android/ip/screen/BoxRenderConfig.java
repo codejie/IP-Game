@@ -12,7 +12,6 @@ public class BoxRenderConfig {
 	private BaseGroup sourceGroup;
 	private BaseGroup targetGroup;
 	private BaseGroup consoleGroup;
-	private BaseGroup codeGroup;
 	
 	private TweenManager tweenManager;
 	
@@ -85,12 +84,4 @@ public class BoxRenderConfig {
 		this.screenListener = screenListener;
 	}
 
-	public BaseGroup getCodeGroup() {
-		return codeGroup;
-	}
-
-	public void setCodeGroup(BaseGroup codeGroup) {
-		this.codeGroup = codeGroup;
-	}
-	
 }

@@ -17,18 +17,21 @@ public class Code {
 		}			
 	}
 	
-	public interface OnButtonListener {
-		void onPanelButtonClick(Type type, int state);
-		void onLinesButonClick(int func, int pos, Type type, int state);
-	}	
-
+	public enum State {
+		NONE, SELECTED;
+		
+		public int getId() {
+			return this.ordinal();
+		}
+	}
+	
 	public static class Button {
 		public final Type type;
 		public final OnButtonListener listener;
 		public int func = -1;
 		public int pos = -1;
 		public Actor actor;
-		public int state;
+		public State state = State.NONE;
 		
 		public Button(final Type type, final OnButtonListener listener) {
 			this(type, listener, -1, -1);
@@ -42,6 +45,10 @@ public class Code {
 		}
 	}
 	
+	public interface OnButtonListener {
+		void onClick(boolean inPanel, final Button button);
+	}	
+
 	public static class Lines {
 		private Button[][] buttons = new Button[MAX_FUNC][MAX_CODE * 2];
 		
@@ -56,12 +63,12 @@ public class Code {
 	}
 	
 	public static class Panel {
-		private Button[] buttons = new Button[Type.values().length];
+		private Button[] buttons = new Button[Type.values().length - 1];
 		
 		public Panel(OnButtonListener listener) {
 			Type[] type = Type.values();
-			for (int i = 0; i < type.length; ++ i) {
-				buttons[i] = new Button(type[i], listener);
+			for (int i = 1; i < type.length; ++ i) {
+				buttons[i - 1] = new Button(type[i], listener);
 			}
 		}
 		
