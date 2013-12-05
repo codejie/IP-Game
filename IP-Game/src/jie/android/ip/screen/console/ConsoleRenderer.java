@@ -14,6 +14,7 @@ import jie.android.ip.screen.BoxRenderConfig;
 import jie.android.ip.screen.actor.ImageActor;
 import jie.android.ip.screen.actor.ImageActorAccessor;
 import jie.android.ip.screen.console.Code.Button;
+import jie.android.ip.utils.Holder;
 
 public class ConsoleRenderer {
 
@@ -21,6 +22,11 @@ public class ConsoleRenderer {
 	private static final int BASE_Y_CODE_PANEL = 16;
 	private static final int SPACE_CODE_PANEL = 8;
 	private static final int SIZE_CODE_PANEL = 80;
+	
+	private static final int BASE_X_CODE_LINES = 48;
+	private static final int BASE_Y_CODE_LINES = 16;
+	private static final int SPACE_CODE_LINES = 8;
+	private static final int SIZE_CODE_LINES = 76;
 	
 	private final BoxRenderConfig config;		
 	private final ConsoleGroup group;
@@ -122,12 +128,64 @@ public class ConsoleRenderer {
 		return (group.hit(x, y, true) == group);
 	}
 
-	public void updateCodePanelButton(final Button button) {
+	public void updateCodePanelButton(final Code.Button button) {
 		if (button.state == Code.State.SELECTED) {
 			Tween.to(button.actor, ImageActorAccessor.SCALE_XY, 0.1f).target(1.2f, 1.2f).start(tweenManager);
 		} else {
 			Tween.to(button.actor, ImageActorAccessor.SCALE_XY, 0.1f).target(1.0f, 1.0f).start(tweenManager);
 		}
+	}
+	
+	public void updateCodeLinesButton(final Code.Button button) {
+		if (button.state == Code.State.SELECTED) {
+			Tween.to(button.actor, ImageActorAccessor.SCALE_XY, 0.1f).target(1.2f, 1.2f).start(tweenManager);
+		} else {
+			Tween.to(button.actor, ImageActorAccessor.SCALE_XY, 0.1f).target(1.0f, 1.0f).start(tweenManager);
+		}
+	}
+
+	public void addCodeLinesButton(final Code.Button button) {
+		button.actor = new ImageActor(atlas.findRegion("72"));
+		setCodeLinesButtonPosition(button);
+		button.actor.addListener(new ClickListener() {
+
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				if (button.listener != null) {
+					button.listener.onClick(false, button);
+				}
+			}			
+		});
+		
+		group.addButton(button.actor);		
+	}
+
+	private void setCodeLinesButtonPosition(Button button) {
+		
+	}
+
+	public boolean getLinesLocation(Code.Type type, float x, float y, Holder<Integer> func, Holder<Integer> pos) {
+		
+		for (int i = 0; i < Code.MAX_CODE; ++ i) {
+			if (x > BASE_X_CODE_LINES + SIZE_CODE_LINES * (i) + SPACE_CODE_LINES
+					&& x < BASE_X_CODE_LINES + SIZE_CODE_LINES * (i + 1) + SPACE_CODE_LINES) {
+				if (type.isJudge()) {
+					pos = new Holder<Integer>(i * 2);	
+				} else {
+					pos = new Holder<Integer>(i * 2 + 1);
+				}
+				break;
+			}				
+		}
+		for (int i = 0; i < Code.MAX_FUNC; ++ i) {
+			if (y > BASE_Y_CODE_LINES + SIZE_CODE_LINES * (i) + SPACE_CODE_LINES
+					&& y < BASE_Y_CODE_LINES + SIZE_CODE_LINES * (i + 1) + SPACE_CODE_LINES) {
+				func = new Holder<Integer>(i);
+				break;
+			}
+		}
+		
+		return (func != null && pos != null);
 	}
 	
 }

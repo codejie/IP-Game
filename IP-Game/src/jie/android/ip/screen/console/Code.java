@@ -14,7 +14,20 @@ public class Code {
 		
 		public int getId() {
 			return this.ordinal();
-		}			
+		}
+		
+		public boolean isOrder() {
+			return (this == RIGHT || this == LEFT || this == ACT);
+		}
+		
+		public boolean isCall() {
+			return (this == CALL_0 || this == CALL_1 || this == CALL_2 || this == CALL_3);
+		}
+		
+		public boolean isJudge() {
+			return (this == IF_0 || this == IF_1 || this == IF_2 || this == IF_3
+					|| this == IF_NONE || this == IF_ANY);
+		}
 	}
 	
 	public enum State {
