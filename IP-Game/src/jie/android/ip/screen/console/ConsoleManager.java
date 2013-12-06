@@ -23,7 +23,8 @@ public class ConsoleManager {
 	private Code.Lines codeLines;
 	private Code.Panel codePanel;
 	
-	private Code.Button  cacheCodePanelButton = null;
+	private Code.Button cacheCodePanelButton = null;
+	private Code.Button cacheCodeLinesButton = null;
 	
 	private Cmd.OnButtonListener cmdListener = new Cmd.OnButtonListener() {
 
@@ -40,7 +41,7 @@ public class ConsoleManager {
 		
 		@Override
 		public void onClick(boolean inPanel, final Code.Button button) {
-			Utils.log(Tag, "code panel btn: type = " + button.type.getId() + " state = " + button.state.getId());
+			Utils.log(Tag, "code " + (inPanel ? "panel" : "lines") + " button type = " + button.type.getId() + " state = " + button.state.getId());
 			onCodeButtonClick(inPanel, button);
 		}
 	}; 
@@ -92,13 +93,17 @@ public class ConsoleManager {
 	
 	protected void onCodeButtonClick(boolean inPanel, Button button) {
 		
-		resetCacheCodePanelCode();
-		
-		if (inPanel) {
-			changePanelButtonState(button);
+		if (button != cacheCodePanelButton) {
+			resetCacheCodePanelCode();
+	
+			if (inPanel) {
+				changePanelButtonState(button);
+			} else {
+				changeLinesButtonState(button);
+			}
 		} else {
-			changeLinesButtonState(button);
-		}		
+			resetCacheCodePanelCode();
+		}
 	}
 	
 	protected void changePanelButtonState(final Code.Button button) {
@@ -130,16 +135,20 @@ public class ConsoleManager {
 
 	private void createCodeLinesButton(final Code.Type type, float x, float y) {
 		
-		Holder<Integer> func = null;
-		Holder<Integer> pos = null;
+		Holder<Integer> func = new Holder<Integer>(-1);
+		Holder<Integer> pos = new Holder<Integer>(-1);
 		
 		if (renderer.getLinesLocation(type, x, y, func, pos)) {
-			Utils.log(Tag, "code lines : func = " + func + " pos = "  + pos);
-			Code.Button btn = new Code.Button(type, codeListener, func.getValue(), pos.getValue());
-			//codeLines.
-			renderer.addCodeLinesButton(btn);			
+			Utils.log(Tag, "code lines : func = " + func.getValue() + " pos = "  + pos.getValue());
+			Code.Button locbtn = null;
+			Code.Button btn = new Code.Button(type, codeListener);
+			if (!type.isJudge()) {
+				 locbtn = codeLines.getButton(func.getValue(), pos.getValue() - 1);
+			}
+			renderer.addCodeLinesButton(func.getValue(), pos.getValue(), btn, locbtn);
+			
+			codeLines.setButton(func.getValue(), pos.getValue(), btn);
 		}
-		
 	}
 	
 	private void resetCacheCodePanelCode() {

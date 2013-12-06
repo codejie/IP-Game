@@ -25,8 +25,10 @@ public class ConsoleRenderer {
 	
 	private static final int BASE_X_CODE_LINES = 48;
 	private static final int BASE_Y_CODE_LINES = 16;
-	private static final int SPACE_CODE_LINES = 8;
-	private static final int SIZE_CODE_LINES = 76;
+	private static final int SPACE_X_CODE_LINES = 16;
+	private static final int SPACE_Y_CODE_LINES = 8;
+	private static final int SIZE_CODE_LINES = 76 + 24;
+	private static final int POS_ONE_X_CODE_LINES = 24;
 	
 	private final BoxRenderConfig config;		
 	private final ConsoleGroup group;
@@ -144,9 +146,9 @@ public class ConsoleRenderer {
 		}
 	}
 
-	public void addCodeLinesButton(final Code.Button button) {
+	public void addCodeLinesButton(int func, int pos, final Code.Button button, final Code.Button locButton) {
 		button.actor = new ImageActor(atlas.findRegion("72"));
-		setCodeLinesButtonPosition(button);
+		setCodeLinesButtonPosition(button, func, pos);
 		button.actor.addListener(new ClickListener() {
 
 			@Override
@@ -156,36 +158,52 @@ public class ConsoleRenderer {
 				}
 			}			
 		});
+		if (locButton == null) {
+			group.addButton(button.actor);
+		} else {
+			group.removeActor(locButton.actor);
+			group.addButton(button.actor);
+			group.addActor(locButton.actor);
+		}
+	}
+	
+	private void setCodeLinesButtonPosition(final Button button, int func, int pos) {
+		int x = -1;
+		if (button.type.isJudge()) {
+			x = pos / 2;
+			x = BASE_X_CODE_LINES + SIZE_CODE_LINES * x + SPACE_X_CODE_LINES - POS_ONE_X_CODE_LINES;
+		} else {
+			x = (pos - 1) / 2;
+			x = BASE_X_CODE_LINES + SIZE_CODE_LINES * x + SPACE_X_CODE_LINES;
+		}
+		int y = Code.MAX_FUNC - func - 1;
+		y = BASE_Y_CODE_LINES + SIZE_CODE_LINES * y + SPACE_Y_CODE_LINES;
 		
-		group.addButton(button.actor);		
+		button.actor.setPosition(x, y);
 	}
 
-	private void setCodeLinesButtonPosition(Button button) {
-		
-	}
-
-	public boolean getLinesLocation(Code.Type type, float x, float y, Holder<Integer> func, Holder<Integer> pos) {
+	public boolean getLinesLocation(Code.Type type, float x, float y, final Holder<Integer> func, final Holder<Integer> pos) {
 		
 		for (int i = 0; i < Code.MAX_CODE; ++ i) {
-			if (x > BASE_X_CODE_LINES + SIZE_CODE_LINES * (i) + SPACE_CODE_LINES
-					&& x < BASE_X_CODE_LINES + SIZE_CODE_LINES * (i + 1) + SPACE_CODE_LINES) {
+			if (x > BASE_X_CODE_LINES + SIZE_CODE_LINES * (i) + SPACE_X_CODE_LINES
+					&& x < BASE_X_CODE_LINES + SIZE_CODE_LINES * (i + 1) + SPACE_X_CODE_LINES) {
 				if (type.isJudge()) {
-					pos = new Holder<Integer>(i * 2);	
+					pos.setValue(i * 2);	
 				} else {
-					pos = new Holder<Integer>(i * 2 + 1);
+					pos.setValue(i * 2 + 1);
 				}
 				break;
 			}				
 		}
 		for (int i = 0; i < Code.MAX_FUNC; ++ i) {
-			if (y > BASE_Y_CODE_LINES + SIZE_CODE_LINES * (i) + SPACE_CODE_LINES
-					&& y < BASE_Y_CODE_LINES + SIZE_CODE_LINES * (i + 1) + SPACE_CODE_LINES) {
-				func = new Holder<Integer>(i);
+			if (y > BASE_Y_CODE_LINES + SIZE_CODE_LINES * (i) + SPACE_Y_CODE_LINES
+					&& y < BASE_Y_CODE_LINES + SIZE_CODE_LINES * (i + 1) + SPACE_Y_CODE_LINES) {
+				func.setValue(Code.MAX_FUNC - i - 1);
 				break;
 			}
 		}
 		
-		return (func != null && pos != null);
+		return (func.getValue() != -1 && pos.getValue() != -1);
 	}
 	
 }

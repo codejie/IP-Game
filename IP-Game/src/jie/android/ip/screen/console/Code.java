@@ -41,20 +41,12 @@ public class Code {
 	public static class Button {
 		public final Type type;
 		public final OnButtonListener listener;
-		public int func = -1;
-		public int pos = -1;
 		public Actor actor;
 		public State state = State.NONE;
 		
 		public Button(final Type type, final OnButtonListener listener) {
-			this(type, listener, -1, -1);
-		}
-		
-		public Button(final Type type, final OnButtonListener listener, int func, int pos) {
 			this.type = type;
 			this.listener = listener;
-			this.func = func;
-			this.pos = pos;
 		}
 	}
 	
@@ -65,14 +57,21 @@ public class Code {
 	public static class Lines {
 		private Button[][] buttons = new Button[MAX_FUNC][MAX_CODE * 2];
 		
-		public void setCode(int func, int pos, final Button btn) {
+		public void addButton(final Button btn) {
+			
+		}
+		public void setButton(int func, int pos, final Button btn) {
 			if (btn.type == Type.NONE || btn.type == Type.RIGHT || btn.type == Type.LEFT || btn.type == Type.ACT
 					|| btn.type == Type.CALL_0 || btn.type == Type.CALL_1 || btn.type == Type.CALL_2 || btn.type == Type.CALL_3) {
 				buttons[func][pos + 1] = btn;
 			} else {
 				buttons[func][pos] = btn;
 			}
-		}		
+		}
+		
+		public Button getButton(int func, int pos) {
+			return buttons[func][pos];
+		}
 	}
 	
 	public static class Panel {
