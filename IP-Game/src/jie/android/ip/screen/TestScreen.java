@@ -13,7 +13,6 @@ import jie.android.ip.executor.CommandSet;
 import jie.android.ip.executor.Executor;
 import jie.android.ip.executor.OnCommandListener;
 import jie.android.ip.executor.SyncExecutor;
-import jie.android.ip.group.BaseGroup;
 import jie.android.ip.screen.actor.ImageActor;
 import jie.android.ip.screen.box.BoxManager;
 import jie.android.ip.screen.box.OnBoxEventListener;

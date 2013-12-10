@@ -6,7 +6,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 
 import jie.android.ip.IPGame;
 import jie.android.ip.CommonConsts.ScreenConfig;
-import jie.android.ip.group.BaseGroup;
 import jie.android.ip.screen.actor.ImageActor;
 import jie.android.ip.screen.actor.StateImageActor;
 

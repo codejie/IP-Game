@@ -25,13 +25,11 @@ public final class Cmd {
 	public static class Button {
 		
 		public final Type type;
-		public final OnButtonListener listener;
-		public Actor actor;
 		public State state = State.NONE;
+		public Actor actor;
 		
-		public Button(final Type type, final OnButtonListener listener) {
+		public Button(final Type type) {
 			this.type = type;
-			this.listener = listener;
 		}
 	}
 	
@@ -46,7 +44,7 @@ public final class Cmd {
 		public Panel(final OnButtonListener listener) {
 			Type type[] = Type.values();
 			for (int i = 0; i < type.length; ++ i) {
-				Button btn = new Button(type[i], listener);
+				Button btn = new Button(type[i]);
 				super.add(btn);
 			}
 		}

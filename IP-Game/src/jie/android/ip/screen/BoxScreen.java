@@ -6,9 +6,9 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import jie.android.ip.CommonConsts.ResourceConfig;
 import jie.android.ip.IPGame;
 import jie.android.ip.CommonConsts.ScreenConfig;
-import jie.android.ip.group.BoxGroup;
-import jie.android.ip.group.ConsoleGroup;
 import jie.android.ip.screen.box.BoxExecutor;
+import jie.android.ip.screen.box.BoxGroup;
+import jie.android.ip.screen.console.ConsoleGroup;
 import jie.android.ip.screen.console.ConsoleManager;
 import jie.android.ip.utils.Utils;
 

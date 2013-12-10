@@ -29,27 +29,23 @@ public class Code {
 					|| this == IF_NONE || this == IF_ANY);
 		}
 	}
-	
-	public enum State {
-		NONE, SELECTED;
-		
-		public int getId() {
-			return this.ordinal();
-		}
-	}
-	
+//	
+//	public enum State {
+//		NONE, SELECTED;
+//		
+//		public int getId() {
+//			return this.ordinal();
+//		}
+//	}
+//	
 	public static class Button {
 		public final Type type;
-		public final OnButtonListener listener;
-		public Actor actor;
-		public State state = State.NONE;
 		
-		public Button(final Type type, final OnButtonListener listener) {
+		public Button(final Type type) {
 			this.type = type;
-			this.listener = listener;
 		}
 	}
-	
+//	
 	public interface OnButtonListener {
 		void onClick(boolean inPanel, final Button button);
 	}	
@@ -57,36 +53,37 @@ public class Code {
 	public static class Lines {
 		private Button[][] buttons = new Button[MAX_FUNC][MAX_CODE * 2];
 		
-		public void addButton(final Button btn) {
-			
-		}
 		public void setButton(int func, int pos, final Button btn) {
-			if (btn.type == Type.NONE || btn.type == Type.RIGHT || btn.type == Type.LEFT || btn.type == Type.ACT
-					|| btn.type == Type.CALL_0 || btn.type == Type.CALL_1 || btn.type == Type.CALL_2 || btn.type == Type.CALL_3) {
+			if (!btn.type.isJudge()) {
 				buttons[func][pos + 1] = btn;
 			} else {
 				buttons[func][pos] = btn;
 			}
 		}
 		
-		public Button getButton(int func, int pos) {
+		public final Button getButton(int func, int pos) {
 			return buttons[func][pos];
 		}
+		
+		public final Button[] getFuncButton(int func) {
+			return buttons[func];
+		}
+		
 	}
-	
-	public static class Panel {
-		private Button[] buttons = new Button[Type.values().length - 1];
-		
-		public Panel(OnButtonListener listener) {
-			Type[] type = Type.values();
-			for (int i = 1; i < type.length; ++ i) {
-				buttons[i - 1] = new Button(type[i], listener);
-			}
-		}
-		
-		public final Button[] getButtons() {
-			return buttons;
-		}
-	}	
-	
+//	
+//	public static class Panel {
+//		private Button[] buttons = new Button[Type.values().length - 1];
+//		
+//		public Panel(OnButtonListener listener) {
+//			Type[] type = Type.values();
+//			for (int i = 1; i < type.length; ++ i) {
+//				buttons[i - 1] = new Button(type[i], listener);
+//			}
+//		}
+//		
+//		public final Button[] getButtons() {
+//			return buttons;
+//		}
+//	}	
+//	
 }

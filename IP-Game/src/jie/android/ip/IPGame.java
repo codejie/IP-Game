@@ -2,9 +2,6 @@ package jie.android.ip;
 
 import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.screen.BoxScreen;
-import jie.android.ip.screen.DDTestScreen;
-import jie.android.ip.screen.StartScreen;
-import jie.android.ip.screen.TestScreen;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.OrthographicCamera;

@@ -2,8 +2,7 @@ package jie.android.ip.screen;
 
 import aurelienribon.tweenengine.TweenManager;
 import jie.android.ip.Resources;
-import jie.android.ip.group.BaseGroup;
-import jie.android.ip.group.ConsoleGroup;
+import jie.android.ip.screen.console.ConsoleGroup;
 
 public class BoxRenderConfig {
 

@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 public class ImageActor extends Actor {
 
 	private Drawable drawable;
+	private Object data;
 	
 	public ImageActor(Drawable drawable) {
 		setDrawable(drawable);
@@ -70,5 +71,13 @@ public class ImageActor extends Actor {
 		this.drawable = drawable;
 		setWidth(getMinWidth());
 		setHeight(getMinHeight());		
+	}
+	
+	public void setData(final Object data) {
+		this.data = data;
+	}
+	
+	public final Object getData() {
+		return this.data;
 	}
 }

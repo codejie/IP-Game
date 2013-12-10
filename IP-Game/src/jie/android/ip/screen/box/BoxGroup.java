@@ -1,4 +1,4 @@
-package jie.android.ip.group;
+package jie.android.ip.screen.box;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import jie.android.ip.CommonConsts.ResourceConfig;
 import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.Resources;
+import jie.android.ip.screen.BaseGroup;
 import jie.android.ip.screen.actor.ImageActor;
 
 public class BoxGroup extends BaseGroup {
@@ -20,10 +21,11 @@ public class BoxGroup extends BaseGroup {
 		this.resources = resources;
 		this.atlas = this.resources.getAssetManager().get(ResourceConfig.BOX_PACK_NAME, TextureAtlas.class);
 
-		makeStage();
+		initStage();
 	}
 
-	private void makeStage() {
+	@Override
+	protected void initStage() {
 		ImageActor top = new ImageActor(atlas.findRegion(ResourceConfig.FRANE_NAME));
 		top.setBounds(4, ScreenConfig.HEIGHT - 16, ScreenConfig.WIDTH - 4, 16);
 		this.addActor(top);

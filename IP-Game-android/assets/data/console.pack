@@ -3,65 +3,100 @@ console.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+console_code_panel_bg
+  rotate: false
+  xy: 1, 379
+  size: 640, 128
+  orig: 640, 128
+  offset: 0, 0
+  index: -1
+console_code_line_bg_small
+  rotate: false
+  xy: 1, 305
+  size: 640, 72
+  orig: 640, 72
+  offset: 0, 0
+  index: -1
 run
   rotate: false
-  xy: 1, 99
+  xy: 643, 363
   size: 144, 144
   orig: 144, 144
   offset: 0, 0
   index: -1
 122
   rotate: false
-  xy: 147, 121
+  xy: 1, 181
   size: 122, 122
   orig: 122, 122
   offset: 0, 0
   index: -1
 112
   rotate: false
-  xy: 271, 131
+  xy: 789, 395
+  size: 112, 112
+  orig: 112, 112
+  offset: 0, 0
+  index: -1
+console_code_none_big
+  rotate: false
+  xy: 1, 67
   size: 112, 112
   orig: 112, 112
   offset: 0, 0
   index: -1
 96
   rotate: false
-  xy: 1, 1
+  xy: 125, 207
   size: 96, 96
   orig: 96, 96
   offset: 0, 0
   index: -1
 72
   rotate: false
-  xy: 385, 171
+  xy: 903, 435
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: -1
+console_code_line_title_small
+  rotate: false
+  xy: 223, 231
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 64
   rotate: false
-  xy: 99, 33
+  xy: 1, 1
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+console_code_default_small
+  rotate: false
+  xy: 297, 239
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 48
   rotate: false
-  xy: 459, 195
+  xy: 643, 313
   size: 48, 48
   orig: 48, 48
   offset: 0, 0
   index: -1
 32
   rotate: false
-  xy: 385, 137
+  xy: 903, 401
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 16
   rotate: false
-  xy: 147, 103
+  xy: 789, 377
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
