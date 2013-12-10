@@ -11,6 +11,7 @@ import jie.android.ip.CommonConsts.ResourceConfig;
 import jie.android.ip.screen.BaseGroup;
 import jie.android.ip.screen.actor.ImageActor;
 import jie.android.ip.screen.console.Code.Button;
+import jie.android.ip.screen.console.Code.Lines;
 import jie.android.ip.utils.Utils;
 
 public class CodeLineGroup extends BaseGroup {
@@ -25,15 +26,18 @@ public class CodeLineGroup extends BaseGroup {
 	private final Resources resources;
 	private final TextureAtlas atlas;
 	
-	private final Code.Button buttons[];
-
+	private final Code.Lines codeLines;
+	
 	private State state = State.SMALL;
 	
-	public CodeLineGroup(int index, final Code.Button[] buttons, final Resources resources) {
+	private ImageActor smallBg, bigBg;
+	
+	
+	public CodeLineGroup(int index, final Code.Lines codeLines, final Resources resources) {
 		this.index = index;
 		this.resources = resources;
 		this.atlas = this.resources.getAssetManager().get(ResourceConfig.CONSOLE_PACK_NAME, TextureAtlas.class);
-		this.buttons = buttons;
+		this.codeLines = codeLines;
 	
 		initStage();
 	}

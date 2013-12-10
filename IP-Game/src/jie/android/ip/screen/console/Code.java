@@ -1,6 +1,11 @@
 package jie.android.ip.screen.console;
 
 
+import java.util.HashMap;
+
+import jie.android.ip.screen.actor.ImageActor;
+import jie.android.ip.utils.Extended.Pair;
+
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Code {
@@ -50,8 +55,9 @@ public class Code {
 		void onClick(boolean inPanel, final Button button);
 	}	
 
-	public static class Lines {
-		private Button[][] buttons = new Button[MAX_FUNC][MAX_CODE * 2];
+	public static class Lines {		
+		private Type[][] buttons = new Type[MAX_FUNC][MAX_CODE * 2];
+		private HashMap<Type, Pair<ImageActor, ImageActor>> actorMap = new HashMap<Type, Pair<ImageActor, ImageActor>>();
 		
 		public void setButton(int func, int pos, final Button btn) {
 			if (!btn.type.isJudge()) {
@@ -67,9 +73,10 @@ public class Code {
 		
 		public final Button[] getFuncButton(int func) {
 			return buttons[func];
-		}
-		
+		}		
 	}
+	
+	
 //	
 //	public static class Panel {
 //		private Button[] buttons = new Button[Type.values().length - 1];

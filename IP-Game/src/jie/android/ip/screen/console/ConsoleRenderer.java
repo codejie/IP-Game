@@ -67,7 +67,7 @@ public class ConsoleRenderer {
 	
 	public void initCodeLines(final Code.Lines codeLines, final Code.OnButtonListener codeListener) {
 		for (int i = 0; i < CodeConfig.SIZE_CODE_LINES; ++ i) {
-			groupLines[i] = new CodeLineGroup(i, codeLines.getFuncButton(i), this.config.getResources());
+			groupLines[i] = new CodeLineGroup(i, codeLines, this.config.getResources());
 		}
 
 		group.initCodeLineGroup(groupLines, codeListener);

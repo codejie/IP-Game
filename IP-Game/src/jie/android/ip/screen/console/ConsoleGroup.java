@@ -9,6 +9,7 @@ import jie.android.ip.Resources;
 import jie.android.ip.CommonConsts.ResourceConfig;
 import jie.android.ip.screen.BaseGroup;
 import jie.android.ip.screen.actor.ImageActor;
+import jie.android.ip.screen.console.Code.OnButtonListener;
 
 public class ConsoleGroup extends BaseGroup {
 
@@ -42,7 +43,7 @@ public class ConsoleGroup extends BaseGroup {
 		this.addListener(this.clickListener);		
 	}
 
-	public void initCodeLineGroup(final CodeLineGroup[] groupLines) {
+	public void initCodeLineGroup(final CodeLineGroup[] groupLines, final OnButtonListener codeListener) {
 		for (int i = 0; i < groupLines.length; ++ i) {
 			
 			groupLines[i].setBounds(CodeConfig.BASE_X_CODE_LINES, CodeConfig.BASE_Y_CODE_LINES + (groupLines.length - i - 1) * (CodeConfig.HEIGHT_SMALL_CODE_LINE + CodeConfig.SPACE_Y_CODE_LINES),
@@ -52,7 +53,7 @@ public class ConsoleGroup extends BaseGroup {
 		}
 	}
 
-	public void initCodePanelGroup(final CodePanelGroup groupPanel) {
+	public void initCodePanelGroup(final CodePanelGroup groupPanel, final OnButtonListener codeListener) {
 		groupPanel.setBounds(0, 0, groupPanel.getWidth(), groupPanel.getHeight());
 		this.addActor(groupPanel);
 	}
