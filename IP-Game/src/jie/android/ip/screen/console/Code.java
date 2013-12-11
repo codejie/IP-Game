@@ -72,7 +72,11 @@ public class Code {
 		public Lines() {
 			for (int f = 0; f < CodeConfig.SIZE_CODE_LINES; ++ f) {
 				for (int p = 0; p < CodeConfig.SIZE_CODE_PER_LINE; ++ p) {
-					buttons[f][p] = new Button(Type.NONE);
+					if (p % 2 == 0) {
+						buttons[f][p] = new Button(Type.NONE);
+					} else {
+						buttons[f][p] = new Button(Type.IF_0);
+					}
 				}
 			}
 		}

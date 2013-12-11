@@ -94,6 +94,13 @@ console_code_default_small
   orig: 32, 32
   offset: 0, 0
   index: -1
+console_code_if_0_small
+  rotate: false
+  xy: 977, 475
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
 16
   rotate: false
   xy: 789, 377

@@ -123,8 +123,13 @@ public class CodeLineGroup extends BaseGroup {
 		if (small) {
 			if (type == Code.Type.NONE) {
 				ret = new ImageActor(atlas.findRegion(ResourceConfig.CONSOLE_CODE_DEFAULT_SMALL));
-				float x = CodeConfig.WIDTH_CODE_TITLE_SMALL + (ret.getWidth() + CodeConfig.SPACE_X_CODE) * pos;
-				float y = CodeConfig.SPACE_X_CODE / 2;			
+				float x = CodeConfig.WIDTH_CODE_TITLE_SMALL + (CodeConfig.WIDTH_SMALL_CODE_BUTTON + CodeConfig.SPACE_X_CODE) * pos / 2;
+				float y = CodeConfig.SPACE_Y_CODE / 2;			
+				ret.setBounds(x, y, ret.getWidth(), ret.getHeight());
+			} else if (type == Code.Type.IF_0) {
+				ret = new ImageActor(atlas.findRegion(ResourceConfig.CONSOLE_CODE_IF_0_SMALL));
+				float x = CodeConfig.WIDTH_CODE_TITLE_SMALL + (CodeConfig.WIDTH_SMALL_CODE_BUTTON + CodeConfig.SPACE_X_CODE) * (pos - 1) / 2;
+				float y = CodeConfig.HEIGHT_SMALL_CODE_LINE - CodeConfig.SPACE_Y_CODE / 2 - ret.getHeight();
 				ret.setBounds(x, y, ret.getWidth(), ret.getHeight());
 			}
 		} else {

@@ -51,6 +51,8 @@ public interface CommonConsts {
 		public static final String CONSOLE_CODE_NONE_SMALL = "console_code_none_small";
 		public static final String CONSOLE_CODE_NONE_BIG = "console_code_none_big";
 		
+		public static final String CONSOLE_CODE_IF_0_SMALL = "console_code_if_0_small";
+		
 	}
 	
 	public interface CmdConfig {
@@ -65,6 +67,7 @@ public interface CommonConsts {
 		public static final int BASE_X_CODE_LINES = 32;
 		public static final int BASE_Y_CODE_LINES = 16;
 		
+		public static final int WIDTH_SMALL_CODE_BUTTON = 64;
 		public static final int HEIGHT_SMALL_CODE_LINE = 72;
 //		public static final int WIDTH_SMALL_CODE_LINE = 
 		
