@@ -1,6 +1,7 @@
 package jie.android.ip.screen.console;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -12,6 +13,8 @@ import jie.android.ip.screen.BaseGroup;
 import jie.android.ip.screen.actor.ImageActor;
 import jie.android.ip.screen.console.Code.Button;
 import jie.android.ip.screen.console.Code.Lines;
+import jie.android.ip.screen.console.Code.OnButtonListener;
+import jie.android.ip.screen.console.Code.Type;
 import jie.android.ip.utils.Utils;
 
 public class CodeLineGroup extends BaseGroup {
@@ -26,20 +29,26 @@ public class CodeLineGroup extends BaseGroup {
 	private final Resources resources;
 	private final TextureAtlas atlas;
 	
-	private final Code.Lines codeLines;
-	
 	private State state = State.SMALL;
+
+	private final Code.Button buttons[];
 	
 	private ImageActor smallBg, bigBg;
+	private ImageActor smallTitle, bigTitle;
 	
+	private final Code.OnButtonListener onClickListener;
 	
-	public CodeLineGroup(int index, final Code.Lines codeLines, final Resources resources) {
+	public CodeLineGroup(int index, final Button[] buttons, final Code.OnButtonListener codeListener, final Resources resources) {
 		this.index = index;
 		this.resources = resources;
 		this.atlas = this.resources.getAssetManager().get(ResourceConfig.CONSOLE_PACK_NAME, TextureAtlas.class);
-		this.codeLines = codeLines;
+		this.buttons = buttons;
+		
+		this.onClickListener = codeListener;
 	
 		initStage();
+		
+		initButtons();
 	}
 
 	public int getIndex() {
@@ -56,45 +65,73 @@ public class CodeLineGroup extends BaseGroup {
 	
 	@Override
 	protected void initStage() {
-		initSmallGroup();
-	}
-
-	private void initSmallGroup() {
-		
-		ImageActor bg = new ImageActor(atlas.findRegion(ResourceConfig.CONSOLE_CODE_LINE_BG_SMALL));
-		bg.setBounds(0, 0, bg.getWidth(), bg.getHeight());
-		this.addActor(bg);
-		
-		ImageActor title = new ImageActor(atlas.findRegion(ResourceConfig.CONSOLE_CODE_LINE_TITLE_SMALL));
-		this.setBounds(0, 0, title.getWidth(), title.getHeight());
-		this.addActor(title);
-		
-		for (int i = 0; i < CodeConfig.SIZE_CODE_PER_LINE; ++ i) {
-			ImageActor def = new ImageActor(atlas.findRegion(ResourceConfig.CONSOLE_CODE_DEFAULT_SMALL));
-			float x = title.getWidth() + (def.getWidth() + CodeConfig.SPACE_X_CODE) * i;
-			float y = CodeConfig.SPACE_X_CODE / 2;			
-			def.setBounds(x, y, def.getWidth(), def.getHeight());
-			this.addActor(def);
-		}
-		
-		this.setWidth(bg.getWidth());
-		this.setHeight(bg.getHeight());
-		
-		//click listener
-		
-		this.addListener(new ClickListener() {
-
+		smallBg = new ImageActor(atlas.findRegion(ResourceConfig.CONSOLE_CODE_LINE_BG_SMALL));
+		smallBg.setBounds(0, 0, smallBg.getWidth(), smallBg.getHeight());
+		smallBg.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
-				Utils.log(Tag, "code line group : index = " + getIndex() + " x = " + x + " y = " + y);
-			}			
+				if (CodeLineGroup.this.getState() == CodeLineGroup.State.BIG && onClickListener != null) {
+					onClickListener.onClick(Code.OnButtonListener.Which.CODE_GROUP, CodeLineGroup.this.getIndex(), null);
+				}
+			}				
 		});
-//		
-//		this.addActor(groupSmall);		
+		this.addActor(smallBg);
+		
+		smallTitle = new ImageActor(atlas.findRegion(ResourceConfig.CONSOLE_CODE_LINE_TITLE_SMALL));
+		smallTitle.setBounds(0, 0, smallTitle.getWidth(), smallTitle.getHeight());
+		smallTitle.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				if (CodeLineGroup.this.getState() == CodeLineGroup.State.BIG && onClickListener != null) {
+					onClickListener.onClick(Code.OnButtonListener.Which.CODE_GROUP, CodeLineGroup.this.getIndex(), null);
+				}
+			}				
+		});
+		
+		this.addActor(smallTitle);
 	}
 	
-	private void update() {
+	private void initButtons() {
+		for (int i = 0; i < CodeConfig.SIZE_CODE_PER_LINE; ++ i) {
+			//small
+			final Code.Button btn = buttons[i];
+			btn.smallActor = makeImageActor(i, btn.type, true);
+			if (btn.smallActor != null) {
+				btn.smallActor.addListener(new ClickListener() {
+
+					@Override
+					public void clicked(InputEvent event, float x, float y) {
+						if (CodeLineGroup.this.getState() == CodeLineGroup.State.BIG && onClickListener != null) {
+							onClickListener.onClick(Code.OnButtonListener.Which.CODE, CodeLineGroup.this.getIndex(), btn);
+						}
+					}				
+				});
+			}
+			
+			this.addActor(btn.smallActor);
+			
+			//big
+//			buttons[i].bigActor = makeImageActor(i, buttons[i].type, false);			
+//			buttons[i].bigActor.setVisible(false);		
+//			this.addActor(buttons[i].bigActor);
+		}
+	}
+
+	
+	private Actor makeImageActor(int pos, Code.Type type, boolean small) {
+		ImageActor ret = null;
+		if (small) {
+			if (type == Code.Type.NONE) {
+				ret = new ImageActor(atlas.findRegion(ResourceConfig.CONSOLE_CODE_DEFAULT_SMALL));
+				float x = CodeConfig.WIDTH_CODE_TITLE_SMALL + (ret.getWidth() + CodeConfig.SPACE_X_CODE) * pos;
+				float y = CodeConfig.SPACE_X_CODE / 2;			
+				ret.setBounds(x, y, ret.getWidth(), ret.getHeight());
+			}
+		} else {
+			
+		}
 		
+		return ret;
 	}
 	
 }

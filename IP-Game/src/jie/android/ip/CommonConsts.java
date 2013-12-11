@@ -60,7 +60,7 @@ public interface CommonConsts {
 	
 	public interface CodeConfig {
 		public static final int SIZE_CODE_LINES = 4;
-		public static final int SIZE_CODE_PER_LINE = 8;
+		public static final int SIZE_CODE_PER_LINE = 8 * 2;
 		
 		public static final int BASE_X_CODE_LINES = 32;
 		public static final int BASE_Y_CODE_LINES = 16;
@@ -69,9 +69,12 @@ public interface CommonConsts {
 //		public static final int WIDTH_SMALL_CODE_LINE = 
 		
 		public static final int SPACE_X_CODE = 8;
+		public static final int SPACE_Y_CODE = 8;
 		
 		public static final int SPACE_Y_CODE_LINES = 16;
 		
+		public static final int WIDTH_CODE_TITLE_SMALL = 72;
+		public static final int HEIGHT_CODE_TITLE_SMALL = 72;
 		public static final int WIDTH_CODE_BIG = 64;
 		public static final int HEIGHT_CODE_BIG = 64;
 		

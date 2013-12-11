@@ -3,17 +3,16 @@ package jie.android.ip.screen.console;
 
 import java.util.HashMap;
 
+import jie.android.ip.CommonConsts.CodeConfig;
 import jie.android.ip.screen.actor.ImageActor;
 import jie.android.ip.utils.Extended.Pair;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Code {
-
-	public static final int MAX_FUNC = 4;
-	public static final int MAX_CODE = 8;
 	
 	public enum Type {
+		
 		NONE, RIGHT, LEFT, ACT, IF_0, IF_1, IF_2, IF_3, IF_NONE, IF_ANY,
 		CALL_0, CALL_1, CALL_2, CALL_3;
 		
@@ -45,6 +44,8 @@ public class Code {
 //	
 	public static class Button {
 		public final Type type;
+		public Actor smallActor;
+		public Actor bigActor;
 		
 		public Button(final Type type) {
 			this.type = type;
@@ -52,12 +53,29 @@ public class Code {
 	}
 //	
 	public interface OnButtonListener {
-		void onClick(boolean inPanel, final Button button);
+		
+		public enum Which {
+			PANEL_GROUP, PANEL, CODE_GROUP, CODE;
+			
+			public int getId() {
+				return this.ordinal();
+			}
+		}
+		
+		void onClick(Which which, int index, final Button button);
 	}	
 
-	public static class Lines {		
-		private Type[][] buttons = new Type[MAX_FUNC][MAX_CODE * 2];
-		private HashMap<Type, Pair<ImageActor, ImageActor>> actorMap = new HashMap<Type, Pair<ImageActor, ImageActor>>();
+	public static class Lines {
+		
+		private Button[][] buttons = new Button[CodeConfig.SIZE_CODE_LINES][CodeConfig.SIZE_CODE_PER_LINE];
+		
+		public Lines() {
+			for (int f = 0; f < CodeConfig.SIZE_CODE_LINES; ++ f) {
+				for (int p = 0; p < CodeConfig.SIZE_CODE_PER_LINE; ++ p) {
+					buttons[f][p] = new Button(Type.NONE);
+				}
+			}
+		}
 		
 		public void setButton(int func, int pos, final Button btn) {
 			if (!btn.type.isJudge()) {
@@ -76,7 +94,39 @@ public class Code {
 		}		
 	}
 	
-	
+	public static class Panel {
+		public static final int SIZE_JUDGE_BUTTON = 7;
+		public static final int SIZE_ORDER_BUTTON = 8;
+		private Button[] judgeButton = new Button[SIZE_JUDGE_BUTTON];
+		private Button[] orderButton = new Button[SIZE_ORDER_BUTTON];
+		
+		public Panel() {
+			judgeButton[0] = new Button(Type.IF_0);
+			judgeButton[1] = new Button(Type.IF_1);
+			judgeButton[2] = new Button(Type.IF_2);
+			judgeButton[3] = new Button(Type.IF_3);
+			judgeButton[4] = new Button(Type.IF_NONE);
+			judgeButton[5] = new Button(Type.IF_ANY);
+			judgeButton[6] = new Button(Type.NONE);
+			
+			orderButton[0] = new Button(Type.RIGHT);
+			orderButton[1] = new Button(Type.LEFT);
+			orderButton[2] = new Button(Type.ACT);
+			orderButton[3] = new Button(Type.CALL_0);
+			orderButton[4] = new Button(Type.CALL_1);
+			orderButton[5] = new Button(Type.CALL_2);
+			orderButton[6] = new Button(Type.CALL_3);
+			orderButton[7] = new Button(Type.NONE);
+		}
+		
+		public final Button[] getJudgeButton() {
+			return judgeButton;
+		}
+		
+		public final Button[] getOrderButton() {
+			return orderButton;
+		}
+	}
 //	
 //	public static class Panel {
 //		private Button[] buttons = new Button[Type.values().length - 1];

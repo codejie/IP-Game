@@ -5,8 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import jie.android.ip.screen.BoxRenderConfig;
 import jie.android.ip.screen.BoxScreenEventListener;
-import jie.android.ip.screen.console.Code.Type;
-import jie.android.ip.utils.Holder;
+import jie.android.ip.screen.console.Code.OnButtonListener.Which;
 import jie.android.ip.utils.Utils;
 
 public class ConsoleManager {
@@ -20,10 +19,7 @@ public class ConsoleManager {
 	
 	private Cmd.Panel cmdPanel;
 	private Code.Lines codeLines;
-//	private Code.Panel codePanel;
-	
-//	private Code.Button cacheCodePanelButton = null;
-//	private Code.Button cacheCodeLinesButton = null;
+	private Code.Panel codePanel;
 	
 	private Cmd.OnButtonListener cmdListener = new Cmd.OnButtonListener() {
 
@@ -37,24 +33,27 @@ public class ConsoleManager {
 	};
 	
 	private Code.OnButtonListener codeListener = new Code.OnButtonListener() {
-		
+
 		@Override
-		public void onClick(boolean inPanel, final Code.Button button) {
-			Utils.log(Tag, "code " + (inPanel ? "panel" : "lines") + " button type = " + button.type.getId());
-//			onCodeButtonClick(inPanel, button);
+		public void onClick(Code.OnButtonListener.Which which, int index, Code.Button button) {
+			if (which == Code.OnButtonListener.Which.PANEL_GROUP || which == Code.OnButtonListener.Which.CODE_GROUP) {
+				Utils.log(Tag, "code group click : index = " + index + " which = " + which.getId());
+			} else {
+				Utils.log(Tag, "code line click : index = " + index + " which = " + which.getId() + "  button type = " + button.type.getId());	
+			}	
 		}
 	}; 
 	
-//	private ClickListener groupListener = new ClickListener() {
-//
-//		@Override
-//		public void clicked(InputEvent event, float x, float y) {
-//			if (hitGroup(x, y)) {
-//				Utils.log(Tag, "group click : x = " + x + " y = " + y);
+	private ClickListener groupListener = new ClickListener() {
+
+		@Override
+		public void clicked(InputEvent event, float x, float y) {
+			if (hitGroup(x, y)) {
+				Utils.log(Tag, "console group click : x = " + x + " y = " + y);
 //				onGroupClick(x, y);
-//			}
-//		}
-//	};
+			}
+		}
+	};
 	
 	public ConsoleManager(final BoxRenderConfig config) {
 		this.config = config;
@@ -67,30 +66,22 @@ public class ConsoleManager {
 
 	private void initButtons() {
 		cmdPanel = new Cmd.Panel(cmdListener);
-//		codePanel = new Code.Panel(codeListener);
 		codeLines = new Code.Lines();
+		codePanel = new Code.Panel();
 	}
 	
 	private void initRenderer() {
 		renderer = new ConsoleRenderer(config);
 		
 		renderer.initCmdPanel(cmdPanel, cmdListener);
-//		for (final Cmd.Button btn : cmdPanel.getButtons()) {
-//			renderer.addCmdButton(btn, cmdListener);
-//		}
-		
-		renderer.initCodeLines(codeLines, codeListener);
-		
-//		for (final Code.Button btn : codePanel.getButtons()) {			
-//			renderer.addCodePanelButton(btn);
-//		}
+		renderer.initCodeLines(codeLines, codePanel, codeListener);
 //		
-//		renderer.setGroupClickListener(groupListener);
+		renderer.setGroupClickListener(groupListener);
 	}
 	
-//	protected boolean hitGroup(float x, float y) {
-//		return renderer.hitGroup(x, y);
-//	}
+	protected boolean hitGroup(float x, float y) {
+		return renderer.hitGroup(x, y);
+	}
 //	
 //	protected void onCodeButtonClick(boolean inPanel, Button button) {
 //		

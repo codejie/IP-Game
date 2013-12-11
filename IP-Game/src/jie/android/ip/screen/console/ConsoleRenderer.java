@@ -19,20 +19,17 @@ public class ConsoleRenderer {
 	private final TextureAtlas atlas;
 	private final TweenManager tweenManager;
 	
-	private final CodeLineGroup[] groupLines;
-	private final CodePanelGroup groupPanel;
-	
 	public ConsoleRenderer(final BoxRenderConfig config) {
 		this.config = config;
 		this.group = (ConsoleGroup) this.config.getConsoleGroup();		
 		this.atlas = this.config.getResources().getAssetManager().get(ResourceConfig.CONSOLE_PACK_NAME, TextureAtlas.class);		
-		this.tweenManager = this.config.getTweenManager();
-		
-		this.groupLines = new CodeLineGroup[CodeConfig.SIZE_CODE_LINES];
-		this.groupPanel = new CodePanelGroup(this.config.getResources());
-		
-//		initGroup();
+		this.tweenManager = this.config.getTweenManager();	
 	}
+	
+	public void setGroupClickListener(ClickListener groupListener) {
+		group.setClickListener(groupListener);
+	}
+	
 	
 	private void addCmdButton(final Cmd.Button button, final Cmd.OnButtonListener listener) {
 		
@@ -55,26 +52,14 @@ public class ConsoleRenderer {
 			addCmdButton(btn, cmdListener);
 		}		
 	}
-
-//	private void initCodeGroup() {
-//		for (int i = 0; i < CodeConfig.SIZE_CODE_LINES; ++ i) {
-//			groupLines[i] = new CodeLineGroup(i, this.config.getResources());
-//		}
-//		
-//		group.initCodeLineGroup(groupLines);
-//		group.initCodePanelGroup(groupPanel);
-//	}	
 	
-	public void initCodeLines(final Code.Lines codeLines, final Code.OnButtonListener codeListener) {
-		for (int i = 0; i < CodeConfig.SIZE_CODE_LINES; ++ i) {
-			groupLines[i] = new CodeLineGroup(i, codeLines, this.config.getResources());
-		}
-
-		group.initCodeLineGroup(groupLines, codeListener);
-		group.initCodePanelGroup(groupPanel, codeListener);		
+	public void initCodeLines(final Code.Lines codeLines, final Code.Panel codePanel, final Code.OnButtonListener codeListener) {		
+		group.initCodeGroup(codeLines, codePanel, codeListener);
 	}
 	
-	
+	public boolean hitGroup(float x, float y) {
+		return (group.hit(x, y, true) == group);
+	}	
 	
 //
 //	private static final int BASE_X_CODE_PANEL = ScreenConfig.WIDTH * 2 / 3 + 16;
