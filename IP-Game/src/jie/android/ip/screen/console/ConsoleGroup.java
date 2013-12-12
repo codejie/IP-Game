@@ -1,5 +1,11 @@
 package jie.android.ip.screen.console;
 
+import aurelienribon.tweenengine.BaseTween;
+import aurelienribon.tweenengine.Timeline;
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenCallback;
+import aurelienribon.tweenengine.TweenManager;
+
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -8,9 +14,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import jie.android.ip.CommonConsts.CodeConfig;
 import jie.android.ip.Resources;
 import jie.android.ip.CommonConsts.ResourceConfig;
-import jie.android.ip.screen.BaseGroup;
-import jie.android.ip.screen.actor.ImageActor;
-import jie.android.ip.screen.console.Code.Lines;
+import jie.android.ip.screen.actor.BaseGroup;
+import jie.android.ip.screen.actor.BaseGroupAccessor;
 import jie.android.ip.screen.console.Code.OnButtonListener;
 
 public class ConsoleGroup extends BaseGroup {
@@ -76,6 +81,7 @@ public class ConsoleGroup extends BaseGroup {
 			groupLines[i] = new CodeLineGroup(i, codeLines.getFuncButton(i), codeListener, this.resources);			
 			final CodeLineGroup group = groupLines[i];
 			final int func = i;
+			//group.setPosition(CodeConfig.BASE_X_CODE_LINES, CodeConfig.BASE_Y_CODE_LINES + (groupLines.length - func - 1) * (CodeConfig.HEIGHT_SMALL_CODE_LINE + CodeConfig.SPACE_Y_CODE_LINES));
 			
 			group.setBounds(CodeConfig.BASE_X_CODE_LINES, CodeConfig.BASE_Y_CODE_LINES + (groupLines.length - func - 1) * (CodeConfig.HEIGHT_SMALL_CODE_LINE + CodeConfig.SPACE_Y_CODE_LINES),
 					group.getWidth(), group.getHeight());
@@ -108,6 +114,47 @@ public class ConsoleGroup extends BaseGroup {
 		
 		groupPanel.setBounds(0, 0, groupPanel.getWidth(), groupPanel.getHeight());
 		this.addActor(groupPanel);
+	}
+
+	public void toggleCodeLineState(int index, final TweenManager tweenManager) {
+		final CodeLineGroup group = groupLines[index];
+		float x, y, scale;
+		if (group.getState() == CodeLineGroup.State.SMALL) {
+			switch (index) {
+			case 0:
+				x = 100.0f;
+				y = 550.0f;
+				scale = 2.0f;
+				break;
+			default:
+				return;
+			}
+			setBigState(group, x, y, scale, tweenManager);
+		} else {
+			
+		}
+	}
+	
+	private void setBigState(final CodeLineGroup group, float x, float y, float scale, final TweenManager tweenManager) {
+		
+		final TweenCallback callback = new TweenCallback() {
+
+			@Override
+			public void onEvent(int type, BaseTween<?> source) {
+				setBigState(group);
+			}
+		};
+		
+		Timeline.createParallel()
+//			.setUserData(group)
+			.push(Tween.to(group, BaseGroupAccessor.POSITION_XY, 0.2f).target(x, y))
+			.push(Tween.to(group, BaseGroupAccessor.SCALE_XY, 0.2f).target(scale, scale))
+			.setCallback(callback)
+			.start(tweenManager);
+	}
+
+	protected void setBigState(final CodeLineGroup group) {
+		
 	}
 
 	

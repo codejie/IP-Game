@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import jie.android.ip.CommonConsts.ResourceConfig;
 import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.Resources;
-import jie.android.ip.screen.BaseGroup;
+import jie.android.ip.screen.actor.BaseGroup;
 import jie.android.ip.screen.actor.ImageActor;
 
 public class BoxGroup extends BaseGroup {

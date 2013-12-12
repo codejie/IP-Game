@@ -1,7 +1,8 @@
 package jie.android.ip.screen;
 
-import jie.android.ip.CommonConsts;
 import jie.android.ip.IPGame;
+import jie.android.ip.screen.actor.BaseGroup;
+import jie.android.ip.screen.actor.BaseGroupAccessor;
 import jie.android.ip.screen.actor.ImageActor;
 import jie.android.ip.screen.actor.ImageActorAccessor;
 
@@ -13,7 +14,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class BaseScreen implements Screen {
 
@@ -42,6 +42,7 @@ public class BaseScreen implements Screen {
 	
 	private void initTweenManager() {
 		Tween.registerAccessor(ImageActor.class, new ImageActorAccessor());
+		Tween.registerAccessor(BaseGroup.class, new BaseGroupAccessor());
 	}
 	
 	public void addActor(final Actor actor) {

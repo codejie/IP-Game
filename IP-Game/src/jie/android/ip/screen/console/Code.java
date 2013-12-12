@@ -1,12 +1,7 @@
 package jie.android.ip.screen.console;
 
 
-import java.util.HashMap;
-
 import jie.android.ip.CommonConsts.CodeConfig;
-import jie.android.ip.screen.actor.ImageActor;
-import jie.android.ip.utils.Extended.Pair;
-
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Code {
@@ -55,14 +50,14 @@ public class Code {
 	public interface OnButtonListener {
 		
 		public enum Which {
-			PANEL_GROUP, PANEL, CODE_GROUP, CODE;
+			PANEL_GROUP, PANEL, CODE_GROUP, CODE;// code is code line
 			
 			public int getId() {
 				return this.ordinal();
 			}
 		}
 		
-		void onClick(Which which, int index, final Button button);
+		void onClick(final Which which, int index, final Button button);
 	}	
 
 	public static class Lines {

@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import jie.android.ip.CommonConsts.CmdConfig;
-import jie.android.ip.CommonConsts.CodeConfig;
 import jie.android.ip.CommonConsts.ResourceConfig;
 import jie.android.ip.screen.BoxRenderConfig;
 import jie.android.ip.screen.actor.ImageActor;
@@ -59,6 +58,10 @@ public class ConsoleRenderer {
 	
 	public boolean hitGroup(float x, float y) {
 		return (group.hit(x, y, true) == group);
+	}
+
+	public void updataCodeGroupState(int index) {
+		group.toggleCodeLineState(index, tweenManager);
 	}	
 	
 //

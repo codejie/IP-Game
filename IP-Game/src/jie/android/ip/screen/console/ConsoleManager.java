@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import jie.android.ip.screen.BoxRenderConfig;
 import jie.android.ip.screen.BoxScreenEventListener;
-import jie.android.ip.screen.console.Code.OnButtonListener.Which;
+import jie.android.ip.screen.console.Code.Button;
 import jie.android.ip.utils.Utils;
 
 public class ConsoleManager {
@@ -35,12 +35,17 @@ public class ConsoleManager {
 	private Code.OnButtonListener codeListener = new Code.OnButtonListener() {
 
 		@Override
-		public void onClick(Code.OnButtonListener.Which which, int index, Code.Button button) {
+		public void onClick(final Code.OnButtonListener.Which which, int index, final Code.Button button) {
 			if (which == Code.OnButtonListener.Which.PANEL_GROUP || which == Code.OnButtonListener.Which.CODE_GROUP) {
 				Utils.log(Tag, "code group click : index = " + index + " which = " + which.getId());
-			} else {
-				Utils.log(Tag, "code line click : index = " + index + " which = " + which.getId() + "  button type = " + button.type.getId());	
-			}	
+				onCodeGroupClick(index);
+			} else if (which == Code.OnButtonListener.Which.PANEL) {
+				Utils.log(Tag, "code panel click : index = " + index + " which = " + which.getId() + "  button type = " + button.type.getId());
+				onCodePanelClick(index, button);
+			} else if (which == Code.OnButtonListener.Which.CODE) {
+				Utils.log(Tag, "code line click : index = " + index + " which = " + which.getId() + "  button type = " + button.type.getId());
+				onCodeLineClick(index, button);
+			}
 		}
 	}; 
 	
@@ -50,7 +55,7 @@ public class ConsoleManager {
 		public void clicked(InputEvent event, float x, float y) {
 			if (hitGroup(x, y)) {
 				Utils.log(Tag, "console group click : x = " + x + " y = " + y);
-//				onGroupClick(x, y);
+				onConsoleGroupClick(x, y);
 			}
 		}
 	};
@@ -82,6 +87,24 @@ public class ConsoleManager {
 	protected boolean hitGroup(float x, float y) {
 		return renderer.hitGroup(x, y);
 	}
+	
+	protected void onCodeLineClick(int index, final Code.Button button) {
+		//
+	}
+
+	protected void onCodePanelClick(int index, final Code.Button button) {
+		
+	}
+
+	protected void onCodeGroupClick(int index) {
+		renderer.updataCodeGroupState(index);
+	}
+	
+	protected void onConsoleGroupClick(float x, float y) {
+		// TODO Auto-generated method stub
+		
+	}	
+	
 //	
 //	protected void onCodeButtonClick(boolean inPanel, Button button) {
 //		
