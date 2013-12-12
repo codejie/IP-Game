@@ -61,7 +61,7 @@ public class ConsoleGroup extends BaseGroup {
 	public void initCodeLineGroup(final CodeLineGroup[] groupLines, final OnButtonListener codeListener) {
 		for (int i = 0; i < groupLines.length; ++ i) {
 			
-			groupLines[i].setBounds(CodeConfig.BASE_X_CODE_LINES, CodeConfig.BASE_Y_CODE_LINES + (groupLines.length - i - 1) * (CodeConfig.HEIGHT_SMALL_CODE_LINE + CodeConfig.SPACE_Y_CODE_LINES),
+			groupLines[i].setBounds(CodeConfig.BASE_X_CODE_LINES, CodeConfig.BASE_Y_CODE_LINES + (groupLines.length - i - 1) * (CodeConfig.HEIGHT_CODE_LINE_SMALL + CodeConfig.SPACE_Y_CODE_LINES),
 					groupLines[i].getWidth(), groupLines[i].getHeight());
 			
 			this.addActor(groupLines[i]);
@@ -83,7 +83,7 @@ public class ConsoleGroup extends BaseGroup {
 			final int func = i;
 			//group.setPosition(CodeConfig.BASE_X_CODE_LINES, CodeConfig.BASE_Y_CODE_LINES + (groupLines.length - func - 1) * (CodeConfig.HEIGHT_SMALL_CODE_LINE + CodeConfig.SPACE_Y_CODE_LINES));
 			
-			group.setBounds(CodeConfig.BASE_X_CODE_LINES, CodeConfig.BASE_Y_CODE_LINES + (groupLines.length - func - 1) * (CodeConfig.HEIGHT_SMALL_CODE_LINE + CodeConfig.SPACE_Y_CODE_LINES),
+			group.setBounds(CodeConfig.BASE_X_CODE_LINES, CodeConfig.BASE_Y_CODE_LINES + (groupLines.length - func - 1) * (CodeConfig.HEIGHT_CODE_LINE_SMALL + CodeConfig.SPACE_Y_CODE_LINES),
 					group.getWidth(), group.getHeight());
 			
 			group.addListener(new ClickListener() {
@@ -123,8 +123,8 @@ public class ConsoleGroup extends BaseGroup {
 			switch (index) {
 			case 0:
 				x = 100.0f;
-				y = 550.0f;
-				scale = 2.0f;
+				y = 450.0f;
+				scale = 1.8f;
 				break;
 			default:
 				return;
@@ -147,14 +147,15 @@ public class ConsoleGroup extends BaseGroup {
 		
 		Timeline.createParallel()
 //			.setUserData(group)
-			.push(Tween.to(group, BaseGroupAccessor.POSITION_XY, 0.2f).target(x, y))
-			.push(Tween.to(group, BaseGroupAccessor.SCALE_XY, 0.2f).target(scale, scale))
+			.push(Tween.to(group, BaseGroupAccessor.POSITION_XY, 2.2f).target(x, y))
+			.push(Tween.to(group, BaseGroupAccessor.SCALE_XY, 2.2f).target(scale, scale))
 			.setCallback(callback)
 			.start(tweenManager);
 	}
 
 	protected void setBigState(final CodeLineGroup group) {
-		
+		group.setState(CodeLineGroup.State.BIG);
+		group.setScale(1.0f);
 	}
 
 	

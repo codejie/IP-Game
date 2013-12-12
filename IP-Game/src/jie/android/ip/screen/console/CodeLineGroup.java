@@ -43,7 +43,7 @@ public class CodeLineGroup extends BaseGroup {
 	
 		initStage();
 		
-		initButtons();
+		initButtons(true);
 	}
 
 	public int getIndex() {
@@ -158,7 +158,7 @@ public class CodeLineGroup extends BaseGroup {
 		ImageActor ret = null;
 		if (small) {
 			if (type == Code.Type.NONE) {
-				ret = new ImageActor(atlas.findRegion(ResourceConfig.CONSOLE_CODE_DEFAULT_SMALL));
+				ret = new ImageActor(atlas.findRegion(ResourceConfig.CONSOLE_CODE_NONE_SMALL));
 				setButtonBounds(ret, pos, false, true);
 				
 			} else if (type == Code.Type.IF_0) {
@@ -167,7 +167,7 @@ public class CodeLineGroup extends BaseGroup {
 			}
 		} else {
 			if (type == Code.Type.NONE) {
-				ret = new ImageActor(atlas.findRegion(ResourceConfig.CONSOLE_CODE_DEFAULT_BIG));
+				ret = new ImageActor(atlas.findRegion(ResourceConfig.CONSOLE_CODE_NONE_BIG));
 				setButtonBounds(ret, pos, false, false);
 			} else if (type == Code.Type.IF_0) {
 				ret = new ImageActor(atlas.findRegion(ResourceConfig.CONSOLE_CODE_IF_0_BIG));				
@@ -180,13 +180,13 @@ public class CodeLineGroup extends BaseGroup {
 	
 	private void setButtonBounds(final ImageActor actor, int pos, boolean judge, boolean small) {
 		if (small) {
-			float x = CodeConfig.WIDTH_CODE_TITLE_SMALL + (CodeConfig.WIDTH_SMALL_CODE_BUTTON + CodeConfig.SPACE_X_CODE) * ((judge ? pos - 1 : pos) / 2);
+			float x = CodeConfig.WIDTH_CODE_TITLE_SMALL + (CodeConfig.WIDTH_CODE_BUTTON_SMALL + CodeConfig.SPACE_X_CODE) * ((judge ? pos - 1 : pos) / 2);
 			float y = CodeConfig.SPACE_Y_CODE / 2;			
-			actor.setBounds(x, y, ret.getWidth(), ret.getHeight());			
+			actor.setBounds(x, y, actor.getWidth(), actor.getHeight());			
 		} else {
-			float x = CodeConfig.WIDTH_CODE_TITLE_BIG + (CodeConfig.WIDTH_BIG_CODE_BUTTON + CodeConfig.SPACE_X_CODE) * ((judge ? pos - 1 : pos) / 2);
+			float x = CodeConfig.WIDTH_CODE_TITLE_BIG + (CodeConfig.WIDTH_CODE_BUTTON_BIG + CodeConfig.SPACE_X_CODE) * ((judge ? pos - 1 : pos) / 2);
 			float y = CodeConfig.SPACE_Y_CODE / 2;			
-			actor.setBounds(x, y, ret.getWidth(), ret.getHeight());			
+			actor.setBounds(x, y, actor.getWidth(), actor.getHeight());			
 		}
 	}
 	

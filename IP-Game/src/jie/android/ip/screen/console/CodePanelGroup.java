@@ -55,9 +55,9 @@ public class CodePanelGroup extends BaseGroup {
 		bg.setPosition(0, 0);
 		groupOrder.addActor(bg);
 
-		groupJudge.setBounds(0, 0, CodeConfig.WIDTH_CODE_BIG * Code.Panel.SIZE_JUDGE_BUTTON, bg.getHeight());
+		groupJudge.setBounds(0, 0, CodeConfig.WIDTH_CODE_PANEL_BUTTON * Code.Panel.SIZE_JUDGE_BUTTON, bg.getHeight());
 		groupJudge.setVisible(false);
-		groupOrder.setBounds(0, 0, CodeConfig.WIDTH_CODE_BIG * Code.Panel.SIZE_ORDER_BUTTON, bg.getHeight());
+		groupOrder.setBounds(0, 0, CodeConfig.WIDTH_CODE_PANEL_BUTTON * Code.Panel.SIZE_ORDER_BUTTON, bg.getHeight());
 		groupOrder.setVisible(false);
 		
 		this.addActor(groupJudge);
@@ -100,7 +100,7 @@ public class CodePanelGroup extends BaseGroup {
 		ImageActor ret = null;
 		//if (type == Code.Type.NONE) {
 			ret = new ImageActor(this.atlas.findRegion(ResourceConfig.CONSOLE_CODE_NONE_BIG));
-			float x = CodeConfig.SPACE_X_CODE / 2 + (CodeConfig.WIDTH_CODE_BIG + CodeConfig.SPACE_X_CODE / 2) * pos;
+			float x = CodeConfig.SPACE_X_CODE / 2 + (CodeConfig.WIDTH_CODE_PANEL_BUTTON + CodeConfig.SPACE_X_CODE / 2) * pos;
 			float y = CodeConfig.SPACE_Y_CODE /2;
 			ret.setBounds(x, y, ret.getWidth(), ret.getHeight());
 		//}

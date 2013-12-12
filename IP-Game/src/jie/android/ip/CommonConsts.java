@@ -43,15 +43,17 @@ public interface CommonConsts {
 		public static final String CONSOLE_CODE_LINE_BG_SMALL = "console_code_line_bg_small";
 		public static final String CONSOLE_CODE_LINE_BG_BIG = "console_code_line_bg_big";
 		public static final String CONSOLE_CODE_LINE_TITLE_SMALL = "console_code_line_title_small";
+		public static final String CONSOLE_CODE_LINE_TITLE_BIG = "console_code_line_title_big";
 		
 		public static final String CONSOLE_CODE_PANEL_BG = "console_code_panel_bg";
 		
-		public static final String CONSOLE_CODE_DEFAULT_SMALL = "console_code_default_small";
-		public static final String CONSOLE_CODE_DEFAULT_BIG = "console_code_default_big";
+//		public static final String CONSOLE_CODE_DEFAULT_SMALL = "console_code_default_small";
+//		public static final String CONSOLE_CODE_DEFAULT_BIG = "console_code_default_big";
 		public static final String CONSOLE_CODE_NONE_SMALL = "console_code_none_small";
-		public static final String CONSOLE_CODE_NONE_BIG = "console_code_none_big";
-		
+		public static final String CONSOLE_CODE_NONE_BIG = "console_code_none_big";		
 		public static final String CONSOLE_CODE_IF_0_SMALL = "console_code_if_0_small";
+		public static final String CONSOLE_CODE_IF_0_BIG = "console_code_if_0_big";
+		
 		
 	}
 	
@@ -67,8 +69,14 @@ public interface CommonConsts {
 		public static final int BASE_X_CODE_LINES = 32;
 		public static final int BASE_Y_CODE_LINES = 16;
 		
-		public static final int WIDTH_SMALL_CODE_BUTTON = 64;
-		public static final int HEIGHT_SMALL_CODE_LINE = 72;
+		public static final int WIDTH_CODE_BUTTON_SMALL = 64;
+		public static final int HEIGHT_CODE_LINE_SMALL = 72;
+		public static final int WIDTH_CODE_BUTTON_BIG = 128;
+		public static final int HEIGHT_CODE_LINE_BIG = 144;		
+		
+//		public static final int WIDTH_SMALL_CODE_BUTTON = 64;
+//		public static final int HEIGHT_SMALL_CODE_LINE = 72;
+		
 //		public static final int WIDTH_SMALL_CODE_LINE = 
 		
 		public static final int SPACE_X_CODE = 8;
@@ -78,8 +86,11 @@ public interface CommonConsts {
 		
 		public static final int WIDTH_CODE_TITLE_SMALL = 72;
 		public static final int HEIGHT_CODE_TITLE_SMALL = 72;
-		public static final int WIDTH_CODE_BIG = 64;
-		public static final int HEIGHT_CODE_BIG = 64;
+		public static final int WIDTH_CODE_TITLE_BIG = 144;
+		public static final int HEIGHT_CODE_TITLE_BIG = 144;		
+		
+		public static final int WIDTH_CODE_PANEL_BUTTON = 64;
+		public static final int HEIGHT_CODE_PANEL_BUTTON = 64;
 		
 //		public static final int SIZE_TITLE_CODE_LINE = 64;
 	}
