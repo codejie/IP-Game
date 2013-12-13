@@ -10,6 +10,7 @@ import jie.android.ip.CommonConsts.CmdConfig;
 import jie.android.ip.CommonConsts.ResourceConfig;
 import jie.android.ip.screen.BoxRenderConfig;
 import jie.android.ip.screen.actor.ImageActor;
+import jie.android.ip.screen.console.Code.Button;
 
 public class ConsoleRenderer {
 
@@ -62,6 +63,10 @@ public class ConsoleRenderer {
 
 	public void updataCodeGroupState(int index) {
 		group.toggleCodeLineState(index, tweenManager);
+	}
+
+	public void showCodePanel(int index, final Code.Button button) {
+		group.showCodePanel(index, button, tweenManager);
 	}	
 	
 //

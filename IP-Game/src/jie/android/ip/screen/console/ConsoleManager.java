@@ -89,7 +89,7 @@ public class ConsoleManager {
 	}
 	
 	protected void onCodeLineClick(int index, final Code.Button button) {
-		//
+		renderer.showCodePanel(index, button);
 	}
 
 	protected void onCodePanelClick(int index, final Code.Button button) {

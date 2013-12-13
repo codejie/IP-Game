@@ -203,7 +203,42 @@ public class CodeLineGroup extends BaseGroup {
 	}
 	
 	private void setSmallState() {
+		//hide big
+		if (bigBg != null) {
+			bigBg.setVisible(false);
+		}
 		
+		if (bigTitle != null) {
+			bigTitle.setVisible(false);
+		}
+		
+		for (int i = 0; i < CodeConfig.SIZE_CODE_PER_LINE; ++ i) {
+			final Actor btn = buttons[i].bigActor;
+			if (btn != null) {
+				btn.setVisible(false);
+			}
+		}
+		
+		// show small
+		if (smallBg == null || smallTitle == null) {
+			initStage(true);
+		} else {
+			smallBg.setVisible(true);
+			smallTitle.setVisible(true);
+		}
+		
+		if (buttons[0].smallActor != null) {
+			for (int i = 0; i < CodeConfig.SIZE_CODE_PER_LINE; ++ i) {
+				final Actor btn = buttons[i].smallActor;
+				if (btn != null) {
+					btn.setVisible(true);
+				}				
+			}			
+		} else {
+			initButtons(true);
+		}
+		
+		state = State.SMALL;		
 	}
 	
 	private void setBigState() {
@@ -227,7 +262,10 @@ public class CodeLineGroup extends BaseGroup {
 		// show big actors
 		if (bigBg == null || bigTitle == null) {
 			initStage(false);
-		}
+		} else {
+			bigBg.setVisible(true);
+			bigTitle.setVisible(true);
+		}		
 		
 		if (buttons[0].bigActor != null) {
 			for (int i = 0; i < CodeConfig.SIZE_CODE_PER_LINE; ++ i) {
@@ -239,6 +277,8 @@ public class CodeLineGroup extends BaseGroup {
 		} else {
 			initButtons(false);
 		}
+		
+		state = State.BIG;
 	}
 	
 }

@@ -11,6 +11,7 @@ import jie.android.ip.Resources;
 import jie.android.ip.CommonConsts.ResourceConfig;
 import jie.android.ip.screen.actor.BaseGroup;
 import jie.android.ip.screen.actor.ImageActor;
+import jie.android.ip.screen.console.CodePanelGroup.State;
 
 public class CodePanelGroup extends BaseGroup {
 
@@ -57,8 +58,10 @@ public class CodePanelGroup extends BaseGroup {
 
 		groupJudge.setBounds(0, 0, CodeConfig.WIDTH_CODE_PANEL_BUTTON * Code.Panel.SIZE_JUDGE_BUTTON, bg.getHeight());
 		groupJudge.setVisible(false);
+		//groupJudge.setScale(0.0f);
 		groupOrder.setBounds(0, 0, CodeConfig.WIDTH_CODE_PANEL_BUTTON * Code.Panel.SIZE_ORDER_BUTTON, bg.getHeight());
 		groupOrder.setVisible(false);
+		//groupOrder.setScale(0.0f);
 		
 		this.addActor(groupJudge);
 		this.addActor(groupOrder);	
@@ -106,5 +109,17 @@ public class CodePanelGroup extends BaseGroup {
 		//}
 		return ret;
 	}
-	
+
+	public boolean setState(final CodePanelGroup.State state) {
+		if (this.state == state) {
+			return false;
+		}
+
+		this.state = state;
+		
+		groupJudge.setVisible(this.state == State.JUDGE);
+		groupOrder.setVisible(this.state == State.ORDER);
+		
+		return true;
+	}	
 }
