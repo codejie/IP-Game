@@ -27,6 +27,10 @@ public class Code {
 			return (this == IF_0 || this == IF_1 || this == IF_2 || this == IF_3
 					|| this == IF_NONE || this == IF_ANY);
 		}
+		
+		public boolean isNone() {
+			return this == NONE;
+		}
 	}
 //	
 //	public enum State {
@@ -70,7 +74,7 @@ public class Code {
 					if (p % 2 == 0) {
 						buttons[f][p] = new Button(Type.NONE);
 					} else {
-						buttons[f][p] = new Button(Type.IF_0);
+						buttons[f][p] = new Button(Type.IF_NONE);
 					}
 				}
 			}

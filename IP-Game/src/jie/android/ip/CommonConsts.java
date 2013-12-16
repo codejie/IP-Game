@@ -51,6 +51,9 @@ public interface CommonConsts {
 //		public static final String CONSOLE_CODE_DEFAULT_BIG = "console_code_default_big";
 		public static final String CONSOLE_CODE_NONE_SMALL = "console_code_none_small";
 		public static final String CONSOLE_CODE_NONE_BIG = "console_code_none_big";		
+		public static final String CONSOLE_CODE_IF_NONE_SMALL = "console_code_if_none_small";
+		public static final String CONSOLE_CODE_IF_NONE_BIG = "console_code_if_none_big";
+
 		public static final String CONSOLE_CODE_IF_0_SMALL = "console_code_if_0_small";
 		public static final String CONSOLE_CODE_IF_0_BIG = "console_code_if_0_big";
 		
@@ -94,4 +97,44 @@ public interface CommonConsts {
 		
 //		public static final int SIZE_TITLE_CODE_LINE = 64;
 	}
+	
+	public interface ConsoleGroupConfig {
+		public interface Cmd {
+			
+		}
+		
+		public interface Lines {
+			
+			public static final int NUM_CODE_LINES = 4;
+			public static final int NUM_CODE_PER_LINE = 8 * 2;
+			
+			public static final int BASE_X = 32;
+			public static final int BASE_Y = 16;
+			
+			public interface Small {
+				public static final int WIDTH_BG = 100;
+				public static final int HEIGHT_BG = 100;
+				
+				public static final int WIDTH_TITLE = 100;
+				public static final int HEIGHT_TITLE = 100;
+				
+				public static final int SPACE_X = 100;
+				public static final int SPACE_Y = 100;
+				
+				public static final int WIDTH_BUTTON_CODE = 100;
+				public static final int HEIGHT_BUTTON_CODE = 100;				
+				public static final int WIDTH_BUTTON_JUDGE = 100;
+				public static final int HEIGHT_BUTTON_JUDGE = 100;
+			}
+			
+			public interface Big {
+				
+			}
+		}
+		
+		public interface Panel {
+			
+		}
+	}
+	
 }

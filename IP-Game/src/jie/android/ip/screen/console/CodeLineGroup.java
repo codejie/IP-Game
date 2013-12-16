@@ -161,16 +161,16 @@ public class CodeLineGroup extends BaseGroup {
 				ret = new ImageActor(atlas.findRegion(ResourceConfig.CONSOLE_CODE_NONE_SMALL));
 				setButtonBounds(ret, pos, false, true);
 				
-			} else if (type == Code.Type.IF_0) {
-				ret = new ImageActor(atlas.findRegion(ResourceConfig.CONSOLE_CODE_IF_0_SMALL));
+			} else if (type == Code.Type.IF_NONE) {
+				ret = new ImageActor(atlas.findRegion(ResourceConfig.CONSOLE_CODE_IF_NONE_SMALL));
 				setButtonBounds(ret, pos, true, true);
 			}
 		} else {
 			if (type == Code.Type.NONE) {
 				ret = new ImageActor(atlas.findRegion(ResourceConfig.CONSOLE_CODE_NONE_BIG));
 				setButtonBounds(ret, pos, false, false);
-			} else if (type == Code.Type.IF_0) {
-				ret = new ImageActor(atlas.findRegion(ResourceConfig.CONSOLE_CODE_IF_0_BIG));				
+			} else if (type == Code.Type.IF_NONE) {
+				ret = new ImageActor(atlas.findRegion(ResourceConfig.CONSOLE_CODE_IF_NONE_BIG));				
 				setButtonBounds(ret, pos, true, false);
 			}			
 		}
@@ -179,15 +179,28 @@ public class CodeLineGroup extends BaseGroup {
 	}
 	
 	private void setButtonBounds(final ImageActor actor, int pos, boolean judge, boolean small) {
+		float x = 0, y = 0;
 		if (small) {
-			float x = CodeConfig.WIDTH_CODE_TITLE_SMALL + (CodeConfig.WIDTH_CODE_BUTTON_SMALL + CodeConfig.SPACE_X_CODE) * ((judge ? pos - 1 : pos) / 2);
-			float y = CodeConfig.SPACE_Y_CODE / 2;			
-			actor.setBounds(x, y, actor.getWidth(), actor.getHeight());			
+			if (judge) {
+				x = CodeConfig.WIDTH_CODE_TITLE_SMALL + (CodeConfig.WIDTH_CODE_BUTTON_SMALL + CodeConfig.SPACE_X_CODE) * (( pos - 1) / 2);
+				y = CodeConfig.SPACE_Y_CODE / 2 + CodeConfig.WIDTH_CODE_BUTTON_SMALL - actor.getWidth();
+			} else {
+				x = CodeConfig.WIDTH_CODE_TITLE_SMALL + (CodeConfig.WIDTH_CODE_BUTTON_SMALL + CodeConfig.SPACE_X_CODE) * (pos / 2);
+				y = CodeConfig.SPACE_Y_CODE / 2;
+			}
 		} else {
-			float x = CodeConfig.WIDTH_CODE_TITLE_BIG + (CodeConfig.WIDTH_CODE_BUTTON_BIG + CodeConfig.SPACE_X_CODE) * ((judge ? pos - 1 : pos) / 2);
-			float y = CodeConfig.SPACE_Y_CODE / 2;			
+			if (judge) {
+				
+			} else {
+				
+			}
+			
+			x = CodeConfig.WIDTH_CODE_TITLE_BIG + (CodeConfig.WIDTH_CODE_BUTTON_BIG + CodeConfig.SPACE_X_CODE) * ((judge ? pos - 1 : pos) / 2);
+			y = CodeConfig.SPACE_Y_CODE / 2;			
 			actor.setBounds(x, y, actor.getWidth(), actor.getHeight());			
 		}
+		
+		actor.setBounds(x, y, actor.getWidth(), actor.getHeight());
 	}
 	
 	public void setState(final State state) {

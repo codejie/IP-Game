@@ -127,34 +127,23 @@ public class ConsoleGroup extends BaseGroup {
 	}
 
 	public void toggleCodeLineState(int index, final TweenManager tweenManager) {
-		final CodeLineGroup group = groupLines[index];
-		float scale = 1.0f;
-		final Vector2 vct = getCodeLinePosition(index);
-		
-		if (group.getState() == CodeLineGroup.State.SMALL) {
-			if (index == 0 || index == 1) {
-				vct.y = vct.y - CodeConfig.HEIGHT_CODE_LINE_SMALL;
-			} else {
-			
+
+		for (int i = 0; i < CodeConfig.SIZE_CODE_LINES; ++ i) {
+			if (groupLines[i].getState() == CodeLineGroup.State.BIG) {
+				changeCodeLineState(i, tweenManager);
+				if (i == index) {
+					return;
+				}
+				break;
 			}
-		} else {
 		}
-		setCodeLineState(group, vct.x, vct.y, tweenManager);
-//		
-//		if (group.getState() == CodeLineGroup.State.SMALL) {
-//			scale = 1.8f;
-//			if (index == 0 || index == 1) {
-//				vct.y = vct.y - CodeConfig.HEIGHT_CODE_LINE_SMALL;
-//			} else {
-//				
-//			}
-//			setBigState(group, vct.x, vct.y, scale, tweenManager);
-//		} else {
-//			setSmallState(group, vct.x, vct.y, scale, tweenManager);
-//		}
+		changeCodeLineState(index, tweenManager);
 	}
 	
-	private void setCodeLineState(final CodeLineGroup group, float x, float y, final TweenManager tweenManager) {
+	private void changeCodeLineState(int index, final TweenManager tweenManager) {
+		
+		final CodeLineGroup group = groupLines[index];
+		
 		final TweenCallback callback = new TweenCallback() {
 			@Override
 			public void onEvent(int type, BaseTween<?> source) {
@@ -169,61 +158,70 @@ public class ConsoleGroup extends BaseGroup {
 			}
 		};
 		
-		float scale = 1.0f;
+		final Vector2 vct = getCodeLinePosition(index);
+		float scale = 0.6f;
+		
 		if (group.getState() == CodeLineGroup.State.SMALL) {
+			if (index == 0 || index == 1) {
+				vct.y = vct.y - CodeConfig.HEIGHT_CODE_LINE_SMALL;
+			} else {
+			
+			}
 			group.setZIndex(0x0f);
-			scale = 1.8f;
+			scale = 1.8f;			
 		} else {
-			scale = 0.6f;
 		}
 
 		Timeline.createParallel()
-			.push(Tween.to(group, BaseGroupAccessor.POSITION_XY, 0.2f).target(x, y))
+			.push(Tween.to(group, BaseGroupAccessor.POSITION_XY, 0.2f).target(vct.x, vct.y))
 			.push(Tween.to(group, BaseGroupAccessor.SCALE_XY, 0.2f).target(scale, scale))
 			.setCallback(callback)
 		.start(tweenManager);
 	}
 	
-	private void setBigState(final CodeLineGroup group, float x, float y, float scale, final TweenManager tweenManager) {
-		
-		final TweenCallback callback = new TweenCallback() {
-
-			@Override
-			public void onEvent(int type, BaseTween<?> source) {
-				setBigState(group);
-			}
-		};
-		
-		group.setZIndex(0x0f);
-		
-		Timeline.createParallel()
-//			.setUserData(group)
-			.push(Tween.to(group, BaseGroupAccessor.POSITION_XY, 0.2f).target(x, y))
-			.push(Tween.to(group, BaseGroupAccessor.SCALE_XY, 0.2f).target(scale, scale))
-			.setCallback(callback)
-			.start(tweenManager);
-	}
-
-	protected void setBigState(final CodeLineGroup group) {
-		group.setState(CodeLineGroup.State.BIG);
-		group.setScale(1.0f);
-	}
+//	private void setBigState(final CodeLineGroup group, float x, float y, float scale, final TweenManager tweenManager) {
+//		
+//		final TweenCallback callback = new TweenCallback() {
+//
+//			@Override
+//			public void onEvent(int type, BaseTween<?> source) {
+//				setBigState(group);
+//			}
+//		};
+//		
+//		group.setZIndex(0x0f);
+//		
+//		Timeline.createParallel()
+////			.setUserData(group)
+//			.push(Tween.to(group, BaseGroupAccessor.POSITION_XY, 0.2f).target(x, y))
+//			.push(Tween.to(group, BaseGroupAccessor.SCALE_XY, 0.2f).target(scale, scale))
+//			.setCallback(callback)
+//			.start(tweenManager);
+//	}
+//
+//	protected void setBigState(final CodeLineGroup group) {
+//		group.setState(CodeLineGroup.State.BIG);
+//		group.setScale(1.0f);
+//	}
 
 	public void showCodePanel(int index, final Code.Button button, final TweenManager tweenManager) {
 		
 		boolean changed = groupPanel.setState(button.type.isOrder() ? CodePanelGroup.State.ORDER : CodePanelGroup.State.JUDGE);
+
+		final Vector2 vct = getCodeLinePosition(index);
 		
-		float x = button.bigActor.getX();
-		float y = 0;
+//		if (button.type.isOrder()) {
+			vct.y = vct.y - CodeConfig.HEIGHT_CODE_LINE_SMALL - CodeConfig.HEIGHT_CODE_PANEL_BUTTON; 
+//		}
 		
 		if (changed) {			
 			Timeline.createSequence()
-				.push(Tween.set(groupPanel, BaseGroupAccessor.POSITION_XY).target(x, y))
+				.push(Tween.set(groupPanel, BaseGroupAccessor.POSITION_XY).target(vct.x, vct.y))
 				.push(Tween.set(groupPanel, BaseGroupAccessor.SCALE_XY).target(0.0f, 0.0f))
 				.push(Tween.to(groupPanel, BaseGroupAccessor.SCALE_XY, 0.2f).target(1.0f, 1.0f))
 				.start(tweenManager);
 		} else {
-			Tween.to(groupPanel, BaseGroupAccessor.POSITION_XY, 0.1f).target(x, y).start(tweenManager);
+			Tween.to(groupPanel, BaseGroupAccessor.POSITION_XY, 0.1f).target(vct.x, vct.y).start(tweenManager);
 		}
 	}
 

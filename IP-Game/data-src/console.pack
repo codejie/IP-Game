@@ -38,7 +38,7 @@ run
   orig: 144, 144
   offset: 0, 0
   index: -1
-console_code_if_0_big
+console_code_if_none_big
   rotate: false
   xy: 643, 221
   size: 128, 128
@@ -115,7 +115,7 @@ console_code_none_small
   orig: 32, 32
   offset: 0, 0
   index: -1
-console_code_if_0_small
+console_code_if_none_small
   rotate: false
   xy: 591, 113
   size: 32, 32
