@@ -65,8 +65,8 @@ public class ConsoleRenderer {
 		group.toggleCodeLineState(index, tweenManager);
 	}
 
-	public void showCodePanel(int index, final Code.Button button) {
-		group.showCodePanel(index, button, tweenManager);
+	public void showCodePanel(int index, int pos, final Code.Button button) {
+		group.showCodePanel(index, pos, button, tweenManager);
 	}	
 	
 //

@@ -63,7 +63,7 @@ public class Code {
 			}
 		}
 		
-		void onClick(final Which which, int index, final Button button);
+		void onClick(final Which which, int index, int pos, final Button button);
 	}	
 
 	public static class Lines {

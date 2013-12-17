@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.Resources;
 import jie.android.ip.CommonConsts.ConsoleGroupConfig;
 import jie.android.ip.CommonConsts.ResourceConfig;
@@ -93,7 +94,7 @@ public class ConsoleGroup extends BaseGroup {
 				public void clicked(InputEvent event, float x, float y) {
 					if (group.getState() == CodeLineGroup.State.SMALL || group.hit(x, y, true) == group) {
 						if (codeListener != null) {
-							codeListener.onClick(Code.OnButtonListener.Which.CODE_GROUP, func, null);
+							codeListener.onClick(Code.OnButtonListener.Which.CODE_GROUP, func, -1, null);
 						}
 					}
 				}				
@@ -109,7 +110,7 @@ public class ConsoleGroup extends BaseGroup {
 			public void clicked(InputEvent event, float x, float y) {
 				if (groupPanel.hit(x, y, true) == groupPanel) {
 					if (codeListener != null) {
-						codeListener.onClick(Code.OnButtonListener.Which.PANEL_GROUP, -1, null);
+						codeListener.onClick(Code.OnButtonListener.Which.PANEL_GROUP, -1, -1, null);
 					}
 				}
 			}			
@@ -206,11 +207,45 @@ public class ConsoleGroup extends BaseGroup {
 //		group.setScale(1.0f);
 //	}
 
-	public void showCodePanel(int index, final Code.Button button, final TweenManager tweenManager) {
+	public void showCodePanel(int index, int pos, final Code.Button button, final TweenManager tweenManager) {
+
+		float x = 0, y = 0;
+		
+		if (pos %2 == 0) {
+			x = ConsoleGroupConfig.Lines.Big.WIDTH_TITLE + (ConsoleGroupConfig.Lines.Big.WIDTH_BUTTON_CODE + ConsoleGroupConfig.Lines.Big.SPACE_X) * (pos / 2) / 1.5f + ConsoleGroupConfig.Lines.Big.SPACE_X;
+			if (x + ConsoleGroupConfig.Panel.Order.WIDTH_BG > ScreenConfig.WIDTH) {
+				x = ScreenConfig.WIDTH - ConsoleGroupConfig.Panel.Order.WIDTH_BG;
+			}			
+			
+		} else {
+			x = ConsoleGroupConfig.Lines.Big.WIDTH_TITLE + (ConsoleGroupConfig.Lines.Big.WIDTH_BUTTON_CODE + ConsoleGroupConfig.Lines.Big.SPACE_X) * ((pos - 1) / 2) / 1.5f + ConsoleGroupConfig.Lines.Big.SPACE_X;
+			if (x + ConsoleGroupConfig.Panel.Judge.WIDTH_BG > ScreenConfig.WIDTH) {
+				x = ScreenConfig.WIDTH - ConsoleGroupConfig.Panel.Judge.WIDTH_BG;
+			}			
+		}
+		
+		
+		final Vector2 vct = getCodeLinePosition(index);
+		
+		if (index == 0 || index == 1) {
+			if (pos % 2 == 0) {
+				y = vct.y - ConsoleGroupConfig.Lines.Small.HEIGHT_BG - ConsoleGroupConfig.Panel.Order.HEIGHT_BG; 
+			} else {
+				
+			}
+		} else if (index == 2) {
+			
+		} else {
+			
+		}
+		
 		
 		boolean changed = groupPanel.setState(button.type.isOrder() ? CodePanelGroup.State.ORDER : CodePanelGroup.State.JUDGE);
 
-		final Vector2 vct = getCodeLinePosition(index);
+		
+		
+		
+//		final Vector2 vct = getCodeLinePosition(index);
 		
 //		if (button.type.isOrder()) {
 			vct.y = vct.y - ConsoleGroupConfig.Lines.Small.HEIGHT_BG - ConsoleGroupConfig.Panel.Order.HEIGHT_BG; 
@@ -218,12 +253,12 @@ public class ConsoleGroup extends BaseGroup {
 		
 		if (changed) {			
 			Timeline.createSequence()
-				.push(Tween.set(groupPanel, BaseGroupAccessor.POSITION_XY).target(vct.x, vct.y))
+				.push(Tween.set(groupPanel, BaseGroupAccessor.POSITION_XY).target(x, y))
 				.push(Tween.set(groupPanel, BaseGroupAccessor.SCALE_XY).target(0.0f, 0.0f))
 				.push(Tween.to(groupPanel, BaseGroupAccessor.SCALE_XY, 0.2f).target(1.0f, 1.0f))
 				.start(tweenManager);
 		} else {
-			Tween.to(groupPanel, BaseGroupAccessor.POSITION_XY, 0.1f).target(vct.x, vct.y).start(tweenManager);
+			Tween.to(groupPanel, BaseGroupAccessor.POSITION_XY, 0.1f).target(x, y).start(tweenManager);
 		}
 	}
 

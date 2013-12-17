@@ -67,7 +67,7 @@ public class CodeLineGroup extends BaseGroup {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
 					if (CodeLineGroup.this.getState() == CodeLineGroup.State.BIG && onClickListener != null) {
-						onClickListener.onClick(Code.OnButtonListener.Which.CODE_GROUP, CodeLineGroup.this.getIndex(), null);
+						onClickListener.onClick(Code.OnButtonListener.Which.CODE_GROUP, CodeLineGroup.this.getIndex(), -1, null);
 					}
 				}				
 			});
@@ -79,7 +79,7 @@ public class CodeLineGroup extends BaseGroup {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
 					if (CodeLineGroup.this.getState() == CodeLineGroup.State.BIG && onClickListener != null) {
-						onClickListener.onClick(Code.OnButtonListener.Which.CODE_GROUP, CodeLineGroup.this.getIndex(), null);
+						onClickListener.onClick(Code.OnButtonListener.Which.CODE_GROUP, CodeLineGroup.this.getIndex(), -1, null);
 					}
 				}				
 			});
@@ -104,7 +104,7 @@ public class CodeLineGroup extends BaseGroup {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
 					if (CodeLineGroup.this.getState() == CodeLineGroup.State.BIG && onClickListener != null) {
-						onClickListener.onClick(Code.OnButtonListener.Which.CODE_GROUP, CodeLineGroup.this.getIndex(), null);
+						onClickListener.onClick(Code.OnButtonListener.Which.CODE_GROUP, CodeLineGroup.this.getIndex(), -1, null);
 					}
 				}				
 			});
@@ -114,17 +114,18 @@ public class CodeLineGroup extends BaseGroup {
 	}
 	
 	private void initButtons(boolean small) {
+		
 		if (small) {
 			for (int i = 0; i < buttons.length; ++ i) {
 				final Code.Button btn = buttons[i];
+				final int pos = i;
 				btn.smallActor = makeImageActor(i, btn.type, true);
 				if (btn.smallActor != null) {
 					btn.smallActor.addListener(new ClickListener() {
-	
 						@Override
 						public void clicked(InputEvent event, float x, float y) {
 							if (CodeLineGroup.this.getState() == CodeLineGroup.State.BIG && onClickListener != null) {
-								onClickListener.onClick(Code.OnButtonListener.Which.CODE, CodeLineGroup.this.getIndex(), btn);
+								onClickListener.onClick(Code.OnButtonListener.Which.CODE, CodeLineGroup.this.getIndex(), pos, btn);
 							}
 						}				
 					});
@@ -135,6 +136,7 @@ public class CodeLineGroup extends BaseGroup {
 		} else {
 			for (int i = 0; i < buttons.length; ++ i) {
 				final Code.Button btn = buttons[i];
+				final int pos= i;
 				btn.bigActor = makeImageActor(i, btn.type, false);
 				if (btn.bigActor != null) {
 					btn.bigActor.addListener(new ClickListener() {
@@ -142,7 +144,7 @@ public class CodeLineGroup extends BaseGroup {
 						@Override
 						public void clicked(InputEvent event, float x, float y) {
 							if (CodeLineGroup.this.getState() == CodeLineGroup.State.BIG && onClickListener != null) {
-								onClickListener.onClick(Code.OnButtonListener.Which.CODE, CodeLineGroup.this.getIndex(), btn);
+								onClickListener.onClick(Code.OnButtonListener.Which.CODE, CodeLineGroup.this.getIndex(), pos, btn);
 							}
 						}				
 					});

@@ -76,7 +76,7 @@ public class CodePanelGroup extends BaseGroup {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
 					if (onClickListener != null) {
-						onClickListener.onClick(Code.OnButtonListener.Which.PANEL, -1, btn);
+						onClickListener.onClick(Code.OnButtonListener.Which.PANEL, -1, -1, btn);
 					}
 				}
 			});
@@ -91,7 +91,7 @@ public class CodePanelGroup extends BaseGroup {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
 					if (onClickListener != null) {
-						onClickListener.onClick(Code.OnButtonListener.Which.PANEL, -1, btn);
+						onClickListener.onClick(Code.OnButtonListener.Which.PANEL, -1, -1, btn);
 					}
 				}
 			});

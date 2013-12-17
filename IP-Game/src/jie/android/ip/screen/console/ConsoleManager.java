@@ -35,7 +35,7 @@ public class ConsoleManager {
 	private Code.OnButtonListener codeListener = new Code.OnButtonListener() {
 
 		@Override
-		public void onClick(final Code.OnButtonListener.Which which, int index, final Code.Button button) {
+		public void onClick(final Code.OnButtonListener.Which which, int index, int pos, final Code.Button button) {
 			if (which == Code.OnButtonListener.Which.PANEL_GROUP || which == Code.OnButtonListener.Which.CODE_GROUP) {
 				Utils.log(Tag, "code group click : index = " + index + " which = " + which.getId());
 				onCodeGroupClick(index);
@@ -44,7 +44,7 @@ public class ConsoleManager {
 				onCodePanelClick(index, button);
 			} else if (which == Code.OnButtonListener.Which.CODE) {
 				Utils.log(Tag, "code line click : index = " + index + " which = " + which.getId() + "  button type = " + button.type.getId());
-				onCodeLineClick(index, button);
+				onCodeLineClick(index, pos, button);
 			}
 		}
 	}; 
@@ -88,8 +88,8 @@ public class ConsoleManager {
 		return renderer.hitGroup(x, y);
 	}
 	
-	protected void onCodeLineClick(int index, final Code.Button button) {
-		renderer.showCodePanel(index, button);
+	protected void onCodeLineClick(int index, int pos, final Code.Button button) {
+		renderer.showCodePanel(index, pos, button);
 	}
 
 	protected void onCodePanelClick(int index, final Code.Button button) {

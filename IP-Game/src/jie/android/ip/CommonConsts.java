@@ -60,44 +60,6 @@ public interface CommonConsts {
 		
 	}
 	
-//	public interface CmdConfig {
-//		public static final int BASE_X = ScreenConfig.WIDTH - 128;
-//		public static final int BASE_Y = 16;
-//	}
-//	
-//	public interface CodeConfig {
-//		public static final int SIZE_CODE_LINES = 4;
-//		public static final int SIZE_CODE_PER_LINE = 8 * 2;
-//		
-//		public static final int BASE_X_CODE_LINES = 32;
-//		public static final int BASE_Y_CODE_LINES = 16;
-//		
-//		public static final int WIDTH_CODE_BUTTON_SMALL = 64;
-//		public static final int HEIGHT_CODE_LINE_SMALL = 72;
-//		public static final int WIDTH_CODE_BUTTON_BIG = 128;
-//		public static final int HEIGHT_CODE_LINE_BIG = 144;		
-//		
-////		public static final int WIDTH_SMALL_CODE_BUTTON = 64;
-////		public static final int HEIGHT_SMALL_CODE_LINE = 72;
-//		
-////		public static final int WIDTH_SMALL_CODE_LINE = 
-//		
-//		public static final int SPACE_X_CODE = 8;
-//		public static final int SPACE_Y_CODE = 8;
-//		
-//		public static final int SPACE_Y_CODE_LINES = 16;
-//		
-//		public static final int WIDTH_CODE_TITLE_SMALL = 72;
-//		public static final int HEIGHT_CODE_TITLE_SMALL = 72;
-//		public static final int WIDTH_CODE_TITLE_BIG = 144;
-//		public static final int HEIGHT_CODE_TITLE_BIG = 144;		
-//		
-//		public static final int WIDTH_CODE_PANEL_BUTTON = 64;
-//		public static final int HEIGHT_CODE_PANEL_BUTTON = 64;
-//		
-////		public static final int SIZE_TITLE_CODE_LINE = 64;
-//	}
-	
 	public interface ConsoleGroupConfig {
 		public interface Cmd {
 			public static final int BASE_X = ScreenConfig.WIDTH - 128;
