@@ -1,10 +1,12 @@
 package jie.android.ip.screen.console;
 
 
-import jie.android.ip.CommonConsts.CodeConfig;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Code {
+	
+	public static final int NUM_CODE_LINES = 4;
+	public static final int NUM_CODE_PER_LINE = 8 * 2; 
 	
 	public enum Type {
 		
@@ -66,11 +68,11 @@ public class Code {
 
 	public static class Lines {
 		
-		private Button[][] buttons = new Button[CodeConfig.SIZE_CODE_LINES][CodeConfig.SIZE_CODE_PER_LINE];
+		private Button[][] buttons = new Button[NUM_CODE_LINES][NUM_CODE_PER_LINE];
 		
 		public Lines() {
-			for (int f = 0; f < CodeConfig.SIZE_CODE_LINES; ++ f) {
-				for (int p = 0; p < CodeConfig.SIZE_CODE_PER_LINE; ++ p) {
+			for (int f = 0; f < NUM_CODE_LINES; ++ f) {
+				for (int p = 0; p < NUM_CODE_PER_LINE; ++ p) {
 					if (p % 2 == 0) {
 						buttons[f][p] = new Button(Type.NONE);
 					} else {
@@ -98,10 +100,10 @@ public class Code {
 	}
 	
 	public static class Panel {
-		public static final int SIZE_JUDGE_BUTTON = 7;
-		public static final int SIZE_ORDER_BUTTON = 8;
-		private Button[] judgeButton = new Button[SIZE_JUDGE_BUTTON];
-		private Button[] orderButton = new Button[SIZE_ORDER_BUTTON];
+		public static final int NUM_JUDGE_BUTTON = 7;
+		public static final int NUM_ORDER_BUTTON = 8;
+		private Button[] judgeButton = new Button[NUM_JUDGE_BUTTON];
+		private Button[] orderButton = new Button[NUM_ORDER_BUTTON];
 		
 		public Panel() {
 			judgeButton[0] = new Button(Type.IF_0);

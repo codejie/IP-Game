@@ -60,80 +60,109 @@ public interface CommonConsts {
 		
 	}
 	
-	public interface CmdConfig {
-		public static final int BASE_X = ScreenConfig.WIDTH - 128;
-		public static final int BASE_Y = 16;
-	}
-	
-	public interface CodeConfig {
-		public static final int SIZE_CODE_LINES = 4;
-		public static final int SIZE_CODE_PER_LINE = 8 * 2;
-		
-		public static final int BASE_X_CODE_LINES = 32;
-		public static final int BASE_Y_CODE_LINES = 16;
-		
-		public static final int WIDTH_CODE_BUTTON_SMALL = 64;
-		public static final int HEIGHT_CODE_LINE_SMALL = 72;
-		public static final int WIDTH_CODE_BUTTON_BIG = 128;
-		public static final int HEIGHT_CODE_LINE_BIG = 144;		
-		
-//		public static final int WIDTH_SMALL_CODE_BUTTON = 64;
-//		public static final int HEIGHT_SMALL_CODE_LINE = 72;
-		
-//		public static final int WIDTH_SMALL_CODE_LINE = 
-		
-		public static final int SPACE_X_CODE = 8;
-		public static final int SPACE_Y_CODE = 8;
-		
-		public static final int SPACE_Y_CODE_LINES = 16;
-		
-		public static final int WIDTH_CODE_TITLE_SMALL = 72;
-		public static final int HEIGHT_CODE_TITLE_SMALL = 72;
-		public static final int WIDTH_CODE_TITLE_BIG = 144;
-		public static final int HEIGHT_CODE_TITLE_BIG = 144;		
-		
-		public static final int WIDTH_CODE_PANEL_BUTTON = 64;
-		public static final int HEIGHT_CODE_PANEL_BUTTON = 64;
-		
-//		public static final int SIZE_TITLE_CODE_LINE = 64;
-	}
+//	public interface CmdConfig {
+//		public static final int BASE_X = ScreenConfig.WIDTH - 128;
+//		public static final int BASE_Y = 16;
+//	}
+//	
+//	public interface CodeConfig {
+//		public static final int SIZE_CODE_LINES = 4;
+//		public static final int SIZE_CODE_PER_LINE = 8 * 2;
+//		
+//		public static final int BASE_X_CODE_LINES = 32;
+//		public static final int BASE_Y_CODE_LINES = 16;
+//		
+//		public static final int WIDTH_CODE_BUTTON_SMALL = 64;
+//		public static final int HEIGHT_CODE_LINE_SMALL = 72;
+//		public static final int WIDTH_CODE_BUTTON_BIG = 128;
+//		public static final int HEIGHT_CODE_LINE_BIG = 144;		
+//		
+////		public static final int WIDTH_SMALL_CODE_BUTTON = 64;
+////		public static final int HEIGHT_SMALL_CODE_LINE = 72;
+//		
+////		public static final int WIDTH_SMALL_CODE_LINE = 
+//		
+//		public static final int SPACE_X_CODE = 8;
+//		public static final int SPACE_Y_CODE = 8;
+//		
+//		public static final int SPACE_Y_CODE_LINES = 16;
+//		
+//		public static final int WIDTH_CODE_TITLE_SMALL = 72;
+//		public static final int HEIGHT_CODE_TITLE_SMALL = 72;
+//		public static final int WIDTH_CODE_TITLE_BIG = 144;
+//		public static final int HEIGHT_CODE_TITLE_BIG = 144;		
+//		
+//		public static final int WIDTH_CODE_PANEL_BUTTON = 64;
+//		public static final int HEIGHT_CODE_PANEL_BUTTON = 64;
+//		
+////		public static final int SIZE_TITLE_CODE_LINE = 64;
+//	}
 	
 	public interface ConsoleGroupConfig {
 		public interface Cmd {
-			
+			public static final int BASE_X = ScreenConfig.WIDTH - 128;
+			public static final int BASE_Y = 16;
 		}
 		
 		public interface Lines {
 			
-			public static final int NUM_CODE_LINES = 4;
-			public static final int NUM_CODE_PER_LINE = 8 * 2;
-			
 			public static final int BASE_X = 32;
 			public static final int BASE_Y = 16;
+
+			public static final int SPACE_LILNES = 8;			
 			
 			public interface Small {
-				public static final int WIDTH_BG = 100;
-				public static final int HEIGHT_BG = 100;
+				public static final int WIDTH_BG = 692;
+				public static final int HEIGHT_BG = 80;// same as the height of small group
 				
-				public static final int WIDTH_TITLE = 100;
-				public static final int HEIGHT_TITLE = 100;
+				public static final int WIDTH_TITLE = 72;
+				public static final int HEIGHT_TITLE = 72;
 				
-				public static final int SPACE_X = 100;
-				public static final int SPACE_Y = 100;
+				public static final int SPACE_X = 4;
+				public static final int SPACE_Y = 4;
 				
-				public static final int WIDTH_BUTTON_CODE = 100;
-				public static final int HEIGHT_BUTTON_CODE = 100;				
-				public static final int WIDTH_BUTTON_JUDGE = 100;
-				public static final int HEIGHT_BUTTON_JUDGE = 100;
+				public static final int WIDTH_BUTTON_CODE = 72;
+				public static final int HEIGHT_BUTTON_CODE = 72;				
+				public static final int WIDTH_BUTTON_JUDGE = 36;
+				public static final int HEIGHT_BUTTON_JUDGE = 36;
 			}
 			
 			public interface Big {
+				//public static final int BASE_Y_TOP = 100;
 				
+				public static final int WIDTH_BG = 1160;
+				public static final int HEIGHT_BG = 144;
+				
+				public static final int WIDTH_TITLE = 64;
+				public static final int HEIGHT_TITLE = 144;
+				
+				public static final int SPACE_X = 8;
+				public static final int SPACE_Y = 8;
+				
+				public static final int WIDTH_BUTTON_CODE = 128;
+				public static final int HEIGHT_BUTTON_CODE = 80;				
+				public static final int WIDTH_BUTTON_JUDGE = 128;
+				public static final int HEIGHT_BUTTON_JUDGE = 48;
 			}
 		}
 		
 		public interface Panel {
 			
+			public static final int SPACE_X = 8;
+			public static final int SPACE_Y = 8;
+			
+			public static final int WIDTH_BUTTON = 72;
+			public static final int HEIGHT_BUTTON = 72;
+			
+			public interface Judge {
+				public static final int WIDTH_BG = 648;
+				public static final int HEIGHT_BG = 88;				
+			}
+			
+			public interface Order {
+				public static final int WIDTH_BG = 728;
+				public static final int HEIGHT_BG = 88;				
+			}
 		}
 	}
 	

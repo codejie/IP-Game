@@ -101,8 +101,7 @@ public class ConsoleManager {
 	}
 	
 	protected void onConsoleGroupClick(float x, float y) {
-		// TODO Auto-generated method stub
-		
+		renderer.updataCodeGroupState(-1);		
 	}	
 	
 //	

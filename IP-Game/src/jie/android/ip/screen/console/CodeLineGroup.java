@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import jie.android.ip.Resources;
-import jie.android.ip.CommonConsts.CodeConfig;
+import jie.android.ip.CommonConsts.ConsoleGroupConfig;
 import jie.android.ip.CommonConsts.ResourceConfig;
 import jie.android.ip.screen.actor.BaseGroup;
 import jie.android.ip.screen.actor.ImageActor;
@@ -62,7 +62,7 @@ public class CodeLineGroup extends BaseGroup {
 	private void initStage(boolean small) {
 		if (small) {
 			smallBg = new ImageActor(atlas.findRegion(ResourceConfig.CONSOLE_CODE_LINE_BG_SMALL));
-			smallBg.setBounds(0, 0, smallBg.getWidth(), smallBg.getHeight());
+			smallBg.setBounds(0, 0, ConsoleGroupConfig.Lines.Small.WIDTH_BG, ConsoleGroupConfig.Lines.Small.HEIGHT_BG);
 			smallBg.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
@@ -74,7 +74,7 @@ public class CodeLineGroup extends BaseGroup {
 			this.addActor(smallBg);
 			
 			smallTitle = new ImageActor(atlas.findRegion(ResourceConfig.CONSOLE_CODE_LINE_TITLE_SMALL));
-			smallTitle.setBounds(0, 0, smallTitle.getWidth(), smallTitle.getHeight());
+			smallTitle.setBounds(0, 0, ConsoleGroupConfig.Lines.Small.WIDTH_TITLE, ConsoleGroupConfig.Lines.Small.HEIGHT_TITLE);
 			smallTitle.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
@@ -87,19 +87,19 @@ public class CodeLineGroup extends BaseGroup {
 			this.addActor(smallTitle);
 		} else {
 			bigBg = new ImageActor(atlas.findRegion(ResourceConfig.CONSOLE_CODE_LINE_BG_BIG));
-			bigBg.setBounds(0, 0, bigBg.getWidth(), bigBg.getHeight());
-			bigBg.addListener(new ClickListener() {
-				@Override
-				public void clicked(InputEvent event, float x, float y) {
-					if (CodeLineGroup.this.getState() == CodeLineGroup.State.BIG && onClickListener != null) {
-						onClickListener.onClick(Code.OnButtonListener.Which.CODE_GROUP, CodeLineGroup.this.getIndex(), null);
-					}
-				}				
-			});
+			bigBg.setBounds(0, 0, ConsoleGroupConfig.Lines.Big.WIDTH_BG, ConsoleGroupConfig.Lines.Big.HEIGHT_BG);
+//			bigBg.addListener(new ClickListener() {
+//				@Override
+//				public void clicked(InputEvent event, float x, float y) {
+//					if (CodeLineGroup.this.getState() == CodeLineGroup.State.BIG && onClickListener != null) {
+//						onClickListener.onClick(Code.OnButtonListener.Which.CODE_GROUP, CodeLineGroup.this.getIndex(), null);
+//					}
+//				}				
+//			});
 			this.addActor(bigBg);
 		
 			bigTitle = new ImageActor(atlas.findRegion(ResourceConfig.CONSOLE_CODE_LINE_TITLE_BIG));
-			bigTitle.setBounds(0, 0, bigTitle.getWidth(), bigTitle.getHeight());
+			bigTitle.setBounds(0, 0, ConsoleGroupConfig.Lines.Big.WIDTH_TITLE, ConsoleGroupConfig.Lines.Big.HEIGHT_TITLE);
 			bigTitle.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
@@ -115,7 +115,7 @@ public class CodeLineGroup extends BaseGroup {
 	
 	private void initButtons(boolean small) {
 		if (small) {
-			for (int i = 0; i < CodeConfig.SIZE_CODE_PER_LINE; ++ i) {
+			for (int i = 0; i < buttons.length; ++ i) {
 				final Code.Button btn = buttons[i];
 				btn.smallActor = makeImageActor(i, btn.type, true);
 				if (btn.smallActor != null) {
@@ -133,7 +133,7 @@ public class CodeLineGroup extends BaseGroup {
 				this.addActor(btn.smallActor);
 			}
 		} else {
-			for (int i = 0; i < CodeConfig.SIZE_CODE_PER_LINE; ++ i) {
+			for (int i = 0; i < buttons.length; ++ i) {
 				final Code.Button btn = buttons[i];
 				btn.bigActor = makeImageActor(i, btn.type, false);
 				if (btn.bigActor != null) {
@@ -181,23 +181,22 @@ public class CodeLineGroup extends BaseGroup {
 	private void setButtonBounds(final ImageActor actor, int pos, boolean judge, boolean small) {
 		float x = 0, y = 0;
 		if (small) {
-			if (judge) {
-				x = CodeConfig.WIDTH_CODE_TITLE_SMALL + (CodeConfig.WIDTH_CODE_BUTTON_SMALL + CodeConfig.SPACE_X_CODE) * (( pos - 1) / 2);
-				y = CodeConfig.SPACE_Y_CODE / 2 + CodeConfig.WIDTH_CODE_BUTTON_SMALL - actor.getWidth();
+			if (pos % 2 == 0) {
+				//order
+				x = ConsoleGroupConfig.Lines.Small.WIDTH_TITLE + (ConsoleGroupConfig.Lines.Small.WIDTH_BUTTON_CODE + ConsoleGroupConfig.Lines.Small.SPACE_X) * (pos / 2) + ConsoleGroupConfig.Lines.Small.SPACE_X;
+				y = ConsoleGroupConfig.Lines.Small.SPACE_Y;
 			} else {
-				x = CodeConfig.WIDTH_CODE_TITLE_SMALL + (CodeConfig.WIDTH_CODE_BUTTON_SMALL + CodeConfig.SPACE_X_CODE) * (pos / 2);
-				y = CodeConfig.SPACE_Y_CODE / 2;
+				x = ConsoleGroupConfig.Lines.Small.WIDTH_TITLE + (ConsoleGroupConfig.Lines.Small.WIDTH_BUTTON_CODE + ConsoleGroupConfig.Lines.Small.SPACE_X) * ((pos - 1) / 2) + ConsoleGroupConfig.Lines.Small.SPACE_X;
+				y = ConsoleGroupConfig.Lines.Small.SPACE_Y + ConsoleGroupConfig.Lines.Small.HEIGHT_BUTTON_CODE - ConsoleGroupConfig.Lines.Small.HEIGHT_BUTTON_JUDGE; 
 			}
 		} else {
-			if (judge) {
-				
+			if (pos %2 == 0) {
+				x = ConsoleGroupConfig.Lines.Big.WIDTH_TITLE + (ConsoleGroupConfig.Lines.Big.WIDTH_BUTTON_CODE + ConsoleGroupConfig.Lines.Big.SPACE_X) * (pos / 2) + ConsoleGroupConfig.Lines.Big.SPACE_X;
+				y = ConsoleGroupConfig.Lines.Big.SPACE_Y;				
 			} else {
-				
+				x = ConsoleGroupConfig.Lines.Big.WIDTH_TITLE + (ConsoleGroupConfig.Lines.Big.WIDTH_BUTTON_CODE + ConsoleGroupConfig.Lines.Big.SPACE_X) * ((pos - 1) / 2) + ConsoleGroupConfig.Lines.Big.SPACE_X;
+				y = ConsoleGroupConfig.Lines.Big.SPACE_Y + ConsoleGroupConfig.Lines.Big.HEIGHT_BUTTON_CODE;// - ConsoleGroupConfig.Lines.Big.HEIGHT_BUTTON_JUDGE; 
 			}
-			
-			x = CodeConfig.WIDTH_CODE_TITLE_BIG + (CodeConfig.WIDTH_CODE_BUTTON_BIG + CodeConfig.SPACE_X_CODE) * ((judge ? pos - 1 : pos) / 2);
-			y = CodeConfig.SPACE_Y_CODE / 2;			
-			actor.setBounds(x, y, actor.getWidth(), actor.getHeight());			
 		}
 		
 		actor.setBounds(x, y, actor.getWidth(), actor.getHeight());
@@ -225,7 +224,7 @@ public class CodeLineGroup extends BaseGroup {
 			bigTitle.setVisible(false);
 		}
 		
-		for (int i = 0; i < CodeConfig.SIZE_CODE_PER_LINE; ++ i) {
+		for (int i = 0; i < buttons.length; ++ i) {
 			final Actor btn = buttons[i].bigActor;
 			if (btn != null) {
 				btn.setVisible(false);
@@ -241,7 +240,7 @@ public class CodeLineGroup extends BaseGroup {
 		}
 		
 		if (buttons[0].smallActor != null) {
-			for (int i = 0; i < CodeConfig.SIZE_CODE_PER_LINE; ++ i) {
+			for (int i = 0; i < buttons.length; ++ i) {
 				final Actor btn = buttons[i].smallActor;
 				if (btn != null) {
 					btn.setVisible(true);
@@ -264,7 +263,7 @@ public class CodeLineGroup extends BaseGroup {
 			smallTitle.setVisible(false);
 		}
 		
-		for (int i = 0; i < CodeConfig.SIZE_CODE_PER_LINE; ++ i) {
+		for (int i = 0; i < buttons.length; ++ i) {
 			final Actor btn = buttons[i].smallActor;
 			if (btn != null) {
 				btn.setVisible(false);
@@ -281,7 +280,7 @@ public class CodeLineGroup extends BaseGroup {
 		}		
 		
 		if (buttons[0].bigActor != null) {
-			for (int i = 0; i < CodeConfig.SIZE_CODE_PER_LINE; ++ i) {
+			for (int i = 0; i < buttons.length; ++ i) {
 				final Actor btn = buttons[i].bigActor;
 				if (btn != null) {
 					btn.setVisible(true);

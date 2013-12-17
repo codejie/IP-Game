@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import jie.android.ip.CommonConsts.CmdConfig;
+import jie.android.ip.CommonConsts.ConsoleGroupConfig;
 import jie.android.ip.CommonConsts.ResourceConfig;
 import jie.android.ip.screen.BoxRenderConfig;
 import jie.android.ip.screen.actor.ImageActor;
@@ -34,7 +34,7 @@ public class ConsoleRenderer {
 	private void addCmdButton(final Cmd.Button button, final Cmd.OnButtonListener listener) {
 		
 		button.actor = new ImageActor(atlas.findRegion(ResourceConfig.RUN_BUTTON_NAME));
-		button.actor.setPosition(CmdConfig.BASE_X, CmdConfig.BASE_Y + 240);
+		button.actor.setPosition(ConsoleGroupConfig.Cmd.BASE_X, ConsoleGroupConfig.Cmd.BASE_Y);
 		button.actor.addListener(new ClickListener() {
 	
 			@Override

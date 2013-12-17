@@ -6,8 +6,8 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import jie.android.ip.CommonConsts.CodeConfig;
 import jie.android.ip.Resources;
+import jie.android.ip.CommonConsts.ConsoleGroupConfig;
 import jie.android.ip.CommonConsts.ResourceConfig;
 import jie.android.ip.screen.actor.BaseGroup;
 import jie.android.ip.screen.actor.ImageActor;
@@ -56,10 +56,10 @@ public class CodePanelGroup extends BaseGroup {
 		bg.setPosition(0, 0);
 		groupOrder.addActor(bg);
 
-		groupJudge.setBounds(0, 0, CodeConfig.WIDTH_CODE_PANEL_BUTTON * Code.Panel.SIZE_JUDGE_BUTTON, bg.getHeight());
+		groupJudge.setBounds(0, 0, ConsoleGroupConfig.Panel.Judge.WIDTH_BG, ConsoleGroupConfig.Panel.Judge.HEIGHT_BG);
 		groupJudge.setVisible(false);
 		//groupJudge.setScale(0.0f);
-		groupOrder.setBounds(0, 0, CodeConfig.WIDTH_CODE_PANEL_BUTTON * Code.Panel.SIZE_ORDER_BUTTON, bg.getHeight());
+		groupOrder.setBounds(0, 0, ConsoleGroupConfig.Panel.Order.WIDTH_BG, ConsoleGroupConfig.Panel.Order.HEIGHT_BG);
 		groupOrder.setVisible(false);
 		//groupOrder.setScale(0.0f);
 		
@@ -101,12 +101,16 @@ public class CodePanelGroup extends BaseGroup {
 
 	private Actor makeImageActor(int pos, Code.Type type) {
 		ImageActor ret = null;
-		//if (type == Code.Type.NONE) {
-			ret = new ImageActor(this.atlas.findRegion(ResourceConfig.CONSOLE_CODE_NONE_BIG));
-			float x = CodeConfig.SPACE_X_CODE / 2 + (CodeConfig.WIDTH_CODE_PANEL_BUTTON + CodeConfig.SPACE_X_CODE / 2) * pos;
-			float y = CodeConfig.SPACE_Y_CODE /2;
-			ret.setBounds(x, y, ret.getWidth(), ret.getHeight());
-		//}
+//		if (type == Code.Type.NONE) {
+			ret = new ImageActor(this.atlas.findRegion(ResourceConfig.CONSOLE_CODE_NONE_BIG));			
+//		} else if (type == Code.Type.RIGHT){
+			
+//		}
+			
+		float x = ConsoleGroupConfig.Panel.SPACE_X + (ConsoleGroupConfig.Panel.WIDTH_BUTTON + ConsoleGroupConfig.Panel.SPACE_X) * pos;
+		float y = ConsoleGroupConfig.Panel.SPACE_Y;
+		ret.setBounds(x, y, ConsoleGroupConfig.Panel.WIDTH_BUTTON, ConsoleGroupConfig.Panel.HEIGHT_BUTTON);
+		
 		return ret;
 	}
 
