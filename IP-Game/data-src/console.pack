@@ -10,7 +10,14 @@ console_code_line_bg_big
   orig: 640, 144
   offset: 0, 0
   index: -1
-console_code_panel_bg
+console_code_panel_judge_bg 
+  rotate: false
+  xy: 1, 221
+  size: 640, 128
+  orig: 640, 128
+  offset: 0, 0
+  index: -1
+console_code_panel_order_bg
   rotate: false
   xy: 1, 221
   size: 640, 128

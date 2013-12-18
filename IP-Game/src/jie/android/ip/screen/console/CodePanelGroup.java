@@ -47,21 +47,17 @@ public class CodePanelGroup extends BaseGroup {
 	@Override
 	protected void initStage() {		
 		groupJudge = new Group();
-		ImageActor bg = new ImageActor(this.atlas.findRegion(ResourceConfig.CONSOLE_CODE_PANEL_BG));
-		bg.setPosition(0, 0);
+		ImageActor bg = new ImageActor(this.atlas.findRegion(ResourceConfig.CONSOLE_CODE_PANEL_JUDGE_BG));
+		bg.setBounds(0, 0, ConsoleGroupConfig.Panel.Judge.WIDTH_BG, ConsoleGroupConfig.Panel.Judge.HEIGHT_BG);
 		groupJudge.addActor(bg);
 		
 		groupOrder = new Group();
-		bg = new ImageActor(this.atlas.findRegion(ResourceConfig.CONSOLE_CODE_PANEL_BG));
-		bg.setPosition(0, 0);
+		bg = new ImageActor(this.atlas.findRegion(ResourceConfig.CONSOLE_CODE_PANEL_ORDER_BG));
+		bg.setBounds(0, 0, ConsoleGroupConfig.Panel.Order.WIDTH_BG, ConsoleGroupConfig.Panel.Order.HEIGHT_BG);
 		groupOrder.addActor(bg);
-
-		groupJudge.setBounds(0, 0, ConsoleGroupConfig.Panel.Judge.WIDTH_BG, ConsoleGroupConfig.Panel.Judge.HEIGHT_BG);
+		
 		groupJudge.setVisible(false);
-		//groupJudge.setScale(0.0f);
-		groupOrder.setBounds(0, 0, ConsoleGroupConfig.Panel.Order.WIDTH_BG, ConsoleGroupConfig.Panel.Order.HEIGHT_BG);
 		groupOrder.setVisible(false);
-		//groupOrder.setScale(0.0f);
 		
 		this.addActor(groupJudge);
 		this.addActor(groupOrder);	
@@ -71,12 +67,13 @@ public class CodePanelGroup extends BaseGroup {
 		Code.Button buttons[] = codePanel.getJudgeButton();
 		for (int i = 0; i < buttons.length; ++ i) {
 			final Code.Button btn = buttons[i];
+			final int pos = i;
 			btn.bigActor = makeImageActor(i, btn.type);
 			btn.bigActor.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
 					if (onClickListener != null) {
-						onClickListener.onClick(Code.OnButtonListener.Which.PANEL, -1, -1, btn);
+						onClickListener.onClick(Code.OnButtonListener.Which.PANEL, -1, pos, btn);
 					}
 				}
 			});
@@ -86,12 +83,13 @@ public class CodePanelGroup extends BaseGroup {
 		buttons = codePanel.getOrderButton();
 		for (int i = 0; i < buttons.length; ++ i) {
 			final Code.Button btn = buttons[i];
+			final int pos = i;
 			btn.bigActor = makeImageActor(i, btn.type);
 			btn.bigActor.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
 					if (onClickListener != null) {
-						onClickListener.onClick(Code.OnButtonListener.Which.PANEL, -1, -1, btn);
+						onClickListener.onClick(Code.OnButtonListener.Which.PANEL, -1, pos, btn);
 					}
 				}
 			});
@@ -101,6 +99,27 @@ public class CodePanelGroup extends BaseGroup {
 
 	private Actor makeImageActor(int pos, Code.Type type) {
 		ImageActor ret = null;
+
+		if (type == Code.Type.NONE) {
+			ret = new ImageActor(atlas.findRegion(small ? ResourceConfig.CONSOLE_CODE_NONE_SMALL : ResourceConfig.CONSOLE_CODE_NONE_BIG));
+		} else if (type == Code.Type.RIGHT) {
+		} else if (type == Code.Type.LEFT) {
+		} else if (type == Code.Type.ACT) {
+		} else if (type == Code.Type.IF_0) {
+		} else if (type == Code.Type.IF_1) {
+		} else if (type == Code.Type.IF_2) {
+		} else if (type == Code.Type.IF_3) {
+		} else if (type == Code.Type.IF_ANY) {
+		} else if (type == Code.Type.IF_NONE) {
+			ret = new ImageActor(atlas.findRegion(small ? ResourceConfig.CONSOLE_CODE_IF_NONE_SMALL : ResourceConfig.CONSOLE_CODE_IF_NONE_BIG));
+		} else if (type == Code.Type.CALL_0) {
+		} else if (type == Code.Type.CALL_1) {
+		} else if (type == Code.Type.CALL_2) {
+		} else if (type == Code.Type.CALL_3) {
+		} else {
+			return null;
+		}		
+		
 //		if (type == Code.Type.NONE) {
 			ret = new ImageActor(this.atlas.findRegion(ResourceConfig.CONSOLE_CODE_NONE_BIG));			
 //		} else if (type == Code.Type.RIGHT){
@@ -114,6 +133,10 @@ public class CodePanelGroup extends BaseGroup {
 		return ret;
 	}
 
+	public final State getState() {
+		return state;
+	}
+	
 	public boolean setState(final CodePanelGroup.State state) {
 		if (this.state == state) {
 			return false;
@@ -121,8 +144,21 @@ public class CodePanelGroup extends BaseGroup {
 
 		this.state = state;
 		
-		groupJudge.setVisible(this.state == State.JUDGE);
-		groupOrder.setVisible(this.state == State.ORDER);
+		if (this.state == State.JUDGE) {
+			groupJudge.setVisible(true);
+			groupJudge.setZIndex(0x0F);
+			groupOrder.setVisible(false);
+			groupOrder.setZIndex(0x00);
+			
+			this.setBounds(0, 0, ConsoleGroupConfig.Panel.Judge.WIDTH_BG, ConsoleGroupConfig.Panel.Judge.HEIGHT_BG);
+		} else if (this.state == State.ORDER) {
+			groupJudge.setVisible(false);
+			groupJudge.setZIndex(0x00);
+			groupOrder.setVisible(true);
+			groupOrder.setZIndex(0x0F);
+			this.setBounds(0, 0, ConsoleGroupConfig.Panel.Order.WIDTH_BG, ConsoleGroupConfig.Panel.Order.HEIGHT_BG);
+		}
+		this.setVisible(this.state != State.HIDE);
 		
 		return true;
 	}	

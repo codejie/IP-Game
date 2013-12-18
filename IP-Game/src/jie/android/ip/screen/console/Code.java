@@ -96,11 +96,12 @@ public class Code {
 		
 		public final Button[] getFuncButton(int func) {
 			return buttons[func];
-		}		
+		}
+		
 	}
 	
 	public static class Panel {
-		public static final int NUM_JUDGE_BUTTON = 7;
+		public static final int NUM_JUDGE_BUTTON = 6;
 		public static final int NUM_ORDER_BUTTON = 8;
 		private Button[] judgeButton = new Button[NUM_JUDGE_BUTTON];
 		private Button[] orderButton = new Button[NUM_ORDER_BUTTON];
@@ -110,9 +111,8 @@ public class Code {
 			judgeButton[1] = new Button(Type.IF_1);
 			judgeButton[2] = new Button(Type.IF_2);
 			judgeButton[3] = new Button(Type.IF_3);
-			judgeButton[4] = new Button(Type.IF_NONE);
-			judgeButton[5] = new Button(Type.IF_ANY);
-			judgeButton[6] = new Button(Type.NONE);
+			judgeButton[4] = new Button(Type.IF_ANY);
+			judgeButton[5] = new Button(Type.IF_NONE);			
 			
 			orderButton[0] = new Button(Type.RIGHT);
 			orderButton[1] = new Button(Type.LEFT);

@@ -11,6 +11,7 @@ import jie.android.ip.CommonConsts.ResourceConfig;
 import jie.android.ip.screen.BoxRenderConfig;
 import jie.android.ip.screen.actor.ImageActor;
 import jie.android.ip.screen.console.Code.Button;
+import jie.android.ip.screen.console.Code.Type;
 
 public class ConsoleRenderer {
 
@@ -62,11 +63,20 @@ public class ConsoleRenderer {
 	}
 
 	public void updataCodeGroupState(int index) {
+		group.hideCodePanel(-1, tweenManager);
 		group.toggleCodeLineState(index, tweenManager);
 	}
 
 	public void showCodePanel(int index, int pos, final Code.Button button) {
 		group.showCodePanel(index, pos, button, tweenManager);
+	}
+
+	public void hideCodePanel(int pos) {
+		group.hideCodePanel(pos, tweenManager);
+	}
+
+	public void updateCodeLinesButton(int index, int pos, final Code.Type type) {
+		group.updateCodeLineButton(index, pos, type);
 	}	
 	
 //

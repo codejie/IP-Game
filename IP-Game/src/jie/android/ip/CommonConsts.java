@@ -45,7 +45,8 @@ public interface CommonConsts {
 		public static final String CONSOLE_CODE_LINE_TITLE_SMALL = "console_code_line_title_small";
 		public static final String CONSOLE_CODE_LINE_TITLE_BIG = "console_code_line_title_big";
 		
-		public static final String CONSOLE_CODE_PANEL_BG = "console_code_panel_bg";
+		public static final String CONSOLE_CODE_PANEL_JUDGE_BG = "console_code_panel_judge_bg";
+		public static final String CONSOLE_CODE_PANEL_ORDER_BG = "console_code_panel_order_bg";
 		
 //		public static final String CONSOLE_CODE_DEFAULT_SMALL = "console_code_default_small";
 //		public static final String CONSOLE_CODE_DEFAULT_BIG = "console_code_default_big";
@@ -57,6 +58,27 @@ public interface CommonConsts {
 		public static final String CONSOLE_CODE_IF_0_SMALL = "console_code_if_0_small";
 		public static final String CONSOLE_CODE_IF_0_BIG = "console_code_if_0_big";
 		
+		public interface Cmd {
+			
+		}
+		
+		public interface Lines {
+			public interface Small {
+				
+			}
+			
+			public interface Big {
+				
+			}
+		}
+		
+		public interface Panel {
+			public interface Judge {
+			}
+			
+			public interface Order {
+			}			
+		}
 		
 	}
 	
@@ -74,17 +96,17 @@ public interface CommonConsts {
 			public static final int SPACE_LILNES = 8;			
 			
 			public interface Small {
-				public static final int WIDTH_BG = 692;
+				public static final int WIDTH_BG = 684;
 				public static final int HEIGHT_BG = 80;// same as the height of small group
 				
 				public static final int WIDTH_TITLE = 72;
-				public static final int HEIGHT_TITLE = 72;
+				public static final int HEIGHT_TITLE = 80;
 				
 				public static final int SPACE_X = 4;
 				public static final int SPACE_Y = 4;
 				
-				public static final int WIDTH_BUTTON_CODE = 72;
-				public static final int HEIGHT_BUTTON_CODE = 72;				
+				public static final int WIDTH_BUTTON_ORDER = 72;
+				public static final int HEIGHT_BUTTON_ORDER = 72;				
 				public static final int WIDTH_BUTTON_JUDGE = 36;
 				public static final int HEIGHT_BUTTON_JUDGE = 36;
 			}
@@ -117,12 +139,12 @@ public interface CommonConsts {
 			public static final int HEIGHT_BUTTON = 72;
 			
 			public interface Judge {
-				public static final int WIDTH_BG = 648;
+				public static final int WIDTH_BG = 488;
 				public static final int HEIGHT_BG = 88;				
 			}
 			
 			public interface Order {
-				public static final int WIDTH_BG = 728;
+				public static final int WIDTH_BG = 648;
 				public static final int HEIGHT_BG = 88;				
 			}
 		}

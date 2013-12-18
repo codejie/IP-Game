@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import jie.android.ip.screen.BoxRenderConfig;
 import jie.android.ip.screen.BoxScreenEventListener;
 import jie.android.ip.screen.console.Code.Button;
+import jie.android.ip.screen.console.Code.Type;
 import jie.android.ip.utils.Utils;
 
 public class ConsoleManager {
@@ -20,6 +21,10 @@ public class ConsoleManager {
 	private Cmd.Panel cmdPanel;
 	private Code.Lines codeLines;
 	private Code.Panel codePanel;
+	
+	private int cacheIndex = -1;
+	private int cachePos = -1;
+	private Code.Button cacheCodeButton;
 	
 	private Cmd.OnButtonListener cmdListener = new Cmd.OnButtonListener() {
 
@@ -41,7 +46,7 @@ public class ConsoleManager {
 				onCodeGroupClick(index);
 			} else if (which == Code.OnButtonListener.Which.PANEL) {
 				Utils.log(Tag, "code panel click : index = " + index + " which = " + which.getId() + "  button type = " + button.type.getId());
-				onCodePanelClick(index, button);
+				onCodePanelClick(pos, button);
 			} else if (which == Code.OnButtonListener.Which.CODE) {
 				Utils.log(Tag, "code line click : index = " + index + " which = " + which.getId() + "  button type = " + button.type.getId());
 				onCodeLineClick(index, pos, button);
@@ -89,11 +94,13 @@ public class ConsoleManager {
 	}
 	
 	protected void onCodeLineClick(int index, int pos, final Code.Button button) {
+		setCacheCodeButton(index, pos, button);
 		renderer.showCodePanel(index, pos, button);
 	}
 
 	protected void onCodePanelClick(int index, final Code.Button button) {
-		
+		updateCachedCodeButtonType(button.type);
+		renderer.hideCodePanel(index);
 	}
 
 	protected void onCodeGroupClick(int index) {
@@ -101,78 +108,20 @@ public class ConsoleManager {
 	}
 	
 	protected void onConsoleGroupClick(float x, float y) {
+		setCacheCodeButton(-1, -1, null);
 		renderer.updataCodeGroupState(-1);		
 	}	
-	
-//	
-//	protected void onCodeButtonClick(boolean inPanel, Button button) {
-//		
-//		if (button != cacheCodePanelButton) {
-//			resetCacheCodePanelCode();
-//	
-//			if (inPanel) {
-//				changePanelButtonState(button);
-//			} else {
-//				changeLinesButtonState(button);
-//			}
-//		} else {
-//			resetCacheCodePanelCode();
-//		}
-//	}
-//	
-//	protected void changePanelButtonState(final Code.Button button) {
-//		if (button.state == Code.State.NONE) {
-//			button.state = Code.State.SELECTED;
-//			
-//			cacheCodePanelButton = button;
-//		} else {
-//			button.state = Code.State.NONE;
-//		}
-//		renderer.updateCodePanelButton(button);
-//	}
-//	
-//	protected void changeLinesButtonState(Button button) {
-//		if (button.state == Code.State.NONE) {
-//			button.state = Code.State.SELECTED;
-//		} else {
-//			button.state = Code.State.NONE;
-//		}
-//		renderer.updateCodeLinesButton(button);		
-//	}
-//
-//	protected void onGroupClick(float x, float y) {
-//		if (cacheCodePanelButton != null) {
-//			createCodeLinesButton(cacheCodePanelButton.type, x, y);
-//			resetCacheCodePanelCode();
-//		}
-//	}
-//
-//	private void createCodeLinesButton(final Code.Type type, float x, float y) {
-//		
-//		Holder<Integer> func = new Holder<Integer>(-1);
-//		Holder<Integer> pos = new Holder<Integer>(-1);
-//		
-//		if (renderer.getLinesLocation(type, x, y, func, pos)) {
-//			Utils.log(Tag, "code lines : func = " + func.getValue() + " pos = "  + pos.getValue());
-//			Code.Button locbtn = null;
-//			Code.Button btn = new Code.Button(type, codeListener);
-//			if (!type.isJudge()) {
-//				 locbtn = codeLines.getButton(func.getValue(), pos.getValue() - 1);
-//			}
-//			renderer.addCodeLinesButton(func.getValue(), pos.getValue(), btn, locbtn);
-//			
-//			codeLines.setButton(func.getValue(), pos.getValue(), btn);
-//		}
-//	}
-//	
-//	private void resetCacheCodePanelCode() {
-//		if (cacheCodePanelButton != null) {
-//			final Code.Button btn = cacheCodePanelButton;
-//			changePanelButtonState(btn);
-//			cacheCodePanelButton = null;
-//		}		
-//	}
-//	
-//	
+
+	private void setCacheCodeButton(int index, int pos, final Code.Button button) {
+		cacheIndex = index;
+		cachePos = pos;
+		cacheCodeButton = button;
+	}
+
+	private void updateCachedCodeButtonType(final Code.Type type) {
+		renderer.updateCodeLinesButton(cacheIndex, cachePos, type);		
+//		codeLines.setButton(cacheIndex, cachePos, new Code.Button(type));
+		setCacheCodeButton(-1, -1, null);
+	}
 	
 }
