@@ -213,26 +213,35 @@ public class CodeLineGroup extends BaseGroup {
 	
 	private void setButtonBounds(final ImageActor actor, int pos, boolean judge, boolean small) {
 		float x = 0, y = 0;
+		float w = 0, h = 0;
 		if (small) {
 			if (pos % 2 == 0) {
 				//order
 				x = ConsoleGroupConfig.Lines.Small.WIDTH_TITLE + (ConsoleGroupConfig.Lines.Small.WIDTH_BUTTON_ORDER + ConsoleGroupConfig.Lines.Small.SPACE_X) * (pos / 2) + ConsoleGroupConfig.Lines.Small.SPACE_X;
 				y = ConsoleGroupConfig.Lines.Small.SPACE_Y;
+				w = ConsoleGroupConfig.Lines.Small.WIDTH_BUTTON_ORDER;
+				h = ConsoleGroupConfig.Lines.Small.HEIGHT_BUTTON_ORDER;
 			} else {
 				x = ConsoleGroupConfig.Lines.Small.WIDTH_TITLE + (ConsoleGroupConfig.Lines.Small.WIDTH_BUTTON_ORDER + ConsoleGroupConfig.Lines.Small.SPACE_X) * ((pos - 1) / 2) + ConsoleGroupConfig.Lines.Small.SPACE_X;
-				y = ConsoleGroupConfig.Lines.Small.SPACE_Y + ConsoleGroupConfig.Lines.Small.HEIGHT_BUTTON_ORDER - ConsoleGroupConfig.Lines.Small.HEIGHT_BUTTON_JUDGE; 
+				y = ConsoleGroupConfig.Lines.Small.SPACE_Y + ConsoleGroupConfig.Lines.Small.HEIGHT_BUTTON_ORDER - ConsoleGroupConfig.Lines.Small.HEIGHT_BUTTON_JUDGE;
+				w = ConsoleGroupConfig.Lines.Small.WIDTH_BUTTON_JUDGE;
+				h = ConsoleGroupConfig.Lines.Small.HEIGHT_BUTTON_JUDGE;				
 			}
 		} else {
 			if (pos %2 == 0) {
-				x = ConsoleGroupConfig.Lines.Big.WIDTH_TITLE + (ConsoleGroupConfig.Lines.Big.WIDTH_BUTTON_CODE + ConsoleGroupConfig.Lines.Big.SPACE_X) * (pos / 2) + ConsoleGroupConfig.Lines.Big.SPACE_X;
-				y = ConsoleGroupConfig.Lines.Big.SPACE_Y;				
+				x = ConsoleGroupConfig.Lines.Big.WIDTH_TITLE + (ConsoleGroupConfig.Lines.Big.WIDTH_BUTTON_ORDER + ConsoleGroupConfig.Lines.Big.SPACE_X) * (pos / 2) + ConsoleGroupConfig.Lines.Big.SPACE_X;
+				y = ConsoleGroupConfig.Lines.Big.SPACE_Y;
+				w = ConsoleGroupConfig.Lines.Big.WIDTH_BUTTON_ORDER;
+				h = ConsoleGroupConfig.Lines.Big.HEIGHT_BUTTON_ORDER;				
 			} else {
-				x = ConsoleGroupConfig.Lines.Big.WIDTH_TITLE + (ConsoleGroupConfig.Lines.Big.WIDTH_BUTTON_CODE + ConsoleGroupConfig.Lines.Big.SPACE_X) * ((pos - 1) / 2) + ConsoleGroupConfig.Lines.Big.SPACE_X;
-				y = ConsoleGroupConfig.Lines.Big.SPACE_Y + ConsoleGroupConfig.Lines.Big.HEIGHT_BUTTON_CODE;// - ConsoleGroupConfig.Lines.Big.HEIGHT_BUTTON_JUDGE; 
+				x = ConsoleGroupConfig.Lines.Big.WIDTH_TITLE + (ConsoleGroupConfig.Lines.Big.WIDTH_BUTTON_JUDGE + ConsoleGroupConfig.Lines.Big.SPACE_X) * ((pos - 1) / 2) + ConsoleGroupConfig.Lines.Big.SPACE_X;
+				y = ConsoleGroupConfig.Lines.Big.SPACE_Y + ConsoleGroupConfig.Lines.Big.HEIGHT_BUTTON_ORDER;// - ConsoleGroupConfig.Lines.Big.HEIGHT_BUTTON_JUDGE;
+				w = ConsoleGroupConfig.Lines.Big.WIDTH_BUTTON_JUDGE;
+				h = ConsoleGroupConfig.Lines.Big.HEIGHT_BUTTON_JUDGE;					
 			}
 		}
 		
-		actor.setBounds(x, y, actor.getWidth(), actor.getHeight());
+		actor.setBounds(x, y, w, h);
 	}
 	
 	public void setState(final State state) {

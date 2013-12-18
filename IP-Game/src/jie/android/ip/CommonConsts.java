@@ -7,28 +7,6 @@ public interface CommonConsts {
 		public static final int HEIGHT = 768;
 	}
 	
-	public interface BoxConfig {
-		public static final int MAX_ROW = 6;
-		public static final int MAX_COL = 6;
-		
-		public static final int BLOCK_WIDTH = 64;
-		public static final int BLOCK_HEIGHT = 64;
-		public static final int TRAY_WIDTH = 96;
-		public static final int TRAY_HEIGHT = 48;
-		
-		public static final int MAX_RENDER_WIDTH = ScreenConfig.WIDTH;
-		public static final int MAX_RENDER_HEIGHT = ScreenConfig.HEIGHT;
-		
-		public static final int COL_BASE = 16;
-		public static final int COL_SPACE = 32;
-		public static final int ROW_BASE = 50;
-		public static final int ROW_SPACE = 4;
-		public static final int TRAY_BASE = 0;
-		public static final int TRAY_SPACE = 0;
-		
-		public static final float SOURCE_SCALE = 0.5f;
-		public static final float TARGET_SCALE = 1.0f;
-	}
 	
 	public interface ResourceConfig {
 		public static final String BOX_PACK_NAME = "data/box.pack";
@@ -57,30 +35,82 @@ public interface CommonConsts {
 
 		public static final String CONSOLE_CODE_IF_0_SMALL = "console_code_if_0_small";
 		public static final String CONSOLE_CODE_IF_0_BIG = "console_code_if_0_big";
+
+		//
+		
+		
+		public interface Pack {
+			public static final String APP = "data/app.pack";
+			public static final String BOX = "data/box.pack";
+			public static final String CONSOLE_CMD = "data/console_cmd.pack";
+			public static final String CONSOLE_LINES_SMALL = "data/console_lines_small.pack";
+			public static final String CONSOLE_LINES_BIG = "data/console_lines_big.pack";
+			public static final String CONSOLE_PANEL = "data/console_panel.pack";
+		}
+		
+		public interface Index {
+			public static final int APP = 0;
+			public static final int BOX = 1;
+			public static final int CONSOLE_CMD = 2;
+			public static final int CONSOLE_LINES_SMALL = 3;
+			public static final int CONSOLE_LINES_BIG = 4;
+			public static final int CONSOLE_PANEL = 5;
+			
+		}
+
+		public interface App {
+			public static final String BACKGROUND = "background";
+		}
+		
+		public interface Box {
+			public static final String FRAME = "frame";
+		}
 		
 		public interface Cmd {
-			
+			public static final String RUN = "run";
 		}
 		
 		public interface Lines {
-			public interface Small {
-				
-			}
+			public static final String BG = "bg";
+			public static final String TITLE = "title";
 			
-			public interface Big {
-				
-			}
+			public static final String CODE_NONE = "code_none";
+			public static final String CODE_IF_NONE = "code_if_none";
+			
 		}
 		
 		public interface Panel {
-			public interface Judge {
-			}
+			public static final String ORDER_BG = "order_bg";
+			public static final String JUDGE_BG = "judge_bg";
 			
-			public interface Order {
-			}			
+			public static final String CODE_NONE = "code_none";
+			public static final String CODE_IF_NONE = "code_if_none";			
 		}
 		
 	}
+	
+	public interface BoxConfig {
+		public static final int MAX_ROW = 6;
+		public static final int MAX_COL = 6;
+		
+		public static final int BLOCK_WIDTH = 64;
+		public static final int BLOCK_HEIGHT = 64;
+		public static final int TRAY_WIDTH = 96;
+		public static final int TRAY_HEIGHT = 48;
+		
+		public static final int MAX_RENDER_WIDTH = ScreenConfig.WIDTH;
+		public static final int MAX_RENDER_HEIGHT = ScreenConfig.HEIGHT;
+		
+		public static final int COL_BASE = 16;
+		public static final int COL_SPACE = 32;
+		public static final int ROW_BASE = 50;
+		public static final int ROW_SPACE = 4;
+		public static final int TRAY_BASE = 0;
+		public static final int TRAY_SPACE = 0;
+		
+		public static final float SOURCE_SCALE = 0.5f;
+		public static final float TARGET_SCALE = 1.0f;
+	}	
 	
 	public interface ConsoleGroupConfig {
 		public interface Cmd {
@@ -123,8 +153,8 @@ public interface CommonConsts {
 				public static final int SPACE_X = 8;
 				public static final int SPACE_Y = 8;
 				
-				public static final int WIDTH_BUTTON_CODE = 128;
-				public static final int HEIGHT_BUTTON_CODE = 80;				
+				public static final int WIDTH_BUTTON_ORDER = 128;
+				public static final int HEIGHT_BUTTON_ORDER = 80;				
 				public static final int WIDTH_BUTTON_JUDGE = 128;
 				public static final int HEIGHT_BUTTON_JUDGE = 48;
 			}

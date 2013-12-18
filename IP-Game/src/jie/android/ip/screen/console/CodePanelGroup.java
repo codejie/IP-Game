@@ -100,25 +100,25 @@ public class CodePanelGroup extends BaseGroup {
 	private Actor makeImageActor(int pos, Code.Type type) {
 		ImageActor ret = null;
 
-		if (type == Code.Type.NONE) {
-			ret = new ImageActor(atlas.findRegion(small ? ResourceConfig.CONSOLE_CODE_NONE_SMALL : ResourceConfig.CONSOLE_CODE_NONE_BIG));
-		} else if (type == Code.Type.RIGHT) {
-		} else if (type == Code.Type.LEFT) {
-		} else if (type == Code.Type.ACT) {
-		} else if (type == Code.Type.IF_0) {
-		} else if (type == Code.Type.IF_1) {
-		} else if (type == Code.Type.IF_2) {
-		} else if (type == Code.Type.IF_3) {
-		} else if (type == Code.Type.IF_ANY) {
-		} else if (type == Code.Type.IF_NONE) {
-			ret = new ImageActor(atlas.findRegion(small ? ResourceConfig.CONSOLE_CODE_IF_NONE_SMALL : ResourceConfig.CONSOLE_CODE_IF_NONE_BIG));
-		} else if (type == Code.Type.CALL_0) {
-		} else if (type == Code.Type.CALL_1) {
-		} else if (type == Code.Type.CALL_2) {
-		} else if (type == Code.Type.CALL_3) {
-		} else {
-			return null;
-		}		
+//		if (type == Code.Type.NONE) {
+//			ret = new ImageActor(atlas.findRegion(small ? ResourceConfig.CONSOLE_CODE_NONE_SMALL : ResourceConfig.CONSOLE_CODE_NONE_BIG));
+//		} else if (type == Code.Type.RIGHT) {
+//		} else if (type == Code.Type.LEFT) {
+//		} else if (type == Code.Type.ACT) {
+//		} else if (type == Code.Type.IF_0) {
+//		} else if (type == Code.Type.IF_1) {
+//		} else if (type == Code.Type.IF_2) {
+//		} else if (type == Code.Type.IF_3) {
+//		} else if (type == Code.Type.IF_ANY) {
+//		} else if (type == Code.Type.IF_NONE) {
+//			ret = new ImageActor(atlas.findRegion(small ? ResourceConfig.CONSOLE_CODE_IF_NONE_SMALL : ResourceConfig.CONSOLE_CODE_IF_NONE_BIG));
+//		} else if (type == Code.Type.CALL_0) {
+//		} else if (type == Code.Type.CALL_1) {
+//		} else if (type == Code.Type.CALL_2) {
+//		} else if (type == Code.Type.CALL_3) {
+//		} else {
+//			return null;
+//		}		
 		
 //		if (type == Code.Type.NONE) {
 			ret = new ImageActor(this.atlas.findRegion(ResourceConfig.CONSOLE_CODE_NONE_BIG));			

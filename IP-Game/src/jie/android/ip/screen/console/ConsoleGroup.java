@@ -18,9 +18,7 @@ import jie.android.ip.CommonConsts.ConsoleGroupConfig;
 import jie.android.ip.CommonConsts.ResourceConfig;
 import jie.android.ip.screen.actor.BaseGroup;
 import jie.android.ip.screen.actor.BaseGroupAccessor;
-import jie.android.ip.screen.console.Code.Button;
 import jie.android.ip.screen.console.Code.OnButtonListener;
-import jie.android.ip.screen.console.Code.Type;
 
 public class ConsoleGroup extends BaseGroup {
 
@@ -208,13 +206,13 @@ public class ConsoleGroup extends BaseGroup {
 		float x = 0, y = 0;
 		
 		if (pos %2 == 0) {
-			x = ConsoleGroupConfig.Lines.Big.WIDTH_TITLE + (ConsoleGroupConfig.Lines.Big.WIDTH_BUTTON_CODE + ConsoleGroupConfig.Lines.Big.SPACE_X) * (pos / 2) / 1.5f + ConsoleGroupConfig.Lines.Big.SPACE_X;
+			x = ConsoleGroupConfig.Lines.Big.WIDTH_TITLE + (ConsoleGroupConfig.Lines.Big.WIDTH_BUTTON_ORDER + ConsoleGroupConfig.Lines.Big.SPACE_X) * (pos / 2) / 1.5f + ConsoleGroupConfig.Lines.Big.SPACE_X;
 			if (x + ConsoleGroupConfig.Panel.Order.WIDTH_BG > ScreenConfig.WIDTH) {
 				x = ScreenConfig.WIDTH - ConsoleGroupConfig.Panel.Order.WIDTH_BG;
 			}			
 			
 		} else {
-			x = ConsoleGroupConfig.Lines.Big.WIDTH_TITLE + (ConsoleGroupConfig.Lines.Big.WIDTH_BUTTON_CODE + ConsoleGroupConfig.Lines.Big.SPACE_X) * ((pos - 1) / 2) / 1.5f + ConsoleGroupConfig.Lines.Big.SPACE_X;
+			x = ConsoleGroupConfig.Lines.Big.WIDTH_TITLE + (ConsoleGroupConfig.Lines.Big.WIDTH_BUTTON_JUDGE + ConsoleGroupConfig.Lines.Big.SPACE_X) * ((pos - 1) / 2) / 1.5f + ConsoleGroupConfig.Lines.Big.SPACE_X;
 			if (x + ConsoleGroupConfig.Panel.Judge.WIDTH_BG > ScreenConfig.WIDTH) {
 				x = ScreenConfig.WIDTH - ConsoleGroupConfig.Panel.Judge.WIDTH_BG;
 			}			
