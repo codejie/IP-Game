@@ -1,10 +1,10 @@
 package jie.android.ip.screen;
 
 import jie.android.ip.IPGame;
-import jie.android.ip.screen.actor.BaseGroup;
-import jie.android.ip.screen.actor.BaseGroupAccessor;
-import jie.android.ip.screen.actor.ImageActor;
-import jie.android.ip.screen.actor.ImageActorAccessor;
+import jie.android.ip.common.actor.BaseGroup;
+import jie.android.ip.common.actor.BaseGroupAccessor;
+import jie.android.ip.common.actor.ImageActor;
+import jie.android.ip.common.actor.ImageActorAccessor;
 
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;

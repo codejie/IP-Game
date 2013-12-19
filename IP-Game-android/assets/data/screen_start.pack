@@ -1,0 +1,75 @@
+
+screen_start.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+p1
+  rotate: false
+  xy: 1, 45
+  size: 581, 59
+  orig: 581, 59
+  offset: 0, 0
+  index: -1
+title
+  rotate: false
+  xy: 1, 14
+  size: 271, 29
+  orig: 271, 29
+  offset: 0, 0
+  index: -1
+author
+  rotate: false
+  xy: 584, 89
+  size: 149, 15
+  orig: 149, 15
+  offset: 0, 0
+  index: -1
+am
+  rotate: false
+  xy: 584, 28
+  size: 98, 59
+  orig: 98, 59
+  offset: 0, 0
+  index: -1
+a
+  rotate: false
+  xy: 684, 28
+  size: 64, 59
+  orig: 64, 59
+  offset: 0, 0
+  index: -1
+ver
+  rotate: false
+  xy: 1, 1
+  size: 96, 11
+  orig: 96, 11
+  offset: 0, 0
+  index: -1
+p
+  rotate: false
+  xy: 750, 47
+  size: 50, 57
+  orig: 50, 57
+  offset: 0, 0
+  index: -1
+I
+  rotate: false
+  xy: 802, 47
+  size: 31, 57
+  orig: 31, 57
+  offset: 0, 0
+  index: -1
+semi
+  rotate: false
+  xy: 835, 50
+  size: 26, 54
+  orig: 26, 54
+  offset: 0, 0
+  index: -1
+s-bg
+  rotate: false
+  xy: 274, 41
+  size: 2, 2
+  orig: 2, 2
+  offset: 0, 0
+  index: -1

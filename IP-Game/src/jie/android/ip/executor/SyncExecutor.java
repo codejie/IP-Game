@@ -1,7 +1,5 @@
 package jie.android.ip.executor;
 
-import java.util.Stack;
-
 import jie.android.ip.executor.CommandConsts.CommandType;
 import jie.android.ip.utils.Utils;
 

@@ -1,31 +1,21 @@
 package jie.android.ip;
 
-import jie.android.ip.CommonConsts.BoxConfig;
-import jie.android.ip.CommonConsts.ResourceConfig;
+import jie.android.ip.CommonConsts.ScreenPackConfig;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.Disposable;
 
 public class Resources implements Disposable {
 
-	private Skin skin;
-	private TextureAtlas textureAtlas;
-	
 	private AssetManager assetManager;
 	
 	public Resources() {
-//		initAssetManager();
-		initSkin();
-		initTextureAtlas();
+		
+		initAssetManager();
 		
 		//for Debug
-		loadAssetManager();
+		//loadAssetManager();
 	}
 
 	@Override
@@ -33,7 +23,12 @@ public class Resources implements Disposable {
 		if (assetManager != null) {
 			assetManager.dispose();
 		}
-		skin.dispose();
+	}
+
+	private void initAssetManager() {
+		assetManager = new AssetManager();
+		assetManager.load(ScreenPackConfig.SCREEN_START, TextureAtlas.class);
+		assetManager.finishLoading();
 	}
 	
 	public final AssetManager getAssetManager() {
@@ -41,31 +36,19 @@ public class Resources implements Disposable {
 	}
 	
 	public final void loadAssetManager() {
-		assetManager = new AssetManager();
-		assetManager.load(ResourceConfig.BOX_PACK_NAME, TextureAtlas.class);
-		assetManager.load(ResourceConfig.FONT_18_NAME, BitmapFont.class);
-		assetManager.load(ResourceConfig.CONSOLE_PACK_NAME, TextureAtlas.class);
+//		assetManager = new AssetManager();
+//		
+//		assetManager.load(ResourceConfig.Pack.SCREEN_START, TextureAtlas.class);
+		
+		assetManager.load(ScreenPackConfig.SCREEN_BOX, TextureAtlas.class);
+//		assetManager.load(ResourceConfig.FONT_18_NAME, BitmapFont.class);
+//		assetManager.load(ResourceConfig.CONSOLE_PACK_NAME, TextureAtlas.class);
 		assetManager.finishLoading();
 	}
 	
-	public final Skin getSkin() {
-		return skin;
+	public final TextureAtlas getTextureAtlas(final String name) {
+		return assetManager.get(name, TextureAtlas.class);
 	}
 	
-	private void initSkin() {
-		skin = new Skin();
-		
-		TextureRegion rt = new TextureRegion(new Texture(Gdx.files.internal("data/ic.png")));		
-		skin.add("ic", rt);
-		skin.add("t", new TextureRegion(new Texture(Gdx.files.internal("data/t.png")), BoxConfig.TRAY_WIDTH, BoxConfig.TRAY_HEIGHT));		
-	}
-	
-	public final TextureAtlas getTextureAtlas() {
-		return textureAtlas;
-	}
-	
-	private void initTextureAtlas() {
-		textureAtlas = new TextureAtlas(Gdx.files.internal("data/title.pack"));
-	}
 	
 }

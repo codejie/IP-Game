@@ -12,10 +12,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
-
-import jie.android.ip.script.Script.TrayData;
 
 public class Script {
 	public class BlockData {

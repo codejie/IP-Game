@@ -5,13 +5,12 @@ import jie.android.ip.executor.CommandSet;
 import jie.android.ip.executor.Executor;
 import jie.android.ip.executor.OnCommandListener;
 import jie.android.ip.executor.CommandConsts.ActType;
-import jie.android.ip.screen.BoxRenderConfig;
 import jie.android.ip.script.Script;
 import jie.android.ip.utils.Utils;
 
 public class BoxExecutor {
 
-	private final BoxRenderConfig config;
+	private final BoxRenderAdapter config;
 	
 	private BoxManager manager;
 	private Executor executor;
@@ -92,7 +91,7 @@ public class BoxExecutor {
 		
 	};
 	
-	public BoxExecutor(final BoxRenderConfig config) {
+	public BoxExecutor(final BoxRenderAdapter config) {
 		this.config = config;
 		
 		init();

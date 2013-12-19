@@ -9,8 +9,6 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import jie.android.ip.executor.CommandConsts.ActType;
 import jie.android.ip.executor.CommandConsts.CommandType;
-import jie.android.ip.utils.Utils;
-
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;

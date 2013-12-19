@@ -1,0 +1,124 @@
+
+screen_box.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+background
+  rotate: false
+  xy: 1, 693
+  size: 1000, 750
+  orig: 1000, 750
+  offset: 0, 0
+  index: -1
+lines_big_bg
+  rotate: false
+  xy: 1, 547
+  size: 640, 144
+  orig: 640, 144
+  offset: 0, 0
+  index: -1
+panel_judge_bg
+  rotate: false
+  xy: 1, 417
+  size: 640, 128
+  orig: 640, 128
+  offset: 0, 0
+  index: -1
+panel_order_bg
+  rotate: false
+  xy: 1, 417
+  size: 640, 128
+  orig: 640, 128
+  offset: 0, 0
+  index: -1
+lines_small_bg
+  rotate: false
+  xy: 1, 343
+  size: 640, 72
+  orig: 640, 72
+  offset: 0, 0
+  index: -1
+cmd_run
+  rotate: false
+  xy: 643, 547
+  size: 144, 144
+  orig: 144, 144
+  offset: 0, 0
+  index: -1
+lines_big_title
+  rotate: false
+  xy: 1, 197
+  size: 144, 144
+  orig: 144, 144
+  offset: 0, 0
+  index: -1
+lines_big_code_if_none
+  rotate: false
+  xy: 643, 417
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+lines_big_code_none
+  rotate: false
+  xy: 789, 563
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+tray
+  rotate: false
+  xy: 1, 67
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+lines_small_title
+  rotate: false
+  xy: 147, 269
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: -1
+panel_code_none
+  rotate: false
+  xy: 643, 343
+  size: 72, 72
+  orig: 72, 72
+  offset: 0, 0
+  index: -1
+box_one
+  rotate: false
+  xy: 919, 627
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+lines_small_code_none
+  rotate: false
+  xy: 1, 1
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+lines_small_code_if_none
+  rotate: false
+  xy: 147, 235
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+box_frame
+  rotate: false
+  xy: 1003, 1427
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+panel_code_if_none
+  rotate: false
+  xy: 221, 325
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1

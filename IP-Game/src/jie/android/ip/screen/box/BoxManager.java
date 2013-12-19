@@ -5,8 +5,7 @@ import java.util.Map.Entry;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
-import jie.android.ip.CommonConsts.BoxConfig;
-import jie.android.ip.screen.BoxRenderConfig;
+import jie.android.ip.screen.box.BoxConfig.Const;
 import jie.android.ip.script.Script;
 import jie.android.ip.script.Script.BlockData;
 import jie.android.ip.utils.Extended.Pair;
@@ -133,7 +132,7 @@ public class BoxManager {
 		public void onCompleted(boolean isTray, int srow, int scol, int trow, int tcol);
 	}	
 
-	private final BoxRenderConfig config;
+	private final BoxRenderAdapter config;
 	
 	private BoxRenderer renderer;
 	
@@ -170,20 +169,20 @@ public class BoxManager {
 	private OnBoxEventListener onEventListener;
 	
 	
-	public BoxManager(final BoxRenderConfig config) {
+	public BoxManager(final BoxRenderAdapter config) {
 		this.config = config;
 	}
 	
 	public boolean loadScript(final Script script) {
 		
-		blockSource = new BlockArray(BoxConfig.MAX_ROW, BoxConfig.MAX_COL);
+		blockSource = new BlockArray(Const.Box.MAX_ROW, Const.Box.MAX_COL);
 		if (script.getSource() != null) {
 			for (final Script.BlockData data : script.getSource()) {
 				inflateBlock(blockSource, data);
 			}
 		}
 		
-		blockTarget = new BlockArray(BoxConfig.MAX_ROW, BoxConfig.MAX_COL);
+		blockTarget = new BlockArray(Const.Box.MAX_ROW, Const.Box.MAX_COL);
 		if (script.getTarget() != null) {
 			for (final Script.BlockData data : script.getTarget()) {
 				inflateBlock(blockTarget, data);
@@ -244,7 +243,7 @@ public class BoxManager {
 			}
 			int row = blockSource.checkInRow(col);
 			if (row == -1) {
-				row = BoxConfig.MAX_ROW;
+				row = Const.Box.MAX_ROW;
 			} else if (row == 1) {
 				throw new BoxException(BoxException.E_BLOCK_NOTROOM);
 				//error
@@ -275,7 +274,7 @@ public class BoxManager {
 		}
 		
 		OnRenderTweenListener callback = null; 
-		if (tcol > 0 && tcol <= BoxConfig.MAX_COL) {
+		if (tcol > 0 && tcol <= Const.Box.MAX_COL) {
 			callback = onTweenSuccListener;
 		} else {
 			callback = onTweenFailListener;

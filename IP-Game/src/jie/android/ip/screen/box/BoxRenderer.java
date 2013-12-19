@@ -6,64 +6,63 @@ import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
-import aurelienribon.tweenengine.equations.Expo;
 import aurelienribon.tweenengine.equations.Quint;
-import jie.android.ip.CommonConsts.BoxConfig;
-import jie.android.ip.CommonConsts.ResourceConfig;
-import jie.android.ip.screen.BoxRenderConfig;
-import jie.android.ip.screen.actor.ImageActor;
-import jie.android.ip.screen.actor.ImageActorAccessor;
+import jie.android.ip.CommonConsts.ScreenPackConfig;
+import jie.android.ip.common.actor.ImageActor;
+import jie.android.ip.common.actor.ImageActorAccessor;
+import jie.android.ip.screen.box.BoxConfig.Const;
+import jie.android.ip.screen.box.BoxConfig.Image;
 import jie.android.ip.screen.box.BoxManager.Block;
 import jie.android.ip.screen.box.BoxManager.OnRenderTweenListener;
 import jie.android.ip.screen.box.BoxManager.Tray;
 
 public class BoxRenderer {
 
-	private final BoxRenderConfig config;
+	private final BoxRenderAdapter adapter;
 	
 	private final TextureAtlas textureAtlas;
 
-	public BoxRenderer(final BoxRenderConfig config) {
-		this.config = config;
-		this.textureAtlas = config.getResources().getAssetManager().get(ResourceConfig.BOX_PACK_NAME, TextureAtlas.class);;
+	public BoxRenderer(final BoxRenderAdapter adapter) {
+		this.adapter = adapter;
+		this.textureAtlas = adapter.getResources().getTextureAtlas(ScreenPackConfig.SCREEN_BOX);
 	}
 
 	private int colToBlockX(int col) {
-		return BoxConfig.COL_BASE + col * (BoxConfig.BLOCK_WIDTH + BoxConfig.COL_SPACE);
+		return Const.Box.COL_BASE + col * (Const.Box.BLOCK_WIDTH + Const.Box.COL_SPACE);
 	}
 	
 	private int rowToBlockY(int row) {
-		return BoxConfig.ROW_BASE + row * (BoxConfig.BLOCK_HEIGHT + BoxConfig.ROW_SPACE);
+		return Const.Box.ROW_BASE + row * (Const.Box.BLOCK_HEIGHT + Const.Box.ROW_SPACE);
 	}
 	
 	private int colToTrayX(int col) {
-		return BoxConfig.TRAY_SPACE + col * (BoxConfig.TRAY_WIDTH);
+		return Const.Box.TRAY_SPACE + col * (Const.Box.TRAY_WIDTH);
 	}
 	
 	private int rowToTrayY() {
-		return BoxConfig.TRAY_BASE;
+		return Const.Box.TRAY_BASE;
 	}
 	
 	public void putSourceBlock(int row, int col, final Block block) {
 		block.actor = makeActor(block.value, block.style);
 		block.actor.setPosition(colToBlockX(col), rowToBlockY(row));
-		config.getSourceGroup().addActor(block.actor);
+		adapter.getSourceGroup().addActor(block.actor);
 	}
 
 	public void putTargetBlock(int row, int col, final Block block) {
 		block.actor = makeActor(block.value, block.style);
 		block.actor.setPosition(colToBlockX(col), rowToBlockY(row));
-		config.getTargetGroup().addActor(block.actor);		
+		adapter.getTargetGroup().addActor(block.actor);		
 	}
 
 	public void putTray(final Tray tray) {
-		tray.actor = new ImageActor(textureAtlas.findRegion("t"));// config.getResources().getSkin().getRegion("t"));
+		tray.actor = new ImageActor(textureAtlas.findRegion(Image.Box.TRAY));// adapter.getResources().getSkin().getRegion("t"));
 		tray.actor.setPosition(colToTrayX(tray.posCol), rowToTrayY());
-		config.getSourceGroup().addActor(tray.actor);
+		adapter.getSourceGroup().addActor(tray.actor);
 	}
 		
 	private final ImageActor makeActor(int value, int style) {
-		return new ImageActor(textureAtlas.findRegion("ic"));// config.getResources().getSkin().getRegion("ic"));
+		return new ImageActor(textureAtlas.findRegion(Image.Box.BOX_0));// adapter.getResources().getSkin().getRegion("ic"));
 	}
 
 	public void moveBlock(final Block block, final int srow, final int scol, final int trow, final int tcol, final OnRenderTweenListener onTweenListener) {
@@ -73,7 +72,7 @@ public class BoxRenderer {
 				public void onEvent(int type, BaseTween<?> source) {
 					onTweenListener.onCompleted(false, srow, scol, trow, tcol);
 				}
-			}).start(config.getTweenManager());
+			}).start(adapter.getTweenManager());
 		}
 	}
 
@@ -92,7 +91,7 @@ public class BoxRenderer {
 					onTweenListener.onCompleted(true, 0, scol, 0, tcol);
 				}
 			})
-			.start(config.getTweenManager());
+			.start(adapter.getTweenManager());
 		}		
 	}
 
@@ -104,15 +103,15 @@ public class BoxRenderer {
 			public void onEvent(int type, BaseTween<?> source) {
 				onTweenListener.onCompleted(true, 0, scol, 0, tcol);
 			}
-		}).start(config.getTweenManager());
+		}).start(adapter.getTweenManager());
 	}
 	
 	private float makeRowDelay(int row) {
-		return Math.abs(row) * config.getRenderDelay();
+		return Math.abs(row) * adapter.getRenderDelay();
 	}
 	
 	private float makeColDelay(int col) {
-		return Math.abs(col) * config.getRenderDelay();
+		return Math.abs(col) * adapter.getRenderDelay();
 	}
 
 
