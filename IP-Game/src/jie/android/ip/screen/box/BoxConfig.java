@@ -10,10 +10,10 @@ public interface BoxConfig {
 		public interface Box {
 			public static final String FRAME = "box_frame";
 			
-			public static final String BOX_0 = "box_one";
-			public static final String BOX_1 = "box_two";
-			public static final String BOX_2 = "box_three";
-			public static final String BOX_3 = "box_four";
+			public static final String BOX_0 = "box_a";
+			public static final String BOX_1 = "box_b";
+			public static final String BOX_2 = "box_c";
+			public static final String BOX_3 = "box_d";
 			
 			public static final String TRAY = "tray";
 		}
@@ -32,16 +32,16 @@ public interface BoxConfig {
 					public static final String CODE_RIGHT = "lines_small_code_right";
 					public static final String CODE_LEFT = "lines_small_code_left";
 					public static final String CODE_ACT = "lines_small_code_act";
-					public static final String CODE_IF_0 = "lines_small_code_if_0";
-					public static final String CODE_IF_1 = "lines_small_code_if_1";
-					public static final String CODE_IF_2 = "lines_small_code_if_2";
-					public static final String CODE_IF_3 = "lines_small_code_if_3";
+					public static final String CODE_IF_0 = "lines_small_code_if_a";
+					public static final String CODE_IF_1 = "lines_small_code_if_b";
+					public static final String CODE_IF_2 = "lines_small_code_if_c";
+					public static final String CODE_IF_3 = "lines_small_code_if_d";
 					public static final String CODE_IF_ANY = "lines_small_code_if_any";
 					public static final String CODE_IF_NONE = "lines_small_code_if_none";
-					public static final String CODE_CALL_0 = "lines_small_code_call_0";
-					public static final String CODE_CALL_1 = "lines_small_code_call_1";
-					public static final String CODE_CALL_2 = "lines_small_code_call_2";
-					public static final String CODE_CALL_3 = "lines_small_code_call_3";
+					public static final String CODE_CALL_0 = "lines_small_code_call_a";
+					public static final String CODE_CALL_1 = "lines_small_code_call_b";
+					public static final String CODE_CALL_2 = "lines_small_code_call_c";
+					public static final String CODE_CALL_3 = "lines_small_code_call_d";
 				}
 				
 				public interface Big {
@@ -52,16 +52,16 @@ public interface BoxConfig {
 					public static final String CODE_RIGHT = "lines_big_code_right";
 					public static final String CODE_LEFT = "lines_big_code_left";
 					public static final String CODE_ACT = "lines_big_code_act";
-					public static final String CODE_IF_0 = "lines_big_code_if_0";
-					public static final String CODE_IF_1 = "lines_big_code_if_1";
-					public static final String CODE_IF_2 = "lines_big_code_if_2";
-					public static final String CODE_IF_3 = "lines_big_code_if_3";
+					public static final String CODE_IF_0 = "lines_big_code_if_a";
+					public static final String CODE_IF_1 = "lines_big_code_if_b";
+					public static final String CODE_IF_2 = "lines_big_code_if_c";
+					public static final String CODE_IF_3 = "lines_big_code_if_d";
 					public static final String CODE_IF_ANY = "lines_big_code_if_any";
 					public static final String CODE_IF_NONE = "lines_big_code_if_none";
-					public static final String CODE_CALL_0 = "lines_big_code_call_0";
-					public static final String CODE_CALL_1 = "lines_big_code_call_1";
-					public static final String CODE_CALL_2 = "lines_big_code_call_2";
-					public static final String CODE_CALL_3 = "lines_big_code_call_3";					
+					public static final String CODE_CALL_0 = "lines_big_code_call_a";
+					public static final String CODE_CALL_1 = "lines_big_code_call_b";
+					public static final String CODE_CALL_2 = "lines_big_code_call_c";
+					public static final String CODE_CALL_3 = "lines_big_code_call_d";					
 				}
 			}
 			
@@ -73,16 +73,16 @@ public interface BoxConfig {
 				public static final String CODE_RIGHT = "panel_code_right";
 				public static final String CODE_LEFT = "panel_code_left";
 				public static final String CODE_ACT = "panel_code_act";
-				public static final String CODE_IF_0 = "panel_code_if_0";
-				public static final String CODE_IF_1 = "panel_code_if_1";
-				public static final String CODE_IF_2 = "panel_code_if_2";
-				public static final String CODE_IF_3 = "panel_code_if_3";
+				public static final String CODE_IF_0 = "panel_code_if_a";
+				public static final String CODE_IF_1 = "panel_code_if_b";
+				public static final String CODE_IF_2 = "panel_code_if_c";
+				public static final String CODE_IF_3 = "panel_code_if_d";
 				public static final String CODE_IF_ANY = "panel_code_if_any";
 				public static final String CODE_IF_NONE = "panel_code_if_none";
-				public static final String CODE_CALL_0 = "panel_code_call_0";
-				public static final String CODE_CALL_1 = "panel_code_call_1";
-				public static final String CODE_CALL_2 = "panel_code_call_2";
-				public static final String CODE_CALL_3 = "panel_code_call_3";			
+				public static final String CODE_CALL_0 = "panel_code_call_a";
+				public static final String CODE_CALL_1 = "panel_code_call_b";
+				public static final String CODE_CALL_2 = "panel_code_call_c";
+				public static final String CODE_CALL_3 = "panel_code_call_d";			
 			}
 		}
 	}
@@ -144,10 +144,10 @@ public interface BoxConfig {
 				public interface Big {
 					//public static final int BASE_Y_TOP = 100;
 					
-					public static final int WIDTH_BG = 1160;
+					public static final int WIDTH_BG = 1168;
 					public static final int HEIGHT_BG = 144;
 					
-					public static final int WIDTH_TITLE = 64;
+					public static final int WIDTH_TITLE = 72;
 					public static final int HEIGHT_TITLE = 144;
 					
 					public static final int SPACE_X = 8;

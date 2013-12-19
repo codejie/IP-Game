@@ -22,10 +22,10 @@ public interface StartConfig {
 	public interface Const {
 		public static final float SCALE_1 = 1.5f;
 		public static final float SCALE_2 = 6.0f;
-		public static final float DURATION_1 = 0.5f;
-		public static final float DURATION_2 = 0.5f;
+		public static final float DURATION_1 = 0.3f;
+		public static final float DURATION_2 = 0.3f;
 		public static final float DURATION_3 = 1.0f;
-		public static final float DURATION_4 = 0.5f;	
+		public static final float DURATION_4 = 0.3f;	
 		public static final float DELAY_1 = 0.5f;
 		public static final float DELAY_2 = -0.6f;
 		public static final float DELAY_3 = 1.0f;

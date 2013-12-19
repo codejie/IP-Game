@@ -34,15 +34,7 @@ public class Code {
 			return this == NONE;
 		}
 	}
-//	
-//	public enum State {
-//		NONE, SELECTED;
-//		
-//		public int getId() {
-//			return this.ordinal();
-//		}
-//	}
-//	
+
 	public static class Button {
 		public final Type type;
 		public Actor smallActor;
@@ -132,20 +124,5 @@ public class Code {
 			return orderButton;
 		}
 	}
-//	
-//	public static class Panel {
-//		private Button[] buttons = new Button[Type.values().length - 1];
-//		
-//		public Panel(OnButtonListener listener) {
-//			Type[] type = Type.values();
-//			for (int i = 1; i < type.length; ++ i) {
-//				buttons[i - 1] = new Button(type[i], listener);
-//			}
-//		}
-//		
-//		public final Button[] getButtons() {
-//			return buttons;
-//		}
-//	}	
-//	
+
 }
