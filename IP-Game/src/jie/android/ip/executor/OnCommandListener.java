@@ -2,7 +2,7 @@ package jie.android.ip.executor;
 
 public interface OnCommandListener {
 	public void onStart();
-	public void onEnd();
+	public void onEnd(boolean broken);
 	
 	public void onCall(int func, int index, Object funcIndex, boolean found);	
 	public void onAct(int func, int index, Object actType, Object step);

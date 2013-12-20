@@ -3,13 +3,9 @@ package jie.android.ip.screen.box.console;
 import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import jie.android.ip.CommonConsts.ScreenPackConfig;
-import jie.android.ip.common.actor.ImageActor;
-import jie.android.ip.screen.box.BoxConfig.Const;
-import jie.android.ip.screen.box.BoxConfig.Image;
 import jie.android.ip.screen.box.BoxRenderAdapter;
 
 public class ConsoleRenderer {
@@ -31,26 +27,27 @@ public class ConsoleRenderer {
 	}
 	
 	
-	private void addCmdButton(final Cmd.Button button, final Cmd.OnButtonListener listener) {
-		
-		button.actor = new ImageActor(textureAtlas.findRegion(Image.Console.Cmd.RUN));
-		button.actor.setPosition(Const.Console.Cmd.BASE_X, Const.Console.Cmd.BASE_Y);
-		button.actor.addListener(new ClickListener() {
-	
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				if (listener != null) {
-					listener.onClick(button);
-				}
-			}			
-		});
-		group.addButton(button.actor);
-}
+//	private void addCmdButton(final Cmd.Button button, final Cmd.OnButtonListener listener) {
+//		
+//		button.actor = new ImageActor(textureAtlas.findRegion(Image.Console.Cmd.RUN));
+//		button.actor.setPosition(Const.Console.Cmd.BASE_X, Const.Console.Cmd.BASE_Y);
+//		button.actor.addListener(new ClickListener() {
+//	
+//			@Override
+//			public void clicked(InputEvent event, float x, float y) {
+//				if (listener != null) {
+//					listener.onClick(button);
+//				}
+//			}			
+//		});
+//		group.addButton(button.actor);
+//	}
 
 	public void initCmdPanel(final Cmd.Panel cmdPanel, final Cmd.OnButtonListener cmdListener) {
-		for (final Cmd.Button btn : cmdPanel.getButtons()) {
-			addCmdButton(btn, cmdListener);
-		}		
+		group.initCmdPanel(cmdPanel, cmdListener);
+//		for (final Cmd.Button btn : cmdPanel.getButtons()) {
+//			addCmdButton(btn, cmdListener);
+//		}		
 	}
 	
 	public void initCodeLines(final Code.Lines codeLines, final Code.Panel codePanel, final Code.OnButtonListener codeListener) {		

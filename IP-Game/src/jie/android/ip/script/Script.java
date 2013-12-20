@@ -120,11 +120,6 @@ public class Script {
 		return target;
 	}
 
-	public int getTrayPositon() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 	public final TrayData getTray() {
 		return tray;
 	}

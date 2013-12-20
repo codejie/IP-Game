@@ -60,7 +60,21 @@ public class BoxRenderer {
 		tray.actor.setPosition(colToTrayX(tray.posCol), rowToTrayY());
 		adapter.getSourceGroup().addActor(tray.actor);
 	}
-		
+
+	public void clearTray(Tray tray) {
+		if (tray.actor != null) {
+			adapter.getSourceGroup().removeActor(tray.actor);
+			tray.actor = null;
+		}
+	}
+
+	public void clearSourceBlock(final Block block) {
+		if (block.actor != null) {
+			adapter.getSourceGroup().removeActor(block.actor);
+			block.actor = null;
+		}
+	}
+	
 	private final ImageActor makeActor(int value, int style) {
 		return new ImageActor(textureAtlas.findRegion(Image.Box.BOX_0));// adapter.getResources().getSkin().getRegion("ic"));
 	}
@@ -113,10 +127,6 @@ public class BoxRenderer {
 	private float makeColDelay(int col) {
 		return Math.abs(col) * adapter.getRenderDelay();
 	}
-
-
-
-	
 	
 
 }

@@ -72,7 +72,16 @@ public class CodeLineGroup extends BaseGroup {
 			});
 			this.addActor(smallBg);
 			
-			smallTitle = new ImageActor(textureAtlas.findRegion(Image.Console.Lines.Small.TITLE));
+			if (index == 0) {
+				smallTitle = new ImageActor(textureAtlas.findRegion(Image.Console.Lines.Small.TITLE_0));
+			} else if (index == 1) {
+				smallTitle = new ImageActor(textureAtlas.findRegion(Image.Console.Lines.Small.TITLE_1));
+			} else if (index == 2) {
+				smallTitle = new ImageActor(textureAtlas.findRegion(Image.Console.Lines.Small.TITLE_2));
+			} else {
+				smallTitle = new ImageActor(textureAtlas.findRegion(Image.Console.Lines.Small.TITLE_3));
+			}
+
 			smallTitle.setBounds(0, 0, Const.Console.Lines.Small.WIDTH_TITLE, Const.Console.Lines.Small.HEIGHT_TITLE);
 			smallTitle.addListener(new ClickListener() {
 				@Override
@@ -97,7 +106,15 @@ public class CodeLineGroup extends BaseGroup {
 //			});
 			this.addActor(bigBg);
 		
-			bigTitle = new ImageActor(textureAtlas.findRegion(Image.Console.Lines.Big.TITLE));
+			if (index == 0) {
+				bigTitle = new ImageActor(textureAtlas.findRegion(Image.Console.Lines.Big.TITLE_0));
+			} else if (index == 1) {
+				bigTitle = new ImageActor(textureAtlas.findRegion(Image.Console.Lines.Big.TITLE_1));
+			} else if (index == 2) {
+				bigTitle = new ImageActor(textureAtlas.findRegion(Image.Console.Lines.Big.TITLE_2));
+			} else {
+				bigTitle = new ImageActor(textureAtlas.findRegion(Image.Console.Lines.Big.TITLE_3));
+			}
 			bigTitle.setBounds(0, 0, Const.Console.Lines.Big.WIDTH_TITLE, Const.Console.Lines.Big.HEIGHT_TITLE);
 			bigTitle.addListener(new ClickListener() {
 				@Override

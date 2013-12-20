@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public final class Cmd {
 	
 	public enum Type { 
-		NONE, RUN;
+		NONE, RUN, STOP;
 		
 		public int getId() {
 			return this.ordinal();

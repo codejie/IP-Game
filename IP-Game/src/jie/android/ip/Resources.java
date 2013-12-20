@@ -15,7 +15,7 @@ public class Resources implements Disposable {
 		initAssetManager();
 		
 		//for Debug
-		//loadAssetManager();
+		loadAssetManager();
 	}
 
 	@Override

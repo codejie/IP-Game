@@ -55,7 +55,7 @@ public class BoxManager {
 			return block;
 		}
 		
-		public final Block update(int srow, int scol, int trow, int tcol) {
+		public synchronized final Block update(int srow, int scol, int trow, int tcol) {
 
 			final Pair<Integer, Integer> tkey = new Pair<Integer, Integer>(Integer.valueOf(trow), Integer.valueOf(tcol));
 			if (super.get(tkey) != null) { // target is not empty
@@ -106,6 +106,10 @@ public class BoxManager {
 			}
 			return true;
 		}
+		
+		public synchronized void reset() {
+			super.clear();
+		}
 	}
 	
 	public class Tray {
@@ -125,16 +129,23 @@ public class BoxManager {
 		public Tray(int style, int col) {
 			this.style = style;
 			this.posCol = col;
-		}		
+		}
+		
+		public void reset(int col) {
+			this.posCol = col;
+			status = STATUS_EMPTY;			
+		}
 	}
 	
 	public interface OnRenderTweenListener {
 		public void onCompleted(boolean isTray, int srow, int scol, int trow, int tcol);
-	}	
+	}
 
-	private final BoxRenderAdapter config;
+	private final BoxRenderAdapter adapter;
 	
 	private BoxRenderer renderer;
+	
+	private Script script;
 	
 	private BlockArray blockSource;
 	private BlockArray blockTarget;
@@ -166,11 +177,11 @@ public class BoxManager {
 		
 	};
 	
-	private OnBoxEventListener onEventListener;
+	private final OnBoxEventListener onEventListener;	
 	
-	
-	public BoxManager(final BoxRenderAdapter config) {
-		this.config = config;
+	public BoxManager(final BoxRenderAdapter adapter, final OnBoxEventListener boxListener) {
+		this.adapter = adapter;
+		this.onEventListener = boxListener;
 	}
 	
 	public boolean loadScript(final Script script) {
@@ -194,6 +205,35 @@ public class BoxManager {
 		
 		initRenderer();
 		
+		this.script = script;
+		
+		return true;
+	}
+	
+	public boolean resetSource() {
+		
+		for (final Entry<Pair<Integer, Integer>, Block> entry : blockSource.entrySet()) {
+			renderer.clearSourceBlock(entry.getValue());
+		}
+		
+		renderer.clearTray(tray);
+		
+		blockSource.reset();
+
+		if (script.getSource() != null) {
+			for (final Script.BlockData data : script.getSource()) {
+				inflateBlock(blockSource, data);
+			}
+		}
+
+		tray.reset(script.getTray().col);
+
+		for (final Entry<Pair<Integer, Integer>, Block> entry : blockSource.entrySet()) {
+			renderer.putSourceBlock(entry.getKey().first(), entry.getKey().second(), entry.getValue());
+		}		
+		
+		renderer.putTray(tray);
+		
 		return true;
 	}
 
@@ -206,7 +246,7 @@ public class BoxManager {
 	}
 
 	private void initRenderer() {
-		renderer = new BoxRenderer(config);
+		renderer = new BoxRenderer(adapter);
 		
 		for (final Entry<Pair<Integer, Integer>, Block> entry : blockSource.entrySet()) {
 			renderer.putSourceBlock(entry.getKey().first(), entry.getKey().second(), entry.getValue());
@@ -217,9 +257,9 @@ public class BoxManager {
 		}
 		
 		renderer.putTray(tray);
-	}	
-
-	public void moveBlock(int col, Direction direction) throws BoxException {
+	}
+	
+	private void moveBlock(int col, Direction direction) throws BoxException {
 		//updata block
 		if (direction == Direction.DOWN) {
 			//check tray
@@ -230,6 +270,9 @@ public class BoxManager {
 			int row = blockSource.checkInRow(col);
 			if (row != -1) {
 				final Block block = blockSource.update(row, col, 0, col);
+				if (block == null) {
+					return;
+				}				
 				tray.status = Tray.STATUS_ATTACHED;
 				renderer.moveBlock(block, row, col, 0, col, onTweenSuccListener);
 			} else {
@@ -252,9 +295,11 @@ public class BoxManager {
 			}
 			
 			final Block block = blockSource.update(0, col, row, col);
+			if (block == null) {
+				return;
+			}
 			tray.status = Tray.STATUS_EMPTY;
-			renderer.moveBlock(block, 0, col, row, col, onTweenSuccListener);
-			
+			renderer.moveBlock(block, 0, col, row, col, onTweenSuccListener);			
 		} else {
 			throw new BoxException(BoxException.E_DIRECTION_UNSUPPORT);
 		}
@@ -262,7 +307,7 @@ public class BoxManager {
 		onBlockMoveStart(direction == Direction.DOWN);
 	}
 	
-	public void moveTray(Direction direction) throws BoxException {
+	private void moveTray(Direction direction) throws BoxException {
 		int col = tray.posCol;
 		int tcol = -1;
 		if (direction == Direction.LEFT) {
@@ -284,6 +329,9 @@ public class BoxManager {
 		
 		if (tray.status == Tray.STATUS_ATTACHED) {
 			final Block block = blockSource.update(0, col, 0, tcol);
+			if (block == null) {
+				return;
+			}			
 			renderer.moveTrayWithBlock(tray, block, col, tcol, callback);
 		} else {
 			renderer.moveTray(tray, col, tcol, callback);
@@ -291,9 +339,9 @@ public class BoxManager {
 		onTrayMoveStart(direction == Direction.RIGHT);
 	}
 
-	public void setOnEventListener(OnBoxEventListener listener) {
-		onEventListener = listener;
-	}
+//	public void setOnEventListener(OnBoxEventListener listener) {
+//		onEventListener = listener;
+//	}
 
 	private void onBlockMoveStart(boolean down) {
 		if (onEventListener != null) {
@@ -303,13 +351,8 @@ public class BoxManager {
 	}
 	
 	private void onBlockMoveEnd(boolean down) {
-		boolean completed = checkBlock();
 		if (onEventListener != null) {
-			if (!completed) {
-				onEventListener.onBlockMoveEnd(down);
-			} else {
-				onEventListener.onBoxCompleted();
-			}
+			onEventListener.onBlockMoveEnd(down, checkBlock());
 		}		
 	}
 	
@@ -320,13 +363,8 @@ public class BoxManager {
 	}
 	
 	private void onTrayMoveEnd(boolean right, boolean succ) {
-		boolean completed = checkBlock();
 		if (onEventListener != null) {
-			if (!completed) {
-				onEventListener.onTrayMoveEnd(right, succ);
-			} else {
-				onEventListener.onBoxCompleted();
-			}
+			onEventListener.onTrayMoveEnd(right, succ, checkBlock());
 		}		
 	}
 	

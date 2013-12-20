@@ -188,7 +188,7 @@ public class Executor extends BaseExecutor {
 		private void postExecute() {
 			isRunning = false;
 			if (cmdListener != null) {
-				cmdListener.onEnd();
+				cmdListener.onEnd(stopRun);
 			}
 		}
 		
@@ -239,9 +239,9 @@ public class Executor extends BaseExecutor {
 					setStepPause();
 				}
 				
-				if (stopRun) {
-					break;
-				}
+				 if (stopRun) {
+					 break;
+				 }
 				
 				if (delay != -1) {
 					try {
@@ -306,8 +306,8 @@ public class Executor extends BaseExecutor {
 	@Override
 	public void stop() {
 		if (executor != null && executor.isRunning()) {
-			executor.stop();
 			executor.stepOver();
+			executor.stop();			
 		}
 	}
 

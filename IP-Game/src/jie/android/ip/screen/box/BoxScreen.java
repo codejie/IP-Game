@@ -28,16 +28,30 @@ public class BoxScreen extends BaseScreen {
 
 		@Override
 		public void onConsoleButtonClick(int type, int state) {
-			boxExecutor.execute(".\\doc\\test.xml");			
+			switch (type) {
+			case 1://run button
+				onConsoleRunButtonClick(state);
+				break;
+			case 2: // stop button
+				onConsoleStopButtonClick(state);
+				break;
+			default:
+				Utils.log(Tag, "unknown command button : " + type);
+			}
 		}
 
+//		@Override
+//		public void onBoxMoveCompleted(boolean isType, boolean succ) {
+//			if (succ) {
+//				Utils.log(Tag, "succ");
+//			} else {
+//				Utils.log(Tag, "failed");
+//			}
+//		}
+
 		@Override
-		public void onBoxMoveCompleted(boolean succ) {
-			if (succ) {
-				Utils.log(Tag, "succ");
-			} else {
-				Utils.log(Tag, "failed");
-			}
+		public void onScriptCompleted(boolean succ) {
+			Utils.log(Tag, "Script completed : " + succ);
 		}
 		
 	};
@@ -81,18 +95,25 @@ public class BoxScreen extends BaseScreen {
 	}
 	
 	private void initManager() {
-		BoxRenderAdapter config = new BoxRenderAdapter();
-		config.setSourceGroup(groupSource);
-		config.setTargetGroup(groupTarget);
-		config.setConsoleGroup(groupConsole);
-		config.setResources(game.getResources());
-		config.setTweenManager(this.tweenManager);
-		config.setScreenListener(listener);
+		BoxRenderAdapter adapter = new BoxRenderAdapter();
+		adapter.setSourceGroup(groupSource);
+		adapter.setTargetGroup(groupTarget);
+		adapter.setConsoleGroup(groupConsole);
+		adapter.setResources(game.getResources());
+		adapter.setTweenManager(this.tweenManager);
+//		adapter.setScreenListener(listener);
 		
-		boxExecutor = new BoxExecutor(config);
-		consoleManager = new ConsoleManager(config);
+		boxExecutor = new BoxExecutor(adapter, listener);
+		consoleManager = new ConsoleManager(adapter, listener);
 
 	}
 		
+	protected void onConsoleRunButtonClick(int state) {
+		boxExecutor.execute(".\\doc\\test.xml");		
+	}
 
+	protected void onConsoleStopButtonClick(int state) {
+		boxExecutor.reset();
+		
+	}
 }

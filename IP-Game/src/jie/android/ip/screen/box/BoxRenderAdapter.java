@@ -17,8 +17,6 @@ public class BoxRenderAdapter {
 	private float executeDelay = 0.1f;
 	private float renderDelay = 0.1f;
 	
-	private BoxScreenEventListener screenListener; 
-
 	public Resources getResources() {
 		return resources;
 	}
@@ -73,14 +71,6 @@ public class BoxRenderAdapter {
 
 	public void setRenderDelay(float renderDelay) {
 		this.renderDelay = renderDelay;
-	}
-
-	public BoxScreenEventListener getScreenListener() {
-		return screenListener;
-	}
-
-	public void setScreenListener(BoxScreenEventListener screenListener) {
-		this.screenListener = screenListener;
 	}
 
 }

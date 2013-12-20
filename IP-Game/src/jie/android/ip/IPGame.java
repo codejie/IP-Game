@@ -22,9 +22,9 @@ public class IPGame extends Game {
 		initResources();
 		
 		//this.setScreen(new TestScreen(this));
-		this.setScreen(new StartScreen(this));
+		//this.setScreen(new StartScreen(this));
 		//this.setScreen(new DDTestScreen(this));
-		//this.setScreen(new BoxScreen(this));
+		this.setScreen(new BoxScreen(this));
 	}
 
 	@Override

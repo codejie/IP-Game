@@ -21,12 +21,16 @@ public interface BoxConfig {
 		public interface Console {
 			public interface Cmd {
 				public static final String RUN = "cmd_run";
+				public static final String STOP = "cmd_run";//"cmd_stop";
 			}
 			
 			public interface Lines {
 				public interface Small {
 					public static final String BG = "lines_small_bg";
-					public static final String TITLE = "lines_small_title";
+					public static final String TITLE_0 = "lines_small_title";//"lines_small_title_a";
+					public static final String TITLE_1 = "lines_small_title";//"lines_big_title_b";
+					public static final String TITLE_2 = "lines_small_title";//"lines_big_title_c";
+					public static final String TITLE_3 = "lines_small_title";//"lines_big_title_d";
 					
 					public static final String CODE_NONE = "lines_small_code_none";
 					public static final String CODE_RIGHT = "lines_small_code_right";
@@ -46,7 +50,10 @@ public interface BoxConfig {
 				
 				public interface Big {
 					public static final String BG = "lines_big_bg";
-					public static final String TITLE = "lines_big_title";
+					public static final String TITLE_0 = "lines_big_title";//"lines_big_title_a";
+					public static final String TITLE_1 = "lines_big_title";//"lines_big_title_b";
+					public static final String TITLE_2 = "lines_big_title";//"lines_big_title_c";
+					public static final String TITLE_3 = "lines_big_title";//"lines_big_title_d";
 					
 					public static final String CODE_NONE = "lines_big_code_none";
 					public static final String CODE_RIGHT = "lines_big_code_right";
@@ -114,8 +121,15 @@ public interface BoxConfig {
 		
 		public interface Console {
 			public interface Cmd {
-				public static final int BASE_X = ScreenConfig.WIDTH - 128;
-				public static final int BASE_Y = 16;
+//				public static final int BASE_X = ScreenConfig.WIDTH - 128;
+//				public static final int BASE_Y = 16;
+				
+				public static final int X_RUN = ScreenConfig.WIDTH - 128;
+				public static final int Y_RUN = 16;
+				
+				public static final int X_STOP = ScreenConfig.WIDTH - 128;
+				public static final int Y_STOP = 328;				
+				
 			}
 			
 			public interface Lines {

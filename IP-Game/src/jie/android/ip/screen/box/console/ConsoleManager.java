@@ -11,7 +11,7 @@ public class ConsoleManager {
 
 	protected static final String Tag = ConsoleManager.class.getSimpleName();
 	
-	private BoxRenderAdapter config;	
+	private BoxRenderAdapter adapter;	
 	private ConsoleRenderer renderer;
 	
 	private final BoxScreenEventListener screenListener;
@@ -62,9 +62,9 @@ public class ConsoleManager {
 		}
 	};
 	
-	public ConsoleManager(final BoxRenderAdapter config) {
-		this.config = config;
-		this.screenListener = this.config.getScreenListener();
+	public ConsoleManager(final BoxRenderAdapter adapter, final BoxScreenEventListener listener) {
+		this.adapter = adapter;
+		this.screenListener = listener;
 		
 		initButtons();
 		
@@ -78,7 +78,7 @@ public class ConsoleManager {
 	}
 	
 	private void initRenderer() {
-		renderer = new ConsoleRenderer(config);
+		renderer = new ConsoleRenderer(adapter);
 		
 		renderer.initCmdPanel(cmdPanel, cmdListener);
 		renderer.initCodeLines(codeLines, codePanel, codeListener);

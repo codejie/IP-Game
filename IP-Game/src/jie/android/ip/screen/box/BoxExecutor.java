@@ -10,7 +10,7 @@ import jie.android.ip.utils.Utils;
 
 public class BoxExecutor {
 
-	private final BoxRenderAdapter config;
+	private final BoxRenderAdapter adapter;
 	
 	private BoxManager manager;
 	private Executor executor;
@@ -22,7 +22,10 @@ public class BoxExecutor {
 		}
 
 		@Override
-		public void onEnd() {
+		public void onEnd(boolean broken) {
+			if (!broken) {
+				onBoxCompleted(false);
+			}
 		}
 
 		@Override
@@ -54,56 +57,52 @@ public class BoxExecutor {
 
 		@Override
 		public void onTrayStatusChanged(boolean attached) {
-			// TODO Auto-generated method stub
-			
 		}
 
 		@Override
 		public void onBlockMoveStart(boolean down) {
-			// TODO Auto-generated method stub
-			
 		}
 
 		@Override
-		public void onBlockMoveEnd(boolean down) {
-			executor.stepOver();			
+		public void onBlockMoveEnd(boolean down, boolean completed) {
+			if (!completed) {
+				executor.stepOver();
+			} else {
+				executor.stop();
+				onBoxCompleted(true);
+			}
 		}
 
 		@Override
 		public void onTrayMoveStart(boolean right) {
-			// TODO Auto-generated method stub
-			
 		}
 
 		@Override
-		public void onTrayMoveEnd(boolean right, boolean succ) {
-			if (!succ) {				
+		public void onTrayMoveEnd(boolean right, boolean succ, boolean completed) {			
+			if (!completed && succ) {
+				executor.stepOver();
+			} else {
 				executor.stop();
-				Utils.log("error", "out of range.");
+				onBoxCompleted(succ);				
 			}
-			executor.stepOver();					
 		}
-
-		@Override
-		public void onBoxCompleted() {
-			Utils.log("error", "COMPLETED!");			
-		}
-		
 	};
 	
-	public BoxExecutor(final BoxRenderAdapter config) {
-		this.config = config;
+	private final BoxScreenEventListener screenEventListener;
+	
+	public BoxExecutor(final BoxRenderAdapter adapter, final BoxScreenEventListener listener) {
+		this.adapter = adapter;
+		this.screenEventListener = listener;
 		
 		init();
 		
 	}
-	
+
 	private void init() {
-		manager = new BoxManager(config);
-		manager.setOnEventListener(boxListener);
+		manager = new BoxManager(adapter, boxListener);
 		
 		executor = new Executor();
-		executor.setDelay((int)config.getExecuteDelay() * 1000);
+		executor.setDelay((int)adapter.getExecuteDelay() * 1000);
 		executor.enableOneStep(true);
 	}
 
@@ -119,6 +118,18 @@ public class BoxExecutor {
 		final CommandSet cmdset = Analyser.makeCommandSet(".\\doc\\test.xml");
 		executor.start(cmdset, cmdListener);
 		
-		return false;
+		return true;
 	}
+
+	public void reset() {
+		executor.stop();
+		manager.resetSource();
+	}
+
+	protected void onBoxCompleted(boolean succ) {
+		if (screenEventListener != null) {
+			screenEventListener.onScriptCompleted(succ);
+		}
+	}
+	
 }
