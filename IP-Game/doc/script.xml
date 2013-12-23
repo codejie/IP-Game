@@ -14,7 +14,7 @@
     </Config>
     <Source>
 		<Block row="1" col="1" value="0" style="1" />
-		<Block row="2" col="1" value="0" style="1" />	        
+		<Block row="2" col="1" value="0" style="1" />
     </Source>
     <Target>
 		<Block row="1" col="3" value="0" style="1" />

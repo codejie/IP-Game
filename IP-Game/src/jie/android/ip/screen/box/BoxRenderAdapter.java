@@ -15,7 +15,7 @@ public class BoxRenderAdapter {
 	private TweenManager tweenManager;
 	
 	private float executeDelay = 0.1f;
-	private float renderDelay = 0.1f;
+	private float renderDelay = 0.05f;
 	
 	public Resources getResources() {
 		return resources;
@@ -37,6 +37,7 @@ public class BoxRenderAdapter {
 		return targetGroup;
 	}
 
+	
 	public void setTargetGroup(BaseGroup targetGroup) {
 		this.targetGroup = targetGroup;
 	}

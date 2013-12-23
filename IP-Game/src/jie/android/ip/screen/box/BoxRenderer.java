@@ -84,7 +84,7 @@ public class BoxRenderer {
 			Tween.to(block.actor, ImageActorAccessor.POSITION_Y, makeRowDelay(trow - srow)).target(rowToBlockY(trow)).ease(Quint.INOUT).setCallback(new TweenCallback() {
 				@Override
 				public void onEvent(int type, BaseTween<?> source) {
-					onTweenListener.onCompleted(false, srow, scol, trow, tcol);
+					onTweenListener.onCompleted(false, block, srow, scol, trow, tcol);
 				}
 			}).start(adapter.getTweenManager());
 		}
@@ -102,7 +102,7 @@ public class BoxRenderer {
 
 				@Override
 				public void onEvent(int type, BaseTween<?> source) {
-					onTweenListener.onCompleted(true, 0, scol, 0, tcol);
+					onTweenListener.onCompleted(true, block, 0, scol, 0, tcol);
 				}
 			})
 			.start(adapter.getTweenManager());
@@ -115,7 +115,7 @@ public class BoxRenderer {
 
 			@Override
 			public void onEvent(int type, BaseTween<?> source) {
-				onTweenListener.onCompleted(true, 0, scol, 0, tcol);
+				onTweenListener.onCompleted(true, null, 0, scol, 0, tcol);
 			}
 		}).start(adapter.getTweenManager());
 	}

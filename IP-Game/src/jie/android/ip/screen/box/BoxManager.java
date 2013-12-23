@@ -138,7 +138,7 @@ public class BoxManager {
 	}
 	
 	public interface OnRenderTweenListener {
-		public void onCompleted(boolean isTray, int srow, int scol, int trow, int tcol);
+		public void onCompleted(boolean isTray, final Block block, int srow, int scol, int trow, int tcol);
 	}
 
 	private final BoxRenderAdapter adapter;
@@ -154,11 +154,11 @@ public class BoxManager {
 	private OnRenderTweenListener onTweenSuccListener = new OnRenderTweenListener() {
 
 		@Override
-		public void onCompleted(boolean isTray, int srow, int scol, int trow, int tcol) {
+		public void onCompleted(boolean isTray, final Block block, int srow, int scol, int trow, int tcol) {
 			if (isTray) {
 				onTrayMoveEnd(scol < tcol, true);
 			} else {
-				onBlockMoveEnd(srow > trow);
+				onBlockMoveEnd(srow > trow, block);
 			}
 		}
 		
@@ -167,11 +167,11 @@ public class BoxManager {
 	private OnRenderTweenListener onTweenFailListener = new OnRenderTweenListener() {
 
 		@Override
-		public void onCompleted(boolean isTray, int srow, int scol, int trow, int tcol) {
+		public void onCompleted(boolean isTray, final Block block, int srow, int scol, int trow, int tcol) {
 			if (isTray) {
 				onTrayMoveEnd(scol < tcol, false);
 			} else {
-				onBlockMoveEnd(srow > trow);
+				onBlockMoveEnd(srow > trow, block);
 			}			
 		}
 		
@@ -276,12 +276,14 @@ public class BoxManager {
 				tray.status = Tray.STATUS_ATTACHED;
 				renderer.moveBlock(block, row, col, 0, col, onTweenSuccListener);
 			} else {
+				onNoneBlockMove();
 				//Nothing
 				//throw new BoxException(BoxException.E_BLOCK_NOTFOUND);
 				return;
 			}
 		} else if (direction == Direction.UP){
 			if (tray.status != Tray.STATUS_ATTACHED) { // do nothing
+				onNoneBlockMove();
 				return;
 			}
 			int row = blockSource.checkInRow(col);
@@ -306,7 +308,7 @@ public class BoxManager {
 		
 		onBlockMoveStart(direction == Direction.DOWN);
 	}
-	
+
 	private void moveTray(Direction direction) throws BoxException {
 		int col = tray.posCol;
 		int tcol = -1;
@@ -350,9 +352,9 @@ public class BoxManager {
 		}
 	}
 	
-	private void onBlockMoveEnd(boolean down) {
+	private void onBlockMoveEnd(boolean down, final Block block) {
 		if (onEventListener != null) {
-			onEventListener.onBlockMoveEnd(down, checkBlock());
+			onEventListener.onBlockMoveEnd(down, block.value,  checkBlock());
 		}		
 	}
 	
@@ -367,6 +369,13 @@ public class BoxManager {
 			onEventListener.onTrayMoveEnd(right, succ, checkBlock());
 		}		
 	}
+	
+	private void onNoneBlockMove() {
+		if (onEventListener != null) {
+			onEventListener.onNoneBlockMove();
+		}
+	}
+	
 	
 	public void doAction() {
 		try {	

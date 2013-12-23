@@ -9,9 +9,11 @@
     </Config>
     <Source>
 		<Block row="6" col="1" value="0" style="1" />
+		<Block row="6" col="2" value="0" style="1" /> 
     </Source>
     <Target>
 		<Block row="6" col="2" value="0" style="1" />
+		<Block row="5" col="2" value="0" style="1" />
     </Target>
     <Tray col="1" style="1" />
 </IP-Script-Format>

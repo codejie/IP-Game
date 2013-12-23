@@ -3,6 +3,10 @@ package jie.android.ip.screen.box.console;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import jie.android.ip.executor.CommandConsts;
+import jie.android.ip.executor.CommandConsts.ActType;
+import jie.android.ip.executor.CommandConsts.CommandType;
+import jie.android.ip.executor.CommandSet;
 import jie.android.ip.screen.box.BoxRenderAdapter;
 import jie.android.ip.screen.box.BoxScreenEventListener;
 import jie.android.ip.utils.Utils;
@@ -118,6 +122,52 @@ public class ConsoleManager {
 		renderer.updateCodeLinesButton(cacheIndex, cachePos, type);		
 //		codeLines.setButton(cacheIndex, cachePos, new Code.Button(type));
 		setCacheCodeButton(-1, -1, null);
+	}
+
+	public final CommandSet makeCommandSet() {
+		final CommandSet cmdSet = new CommandSet();
+		for (int i = 0; i < Code.NUM_CODE_LINES; ++ i) {
+			CommandSet.CommandQueue que = CommandSet.makeCommandQueue();
+			for (final Code.Button btn : codeLines.getFuncButton(i)) {
+				if (btn.type == Code.Type.IF_NULL) {
+					continue;
+				} else if (btn.type == Code.Type.NULL) {
+					break;
+				} else if (btn.type == Code.Type.RIGHT) {
+					que.push(CommandSet.makeCommand(CommandType.ACT, ActType.MOVE_RIGHT.getId(), 1));
+				} if (btn.type == Code.Type.LEFT) {
+					que.push(CommandSet.makeCommand(CommandType.ACT, ActType.MOVE_LEFT.getId(), 1));
+				} if (btn.type == Code.Type.ACT) {
+					que.push(CommandSet.makeCommand(CommandType.ACT, ActType.ACTION.getId(), 0));
+				} if (btn.type == Code.Type.CALL_0) {
+					que.push(CommandSet.makeCommand(CommandType.CALL, 0));
+				} if (btn.type == Code.Type.CALL_1) {
+					que.push(CommandSet.makeCommand(CommandType.CALL, 1));
+				} if (btn.type == Code.Type.CALL_2) {
+					que.push(CommandSet.makeCommand(CommandType.CALL, 2));
+				} if (btn.type == Code.Type.CALL_3) {
+					que.push(CommandSet.makeCommand(CommandType.CALL, 2));
+				} if (btn.type == Code.Type.IF_0) {
+					que.push(CommandSet.makeCommand(CommandType.CHECK, 0, 0));//variant 0 is the value of block
+				} if (btn.type == Code.Type.IF_1) {
+					que.push(CommandSet.makeCommand(CommandType.CHECK, 1, 0));
+				} if (btn.type == Code.Type.IF_2) {
+					que.push(CommandSet.makeCommand(CommandType.CHECK, 2, 0));
+				} if (btn.type == Code.Type.IF_3) {
+					que.push(CommandSet.makeCommand(CommandType.CHECK, 3, 0));
+				} if (btn.type == Code.Type.IF_ANY) {
+					que.push(CommandSet.makeCommand(CommandType.CHECK, 1, 1));//variant 1 is the indication of block
+				} if (btn.type == Code.Type.IF_NONE) {
+					que.push(CommandSet.makeCommand(CommandType.CHECK, 0, 1));
+				} 
+			}
+			
+			if (que != null && que.size() > 0) {
+				cmdSet.put(i, que);
+			}
+		}
+		
+		return cmdSet;
 	}
 	
 }

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import jie.android.ip.CommonConsts.ScreenPackConfig;
 import jie.android.ip.IPGame;
 import jie.android.ip.CommonConsts.ScreenConfig;
+import jie.android.ip.executor.CommandSet;
 import jie.android.ip.screen.BaseScreen;
 import jie.android.ip.screen.box.BoxConfig.Image;
 import jie.android.ip.screen.box.console.ConsoleGroup;
@@ -39,15 +40,6 @@ public class BoxScreen extends BaseScreen {
 				Utils.log(Tag, "unknown command button : " + type);
 			}
 		}
-
-//		@Override
-//		public void onBoxMoveCompleted(boolean isType, boolean succ) {
-//			if (succ) {
-//				Utils.log(Tag, "succ");
-//			} else {
-//				Utils.log(Tag, "failed");
-//			}
-//		}
 
 		@Override
 		public void onScriptCompleted(boolean succ) {
@@ -109,7 +101,9 @@ public class BoxScreen extends BaseScreen {
 	}
 		
 	protected void onConsoleRunButtonClick(int state) {
-		boxExecutor.execute(".\\doc\\test.xml");		
+		final CommandSet cmdset = consoleManager.makeCommandSet();
+		//boxExecutor.execute(".\\doc\\test.xml");
+		boxExecutor.execute(cmdset);
 	}
 
 	protected void onConsoleStopButtonClick(int state) {

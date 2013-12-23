@@ -197,62 +197,37 @@ public class ConsoleGroup extends BaseGroup {
 			.setCallback(callback)
 		.start(tweenManager);
 	}
-	
-//	private void setBigState(final CodeLineGroup group, float x, float y, float scale, final TweenManager tweenManager) {
-//		
-//		final TweenCallback callback = new TweenCallback() {
-//
-//			@Override
-//			public void onEvent(int type, BaseTween<?> source) {
-//				setBigState(group);
-//			}
-//		};
-//		
-//		group.setZIndex(0x0f);
-//		
-//		Timeline.createParallel()
-////			.setUserData(group)
-//			.push(Tween.to(group, BaseGroupAccessor.POSITION_XY, 0.2f).target(x, y))
-//			.push(Tween.to(group, BaseGroupAccessor.SCALE_XY, 0.2f).target(scale, scale))
-//			.setCallback(callback)
-//			.start(tweenManager);
-//	}
-//
-//	protected void setBigState(final CodeLineGroup group) {
-//		group.setState(CodeLineGroup.State.BIG);
-//		group.setScale(1.0f);
-//	}
 
 	public void showCodePanel(int index, int pos, final Code.Button button, final TweenManager tweenManager) {
 
 		float x = 0, y = 0;
 		
-		if (pos %2 == 0) {
-			x = Const.Console.Lines.Big.WIDTH_TITLE + (Const.Console.Lines.Big.WIDTH_BUTTON_ORDER + Const.Console.Lines.Big.SPACE_X) * (pos / 2) / 1.5f + Const.Console.Lines.Big.SPACE_X;
-			if (x + Const.Console.Panel.Order.WIDTH_BG > ScreenConfig.WIDTH) {
-				x = ScreenConfig.WIDTH - Const.Console.Panel.Order.WIDTH_BG;
-			}			
-			
-		} else {
-			x = Const.Console.Lines.Big.WIDTH_TITLE + (Const.Console.Lines.Big.WIDTH_BUTTON_JUDGE + Const.Console.Lines.Big.SPACE_X) * ((pos - 1) / 2) / 1.5f + Const.Console.Lines.Big.SPACE_X;
+		if (pos % 2 == 0) {			
+			x = Const.Console.Lines.Big.WIDTH_TITLE + (Const.Console.Lines.Big.WIDTH_BUTTON_JUDGE + Const.Console.Lines.Big.SPACE_X) * (pos / 2) / 1.5f + Const.Console.Lines.Big.SPACE_X;
 			if (x + Const.Console.Panel.Judge.WIDTH_BG > ScreenConfig.WIDTH) {
 				x = ScreenConfig.WIDTH - Const.Console.Panel.Judge.WIDTH_BG;
+			}		
+			
+		} else {
+			x = Const.Console.Lines.Big.WIDTH_TITLE + (Const.Console.Lines.Big.WIDTH_BUTTON_ORDER + Const.Console.Lines.Big.SPACE_X) * ((pos - 1) / 2) / 1.5f + Const.Console.Lines.Big.SPACE_X;
+			if (x + Const.Console.Panel.Order.WIDTH_BG > ScreenConfig.WIDTH) {
+				x = ScreenConfig.WIDTH - Const.Console.Panel.Order.WIDTH_BG;
 			}			
 		}
 		
 		final Vector2 vct = getCodeLinePosition(index);
 		
 		if (index == 0 || index == 1) {
-			if (pos % 2 == 0) {
-				y = vct.y - (Const.Console.Lines.Big.HEIGHT_BG - Const.Console.Lines.Small.HEIGHT_BG) - Const.Console.Panel.Order.HEIGHT_BG;
-			} else {
+			if (pos % 2 == 0) {				
 				y = vct.y + Const.Console.Lines.Small.HEIGHT_BG;
+			} else {
+				y = vct.y - (Const.Console.Lines.Big.HEIGHT_BG - Const.Console.Lines.Small.HEIGHT_BG) - Const.Console.Panel.Order.HEIGHT_BG;
 			}
 		} else if (index == 2) {
-			if (pos % 2 == 0) {
-				y = vct.y - Const.Console.Panel.Order.HEIGHT_BG;
-			} else {
+			if (pos % 2 == 0) {				
 				y = vct.y + Const.Console.Lines.Big.HEIGHT_BG;
+			} else {
+				y = vct.y - Const.Console.Panel.Order.HEIGHT_BG;
 			}
 		} else {
 			y = vct.y + Const.Console.Lines.Big.HEIGHT_BG;

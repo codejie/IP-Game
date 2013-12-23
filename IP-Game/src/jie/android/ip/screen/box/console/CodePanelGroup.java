@@ -98,8 +98,8 @@ public class CodePanelGroup extends BaseGroup {
 	private Actor makeImageActor(int pos, Code.Type type) {
 		ImageActor ret = null;
 
-		if (type == Code.Type.NONE) {
-			ret = new ImageActor(this.textureAtlas.findRegion(Image.Console.Panel.CODE_NONE));
+		if (type == Code.Type.NULL) {
+			ret = new ImageActor(this.textureAtlas.findRegion(Image.Console.Panel.CODE_NULL));
 		} else if (type == Code.Type.RIGHT) {
 			ret = new ImageActor(this.textureAtlas.findRegion(Image.Console.Panel.CODE_RIGHT));
 		} else if (type == Code.Type.LEFT) {
@@ -116,6 +116,8 @@ public class CodePanelGroup extends BaseGroup {
 			ret = new ImageActor(this.textureAtlas.findRegion(Image.Console.Panel.CODE_IF_3));
 		} else if (type == Code.Type.IF_ANY) {
 			ret = new ImageActor(this.textureAtlas.findRegion(Image.Console.Panel.CODE_IF_ANY));
+		} else if (type == Code.Type.IF_NULL) {
+			ret = new ImageActor(this.textureAtlas.findRegion(Image.Console.Panel.CODE_IF_NULL));			
 		} else if (type == Code.Type.IF_NONE) {
 			ret = new ImageActor(this.textureAtlas.findRegion(Image.Console.Panel.CODE_IF_NONE));
 		} else if (type == Code.Type.CALL_0) {

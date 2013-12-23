@@ -1,7 +1,11 @@
 package jie.android.ip.script;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -44,12 +48,26 @@ public class Script {
 	public ArrayList<BlockData> target;
 	public TrayData tray;
 	
-	public boolean load(final String file) {
+	public boolean loadFile(final String file) {
 		
-		DocumentBuilder builder;
 		try {
-			builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-			Document doc = builder.parse(new File(file));
+			return load(new FileInputStream(file));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public boolean loadString(final String str) {
+		return load(new ByteArrayInputStream(str.getBytes()));
+	}
+	
+	private boolean load(final InputStream is) {
+		
+		try {
+			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+			Document doc = builder.parse(is);
 			
 			NodeList ct = doc.getElementsByTagName("Comment");
 			this.comment = ct.item(0).getNodeValue();
@@ -82,13 +100,8 @@ public class Script {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-//		
-//		source = new ArrayList<BlockData>();
-//		source.add(new BlockData(1, 1, 1));
-//		source.add(new BlockData(2, 2, 1));
-//		source.add(new BlockData(3, 3, 1));
-//		source.add(new BlockData(4, 3, 1));
-		return false;
+
+		return false;		
 	}
 
 	private void loadBlockData(ArrayList<BlockData> block, final NodeList nl) throws ScriptException {

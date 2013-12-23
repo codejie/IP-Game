@@ -1,5 +1,6 @@
 package jie.android.ip.executor;
 
+import java.util.HashMap;
 import java.util.HashSet;
 import jie.android.ip.executor.CommandConsts.ActType;
 import jie.android.ip.executor.CommandConsts.CommandType;
@@ -7,6 +8,8 @@ import jie.android.ip.utils.Utils;
 
 public class Executor extends BaseExecutor {
 
+	private static final String Tag = Executor.class.getSimpleName();
+	
 	public static void main(String[] args) {
 		System.out.println("helloworld");
 		test();
@@ -104,6 +107,8 @@ public class Executor extends BaseExecutor {
 		
 		private CommandSet cmdSet;
 		private BreakDataSet breakSet;
+		private HashMap<Integer, Integer> variantSet = new HashMap<Integer, Integer>();
+		
 		private OnCommandListener cmdListener;
 		
 		private int delay = 100;
@@ -175,6 +180,22 @@ public class Executor extends BaseExecutor {
 			this.breakSet = breakSet;
 		}
 		
+		public void setVariant(int variant, int value) {
+			variantSet.put(Integer.valueOf(variant), Integer.valueOf(value));
+		}
+		
+		private Integer getVariant(int variant) {
+			return variantSet.get(Integer.valueOf(variant));			
+		}
+		
+		public void clearVariantSet() {
+			variantSet.clear();
+		}
+		
+		public void clearVariant(int variant) {
+			variantSet.remove(Integer.valueOf(variant));
+		}
+		
 		private void preExecute() {
 			
 			stopRun = false;			
@@ -192,7 +213,7 @@ public class Executor extends BaseExecutor {
 			}
 		}
 		
-		private synchronized void execute() {
+		private void execute() {
 			cmdStack = new CommandStack();
 			cmdStack.loadCommand(cmdSet, 0);
 			
@@ -201,9 +222,9 @@ public class Executor extends BaseExecutor {
 				InnerCommand icmd = cmdStack.pop();
 				CommandSet.Command cmd = icmd.cmd;
 				
-				Utils.logDebug(icmd.toString());
+				Utils.log(Tag, icmd.toString());
 				if (breakSet != null && breakSet.isBreak(icmd)) {
-					Utils.logDebug("breakpoint : " + icmd.toString());
+					Utils.log(Tag, "breakpoint : " + icmd.toString());
 					if (cmdListener != null) {
 						cmdListener.onBreakPoint(icmd.func, icmd.index, icmd.cmd.getType().getTitle(), icmd.cmd.getParam(0), icmd.cmd.getParam(1));
 					}
@@ -215,12 +236,27 @@ public class Executor extends BaseExecutor {
 					if (cmdListener != null) {
 						cmdListener.onAct(icmd.func, icmd.index, cmd.getParam(0), cmd.getParam(1));
 					}
+//					if (isOneStep) {
+//						setStepPause();
+//					}
+
 				} else if (cmd.getType() == CommandType.CHECK) {
-					if (!cmd.getParam(0).equals(cmd.getParam(1))) {
-						cmdStack.pop();					
+					Integer variant = (Integer) cmd.getParam(1);
+					if (variant != null) {
+						variant = getVariant(variant.intValue());
+						if (variant == null || !cmd.getParam(0).equals(variant)) {
+							if (!cmdStack.empty()) {
+								cmdStack.pop();
+							}
+						}
+					} else {
+						if (!cmdStack.empty()) {
+							cmdStack.pop();
+						}
 					}
+					
 					if (cmdListener != null) {
-						cmdListener.onCheck(icmd.func, icmd.index, cmd.getParam(0), cmd.getParam(1));
+						cmdListener.onCheck(icmd.func, icmd.index, cmd.getParam(0), variant);
 					}					
 				} else if (cmd.getType() == CommandType.CALL) {
 					int func = cmd.getParamAsInt(0, -1);
@@ -231,7 +267,7 @@ public class Executor extends BaseExecutor {
 						cmdListener.onCall(icmd.func, icmd.index, cmd.getParam(0), (func != -1));
 					}					
 				} else {
-					Utils.logDebug("Unknown command - " + cmd.getType().getTitle());
+					Utils.log(Tag, "Unknown command - " + cmd.getType().getTitle());
 					break;
 				}
 
@@ -243,14 +279,14 @@ public class Executor extends BaseExecutor {
 					 break;
 				 }
 				
-				if (delay != -1) {
-					try {
-						Thread.sleep(delay);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-						break;
-					}
-				}				
+//				if (delay != -1) {
+//					try {
+//						Thread.sleep(delay);
+//					} catch (InterruptedException e) {
+//						e.printStackTrace();
+//						break;
+//					}
+//				}				
 			}			
 		}
 		
@@ -280,6 +316,7 @@ public class Executor extends BaseExecutor {
 		
 		executor.setBreakDataSet(breakData);
 		executor.setDelay(execDelay);
+		executor.setVariant(1, 0);
 		Thread t = new Thread(executor);
 		t.start();
 		
@@ -334,6 +371,20 @@ public class Executor extends BaseExecutor {
 			executor.enableOneStep(enabled);
 		}
 	}
+	
+	public void setRTVariant(int variant, int value) {
+		if (executor != null) {
+			executor.setVariant(variant, value);
+		}
+	}
+	
+	public void clearRTVariant(int variant) {
+		if (executor != null) {
+			executor.clearVariant(variant);
+		}
+	}
+	
+	
 //
 	private static void test() {
 		CommandSet cmdset = new CommandSet();

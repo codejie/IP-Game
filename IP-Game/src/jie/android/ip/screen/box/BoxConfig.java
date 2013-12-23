@@ -32,10 +32,11 @@ public interface BoxConfig {
 					public static final String TITLE_2 = "lines_small_title";//"lines_big_title_c";
 					public static final String TITLE_3 = "lines_small_title";//"lines_big_title_d";
 					
-					public static final String CODE_NONE = "lines_small_code_none";
+					public static final String CODE_NULL = "lines_small_code_null";
 					public static final String CODE_RIGHT = "lines_small_code_right";
 					public static final String CODE_LEFT = "lines_small_code_left";
 					public static final String CODE_ACT = "lines_small_code_act";
+					public static final String CODE_IF_NULL = "lines_small_code_if_null";
 					public static final String CODE_IF_0 = "lines_small_code_if_a";
 					public static final String CODE_IF_1 = "lines_small_code_if_b";
 					public static final String CODE_IF_2 = "lines_small_code_if_c";
@@ -55,10 +56,11 @@ public interface BoxConfig {
 					public static final String TITLE_2 = "lines_big_title";//"lines_big_title_c";
 					public static final String TITLE_3 = "lines_big_title";//"lines_big_title_d";
 					
-					public static final String CODE_NONE = "lines_big_code_none";
+					public static final String CODE_NULL = "lines_big_code_null";
 					public static final String CODE_RIGHT = "lines_big_code_right";
 					public static final String CODE_LEFT = "lines_big_code_left";
 					public static final String CODE_ACT = "lines_big_code_act";
+					public static final String CODE_IF_NULL = "lines_big_code_if_null";
 					public static final String CODE_IF_0 = "lines_big_code_if_a";
 					public static final String CODE_IF_1 = "lines_big_code_if_b";
 					public static final String CODE_IF_2 = "lines_big_code_if_c";
@@ -76,10 +78,11 @@ public interface BoxConfig {
 				public static final String ORDER_BG = "panel_order_bg";
 				public static final String JUDGE_BG = "panel_judge_bg";
 				
-				public static final String CODE_NONE = "panel_code_none";
+				public static final String CODE_NULL = "panel_code_if_null";//"panel_code_null";
 				public static final String CODE_RIGHT = "panel_code_right";
 				public static final String CODE_LEFT = "panel_code_left";
 				public static final String CODE_ACT = "panel_code_act";
+				public static final String CODE_IF_NULL = "panel_code_if_null";
 				public static final String CODE_IF_0 = "panel_code_if_a";
 				public static final String CODE_IF_1 = "panel_code_if_b";
 				public static final String CODE_IF_2 = "panel_code_if_c";
@@ -140,7 +143,7 @@ public interface BoxConfig {
 				public static final int SPACE_LILNES = 8;			
 				
 				public interface Small {
-					public static final int WIDTH_BG = 684;
+					public static final int WIDTH_BG = 688;
 					public static final int HEIGHT_BG = 80;// same as the height of small group
 					
 					public static final int WIDTH_TITLE = 72;
@@ -183,7 +186,7 @@ public interface BoxConfig {
 				public static final int HEIGHT_BUTTON = 72;
 				
 				public interface Judge {
-					public static final int WIDTH_BG = 488;
+					public static final int WIDTH_BG = 568;
 					public static final int HEIGHT_BG = 88;				
 				}
 				
