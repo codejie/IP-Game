@@ -1,8 +1,13 @@
 package jie.android.ip;
 
+import java.sql.Connection;
+import java.sql.SQLException;
+
 import jie.android.ip.CommonConsts.ScreenConfig;
+import jie.android.ip.database.DBAccess;
 import jie.android.ip.screen.box.BoxScreen;
 import jie.android.ip.screen.start.StartScreen;
+import jie.android.ip.setup.Setup;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -10,16 +15,25 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class IPGame extends Game {
 
+	private final Setup setup;
+	
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	
 	private Resources resources;
+	private DBAccess dbAccess;
+	
+	public IPGame(final Setup setup) {
+		this.setup = setup;
+	}
 	
 	@Override
 	public void create() {
+		initDBAccess();
+		initResources();
+		
 		initCamera();
 		initSpriteBatch();
-		initResources();
 		
 		//this.setScreen(new TestScreen(this));
 		//this.setScreen(new StartScreen(this));
@@ -33,6 +47,7 @@ public class IPGame extends Game {
 		
 		resources.dispose();
 		batch.dispose();
+		dbAccess.close();
 	}
 
 	public OrthographicCamera getCamera() {
@@ -48,17 +63,27 @@ public class IPGame extends Game {
 		return batch;
 	}
 	
-	private void initSpriteBatch() {
-		batch = new SpriteBatch();
-		batch.setProjectionMatrix(camera.combined);
-	}
-	
 	public final Resources getResources() {
 		return resources;
+	}
+
+	public final DBAccess getDBAccess() {
+		return dbAccess;
+	}
+	
+	private void initDBAccess() {
+		dbAccess = new DBAccess(setup.getDatabaseConnection());
+		
+		dbAccess.check();
 	}
 	
 	private void initResources() {
 		resources = new Resources();
+	}
+
+	private void initSpriteBatch() {
+		batch = new SpriteBatch();
+		batch.setProjectionMatrix(camera.combined);
 	}
 	
 }

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import jie.android.ip.CommonConsts.ScreenPackConfig;
 import jie.android.ip.IPGame;
 import jie.android.ip.CommonConsts.ScreenConfig;
+import jie.android.ip.database.DBAccess;
 import jie.android.ip.executor.CommandSet;
 import jie.android.ip.screen.BaseScreen;
 import jie.android.ip.screen.box.BoxConfig.Image;
@@ -17,6 +18,8 @@ public class BoxScreen extends BaseScreen {
 
 	protected static final String Tag = BoxScreen.class.getSimpleName();
 
+	private final DBAccess dbAccess;
+	
 	private TextureAtlas textureAtlas;
 	
 	private BoxGroup groupSource, groupTarget;
@@ -51,17 +54,30 @@ public class BoxScreen extends BaseScreen {
 	public BoxScreen(IPGame game) {
 		super(game);
 		
+		this.dbAccess = game.getDBAccess();
+		
 		textureAtlas = game.getResources().getTextureAtlas(ScreenPackConfig.SCREEN_BOX);
 		
 		initBackgroup();
 		initGroups();
 		
-		initManager();
+		initManager();		
 		
-		boxExecutor.loadScript(".\\doc\\script.xml");
+		//boxExecutor.loadScript(".\\doc\\script.xml");
 //		boxExecutor.execute(".\\doc\\test.xml");
+		boxExecutor.loadScript(dbAccess.loadScript(1));
 	}
 
+	@Override
+	public void dispose() {
+		if (boxExecutor != null) {
+			boxExecutor.dispose();
+		}
+		
+		super.dispose();
+	}
+	
+	
 	private void initBackgroup() {
 		Sprite bg = textureAtlas.createSprite(Image.BACKGROUND);
 		bg.setBounds(0, 0, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);		

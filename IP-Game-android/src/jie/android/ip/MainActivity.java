@@ -1,5 +1,7 @@
 package jie.android.ip;
 
+import jie.android.ip.setup.AndroidSetup;
+import jie.android.ip.setup.Setup;
 import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
@@ -13,6 +15,8 @@ public class MainActivity extends AndroidApplication {
         AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
         cfg.useGL20 = false;
         
-        initialize(new IPGame(), cfg);
+        final Setup setup = new AndroidSetup(this.getApplicationContext());
+        
+        initialize(new IPGame(setup), cfg);
     }
 }

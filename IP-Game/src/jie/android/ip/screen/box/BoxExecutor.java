@@ -1,15 +1,12 @@
 package jie.android.ip.screen.box;
 
 import java.util.LinkedList;
-import java.util.Queue;
-
 import jie.android.ip.executor.Analyser;
 import jie.android.ip.executor.CommandSet;
 import jie.android.ip.executor.Executor;
 import jie.android.ip.executor.OnCommandListener;
 import jie.android.ip.executor.CommandConsts.ActType;
 import jie.android.ip.script.Script;
-import jie.android.ip.utils.Utils;
 
 public class BoxExecutor {
 
@@ -118,28 +115,16 @@ public class BoxExecutor {
 		@Override
 		public void onCall(int func, int index, Object funcIndex, boolean found) {
 			onExecuteCall(func, index, funcIndex, new Boolean(found));
-//			executor.stepOver();
 		}
 
 		@Override
 		public void onAct(int func, int index, Object actType, Object step) {
 			onExecuteAct(func, index, actType, step);
-			
-//			int action = ((Integer)actType); 
-//			if (action == ActType.ACTION.getId()) {
-//				manager.doAction();
-//			} else if (action == ActType.MOVE_LEFT.getId()){
-//				manager.doMove(false);
-//			} else if (action == ActType.MOVE_RIGHT.getId()){
-//				manager.doMove(true);
-//			}			
 		}
 
 		@Override
 		public void onCheck(int func, int index, Object left, Object right) {
 			onExecuteCheck(func, index, left, right);
-			
-//			executor.stepOver();
 		}
 
 		@Override
@@ -166,10 +151,7 @@ public class BoxExecutor {
 				executor.clearRTVariant(0);				
 				executor.setRTVariant(1, 0);
 			}
-//			if (completed) {
-//				executor.stop();
-//				onBoxCompleted(true);				
-//			}
+			
 			if (!completed) {
 				executor.stepOver();
 			} else {
@@ -184,10 +166,7 @@ public class BoxExecutor {
 
 		@Override
 		public void onTrayMoveEnd(boolean right, boolean succ, boolean completed) {
-//			if (completed || !succ) {
-//				executor.stop();
-//				onBoxCompleted(succ);				
-//			}
+			
 			if (!completed && succ) {
 				executor.stepOver();
 			} else {
@@ -213,6 +192,17 @@ public class BoxExecutor {
 		init();		
 	}
 
+
+	public void dispose() {
+		if (executor != null) {
+			executor.stop();
+		}
+		
+		if (callbackQueue != null) {
+			callbackQueue.stop();
+		}
+	}		
+	
 	private void init() {
 		manager = new BoxManager(adapter, boxListener);
 		
@@ -226,7 +216,10 @@ public class BoxExecutor {
 
 	public boolean loadScript(final String script) {
 		Script s = new Script();
-		if (!s.loadFile(script)) {
+//		if (!s.loadFile(script)) {
+//			return false;
+//		}
+		if (!s.loadString(script)) {
 			return false;
 		}
 		return manager.loadScript(s);
@@ -285,5 +278,6 @@ public class BoxExecutor {
 
 	protected void onExecuteCall(int func, int index, Object funcIndex, Boolean found) {
 		callbackQueue.putData(CallbackQueue.EventType.CALL, func, index, funcIndex, found);
-	}	
+	}
+
 }
