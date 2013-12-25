@@ -74,6 +74,10 @@ public class Code {
 			}
 		}
 		
+		private void init() {
+			
+		}
+		
 		public final Button getButton(int func, int pos) {
 			return buttons[func][pos];
 		}
@@ -81,7 +85,7 @@ public class Code {
 		public final Button[] getFuncButton(int func) {
 			return buttons[func];
 		}
-		
+
 	}
 	
 	public static class Panel {

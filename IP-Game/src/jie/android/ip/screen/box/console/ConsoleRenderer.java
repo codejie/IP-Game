@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import jie.android.ip.CommonConsts.ScreenPackConfig;
 import jie.android.ip.screen.box.BoxRenderAdapter;
+import jie.android.ip.screen.box.console.Code.Lines;
 
 public class ConsoleRenderer {
 
@@ -50,8 +51,10 @@ public class ConsoleRenderer {
 //		}		
 	}
 	
-	public void initCodeLines(final Code.Lines codeLines, final Code.Panel codePanel, final Code.OnButtonListener codeListener) {		
-		group.initCodeGroup(codeLines, codePanel, codeListener);
+	public void initCodeLines(final Code.Lines codeLines, final Code.Panel codePanel, final Code.OnButtonListener codeListener) {
+//		group.initCodeGroup(codeLines, codePanel, codeListener);
+		group.initCodeLines(codeLines, codeListener);
+		group.initCodePanel(codePanel, codeListener);
 	}
 	
 	public boolean hitGroup(float x, float y) {
@@ -73,6 +76,10 @@ public class ConsoleRenderer {
 
 	public void updateCodeLinesButton(int index, int pos, final Code.Type type) {
 		group.updateCodeLineButton(index, pos, type);
+	}
+
+	public void removeCodeLines(final Code.Lines codeLines) {
+		group.removeCodeLines();
 	}	
 	
 }

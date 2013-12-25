@@ -61,14 +61,14 @@ public class BoxRenderer {
 		adapter.getSourceGroup().addActor(tray.actor);
 	}
 
-	public void clearTray(Tray tray) {
+	public void removeTray(Tray tray) {
 		if (tray.actor != null) {
 			adapter.getSourceGroup().removeActor(tray.actor);
 			tray.actor = null;
 		}
 	}
 
-	public void clearSourceBlock(final Block block) {
+	public void removeSourceBlock(final Block block) {
 		if (block.actor != null) {
 			adapter.getSourceGroup().removeActor(block.actor);
 			block.actor = null;

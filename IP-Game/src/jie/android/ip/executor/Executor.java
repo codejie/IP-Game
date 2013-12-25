@@ -431,7 +431,7 @@ public class Executor extends BaseExecutor {
 		executor.stepOver();
 		executor.stop();
 		
-		cmdset.save(".\\doc\\test.xml");
+		cmdset.saveToFile(".\\doc\\test.xml");
 		
 	}
 

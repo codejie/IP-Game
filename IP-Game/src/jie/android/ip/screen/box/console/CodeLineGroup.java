@@ -350,4 +350,7 @@ public class CodeLineGroup extends BaseGroup {
 		buttons[pos] = btn;		
 	}
 	
+	public void removeCodeButton(int pos) {
+		
+	}
 }

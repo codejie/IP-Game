@@ -173,8 +173,7 @@ public class BoxManager {
 			} else {
 				onBlockMoveEnd(srow > trow, block);
 			}			
-		}
-		
+		}		
 	};
 	
 	private final OnBoxEventListener onEventListener;	
@@ -213,10 +212,10 @@ public class BoxManager {
 	public boolean resetSource() {
 		
 		for (final Entry<Pair<Integer, Integer>, Block> entry : blockSource.entrySet()) {
-			renderer.clearSourceBlock(entry.getValue());
+			renderer.removeSourceBlock(entry.getValue());
 		}
 		
-		renderer.clearTray(tray);
+		renderer.removeTray(tray);
 		
 		blockSource.reset();
 
@@ -321,10 +320,13 @@ public class BoxManager {
 		}
 		
 		OnRenderTweenListener callback = null; 
-		if (tcol > 0 && tcol <= Const.Box.MAX_COL) {
+		if (tcol > 0 && tcol < Const.Box.MAX_COL) {
 			callback = onTweenSuccListener;
-		} else {
+		} else if (tcol == 0 || tcol == Const.Box.MAX_COL){
 			callback = onTweenFailListener;
+		} else {
+			onTrayMoveEnd(direction == Direction.RIGHT, false);
+			return;
 		}
 		
 		tray.posCol = tcol;

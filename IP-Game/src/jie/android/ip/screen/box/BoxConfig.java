@@ -101,7 +101,7 @@ public interface BoxConfig {
 		
 		public interface Box {
 			public static final int MAX_ROW = 6;
-			public static final int MAX_COL = 6;
+			public static final int MAX_COL = 7;
 			
 			public static final int BLOCK_WIDTH = 64;
 			public static final int BLOCK_HEIGHT = 64;

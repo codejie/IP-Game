@@ -66,6 +66,7 @@ public class BoxScreen extends BaseScreen {
 		//boxExecutor.loadScript(".\\doc\\script.xml");
 //		boxExecutor.execute(".\\doc\\test.xml");
 		boxExecutor.loadScript(dbAccess.loadScript(1));
+		consoleManager.loadSolution(dbAccess.loadSolution(1));
 	}
 
 	@Override
@@ -113,11 +114,11 @@ public class BoxScreen extends BaseScreen {
 		
 		boxExecutor = new BoxExecutor(adapter, listener);
 		consoleManager = new ConsoleManager(adapter, listener);
-
 	}
 		
 	protected void onConsoleRunButtonClick(int state) {
 		final CommandSet cmdset = consoleManager.makeCommandSet();
+		dbAccess.saveSolution(1, cmdset.saveToString());
 		//boxExecutor.execute(".\\doc\\test.xml");
 		boxExecutor.execute(cmdset);
 	}

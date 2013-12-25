@@ -18,6 +18,7 @@ import jie.android.ip.common.actor.BaseGroup;
 import jie.android.ip.common.actor.BaseGroupAccessor;
 import jie.android.ip.screen.box.BoxConfig.Const;
 import jie.android.ip.screen.box.BoxConfig.Image;
+import jie.android.ip.screen.box.console.Code.Lines;
 
 public class ConsoleGroup extends BaseGroup {
 
@@ -82,19 +83,17 @@ public class ConsoleGroup extends BaseGroup {
 		}			
 	}	
 	
-	public void initCodeLineGroup(final CodeLineGroup[] groupLines, final Code.OnButtonListener codeListener) {
-		for (int i = 0; i < groupLines.length; ++ i) {
-			
-			groupLines[i].setBounds(Const.Console.Lines.BASE_X, Const.Console.Lines.BASE_Y + (groupLines.length - i - 1) * (Const.Console.Lines.Small.HEIGHT_BG + Const.Console.Lines.Small.SPACE_Y),
-					groupLines[i].getWidth(), groupLines[i].getHeight());
-			
-			this.addActor(groupLines[i]);
-		}
-	}
+//	public void initCodeLineGroup(final CodeLineGroup[] groupLines, final Code.OnButtonListener codeListener) {
+//		for (int i = 0; i < groupLines.length; ++ i) {
+//			
+//			groupLines[i].setBounds(Const.Console.Lines.BASE_X, Const.Console.Lines.BASE_Y + (groupLines.length - i - 1) * (Const.Console.Lines.Small.HEIGHT_BG + Const.Console.Lines.Small.SPACE_Y),
+//					groupLines[i].getWidth(), groupLines[i].getHeight());
+//			
+//			this.addActor(groupLines[i]);
+//		}
+//	}
 
-	public void initCodeGroup(final Code.Lines codeLines, final Code.Panel codePanel, final Code.OnButtonListener codeListener) {
-		
-		//groupLines
+	public void initCodeLines(final Code.Lines codeLines, final Code.OnButtonListener codeListener) {
 		groupLines = new CodeLineGroup[Code.NUM_CODE_LINES];		
 		
 		for (int i = 0; i < groupLines.length; ++ i) {
@@ -117,9 +116,10 @@ public class ConsoleGroup extends BaseGroup {
 			});
 			
 			this.addActor(group);
-		}
-
-		//groupPanel
+		}		
+	}
+	
+	public void initCodePanel(final Code.Panel codePanel, final Code.OnButtonListener codeListener) {
 		groupPanel = new CodePanelGroup(codePanel, codeListener, this.resources);
 		groupPanel.addListener(new ClickListener() {
 			@Override
@@ -133,8 +133,52 @@ public class ConsoleGroup extends BaseGroup {
 		});
 		
 		groupPanel.setVisible(false);//.setBounds(0, 0, Const.Console.Panel. groupPanel.getWidth(), groupPanel.getHeight());
-		this.addActor(groupPanel);
+		this.addActor(groupPanel);		
 	}
+	
+//	public void initCodeGroup(final Code.Lines codeLines, final Code.Panel codePanel, final Code.OnButtonListener codeListener) {
+//		
+//		//groupLines
+//		groupLines = new CodeLineGroup[Code.NUM_CODE_LINES];		
+//		
+//		for (int i = 0; i < groupLines.length; ++ i) {
+//			groupLines[i] = new CodeLineGroup(i, codeLines.getFuncButton(i), codeListener, this.resources);			
+//			final CodeLineGroup group = groupLines[i];
+//			final int func = i;
+//			//group.setPosition(CodeConfig.BASE_X_CODE_LINES, CodeConfig.BASE_Y_CODE_LINES + (groupLines.length - func - 1) * (CodeConfig.HEIGHT_SMALL_CODE_LINE + CodeConfig.SPACE_Y_CODE_LINES));
+//			final Vector2 v = getCodeLinePosition(func);
+//			group.setBounds(v.x, v.y, Const.Console.Lines.Small.WIDTH_BG, Const.Console.Lines.Small.HEIGHT_BG);
+//			
+//			group.addListener(new ClickListener() {
+//				@Override
+//				public void clicked(InputEvent event, float x, float y) {
+//					if (group.getState() == CodeLineGroup.State.SMALL || group.hit(x, y, true) == group) {
+//						if (codeListener != null) {
+//							codeListener.onClick(Code.OnButtonListener.Which.CODE_GROUP, func, -1, null);
+//						}
+//					}
+//				}				
+//			});
+//			
+//			this.addActor(group);
+//		}
+//
+//		//groupPanel
+//		groupPanel = new CodePanelGroup(codePanel, codeListener, this.resources);
+//		groupPanel.addListener(new ClickListener() {
+//			@Override
+//			public void clicked(InputEvent event, float x, float y) {
+//				if (groupPanel.hit(x, y, true) == groupPanel) {
+//					if (codeListener != null) {
+//						codeListener.onClick(Code.OnButtonListener.Which.PANEL_GROUP, -1, -1, null);
+//					}
+//				}
+//			}			
+//		});
+//		
+//		groupPanel.setVisible(false);//.setBounds(0, 0, Const.Console.Panel. groupPanel.getWidth(), groupPanel.getHeight());
+//		this.addActor(groupPanel);
+//	}
 	
 	private final Vector2 getCodeLinePosition(int index) {
 		Vector2 vct = new Vector2();
@@ -277,6 +321,13 @@ public class ConsoleGroup extends BaseGroup {
 
 	public void updateCodeLineButton(int index, int pos, final Code.Type type) {
 		groupLines[index].updateCodeButton(pos, type);
+	}
+
+	public void removeCodeLines() {
+		for (int i = 0; i < groupLines.length; ++ i) {
+			this.removeActor(groupLines[i]);
+		}
+		groupLines = null;
 	}
 
 	

@@ -169,5 +169,22 @@ public class ConsoleManager {
 		
 		return cmdSet;
 	}
+
+	public void loadSolution(final String cmdString) {
+		if (cmdString == null) {
+			return;
+		}
+
+		final CommandSet cmdSet = CommandSet.makeCommandSet(cmdString);
+		if (cmdSet != null) {
+			resetCodeLines(cmdSet);
+		}
+	}
+	
+	public void resetCodeLines() {
+		renderer.removeCodeLines(codeLines);
+		codeLines.reset();
+		renderer.resetCodeLines(codeLines, codeListener);
+	}
 	
 }

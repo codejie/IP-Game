@@ -1,6 +1,7 @@
 package jie.android.ip.executor;
 
 import java.io.File;
+import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map.Entry;
@@ -100,9 +101,8 @@ public class CommandSet {
 	public final CommandQueue get(int func) {
 		return functionSet.get(func);
 	}
-	
-	public boolean save(final String file) {		
-		
+
+	private final Document transToDocument() {
 		try {
 			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 			Document doc = builder.newDocument();
@@ -131,28 +131,66 @@ public class CommandSet {
 			
 			Element root = doc.createElement("IP-Command-Format");			
 			root.appendChild(cmdset);
-			
 			doc.appendChild(root);
 			
-			//output
-			Transformer trans = TransformerFactory.newInstance().newTransformer();
-			trans.transform(new DOMSource(doc), new StreamResult(new File(file)));
-
+			return doc;
 		} catch (ParserConfigurationException e) {
 			e.printStackTrace();
-			return false;
-		} catch (TransformerConfigurationException e1) {
-			e1.printStackTrace();
-			return false;
 		} catch (TransformerFactoryConfigurationError e1) {
 			e1.printStackTrace();
-			return false;
-		} catch (TransformerException e1) {
-			e1.printStackTrace();
-			return false;
 		}
 		
-		return true;	
+		return null;
 	}
+	
+	public boolean saveToFile(final String file) {		
+		
+		final Document doc = transToDocument();
+		if (doc != null) {
+			try {
+				Transformer trans = TransformerFactory.newInstance().newTransformer();
+				trans.transform(new DOMSource(doc), new StreamResult(new File(file)));
+				
+				return true;				
+			} catch (TransformerConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (TransformerFactoryConfigurationError e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (TransformerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return false;
+
+	}
+	
+	public final String saveToString() {		
+		
+		final Document doc = transToDocument();
+		if (doc != null) {
+			try {
+				Transformer trans = TransformerFactory.newInstance().newTransformer();
+				final StringWriter sw = new StringWriter();
+				trans.transform(new DOMSource(doc), new StreamResult(sw));
+				return sw.toString();				
+			} catch (TransformerConfigurationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (TransformerFactoryConfigurationError e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (TransformerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return null;
+	}
+	
 	
 }
