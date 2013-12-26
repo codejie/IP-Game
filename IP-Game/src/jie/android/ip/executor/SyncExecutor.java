@@ -85,9 +85,9 @@ public class SyncExecutor  extends BaseExecutor {
 	}
 	
 	private static void test() {
-		CommandSet cmdset = Analyser.makeCommandSet(".\\doc\\test.xml");
-		SyncExecutor executor = new SyncExecutor();
-		executor.start(cmdset, null);
+//		CommandSet cmdset = Analyser.makeCommandSet(".\\doc\\test.xml");
+//		SyncExecutor executor = new SyncExecutor();
+//		executor.start(cmdset, null);
 	}
 	
 }

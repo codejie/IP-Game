@@ -6,9 +6,12 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import jie.android.ip.executor.CommandConsts;
 import jie.android.ip.executor.CommandConsts.ActType;
 import jie.android.ip.executor.CommandConsts.CommandType;
+import jie.android.ip.executor.CommandConsts.EmptyType;
 import jie.android.ip.executor.CommandSet;
+import jie.android.ip.executor.CommandSet.Command;
 import jie.android.ip.screen.box.BoxRenderAdapter;
 import jie.android.ip.screen.box.BoxScreenEventListener;
+import jie.android.ip.screen.box.console.Code.Type;
 import jie.android.ip.utils.Utils;
 
 public class ConsoleManager {
@@ -120,7 +123,6 @@ public class ConsoleManager {
 
 	private void updateCachedCodeButtonType(final Code.Type type) {
 		renderer.updateCodeLinesButton(cacheIndex, cachePos, type);		
-//		codeLines.setButton(cacheIndex, cachePos, new Code.Button(type));
 		setCacheCodeButton(-1, -1, null);
 	}
 
@@ -130,35 +132,35 @@ public class ConsoleManager {
 			CommandSet.CommandQueue que = CommandSet.makeCommandQueue();
 			for (final Code.Button btn : codeLines.getFuncButton(i)) {
 				if (btn.type == Code.Type.IF_NULL) {
-					continue;
+					que.add(CommandSet.makeCommand(CommandType.EMPTY, EmptyType.CHECK.getId()));
 				} else if (btn.type == Code.Type.NULL) {
-					break;
+					que.add(CommandSet.makeCommand(CommandType.EMPTY, EmptyType.ACT.getId()));
 				} else if (btn.type == Code.Type.RIGHT) {
-					que.push(CommandSet.makeCommand(CommandType.ACT, ActType.MOVE_RIGHT.getId(), 1));
+					que.add(CommandSet.makeCommand(CommandType.ACT, ActType.MOVE_RIGHT.getId(), 1));
 				} if (btn.type == Code.Type.LEFT) {
-					que.push(CommandSet.makeCommand(CommandType.ACT, ActType.MOVE_LEFT.getId(), 1));
+					que.add(CommandSet.makeCommand(CommandType.ACT, ActType.MOVE_LEFT.getId(), 1));
 				} if (btn.type == Code.Type.ACT) {
-					que.push(CommandSet.makeCommand(CommandType.ACT, ActType.ACTION.getId(), 0));
+					que.add(CommandSet.makeCommand(CommandType.ACT, ActType.ACTION.getId(), 0));
 				} if (btn.type == Code.Type.CALL_0) {
-					que.push(CommandSet.makeCommand(CommandType.CALL, 0));
+					que.add(CommandSet.makeCommand(CommandType.CALL, 0));
 				} if (btn.type == Code.Type.CALL_1) {
-					que.push(CommandSet.makeCommand(CommandType.CALL, 1));
+					que.add(CommandSet.makeCommand(CommandType.CALL, 1));
 				} if (btn.type == Code.Type.CALL_2) {
-					que.push(CommandSet.makeCommand(CommandType.CALL, 2));
+					que.add(CommandSet.makeCommand(CommandType.CALL, 2));
 				} if (btn.type == Code.Type.CALL_3) {
-					que.push(CommandSet.makeCommand(CommandType.CALL, 2));
+					que.add(CommandSet.makeCommand(CommandType.CALL, 3));
 				} if (btn.type == Code.Type.IF_0) {
-					que.push(CommandSet.makeCommand(CommandType.CHECK, 0, 0));//variant 0 is the value of block
+					que.add(CommandSet.makeCommand(CommandType.CHECK, 0, 0));//variant 0 is the value of block
 				} if (btn.type == Code.Type.IF_1) {
-					que.push(CommandSet.makeCommand(CommandType.CHECK, 1, 0));
+					que.add(CommandSet.makeCommand(CommandType.CHECK, 1, 0));
 				} if (btn.type == Code.Type.IF_2) {
-					que.push(CommandSet.makeCommand(CommandType.CHECK, 2, 0));
+					que.add(CommandSet.makeCommand(CommandType.CHECK, 2, 0));
 				} if (btn.type == Code.Type.IF_3) {
-					que.push(CommandSet.makeCommand(CommandType.CHECK, 3, 0));
+					que.add(CommandSet.makeCommand(CommandType.CHECK, 3, 0));
 				} if (btn.type == Code.Type.IF_ANY) {
-					que.push(CommandSet.makeCommand(CommandType.CHECK, 1, 1));//variant 1 is the indication of block
+					que.add(CommandSet.makeCommand(CommandType.CHECK, 1, 1));//variant 1 is the indication of block
 				} if (btn.type == Code.Type.IF_NONE) {
-					que.push(CommandSet.makeCommand(CommandType.CHECK, 0, 1));
+					que.add(CommandSet.makeCommand(CommandType.CHECK, 0, 1));
 				} 
 			}
 			
@@ -175,7 +177,7 @@ public class ConsoleManager {
 			return;
 		}
 
-		final CommandSet cmdSet = CommandSet.makeCommandSet(cmdString);
+		final CommandSet cmdSet = CommandSet.loadFromString(cmdString);
 		if (cmdSet != null) {
 			resetCodeLines(cmdSet);
 		}
@@ -185,6 +187,80 @@ public class ConsoleManager {
 		renderer.removeCodeLines(codeLines);
 		codeLines.reset();
 		renderer.resetCodeLines(codeLines, codeListener);
+	}
+	
+	private void resetCodeLines(final CommandSet cmdSet) {
+		renderer.removeCodeLines(codeLines);
+		codeLines.reset();
+		
+		for (int i = 0; i < Code.NUM_CODE_LINES; ++ i) {
+			final CommandSet.CommandQueue que = cmdSet.get(i);
+			if (que != null) {
+				int pos = 0;
+				for (final CommandSet.Command cmd : que) {
+					final Code.Type type = getCodeTypeByCommand(cmd);
+					if (type != null) {
+						codeLines.setButton(i, pos ++ , type);
+					}
+				}
+			}
+		}
+		
+		renderer.resetCodeLines(codeLines, codeListener);
+	}
+
+	private final Code.Type getCodeTypeByCommand(final CommandSet.Command cmd) {
+		final CommandConsts.CommandType cmdType = cmd.getType();
+		if (cmdType == CommandConsts.CommandType.ACT) {
+			int action = cmd.getParamAsInt(0, -1);
+			if (action == CommandConsts.ActType.MOVE_RIGHT.getId()) {
+				return Code.Type.RIGHT;
+			} else if (action == CommandConsts.ActType.MOVE_LEFT.getId()) {
+				return Code.Type.LEFT;
+			} else if (action == CommandConsts.ActType.ACTION.getId()) {
+				return Code.Type.ACT;
+			}
+		} else if (cmdType == CommandConsts.CommandType.CHECK) {
+			int val = cmd.getParamAsInt(0, -1);
+			int var = cmd.getParamAsInt(1, -1);
+			if (var == 0) {
+				if (val == 0) {
+					return Code.Type.IF_0;
+				} else if (val == 1) {
+					return Code.Type.IF_1;
+				} else if (val == 2) {
+					return Code.Type.IF_2;
+				} else if (val == 3) {
+					return Code.Type.IF_3;
+				}
+			} else if (var == 1) {
+				if (val == 0) {
+					return Code.Type.IF_NONE;
+				} else if (val == 1) {
+					return Code.Type.IF_ANY;
+				}				
+			}
+		} else if (cmdType == CommandConsts.CommandType.CALL) {
+			int func = cmd.getParamAsInt(0, -1);
+			if (func == 0) {
+				return Code.Type.CALL_0;
+			} else if (func == 1) {
+				return Code.Type.CALL_1;
+			} else if (func == 2) {
+				return Code.Type.CALL_2;
+			} else if (func == 3) {
+				return Code.Type.CALL_3;
+			}
+		} else if (cmdType == CommandConsts.CommandType.EMPTY) {
+			int type = cmd.getParamAsInt(0, -1);
+			if (type == CommandConsts.EmptyType.CHECK.getId()) {
+				return Code.Type.IF_NULL;
+			} else if (type == CommandConsts.EmptyType.ACT.getId()) {
+				return Code.Type.NULL;
+			}
+		}
+
+		return null;
 	}
 	
 }

@@ -3,7 +3,7 @@ package jie.android.ip.executor;
 public interface CommandConsts {
 
 	public enum CommandType {
-		ACT("act"), CHECK("check"), /*DEFINE("define"),*/ CALL("call");
+		ACT("act"), CHECK("check"), /*DEFINE("define"),*/ CALL("call"), EMPTY("empty");
 		
 		private String title;
 		
@@ -24,6 +24,13 @@ public interface CommandConsts {
 	public enum ActType {
 		MOVE_LEFT, MOVE_RIGHT, ACTION;
 		
+		public int getId() {
+			return ordinal();
+		}
+	}
+	
+	public enum EmptyType {
+		CHECK, ACT;
 		public int getId() {
 			return ordinal();
 		}

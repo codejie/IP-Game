@@ -5,9 +5,9 @@ import java.util.Map.Entry;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
+import jie.android.ip.executor.Script;
+import jie.android.ip.executor.Script.BlockData;
 import jie.android.ip.screen.box.BoxConfig.Const;
-import jie.android.ip.script.Script;
-import jie.android.ip.script.Script.BlockData;
 import jie.android.ip.utils.Extended.Pair;
 
 public class BoxManager {

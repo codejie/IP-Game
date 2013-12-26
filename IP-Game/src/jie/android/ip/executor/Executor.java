@@ -12,7 +12,7 @@ public class Executor extends BaseExecutor {
 	
 	public static void main(String[] args) {
 		System.out.println("helloworld");
-		test();
+//		test();
 	}
 	
 	private class BreakData {
@@ -265,7 +265,7 @@ public class Executor extends BaseExecutor {
 					}
 					if (cmdListener != null) {
 						cmdListener.onCall(icmd.func, icmd.index, cmd.getParam(0), (func != -1));
-					}					
+					}
 				} else {
 					Utils.log(Tag, "Unknown command - " + cmd.getType().getTitle());
 					break;
@@ -386,61 +386,61 @@ public class Executor extends BaseExecutor {
 	
 	
 //
-	private static void test() {
-		CommandSet cmdset = new CommandSet();
-		
-		CommandSet.CommandQueue cmdarray = CommandSet.makeCommandQueue();
-		
-		CommandSet.Command cmd = CommandSet.makeCommand(CommandType.ACT, Integer.valueOf(ActType.MOVE_LEFT.getId()), Integer.valueOf(1));		
-		cmdarray.push(cmd);
-		
-		cmd = CommandSet.makeCommand(CommandType.CHECK, Integer.valueOf(2), Integer.valueOf(1));
-		cmdarray.push(cmd);
-		
-		cmd = CommandSet.makeCommand(CommandType.ACT, Integer.valueOf(ActType.MOVE_RIGHT.getId()), Integer.valueOf(1));		
-		cmdarray.push(cmd);
-		
-		cmd = CommandSet.makeCommand(CommandType.CALL, 1);		
-		cmdarray.push(cmd);
-		
-		cmdset.put(0, cmdarray);
-		
-		cmdarray = CommandSet.makeCommandQueue();
-		cmd = CommandSet.makeCommand(CommandType.ACT, Integer.valueOf(ActType.ACTION.getId()));		
-		cmdarray.push(cmd);
-		
-//		cmd = CommandSet.makeCommand(CommandSet.CommandType.CALL, "main");		
+//	private static void test() {
+//		CommandSet cmdset = new CommandSet();
+//		
+//		CommandSet.CommandQueue cmdarray = CommandSet.makeCommandQueue();
+//		
+//		CommandSet.Command cmd = CommandSet.makeCommand(CommandType.ACT, Integer.valueOf(ActType.MOVE_LEFT.getId()), Integer.valueOf(1));		
 //		cmdarray.push(cmd);
-		
-		
-		cmdset.put(1, cmdarray);
+//		
+//		cmd = CommandSet.makeCommand(CommandType.CHECK, Integer.valueOf(2), Integer.valueOf(1));
+//		cmdarray.push(cmd);
+//		
+//		cmd = CommandSet.makeCommand(CommandType.ACT, Integer.valueOf(ActType.MOVE_RIGHT.getId()), Integer.valueOf(1));		
+//		cmdarray.push(cmd);
+//		
+//		cmd = CommandSet.makeCommand(CommandType.CALL, 1);		
+//		cmdarray.push(cmd);
+//		
+//		cmdset.put(0, cmdarray);
+//		
+//		cmdarray = CommandSet.makeCommandQueue();
+//		cmd = CommandSet.makeCommand(CommandType.ACT, Integer.valueOf(ActType.ACTION.getId()));		
+//		cmdarray.push(cmd);
+//		
+////		cmd = CommandSet.makeCommand(CommandSet.CommandType.CALL, "main");		
+////		cmdarray.push(cmd);
+//		
+//		
+//		cmdset.put(1, cmdarray);
+//
+//		Executor executor = new Executor();
+//		//executor.setBreakData(0, 1);
+//		//executor.enableBreakData(true);
+//		executor.setDelay(100);
+//		executor.enableOneStep(true);
+//		
+//		executor.start(cmdset, null);
+//		try {
+//			Thread.sleep(2000);
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		executor.stepOver();
+//		executor.stop();
+//		
+//		cmdset.saveToFile(".\\doc\\test.xml");
+//		
+//	}
 
-		Executor executor = new Executor();
-		//executor.setBreakData(0, 1);
-		//executor.enableBreakData(true);
-		executor.setDelay(100);
-		executor.enableOneStep(true);
-		
-		executor.start(cmdset, null);
-		try {
-			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		executor.stepOver();
-		executor.stop();
-		
-		cmdset.saveToFile(".\\doc\\test.xml");
-		
-	}
-
-	private static void test2() {
-		CommandSet cmdset = Analyser.makeCommandSet(".\\doc\\cmd_test.xml");
+//	private static void test2() {
+//		CommandSet cmdset = Analyser.makeCommandSet(".\\doc\\cmd_test.xml");
 
 //		Executer executer = new Executer();
 //		executer.loadCommandSet(cmdset);
 //		executer.start();		
-	}
+//	}
 
 }

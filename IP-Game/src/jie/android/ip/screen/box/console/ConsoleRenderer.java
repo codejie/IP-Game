@@ -57,6 +57,10 @@ public class ConsoleRenderer {
 		group.initCodePanel(codePanel, codeListener);
 	}
 	
+	public void resetCodeLines(final Code.Lines codeLines, final Code.OnButtonListener codeListener) {
+		group.resetCodeLines(codeLines, codeListener);
+	}
+	
 	public boolean hitGroup(float x, float y) {
 		return (group.hit(x, y, true) == group);
 	}

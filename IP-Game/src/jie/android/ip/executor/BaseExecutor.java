@@ -1,6 +1,11 @@
 package jie.android.ip.executor;
 
+import java.util.ListIterator;
 import java.util.Stack;
+
+import jie.android.ip.executor.CommandConsts.CommandType;
+import jie.android.ip.executor.CommandConsts.EmptyType;
+import jie.android.ip.executor.CommandSet.Command;
 
 
 public abstract class BaseExecutor {
@@ -29,10 +34,23 @@ public abstract class BaseExecutor {
 		public void loadCommand(final CommandSet cmdset, int func) {
 			CommandSet.CommandQueue cmds = cmdset.get(func);
 			if (cmds != null) {
-				int idx = cmds.size();
-				for (final CommandSet.Command cmd : cmds) {				
-					push(new InnerCommand(cmd, func, -- idx));
+				CommandSet.CommandQueue tmp = CommandSet.makeCommandQueue();
+				for (final Command cmd : cmds) {
+					if (cmd.getType() == CommandType.EMPTY) {
+						int type = cmd.getParamAsInt(0, -1);
+						if (type == EmptyType.ACT.getId()) {
+							break;
+						} else {
+							continue;
+						}
+					}
+					tmp.add(cmd);
 				}
+				
+				int idx = tmp.size();
+				for (final ListIterator<Command> iterator = tmp.listIterator(tmp.size()); iterator.hasPrevious(); -- idx) {
+					super.push(new InnerCommand(iterator.previous(), func, idx));
+				}				
 			}			
 		}
 	}

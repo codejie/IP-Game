@@ -1,12 +1,11 @@
 package jie.android.ip.screen.box;
 
 import java.util.LinkedList;
-import jie.android.ip.executor.Analyser;
 import jie.android.ip.executor.CommandSet;
 import jie.android.ip.executor.Executor;
 import jie.android.ip.executor.OnCommandListener;
+import jie.android.ip.executor.Script;
 import jie.android.ip.executor.CommandConsts.ActType;
-import jie.android.ip.script.Script;
 
 public class BoxExecutor {
 
@@ -226,8 +225,8 @@ public class BoxExecutor {
 	}
 	
 	public boolean execute(final String cmdfile) {
-		final CommandSet cmdset = Analyser.makeCommandSet(".\\doc\\test.xml");
-		executor.start(cmdset, cmdListener);
+//		final CommandSet cmdset = Analyser.makeCommandSet(".\\doc\\test.xml");
+//		executor.start(cmdset, cmdListener);
 		
 		return true;
 	}

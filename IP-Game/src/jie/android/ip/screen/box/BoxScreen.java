@@ -125,6 +125,6 @@ public class BoxScreen extends BaseScreen {
 
 	protected void onConsoleStopButtonClick(int state) {
 		boxExecutor.reset();
-		
+		consoleManager.resetCodeLines();
 	}
 }

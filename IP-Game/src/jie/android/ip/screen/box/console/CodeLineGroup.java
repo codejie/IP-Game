@@ -135,6 +135,11 @@ public class CodeLineGroup extends BaseGroup {
 			for (int i = 0; i < buttons.length; ++ i) {
 				buttons[i].smallActor = makeImageActor(buttons[i], i, true);
 				this.addActor(buttons[i].smallActor);
+				if (i % 2 != 0) {
+					if (buttons[i - 1].smallActor != null) {
+						buttons[i - 1].smallActor.setZIndex(buttons[i].smallActor.getZIndex() + 1);
+					}
+				}
 			}
 		} else {
 			for (int i = 0; i < buttons.length; ++ i) {

@@ -1,6 +1,8 @@
 package jie.android.ip.screen.box.console;
 
 
+import jie.android.ip.screen.box.console.Code.Type;
+
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Code {
@@ -10,7 +12,7 @@ public class Code {
 	
 	public enum Type {
 		
-		NULL, RIGHT, LEFT, ACT, IF_NULL, IF_0, IF_1, IF_2, IF_3, IF_NONE, IF_ANY,
+		NULL, LEFT, RIGHT, ACT, IF_NULL, IF_0, IF_1, IF_2, IF_3, IF_NONE, IF_ANY,
 		CALL_0, CALL_1, CALL_2, CALL_3;
 		
 		public int getId() {
@@ -63,6 +65,10 @@ public class Code {
 		private Button[][] buttons = new Button[NUM_CODE_LINES][NUM_CODE_PER_LINE];
 		
 		public Lines() {
+			init();
+		}
+		
+		private void init() {
 			for (int f = 0; f < NUM_CODE_LINES; ++ f) {
 				for (int p = 0; p < NUM_CODE_PER_LINE; ++ p) {
 					if (p % 2 == 0) {						
@@ -71,11 +77,7 @@ public class Code {
 						buttons[f][p] = new Button(Type.NULL);
 					}
 				}
-			}
-		}
-		
-		private void init() {
-			
+			}			
 		}
 		
 		public final Button getButton(int func, int pos) {
@@ -84,6 +86,14 @@ public class Code {
 		
 		public final Button[] getFuncButton(int func) {
 			return buttons[func];
+		}
+
+		public void reset() {
+			init();
+		}
+
+		public void setButton(int func, int pos, final Code.Type type) {
+			buttons[func][pos] = new Button(type);
 		}
 
 	}

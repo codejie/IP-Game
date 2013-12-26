@@ -119,6 +119,14 @@ public class ConsoleGroup extends BaseGroup {
 		}		
 	}
 	
+	public void resetCodeLines(final Code.Lines codeLines, final Code.OnButtonListener codeListener) {
+		
+		groupPanel.setState(CodePanelGroup.State.HIDE);
+		
+		initCodeLines(codeLines, codeListener);
+		groupPanel.setZIndex(groupPanel.getZIndex() + groupLines.length);
+	}
+	
 	public void initCodePanel(final Code.Panel codePanel, final Code.OnButtonListener codeListener) {
 		groupPanel = new CodePanelGroup(codePanel, codeListener, this.resources);
 		groupPanel.addListener(new ClickListener() {
