@@ -71,8 +71,13 @@ public class BoxScreen extends BaseScreen {
 
 	@Override
 	public void dispose() {
+		
 		if (boxExecutor != null) {
 			boxExecutor.dispose();
+		}
+		
+		if (consoleManager != null) {
+			consoleManager.dispose();
 		}
 		
 		super.dispose();

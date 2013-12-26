@@ -1,12 +1,8 @@
 package jie.android.ip;
 
-import java.sql.Connection;
-import java.sql.SQLException;
-
 import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.database.DBAccess;
 import jie.android.ip.screen.box.BoxScreen;
-import jie.android.ip.screen.start.StartScreen;
 import jie.android.ip.setup.Setup;
 
 import com.badlogic.gdx.Game;
@@ -25,6 +21,8 @@ public class IPGame extends Game {
 	
 	public IPGame(final Setup setup) {
 		this.setup = setup;
+		
+		Environment.init();
 	}
 	
 	@Override

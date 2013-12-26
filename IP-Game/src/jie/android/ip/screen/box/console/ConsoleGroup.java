@@ -244,8 +244,8 @@ public class ConsoleGroup extends BaseGroup {
 		}
 
 		Timeline.createParallel()
-			.push(Tween.to(group, BaseGroupAccessor.POSITION_XY, 0.2f).target(vct.x, vct.y))
-			.push(Tween.to(group, BaseGroupAccessor.SCALE_XY, 0.2f).target(scale, scale))
+			.push(Tween.to(group, BaseGroupAccessor.POSITION_XY, 0.1f).target(vct.x, vct.y))
+			.push(Tween.to(group, BaseGroupAccessor.SCALE_XY, 0.1f).target(scale, scale))
 			.setCallback(callback)
 		.start(tweenManager);
 	}
@@ -336,6 +336,15 @@ public class ConsoleGroup extends BaseGroup {
 			this.removeActor(groupLines[i]);
 		}
 		groupLines = null;
+	}
+
+	public boolean isCodeLinesShow() {
+		for (int i = 0; i < groupLines.length; ++ i) {
+			if (groupLines[i].getState() == CodeLineGroup.State.BIG) {
+				return true;		
+			}
+		}
+		return false;
 	}
 
 	

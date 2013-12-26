@@ -4,12 +4,13 @@ import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Disposable;
 
 import jie.android.ip.CommonConsts.ScreenPackConfig;
 import jie.android.ip.screen.box.BoxRenderAdapter;
 import jie.android.ip.screen.box.console.Code.Lines;
 
-public class ConsoleRenderer {
+public class ConsoleRenderer implements Disposable {
 
 	private final BoxRenderAdapter renderAdapter;		
 	private final ConsoleGroup group;
@@ -22,6 +23,11 @@ public class ConsoleRenderer {
 		this.textureAtlas = this.renderAdapter.getResources().getTextureAtlas(ScreenPackConfig.SCREEN_BOX);		
 		this.tweenManager = this.renderAdapter.getTweenManager();	
 	}
+
+	@Override
+	public void dispose() {
+		tweenManager.killAll();
+	}	
 	
 	public void setGroupClickListener(ClickListener groupListener) {
 		group.setClickListener(groupListener);
@@ -84,6 +90,10 @@ public class ConsoleRenderer {
 
 	public void removeCodeLines(final Code.Lines codeLines) {
 		group.removeCodeLines();
-	}	
+	}
+
+	public boolean isCodeLinesShown() {
+		return group.isCodeLinesShow();
+	}
 	
 }

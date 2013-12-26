@@ -1,6 +1,7 @@
 package jie.android.ip.screen.box;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.utils.Disposable;
 
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Timeline;
@@ -16,7 +17,7 @@ import jie.android.ip.screen.box.BoxManager.Block;
 import jie.android.ip.screen.box.BoxManager.OnRenderTweenListener;
 import jie.android.ip.screen.box.BoxManager.Tray;
 
-public class BoxRenderer {
+public class BoxRenderer implements Disposable {
 
 	private final BoxRenderAdapter adapter;
 	
@@ -27,6 +28,12 @@ public class BoxRenderer {
 		this.textureAtlas = adapter.getResources().getTextureAtlas(ScreenPackConfig.SCREEN_BOX);
 	}
 
+	@Override
+	public void dispose() {
+		adapter.getTweenManager().killAll();
+	}
+	
+	
 	private int colToBlockX(int col) {
 		return Const.Box.COL_BASE + col * (Const.Box.BLOCK_WIDTH + Const.Box.COL_SPACE);
 	}
@@ -45,19 +52,21 @@ public class BoxRenderer {
 	
 	public void putSourceBlock(int row, int col, final Block block) {
 		block.actor = makeActor(block.value, block.style);
-		block.actor.setPosition(colToBlockX(col), rowToBlockY(row));
+		//block.actor.setPosition(colToBlockX(col), rowToBlockY(row));
+		block.actor.setBounds(colToBlockX(col), rowToBlockY(row), Const.Box.BLOCK_WIDTH, Const.Box.BLOCK_HEIGHT);
 		adapter.getSourceGroup().addActor(block.actor);
 	}
 
 	public void putTargetBlock(int row, int col, final Block block) {
 		block.actor = makeActor(block.value, block.style);
-		block.actor.setPosition(colToBlockX(col), rowToBlockY(row));
+		block.actor.setBounds(colToBlockX(col), rowToBlockY(row), Const.Box.BLOCK_WIDTH, Const.Box.BLOCK_HEIGHT);
 		adapter.getTargetGroup().addActor(block.actor);		
 	}
 
 	public void putTray(final Tray tray) {
 		tray.actor = new ImageActor(textureAtlas.findRegion(Image.Box.TRAY));// adapter.getResources().getSkin().getRegion("t"));
-		tray.actor.setPosition(colToTrayX(tray.posCol), rowToTrayY());
+		tray.actor.setBounds(colToTrayX(tray.posCol), rowToTrayY(), Const.Box.TRAY_WIDTH, Const.Box.TRAY_HEIGHT);
+//		tray.actor.setPosition(colToTrayX(tray.posCol), rowToTrayY());
 		adapter.getSourceGroup().addActor(tray.actor);
 	}
 
@@ -127,6 +136,5 @@ public class BoxRenderer {
 	private float makeColDelay(int col) {
 		return Math.abs(col) * adapter.getRenderDelay();
 	}
-	
 
 }

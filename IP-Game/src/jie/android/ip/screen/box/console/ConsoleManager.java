@@ -2,6 +2,7 @@ package jie.android.ip.screen.box.console;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Disposable;
 
 import jie.android.ip.executor.CommandConsts;
 import jie.android.ip.executor.CommandConsts.ActType;
@@ -11,10 +12,11 @@ import jie.android.ip.executor.CommandSet;
 import jie.android.ip.executor.CommandSet.Command;
 import jie.android.ip.screen.box.BoxRenderAdapter;
 import jie.android.ip.screen.box.BoxScreenEventListener;
+import jie.android.ip.screen.box.console.Cmd.Button;
 import jie.android.ip.screen.box.console.Code.Type;
 import jie.android.ip.utils.Utils;
 
-public class ConsoleManager {
+public class ConsoleManager implements Disposable {
 
 	protected static final String Tag = ConsoleManager.class.getSimpleName();
 	
@@ -35,9 +37,7 @@ public class ConsoleManager {
 		@Override
 		public void onClick(final Cmd.Button button) {
 			Utils.log(Tag, "cmdbtn: type = " + button.type.getId() + " state = " + button.state);
-			if (screenListener != null) {
-				screenListener.onConsoleButtonClick(button.type.getId(), button.state.getId());
-			}
+			onCmdButtonClick(button);
 		}		
 	};
 	
@@ -78,6 +78,14 @@ public class ConsoleManager {
 		initRenderer();
 	}
 
+	@Override
+	public void dispose() {
+		if (renderer != null) {
+			renderer.dispose();
+		}
+	}
+	
+	
 	private void initButtons() {
 		cmdPanel = new Cmd.Panel(cmdListener);
 		codeLines = new Code.Lines();
@@ -95,6 +103,16 @@ public class ConsoleManager {
 	
 	protected boolean hitGroup(float x, float y) {
 		return renderer.hitGroup(x, y);
+	}
+	
+	protected void onCmdButtonClick(Button button) {
+		if (renderer.isCodeLinesShown()) {
+			return;
+		}
+		
+		if (screenListener != null) {
+			screenListener.onConsoleButtonClick(button.type.getId(), button.state.getId());
+		}
 	}
 	
 	protected void onCodeLineClick(int index, int pos, final Code.Button button) {

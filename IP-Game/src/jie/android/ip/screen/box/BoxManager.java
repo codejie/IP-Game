@@ -4,13 +4,14 @@ import java.util.HashMap;
 import java.util.Map.Entry;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.utils.Disposable;
 
 import jie.android.ip.executor.Script;
 import jie.android.ip.executor.Script.BlockData;
 import jie.android.ip.screen.box.BoxConfig.Const;
 import jie.android.ip.utils.Extended.Pair;
 
-public class BoxManager {
+public class BoxManager implements Disposable {
 	
 	public enum Direction {
 		DOWN, UP, LEFT, RIGHT;
@@ -71,15 +72,15 @@ public class BoxManager {
 			return add(tkey, block);
 		}
 		
-		public final Block getInRow(int col) {
-			for (int i = 1; i <= maxRow; ++ i) {//start from 1
-				Block block = get(i, col);
-				if (block != null) {
-					return block;
-				}
-			}
-			return null;
-		}
+//		public final Block getInRow(int col) {
+//			for (int i = 1; i <= maxRow; ++ i) {//start from 1
+//				Block block = get(i, col);
+//				if (block != null) {
+//					return block;
+//				}
+//			}
+//			return null;
+//		}
 		
 		public int checkInRow(int col) {
 			for (int i = 1; i <= maxRow; ++ i) {//start from 1
@@ -181,6 +182,13 @@ public class BoxManager {
 	public BoxManager(final BoxRenderAdapter adapter, final OnBoxEventListener boxListener) {
 		this.adapter = adapter;
 		this.onEventListener = boxListener;
+	}
+	
+	@Override
+	public void dispose() {
+		if (renderer != null) {
+			renderer.dispose();
+		}
 	}
 	
 	public boolean loadScript(final Script script) {

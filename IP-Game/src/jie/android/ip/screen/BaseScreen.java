@@ -26,23 +26,12 @@ public class BaseScreen implements Screen {
 	
 	public BaseScreen(IPGame game) {
 		
-//		super(CommonConsts.ScreenConfig.WIDTH, CommonConsts.ScreenConfig.HEIGHT, true, game.getSpriteBatch());
-		
 		this.game = game;
 		
 		screenCanvas = new ScreenCanvas(game.getSpriteBatch());		
 		actorStage = new ActorStage(game.getSpriteBatch());
 		
-		//this.setCamera(this.getCamera());
-		
-		initTweenManager();
-		
 		Gdx.input.setInputProcessor(actorStage.getInputProcessor());
-	}
-	
-	private void initTweenManager() {
-		Tween.registerAccessor(ImageActor.class, new ImageActorAccessor());
-		Tween.registerAccessor(BaseGroup.class, new BaseGroupAccessor());
 	}
 	
 	public void addActor(final Actor actor) {

@@ -197,6 +197,10 @@ public class BoxExecutor {
 			executor.stop();
 		}
 		
+		if (manager != null) {
+			manager.dispose();
+		}
+		
 		if (callbackQueue != null) {
 			callbackQueue.stop();
 		}

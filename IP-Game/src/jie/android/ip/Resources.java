@@ -10,10 +10,8 @@ public class Resources implements Disposable {
 
 	private AssetManager assetManager;
 	
-	public Resources() {
-		
-		initAssetManager();
-		
+	public Resources() {		
+		initAssetManager();		
 		//for Debug
 		loadAssetManager();
 	}
