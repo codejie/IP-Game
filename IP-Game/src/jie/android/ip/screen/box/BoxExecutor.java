@@ -98,6 +98,8 @@ public class BoxExecutor {
 	private BoxManager manager;
 	private Executor executor;
 	
+	private CommandSet cmdSet;
+	
 	private OnCommandListener cmdListener = new OnCommandListener() {
 
 		@Override
@@ -178,6 +180,12 @@ public class BoxExecutor {
 		public void onNoneBlockMove() {
 			executor.stepOver();
 		}
+
+		@Override
+		public void onZoomSourceEnd() {
+			executor.start(cmdSet, cmdListener);
+			
+		}
 	};
 	
 	private CallbackQueue callbackQueue;
@@ -236,7 +244,9 @@ public class BoxExecutor {
 	}
 
 	public boolean execute(final CommandSet cmdSet) {
-		executor.start(cmdSet, cmdListener);
+		manager.zoomSource(true);		
+		this.cmdSet = cmdSet;
+//		executor.start(cmdSet, cmdListener);
 		return true;
 	}
 	

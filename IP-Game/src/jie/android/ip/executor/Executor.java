@@ -217,7 +217,7 @@ public class Executor extends BaseExecutor {
 			cmdStack = new CommandStack();
 			cmdStack.loadCommand(cmdSet, 0);
 			
-			while (!cmdStack.isEmpty()) {
+			while (!cmdStack.isEmpty() && !stopRun) {
 				
 				InnerCommand icmd = cmdStack.pop();
 				CommandSet.Command cmd = icmd.cmd;
@@ -236,9 +236,6 @@ public class Executor extends BaseExecutor {
 					if (cmdListener != null) {
 						cmdListener.onAct(icmd.func, icmd.index, cmd.getParam(0), cmd.getParam(1));
 					}
-//					if (isOneStep) {
-//						setStepPause();
-//					}
 
 				} else if (cmd.getType() == CommandType.CHECK) {
 					Integer variant = (Integer) cmd.getParam(1);
@@ -274,10 +271,10 @@ public class Executor extends BaseExecutor {
 				if (isOneStep) {
 					setStepPause();
 				}
-				
-				 if (stopRun) {
-					 break;
-				 }
+//				
+//				 if (stopRun) {
+//					 break;
+//				 }
 				
 //				if (delay != -1) {
 //					try {

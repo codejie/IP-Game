@@ -9,6 +9,8 @@ import aurelienribon.tweenengine.TweenManager;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import jie.android.ip.common.actor.ImageActor;
 import jie.android.ip.CommonConsts.ScreenConfig;
@@ -16,8 +18,11 @@ import jie.android.ip.CommonConsts.ScreenPackConfig;
 import jie.android.ip.Resources;
 import jie.android.ip.common.actor.BaseGroup;
 import jie.android.ip.common.actor.BaseGroupAccessor;
+import jie.android.ip.common.actor.ButtonActor;
 import jie.android.ip.screen.box.BoxConfig.Const;
 import jie.android.ip.screen.box.BoxConfig.Image;
+import jie.android.ip.screen.box.console.Cmd.State;
+import jie.android.ip.screen.box.console.Cmd.Type;
 import jie.android.ip.screen.box.console.Code.Lines;
 
 public class ConsoleGroup extends BaseGroup {
@@ -25,6 +30,8 @@ public class ConsoleGroup extends BaseGroup {
 	private final Resources resources;
 	private final TextureAtlas textureAtlas;
 	
+	private final Skin skin;
+
 	private ClickListener clickListener;
 	
 	private CodeLineGroup[] groupLines;
@@ -33,18 +40,11 @@ public class ConsoleGroup extends BaseGroup {
 	public ConsoleGroup(final Resources resources) {
 		this.resources = resources;
 		this.textureAtlas = this.resources.getTextureAtlas(ScreenPackConfig.SCREEN_BOX);
-		
-		initCodeGroup();
-	}
-
-	private void initCodeGroup() {
-//		this.groupLines = new CodeLineGroup[CodeConfig.SIZE_CODE_LINES];		
-//		this.groupPanel = new CodePanelGroup(this.resources);		
+		this.skin = new Skin(this.textureAtlas);
 	}
 
 	@Override
 	protected void initStage() {
-		
 	}
 
 	public void setClickListener(final ClickListener clickListener) {
@@ -59,11 +59,14 @@ public class ConsoleGroup extends BaseGroup {
 	public void initCmdPanel(final Cmd.Panel cmdPanel, final Cmd.OnButtonListener cmdListener) {
 		for (final Cmd.Button btn : cmdPanel.getButtons()) {
 			if (btn.type == Cmd.Type.RUN) {
-				btn.actor = new ImageActor(textureAtlas.findRegion(Image.Console.Cmd.RUN));
+				btn.actor = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Console.Cmd.RUN_UP), skin.getDrawable(Image.Console.Cmd.RUN_DOWN), skin.getDrawable(Image.Console.Cmd.RUN_CHECKED)));//down, checked) new ImageActor(textureAtlas.findRegion(Image.Console.Cmd.RUN));
 				btn.actor.setBounds(Const.Console.Cmd.X_RUN, Const.Console.Cmd.Y_RUN, btn.actor.getWidth(), btn.actor.getHeight());
-			} else if (btn.type == Cmd.Type.STOP) {
-				btn.actor = new ImageActor(textureAtlas.findRegion(Image.Console.Cmd.STOP));
-				btn.actor.setBounds(Const.Console.Cmd.X_STOP, Const.Console.Cmd.Y_STOP, btn.actor.getWidth(), btn.actor.getHeight());				
+			} else if (btn.type == Cmd.Type.CLEAR) {
+				btn.actor = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Console.Cmd.CLEAR_UP), skin.getDrawable(Image.Console.Cmd.CLEAR_DOWN), null));// new ImageActor(textureAtlas.findRegion(Image.Console.Cmd.CLEAR));
+				btn.actor.setBounds(Const.Console.Cmd.X_CLEAR, Const.Console.Cmd.Y_CLEAR, btn.actor.getWidth(), btn.actor.getHeight());
+			} else if (btn.type == Cmd.Type.MENU) {
+				btn.actor = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Console.Cmd.MENU_UP), skin.getDrawable(Image.Console.Cmd.MENU_DOWN), null));// new ImageActor(textureAtlas.findRegion(Image.Console.Cmd.SETTING));
+				btn.actor.setBounds(Const.Console.Cmd.X_SETTING, Const.Console.Cmd.Y_SETTING, btn.actor.getWidth(), btn.actor.getHeight());				
 			} else {
 				continue;
 			}
@@ -73,16 +76,18 @@ public class ConsoleGroup extends BaseGroup {
 					
 					@Override
 					public void clicked(InputEvent event, float x, float y) {
-						if (cmdListener != null) {
-							cmdListener.onClick(btn);
+						if (btn.state != Cmd.State.DISABLED) {
+							if (cmdListener != null) {
+								cmdListener.onClick(btn);
+							}
 						}
 					}			
 				});	
 				this.addActor(btn.actor);
 			}
 		}			
-	}	
-	
+	}
+
 //	public void initCodeLineGroup(final CodeLineGroup[] groupLines, final Code.OnButtonListener codeListener) {
 //		for (int i = 0; i < groupLines.length; ++ i) {
 //			
@@ -345,6 +350,10 @@ public class ConsoleGroup extends BaseGroup {
 			}
 		}
 		return false;
+	}
+
+	public void setCmdPanelButtonState(final Cmd.Type type, final Cmd.State state) {
+		
 	}
 
 	

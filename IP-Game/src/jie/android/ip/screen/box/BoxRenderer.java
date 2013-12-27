@@ -8,7 +8,9 @@ import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.equations.Quint;
+import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.CommonConsts.ScreenPackConfig;
+import jie.android.ip.common.actor.BaseGroupAccessor;
 import jie.android.ip.common.actor.ImageActor;
 import jie.android.ip.common.actor.ImageActorAccessor;
 import jie.android.ip.screen.box.BoxConfig.Const;
@@ -135,6 +137,32 @@ public class BoxRenderer implements Disposable {
 	
 	private float makeColDelay(int col) {
 		return Math.abs(col) * adapter.getRenderDelay();
+	}
+
+	public void zoomSource(final OnBoxEventListener onEventListener) {
+		adapter.getSourceGroup().setZIndex(0x0f);
+		Timeline.createParallel()
+			.push(Tween.to(adapter.getSourceGroup(), BaseGroupAccessor.POSITION_XY, 0.1f).target(0, ScreenConfig.HEIGHT / 3))
+			.push(Tween.to(adapter.getSourceGroup(), BaseGroupAccessor.SCALE_XY, 0.1f).target(0.667f, 0.667f))
+			.setCallback(new TweenCallback() {
+				@Override
+				public void onEvent(int type, BaseTween<?> source) {
+					onEventListener.onZoomSourceEnd();
+				}			
+		}).start(adapter.getTweenManager());		
+	}
+
+	public void resetSource() {
+		Timeline.createParallel()
+			.push(Tween.to(adapter.getSourceGroup(), BaseGroupAccessor.POSITION_XY, 0.1f).target(0, ScreenConfig.HEIGHT / 3))
+			.push(Tween.to(adapter.getSourceGroup(), BaseGroupAccessor.SCALE_XY, 0.1f).target(0.667f, 0.667f))
+			.setCallback(new TweenCallback() {
+				@Override
+				public void onEvent(int type, BaseTween<?> source) {
+					adapter.getSourceGroup().setZIndex(0x00);
+				}			
+		}).start(adapter.getTweenManager());	
+
 	}
 
 }

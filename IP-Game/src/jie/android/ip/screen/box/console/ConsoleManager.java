@@ -32,6 +32,8 @@ public class ConsoleManager implements Disposable {
 	private int cacheIndex = -1;
 	private int cachePos = -1;
 	
+	private boolean isRunning = false;
+	
 	private Cmd.OnButtonListener cmdListener = new Cmd.OnButtonListener() {
 
 		@Override
@@ -201,7 +203,8 @@ public class ConsoleManager implements Disposable {
 		}
 	}
 	
-	public void resetCodeLines() {
+	public void reset() {
+		resetCommandButtons();
 		renderer.removeCodeLines(codeLines);
 		codeLines.reset();
 		renderer.resetCodeLines(codeLines, codeListener);
@@ -279,6 +282,31 @@ public class ConsoleManager implements Disposable {
 		}
 
 		return null;
+	}
+
+	public boolean isRunning() {
+		return isRunning;
+	}
+
+	public void setRunState(boolean running) {		
+		isRunning = running;
+		if (isRunning) {
+			setCmdButtonChecked(Cmd.Type.RUN, true);
+		}
+		setCmdButtonEnabled(Cmd.Type.CLEAR, !isRunning);
+		setCmdButtonEnabled(Cmd.Type.MENU, !isRunning);
+	}
+	
+	public void resetCommandButtons() {
+		setCmdButtonChecked(Cmd.Type.RUN, false);
+	}
+	
+	public void setCmdButtonChecked(final Cmd.Type type, boolean checked) {
+		cmdPanel.setState(type, checked ? Cmd.State.SELECTED : Cmd.State.NONE);
+	}
+	
+	public void setCmdButtonEnabled(final Cmd.Type type, boolean enabled) {
+		cmdPanel.setState(type, enabled ? Cmd.State.NONE : Cmd.State.DISABLED);
 	}
 	
 }

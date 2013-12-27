@@ -10,6 +10,7 @@ import jie.android.ip.database.DBAccess;
 import jie.android.ip.executor.CommandSet;
 import jie.android.ip.screen.BaseScreen;
 import jie.android.ip.screen.box.BoxConfig.Image;
+import jie.android.ip.screen.box.console.Cmd;
 import jie.android.ip.screen.box.console.ConsoleGroup;
 import jie.android.ip.screen.box.console.ConsoleManager;
 import jie.android.ip.utils.Utils;
@@ -36,8 +37,11 @@ public class BoxScreen extends BaseScreen {
 			case 1://run button
 				onConsoleRunButtonClick(state);
 				break;
-			case 2: // stop button
-				onConsoleStopButtonClick(state);
+			case 2: // clear button
+				onConsoleClearButtonClick(state);
+				break;
+			case 3: // menu button
+				onConsoleMenuButtonClick(state);
 				break;
 			default:
 				Utils.log(Tag, "unknown command button : " + type);
@@ -47,6 +51,7 @@ public class BoxScreen extends BaseScreen {
 		@Override
 		public void onScriptCompleted(boolean succ) {
 			Utils.log(Tag, "Script completed : " + succ);
+			onScriptExecuteCompleted(succ);
 		}
 		
 	};
@@ -122,14 +127,29 @@ public class BoxScreen extends BaseScreen {
 	}
 		
 	protected void onConsoleRunButtonClick(int state) {
-		final CommandSet cmdset = consoleManager.makeCommandSet();
-		dbAccess.saveSolution(1, cmdset.saveToString());
-		//boxExecutor.execute(".\\doc\\test.xml");
-		boxExecutor.execute(cmdset);
+		if (state == 0) { //none
+			consoleManager.setRunState(true);
+			final CommandSet cmdset = consoleManager.makeCommandSet();
+			dbAccess.saveSolution(1, cmdset.saveToString());
+			//boxExecutor.execute(".\\doc\\test.xml");
+			boxExecutor.execute(cmdset);			
+		} else { // selected
+			boxExecutor.reset();
+			consoleManager.resetCommandButtons();
+		}		
 	}
 
-	protected void onConsoleStopButtonClick(int state) {
+	protected void onConsoleClearButtonClick(int state) {
 		boxExecutor.reset();
-		consoleManager.resetCodeLines();
+		consoleManager.reset();
 	}
+	
+	protected void onConsoleMenuButtonClick(int state) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected void onScriptExecuteCompleted(boolean succ) {
+		consoleManager.setRunState(false);		
+	}	
 }

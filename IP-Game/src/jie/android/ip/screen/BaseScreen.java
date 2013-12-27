@@ -24,7 +24,7 @@ public class BaseScreen implements Screen {
 	
 	protected TweenManager tweenManager = new TweenManager();	
 	
-	public BaseScreen(IPGame game) {
+	public BaseScreen(final IPGame game) {
 		
 		this.game = game;
 		

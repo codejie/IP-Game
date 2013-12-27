@@ -8,6 +8,8 @@ import com.badlogic.gdx.utils.Disposable;
 
 import jie.android.ip.CommonConsts.ScreenPackConfig;
 import jie.android.ip.screen.box.BoxRenderAdapter;
+import jie.android.ip.screen.box.console.Cmd.State;
+import jie.android.ip.screen.box.console.Cmd.Type;
 import jie.android.ip.screen.box.console.Code.Lines;
 
 public class ConsoleRenderer implements Disposable {
@@ -32,29 +34,9 @@ public class ConsoleRenderer implements Disposable {
 	public void setGroupClickListener(ClickListener groupListener) {
 		group.setClickListener(groupListener);
 	}
-	
-	
-//	private void addCmdButton(final Cmd.Button button, final Cmd.OnButtonListener listener) {
-//		
-//		button.actor = new ImageActor(textureAtlas.findRegion(Image.Console.Cmd.RUN));
-//		button.actor.setPosition(Const.Console.Cmd.BASE_X, Const.Console.Cmd.BASE_Y);
-//		button.actor.addListener(new ClickListener() {
-//	
-//			@Override
-//			public void clicked(InputEvent event, float x, float y) {
-//				if (listener != null) {
-//					listener.onClick(button);
-//				}
-//			}			
-//		});
-//		group.addButton(button.actor);
-//	}
 
 	public void initCmdPanel(final Cmd.Panel cmdPanel, final Cmd.OnButtonListener cmdListener) {
 		group.initCmdPanel(cmdPanel, cmdListener);
-//		for (final Cmd.Button btn : cmdPanel.getButtons()) {
-//			addCmdButton(btn, cmdListener);
-//		}		
 	}
 	
 	public void initCodeLines(final Code.Lines codeLines, final Code.Panel codePanel, final Code.OnButtonListener codeListener) {
@@ -95,5 +77,9 @@ public class ConsoleRenderer implements Disposable {
 	public boolean isCodeLinesShown() {
 		return group.isCodeLinesShow();
 	}
+
+//	public void setCmdButtonState(final Cmd.Type type, final Cmd.State state) {
+//		group.setCmdPanelButtonState(type, state);
+//	}
 	
 }

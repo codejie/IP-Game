@@ -7,5 +7,7 @@ public interface OnBoxEventListener {
 	public void onTrayMoveStart(boolean right);
 	public void onTrayMoveEnd(boolean right, boolean succ, boolean completed);
 	public void onNoneBlockMove();
+	
+	public void onZoomSourceEnd();
 //	public void onBoxCompleted();
 }

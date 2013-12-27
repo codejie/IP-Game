@@ -413,4 +413,18 @@ public class BoxManager implements Disposable {
 		}
 		
 	}
+
+//	public void focusSource() {
+//		renderer.zoomSource(onEventListener);
+//	}
+
+	public void zoomSource(boolean in) {
+		if (in) {
+			renderer.zoomSource(onEventListener);
+		} else {
+			renderer.resetSource();
+		}
+		// TODO Auto-generated method stub
+		
+	}
 }

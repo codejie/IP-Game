@@ -20,8 +20,13 @@ public interface BoxConfig {
 		
 		public interface Console {
 			public interface Cmd {
-				public static final String RUN = "cmd_run";
-				public static final String STOP = "cmd_run";//"cmd_stop";
+				public static final String RUN_UP = "lines_big_code_right";//"cmd_run_up";
+				public static final String RUN_DOWN = "lines_big_code_left";//"cmd_run_down";
+				public static final String RUN_CHECKED = "lines_big_code_act";//"cmd_run_checked";
+				public static final String CLEAR_UP = "lines_big_code_right";//"cmd_clear_up";
+				public static final String CLEAR_DOWN = "lines_big_code_left";//"cmd_clear_up_down";
+				public static final String MENU_UP = "lines_big_code_right";//"cmd_menu_up";
+				public static final String MENU_DOWN = "lines_big_code_left";//"cmd_menu_down";
 			}
 			
 			public interface Lines {
@@ -119,7 +124,7 @@ public interface BoxConfig {
 			public static final int TRAY_SPACE = 0;
 			
 			public static final float SOURCE_SCALE = 0.5f;
-			public static final float TARGET_SCALE = 1.0f;
+			public static final float TARGET_SCALE = 0.5f;
 		}	
 		
 		public interface Console {
@@ -130,9 +135,11 @@ public interface BoxConfig {
 				public static final int X_RUN = ScreenConfig.WIDTH - 128;
 				public static final int Y_RUN = 16;
 				
-				public static final int X_STOP = ScreenConfig.WIDTH - 128;
-				public static final int Y_STOP = 328;				
+				public static final int X_CLEAR = ScreenConfig.WIDTH - 128;
+				public static final int Y_CLEAR = 328;
 				
+				public static final int X_SETTING = ScreenConfig.WIDTH - 128;
+				public static final int Y_SETTING = 198;				
 			}
 			
 			public interface Lines {

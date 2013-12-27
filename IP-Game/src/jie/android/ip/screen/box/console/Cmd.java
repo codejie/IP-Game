@@ -3,12 +3,14 @@ package jie.android.ip.screen.box.console;
 
 import java.util.ArrayList;
 
+import jie.android.ip.common.actor.ButtonActor;
+
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public final class Cmd {
 	
 	public enum Type { 
-		NONE, RUN, STOP;
+		NONE, RUN, CLEAR, MENU;
 		
 		public int getId() {
 			return this.ordinal();
@@ -16,7 +18,7 @@ public final class Cmd {
 	};
 	
 	public enum State {
-		NONE, SELECTED;
+		NONE, SELECTED, DISABLED;
 		
 		public int getId() {
 			return this.ordinal();
@@ -26,7 +28,7 @@ public final class Cmd {
 		
 		public final Type type;
 		public State state = State.NONE;
-		public Actor actor;
+		public ButtonActor actor;
 		
 		public Button(final Type type) {
 			this.type = type;
@@ -53,6 +55,27 @@ public final class Cmd {
 			Button[] ret = new Button[this.size()];
 			return this.toArray(ret);
 		}
+		
+		public final Button setState(final Type type, final State state) {
+			for (final Button btn : this) {
+				if (btn.type == type) {
+					btn.state = state;
+					if (btn.actor != null) {
+						if (btn.state == State.NONE) {
+							btn.actor.setChecked(false);
+							btn.actor.setDisabled(false);
+						} else if (btn.state == State.SELECTED) {
+							btn.actor.setChecked(true);
+						} else if (btn.state == State.DISABLED) {
+							btn.actor.setDisabled(true);
+						}
+					}
+					return btn;
+				}
+			}
+			return null;
+		}
 	}
+	
 	
 }

@@ -2,6 +2,7 @@ package jie.android.ip;
 
 import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.database.DBAccess;
+import jie.android.ip.screen.TestScreen;
 import jie.android.ip.screen.box.BoxScreen;
 import jie.android.ip.setup.Setup;
 
