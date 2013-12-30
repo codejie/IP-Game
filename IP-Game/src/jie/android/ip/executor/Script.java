@@ -47,7 +47,7 @@ public class Script {
 	public ArrayList<BlockData> source;
 	public ArrayList<BlockData> target;
 	public TrayData tray;
-	
+		
 	public boolean loadFile(final String file) {
 		
 		try {

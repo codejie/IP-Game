@@ -8,12 +8,12 @@
         <Col>6</Col>
     </Config>
     <Source>
-		<Block row="6" col="1" value="0" style="1" />
-		<Block row="6" col="2" value="0" style="1" /> 
+		<Block row="6" col="1" value="0" style="0" />
+		<Block row="6" col="2" value="0" style="0" /> 
     </Source>
     <Target>
-		<Block row="6" col="2" value="0" style="1" />
-		<Block row="5" col="2" value="0" style="1" />
+		<Block row="6" col="2" value="0" style="0" />
+		<Block row="5" col="2" value="0" style="0" />
     </Target>
     <Tray col="1" style="1" />
 </IP-Script-Format>

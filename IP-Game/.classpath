@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="jie/android/ip/screen/code/CodeManager.java|jie/android/ip/screen/code/CodeRenderer.java|jie/android/ip/screen/DDTestScreen.java|jie/android/ip/common/actor/OnActorInputListener.java|jie/android/ip/common/actor/StateImageActor.java|jie/android/ip/executor/Analyser.java" kind="src" path="src"/>
+	<classpathentry excluding="jie/android/ip/screen/code/CodeManager.java|jie/android/ip/screen/code/CodeRenderer.java|jie/android/ip/screen/DDTestScreen.java|jie/android/ip/common/actor/OnActorInputListener.java|jie/android/ip/common/actor/StateImageActor.java|jie/android/ip/executor/Analyser.java|jie/android/ip/screen/box/|jie/android/ip/screen/box/console/" kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry exported="true" kind="lib" path="libs/gdx.jar" sourcepath="libs/gdx-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/tween-engine-api.jar" sourcepath="libs/tween-engine-api-sources.jar"/>

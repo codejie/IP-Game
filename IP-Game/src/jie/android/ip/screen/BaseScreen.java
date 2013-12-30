@@ -34,6 +34,14 @@ public class BaseScreen implements Screen {
 		Gdx.input.setInputProcessor(actorStage.getInputProcessor());
 	}
 	
+	public final IPGame getGame() {
+		return game;
+	}
+	
+	public final TweenManager getTweenManager() {
+		return tweenManager;
+	}
+	
 	public void addActor(final Actor actor) {
 		actorStage.addActor(actor);
 	}

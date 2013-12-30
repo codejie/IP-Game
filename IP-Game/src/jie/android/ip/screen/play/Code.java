@@ -1,7 +1,7 @@
 package jie.android.ip.screen.play;
 
-
-import jie.android.ip.screen.box.console.Code.Type;
+import jie.android.ip.executor.CommandConsts;
+import jie.android.ip.executor.CommandSet;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
@@ -50,14 +50,14 @@ public class Code {
 	public interface OnButtonListener {
 		
 		public enum Which {
-			PANEL_GROUP, PANEL, CODE_GROUP, CODE;// code is code line
+			BASE_GROUP, PANEL_GROUP, PANEL, LINE_GROUP, LINE;
 			
 			public int getId() {
 				return this.ordinal();
 			}
 		}
 		
-		void onClick(final Which which, int index, int pos, final Button button);
+		void onClick(final Which which, int index, int pos);
 	}	
 
 	public static class Lines {
@@ -96,6 +96,81 @@ public class Code {
 			buttons[func][pos] = new Button(type);
 		}
 
+		public void loadCmdSet(final CommandSet cmdSet, final PlayScreenListener.ManagerEventListener listener) {
+			if (cmdSet != null) {
+				for (int i = 0; i < Code.NUM_CODE_LINES; ++ i) {
+					final CommandSet.CommandQueue que = cmdSet.get(i);
+					if (que != null) {
+						int pos = 0;
+						for (final CommandSet.Command cmd : que) {
+							final Code.Type type = getCodeTypeByCommand(cmd);
+							if (type != null) {
+								buttons[i][pos ++] = new Button(type);
+							}
+						}
+					}
+				}
+			}
+			
+			if (listener != null) {
+				listener.onCodeLineInitCompleted(this);
+			}
+		}
+		
+		private final Code.Type getCodeTypeByCommand(final CommandSet.Command cmd) {
+			final CommandConsts.CommandType cmdType = cmd.getType();
+			if (cmdType == CommandConsts.CommandType.ACT) {
+				int action = cmd.getParamAsInt(0, -1);
+				if (action == CommandConsts.ActType.MOVE_RIGHT.getId()) {
+					return Code.Type.RIGHT;
+				} else if (action == CommandConsts.ActType.MOVE_LEFT.getId()) {
+					return Code.Type.LEFT;
+				} else if (action == CommandConsts.ActType.ACTION.getId()) {
+					return Code.Type.ACT;
+				}
+			} else if (cmdType == CommandConsts.CommandType.CHECK) {
+				int val = cmd.getParamAsInt(0, -1);
+				int var = cmd.getParamAsInt(1, -1);
+				if (var == 0) {
+					if (val == 0) {
+						return Code.Type.IF_0;
+					} else if (val == 1) {
+						return Code.Type.IF_1;
+					} else if (val == 2) {
+						return Code.Type.IF_2;
+					} else if (val == 3) {
+						return Code.Type.IF_3;
+					}
+				} else if (var == 1) {
+					if (val == 0) {
+						return Code.Type.IF_NONE;
+					} else if (val == 1) {
+						return Code.Type.IF_ANY;
+					}				
+				}
+			} else if (cmdType == CommandConsts.CommandType.CALL) {
+				int func = cmd.getParamAsInt(0, -1);
+				if (func == 0) {
+					return Code.Type.CALL_0;
+				} else if (func == 1) {
+					return Code.Type.CALL_1;
+				} else if (func == 2) {
+					return Code.Type.CALL_2;
+				} else if (func == 3) {
+					return Code.Type.CALL_3;
+				}
+			} else if (cmdType == CommandConsts.CommandType.EMPTY) {
+				int type = cmd.getParamAsInt(0, -1);
+				if (type == CommandConsts.EmptyType.CHECK.getId()) {
+					return Code.Type.IF_NULL;
+				} else if (type == CommandConsts.EmptyType.ACT.getId()) {
+					return Code.Type.NULL;
+				}
+			}
+
+			return null;
+		}		
+		
 	}
 	
 	public static class Panel {

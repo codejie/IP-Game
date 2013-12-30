@@ -2,6 +2,9 @@ package jie.android.ip.screen.play;
 
 import java.util.HashMap;
 
+import jie.android.ip.executor.Script;
+import jie.android.ip.executor.Script.BlockData;
+import jie.android.ip.screen.play.PlayConfig.Const;
 import jie.android.ip.utils.Extended.Pair;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -17,7 +20,7 @@ public class Box {
 		public static final int VALUE_0 = 0;
 		
 		public int value = VALUE_0;
-		public int style = -1;		
+		public int style = 0;		
 		public Actor actor;
 		
 		public Block(int value, int style) {
@@ -26,7 +29,7 @@ public class Box {
 		}
 	}
 	
-	private class BlockArray extends HashMap<Pair<Integer, Integer>, Block> {
+	public class BlockArray extends HashMap<Pair<Integer, Integer>, Block> {
 		
 		private static final long serialVersionUID = 1L;
 		
@@ -131,6 +134,133 @@ public class Box {
 			this.posCol = col;
 			status = STATUS_EMPTY;			
 		}
+	}
+	
+	//
+	private BlockArray source;
+	private BlockArray target;
+	private Tray tray;
+
+	public Box() {
+	}
+	
+	public void loadScript(final Script script, final PlayScreenListener.ManagerEventListener listener) {
+		source = new BlockArray(Const.Box.MAX_ROW, Const.Box.MAX_COL);
+		if (script.getSource() != null) {
+			for (final Script.BlockData data : script.getSource()) {
+				inflateBlock(source, data);
+			}
+		}
+		
+		target = new BlockArray(Const.Box.MAX_ROW, Const.Box.MAX_COL);
+		if (script.getTarget() != null) {
+			for (final Script.BlockData data : script.getTarget()) {
+				inflateBlock(target, data);
+			}
+		}
+		
+		final Script.TrayData td = script.getTray();
+		tray = new Tray(td.style, td.col);
+		
+		if (listener != null) {
+			listener.onBoxInitCompleted(tray, source, target);
+		}
+	}
+
+	private void inflateBlock(BlockArray block, BlockData unit) {
+		block.add(unit.row,  unit.col, new Block(unit.value, unit.style));
 	}	
 	
+	public void reload(final Script script, final PlayScreenListener.ManagerEventListener listener) {
+		if (listener != null) {
+			listener.onBoxPreReload(tray, source, target);			
+		}
+		
+		loadScript(script, listener); 
+	}
+	
+	public boolean moveBlock(int col, final Direction direction, final PlayScreenListener.ManagerEventListener listener) throws BoxException {
+		Block block = null;
+		int row = -1, trow = -1;
+		//updata block
+		if (direction == Direction.DOWN) {
+			//check tray
+			if (tray.posCol != col || tray.status != Tray.STATUS_EMPTY) {
+				throw new BoxException(BoxException.E_TRAY_MISSING);
+			}
+			
+			row = source.checkInRow(col);
+			trow = 0;
+			if (row != -1) {
+				block = source.update(row, col, trow, col);
+				if (block == null) {
+					throw new BoxException(BoxException.E_BLOCK_NOTFOUND);
+				}				
+				tray.status = Tray.STATUS_ATTACHED;
+			} else {
+				return false;
+			}
+		} else if (direction == Direction.UP){
+			if (tray.status != Tray.STATUS_ATTACHED) { // do nothing
+				return false;
+			}
+			row = 0;
+			trow = source.checkInRow(col);
+			if (trow == -1) {
+				trow = Const.Box.MAX_ROW;
+			} else if (trow == 1) {
+				throw new BoxException(BoxException.E_BLOCK_NOTROOM);
+				//error
+			} else {
+				trow = trow - 1;
+			}
+			
+			block = source.update(row, col, trow, col);
+			if (block == null) {
+				throw new BoxException(BoxException.E_BLOCK_NOTFOUND);
+			}
+			tray.status = Tray.STATUS_EMPTY;
+		} else {
+			throw new BoxException(BoxException.E_DIRECTION_UNSUPPORT);
+		}
+		
+		if (listener != null) {
+			listener.onBoxMoved(null, block, col, row, col, trow);
+		}
+		
+		return true;
+	}
+	
+	public boolean moveTray(Direction direction, final PlayScreenListener.ManagerEventListener listener) throws BoxException {
+		
+		Block block = null;
+		int col = tray.posCol;
+		int tcol = -1;
+		if (direction == Direction.LEFT) {
+			 tcol = col - 1;
+		} else if (direction == Direction.RIGHT) {
+			tcol = col + 1;
+		} else {
+			throw new BoxException(BoxException.E_DIRECTION_UNSUPPORT);
+		}
+
+		if (tcol == 0 || tcol == Const.Box.MAX_COL) {
+			throw new BoxException(BoxException.E_TRAY_OUT);
+		}
+		
+		tray.posCol = tcol;
+		
+		if (tray.status == Tray.STATUS_ATTACHED) {
+			block = source.update(0, col, 0, tcol);
+			if (block == null) {
+				throw new BoxException(BoxException.E_BLOCK_NOTFOUND);
+			}			
+		}
+		
+		if (listener != null) {
+			listener.onBoxMoved(tray, block, col, 0, tcol, 0);
+		}
+		
+		return true;
+	}	
 }

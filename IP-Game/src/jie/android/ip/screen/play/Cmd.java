@@ -5,8 +5,6 @@ import java.util.ArrayList;
 
 import jie.android.ip.common.actor.ButtonActor;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
-
 public final class Cmd {
 	
 	public enum Type { 

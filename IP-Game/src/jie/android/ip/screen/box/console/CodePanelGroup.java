@@ -95,7 +95,7 @@ public class CodePanelGroup extends BaseGroup {
 		}
 	}
 
-	private Actor makeImageActor(int pos, Code.Type type) {
+	private final Actor makeImageActor(int pos, Code.Type type) {
 		ImageActor ret = null;
 
 		if (type == Code.Type.NULL) {

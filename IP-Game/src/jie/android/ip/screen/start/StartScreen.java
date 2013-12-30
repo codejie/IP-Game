@@ -14,7 +14,6 @@ import jie.android.ip.IPGame;
 import jie.android.ip.common.actor.ImageActor;
 import jie.android.ip.common.actor.ImageActorAccessor;
 import jie.android.ip.screen.BaseScreen;
-import jie.android.ip.screen.box.BoxScreen;
 import jie.android.ip.screen.start.StartConfig.Image;
 import jie.android.ip.screen.start.StartConfig.Const;
 import jie.android.ip.utils.Utils;
@@ -33,7 +32,7 @@ public class StartScreen extends BaseScreen {
 			Utils.log("tween event", "type = " + type + " source = " + source.toString());
 			
 			game.getResources().loadAssetManager();
-			game.setScreen(new BoxScreen(game));
+//			game.setScreen(new BoxScreen(game));
 			//game.setScreen(new TestScreen(game));
 		}
 		
