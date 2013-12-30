@@ -37,16 +37,6 @@ public class Code {
 		}
 	}
 
-	public static class Button {
-		public final Type type;
-		public Actor smallActor;
-		public Actor bigActor;
-		
-		public Button(final Type type) {
-			this.type = type;
-		}
-	}
-//	
 	public interface OnButtonListener {
 		
 		public enum Which {
@@ -62,7 +52,7 @@ public class Code {
 
 	public static class Lines {
 		
-		private Button[][] buttons = new Button[NUM_CODE_LINES][NUM_CODE_PER_LINE];
+		private Type[][] node = new Type[NUM_CODE_LINES][NUM_CODE_PER_LINE];
 		
 		public Lines() {
 			init();
@@ -72,29 +62,29 @@ public class Code {
 			for (int f = 0; f < NUM_CODE_LINES; ++ f) {
 				for (int p = 0; p < NUM_CODE_PER_LINE; ++ p) {
 					if (p % 2 == 0) {						
-						buttons[f][p] = new Button(Type.IF_NULL);						
+						node[f][p] = Type.IF_NULL;						
 					} else {
-						buttons[f][p] = new Button(Type.NULL);
+						node[f][p] = Type.NULL;
 					}
 				}
 			}			
 		}
 		
-		public final Button getButton(int func, int pos) {
-			return buttons[func][pos];
+		public final Type getNode(int func, int pos) {
+			return node[func][pos];
 		}
 		
-		public final Button[] getFuncButton(int func) {
-			return buttons[func];
+		public final Type[] getFuncNode(int func) {
+			return node[func];
 		}
 
 		public void reset() {
 			init();
 		}
 
-		public void setButton(int func, int pos, final Code.Type type) {
-			buttons[func][pos] = new Button(type);
-		}
+//		public void setButton(int func, int pos, final Code.Type type) {
+//			node[func][pos] = type;
+//		}
 
 		public void loadCmdSet(final CommandSet cmdSet, final PlayScreenListener.ManagerEventListener listener) {
 			if (cmdSet != null) {
@@ -105,7 +95,7 @@ public class Code {
 						for (final CommandSet.Command cmd : que) {
 							final Code.Type type = getCodeTypeByCommand(cmd);
 							if (type != null) {
-								buttons[i][pos ++] = new Button(type);
+								node[i][pos ++] = type;
 							}
 						}
 					}
@@ -171,6 +161,16 @@ public class Code {
 			return null;
 		}		
 		
+	}
+	
+	public static class Button {
+		public final Type type;
+//		public Actor smallActor;
+		public Actor bigActor;
+		
+		public Button(final Type type) {
+			this.type = type;
+		}
 	}
 	
 	public static class Panel {

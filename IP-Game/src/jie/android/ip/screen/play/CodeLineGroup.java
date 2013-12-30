@@ -19,6 +19,7 @@ import jie.android.ip.CommonConsts.ScreenPackConfig;
 import jie.android.ip.common.actor.BaseGroup;
 import jie.android.ip.common.actor.BaseGroupAccessor;
 import jie.android.ip.common.actor.ImageActor;
+import jie.android.ip.screen.play.Code.Type;
 import jie.android.ip.screen.play.PlayConfig.Const;
 import jie.android.ip.screen.play.PlayConfig.Image;
 
@@ -30,6 +31,56 @@ public class CodeLineGroup {
 		SMALL, BIG;
 	}
 	
+	private class LineButtonActor {
+		public ImageActor smallActor;
+		public ImageActor bigActor;
+	}
+	
+	private class LineButton {
+
+		private final BaseGroup group;
+		
+		private LineButtonActor[] node = new LineButtonActor[Code.NUM_CODE_PER_LINE];
+		
+		public LineButton(final BaseGroup group) {
+			this.group = group;
+			
+		}
+		
+		public void clear() {
+			for (int i = 0; i < node.length; ++ i) {
+				if (node[i] != null) {
+					if (node[i].smallActor != null) {
+						group.removeActor(node[i].smallActor);
+					}
+					if (node[i].bigActor != null) {
+						group.removeActor(node[i].bigActor);
+					}
+				}
+			}
+		}
+		
+		public void setActor(int pos, final ImageActor smallActor, final ImageActor bigActor) {
+			if (node[pos] == null) {
+				node[pos] = new LineButtonActor();
+			}
+			
+			if (pos < node.length) {
+				node[pos].smallActor = smallActor;
+				if (pos % 2 != 0) {
+					if (node[pos - 1].smallActor != null) {
+						node[pos - 1].smallActor.setZIndex(node[pos].smallActor.getZIndex() + 1);
+					}
+				}					
+				group.addActor(smallActor);			
+				
+				node[pos].bigActor = bigActor;				
+				group.addActor(bigActor);
+			}
+		}
+		
+	}
+	
 	private class LineGroup extends BaseGroup {
 		
 		private final int index;
@@ -39,7 +90,9 @@ public class CodeLineGroup {
 		private LineState state = LineState.SMALL;		
 		
 		private ImageActor smallBg, bigBg;
-		private ImageActor smallTitle, bigTitle;		
+		private ImageActor smallTitle, bigTitle;
+		
+		private LineButton lineButton;
 		
 		public LineGroup(int index, final Resources resources, final Code.OnButtonListener listener) {
 			this.index = index;
@@ -65,6 +118,8 @@ public class CodeLineGroup {
 					}
 				}				
 			});
+			
+			lineButton = new LineButton(this);
 		}
 
 		private final Vector2 getCodeLinePosition(int index) {
@@ -172,24 +227,31 @@ public class CodeLineGroup {
 			
 		}
 	
-		public final void loadButtons(final Code.Button[] buttons) {
-			for (int i = 0; i < buttons.length; ++ i) {
-				//small
-				buttons[i].smallActor = makeImageActor(buttons[i], i, true);
-				this.addActor(buttons[i].smallActor);
-				if (i % 2 != 0) {
-					if (buttons[i - 1].smallActor != null) {
-						buttons[i - 1].smallActor.setZIndex(buttons[i].smallActor.getZIndex() + 1);
-					}
-				}				
-				//big
-				buttons[i].bigActor = makeImageActor(buttons[i], i, false);
-				this.addActor(buttons[i].bigActor);				
+		public final void loadButtons(final Code.Type[] nodes) {
+			
+			lineButton.clear();
+			
+			for (int i = 0; i < nodes.length; ++ i) {
+				final ImageActor small = makeImageActor(nodes[i], i, true);
+				final ImageActor big = makeImageActor(nodes[i], i, false);
+				lineButton.setActor(i, small, big);
+				
+//				//small
+//				buttons[i].smallActor = makeImageActor(buttons[i], i, true);
+//				this.addActor(buttons[i].smallActor);
+//				if (i % 2 != 0) {
+//					if (buttons[i - 1].smallActor != null) {
+//						buttons[i - 1].smallActor.setZIndex(buttons[i].smallActor.getZIndex() + 1);
+//					}
+//				}				
+//				//big
+//				buttons[i].bigActor = makeImageActor(buttons[i], i, false);
+//				this.addActor(buttons[i].bigActor);				
 			}
 		}
 		
-		private Actor makeImageActor(final Code.Button btn, final int pos,  boolean small) {
-			final Code.Type type = btn.type;
+		private ImageActor makeImageActor(final Code.Type type, final int pos,  boolean small) {
+			//final Code.Type type = btn.type;
 			ImageActor ret = null;
 			
 			if (type == Code.Type.NULL) {
@@ -580,7 +642,7 @@ public class CodeLineGroup {
 	
 	public void load(final Code.Lines lines) {
 		for (int i = 0; i < groupLine.length; ++ i) {
-			groupLine[i].loadButtons(lines.getFuncButton(i));
+			groupLine[i].loadButtons(lines.getFuncNode(i));
 		}
 	}
 	
