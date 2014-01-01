@@ -22,6 +22,7 @@ import jie.android.ip.common.actor.ImageActor;
 import jie.android.ip.screen.play.Code.Type;
 import jie.android.ip.screen.play.PlayConfig.Const;
 import jie.android.ip.screen.play.PlayConfig.Image;
+import jie.android.ip.utils.Utils;
 
 public class CodeLineGroup {
 
@@ -76,6 +77,13 @@ public class CodeLineGroup {
 				
 				node[pos].bigActor = bigActor;				
 				group.addActor(bigActor);
+			}
+		}
+		
+		public void showActor(boolean small) {
+			for (int i = 0; i < node.length; ++ i) {
+				node[i].smallActor.setVisible(small);
+				node[i].bigActor.setVisible(!small);
 			}
 		}
 		
@@ -219,12 +227,14 @@ public class CodeLineGroup {
 			if (this.state == state) {
 				return;
 			}
+
+			lineButton.showActor(state == LineState.SMALL);
+			smallBg.setVisible(state == LineState.SMALL);
+			smallTitle.setVisible(state == LineState.SMALL);
+			bigBg.setVisible(state == LineState.BIG);
+			bigTitle.setVisible(state == LineState.BIG);
 			
-			if (state == LineState.SMALL) {
-				
-			}
-			
-			
+			this.state = state;
 		}
 	
 		public final void loadButtons(final Code.Type[] nodes) {
@@ -596,6 +606,7 @@ public class CodeLineGroup {
 
 		@Override
 		public void onClick(Code.OnButtonListener.Which which, int index, int pos) {
+			Utils.log(Tag, "Code click : which = " + which.getId() + " index = " + index + " pos = " + pos);
 			if (which == Code.OnButtonListener.Which.LINE_GROUP) {
 				onLineGroupClick(index);
 			} else if (which == Code.OnButtonListener.Which.LINE) {
@@ -649,13 +660,16 @@ public class CodeLineGroup {
 	protected void onLineGroupClick(int index) {
 		groupPanel.hide(-1, tweenManager);
 		
-		if (index == cacheLineIndex) {
+		if (cacheLineIndex != -1) {
 			groupLine[cacheLineIndex].toggleState(tweenManager);
-			cacheLineIndex = -1;
 		}
 		
-		groupLine[index].toggleState(tweenManager);
-		cacheLineIndex = index;
+		if (cacheLineIndex != index) {
+			groupLine[index].toggleState(tweenManager);
+			cacheLineIndex = index;
+		} else {
+			cacheLineIndex = -1;
+		}
 	}	
 
 	protected void onLineClick(int index, int pos) {

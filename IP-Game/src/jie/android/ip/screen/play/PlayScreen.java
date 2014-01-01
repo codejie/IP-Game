@@ -25,13 +25,15 @@ public class PlayScreen extends BaseScreen {
 	}
 
 	private void init() {
+		
+		initBackgroup();
+		
 		manager = new PlayManager(this);
 		renderer = new PlayRenderer(this);
 		
 		manager.setEventListener(renderer.getManagerEventListener());
 		renderer.setEventListener(manager.getRendererEventListener());
 		
-		initBackgroup();
 	}
 	
 	private void initBackgroup() {
