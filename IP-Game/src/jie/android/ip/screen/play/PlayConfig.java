@@ -129,16 +129,18 @@ public interface PlayConfig {
 		
 		public interface Console {
 			public interface Cmd {
-//				public static final int BASE_X = ScreenConfig.WIDTH - 128;
-//				public static final int BASE_Y = 16;
+				public static final int BASE_X = ScreenConfig.WIDTH - 128;
+				public static final int BASE_Y = 16;
+				public static final int WIDTH = 128;
+				public static final int HEIGHT = ScreenConfig.HEIGHT - 32;
 				
-				public static final int X_RUN = ScreenConfig.WIDTH - 128;
+				public static final int X_RUN = 0;//ScreenConfig.WIDTH - 128;
 				public static final int Y_RUN = 16;
 				
-				public static final int X_CLEAR = ScreenConfig.WIDTH - 128;
+				public static final int X_CLEAR = 0;//ScreenConfig.WIDTH - 128;
 				public static final int Y_CLEAR = 328;
 				
-				public static final int X_SETTING = ScreenConfig.WIDTH - 128;
+				public static final int X_SETTING = 0;//ScreenConfig.WIDTH - 128;
 				public static final int Y_SETTING = 198;				
 			}
 			

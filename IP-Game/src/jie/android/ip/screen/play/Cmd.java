@@ -8,7 +8,8 @@ import jie.android.ip.common.actor.ButtonActor;
 public final class Cmd {
 	
 	public enum Type { 
-		NONE, RUN, CLEAR, MENU;
+		NONE, RUN, CLEAR, MENU,
+		BACK, INFO, CLOSE;
 		
 		public int getId() {
 			return this.ordinal();
@@ -22,9 +23,19 @@ public final class Cmd {
 			return this.ordinal();
 		}
 	}
+	
+//	public enum Layer {
+//		FIRST, SECOND;
+//	}
+	
+	public enum LayerState {
+		FIRST, SECOND;
+	}
+	
 	public static class Button {
 		
 		public final Type type;
+//		public final Layer layer = Layer.FIRST;
 		public State state = State.NONE;
 		public ButtonActor actor;
 		

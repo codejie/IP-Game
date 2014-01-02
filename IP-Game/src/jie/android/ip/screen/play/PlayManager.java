@@ -3,6 +3,7 @@ package jie.android.ip.screen.play;
 import jie.android.ip.database.DBAccess;
 import jie.android.ip.executor.CommandSet;
 import jie.android.ip.executor.Script;
+import jie.android.ip.screen.play.Cmd.Type;
 import jie.android.ip.screen.play.PlayScreenListener.ManagerEventListener;
 
 public class PlayManager {
@@ -21,12 +22,6 @@ public class PlayManager {
 	private PlayScreenListener.RendererEventListener rendererListener = new PlayScreenListener.RendererEventListener() {
 
 		@Override
-		public void onCmdButtonClicked() {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
 		public void onBoxMoveStart() {
 			// TODO Auto-generated method stub
 			
@@ -34,6 +29,17 @@ public class PlayManager {
 
 		@Override
 		public void onBoxkMoveEnd() {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onPanelButtonClicked(int index, int pos, final Code.Type type) {
+			codeLines.setNode(index, pos, type, managerListener);
+		}
+
+		@Override
+		public void onCmdButtonClicked(Type type) {
 			// TODO Auto-generated method stub
 			
 		}

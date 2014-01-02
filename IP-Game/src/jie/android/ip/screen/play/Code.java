@@ -2,6 +2,7 @@ package jie.android.ip.screen.play;
 
 import jie.android.ip.executor.CommandConsts;
 import jie.android.ip.executor.CommandSet;
+import jie.android.ip.screen.play.Code.Type;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
@@ -16,7 +17,7 @@ public class Code {
 		CALL_0, CALL_1, CALL_2, CALL_3;
 		
 		public int getId() {
-			return this.ordinal();
+			return ordinal();
 		}
 		
 		public boolean isOrder() {
@@ -35,19 +36,31 @@ public class Code {
 		public boolean isNull() {
 			return this == NULL;
 		}
+
+		public static Type getType(int id) {
+			for (final Type type : Type.values()) {
+				if (id == type.getId()) {
+					return type;
+				}
+			}
+			return null;
+		}
 	}
 
 	public interface OnButtonListener {
 		
-		public enum Which {
-			BASE_GROUP, PANEL_GROUP, PANEL, LINE_GROUP, LINE;
-			
-			public int getId() {
-				return this.ordinal();
-			}
-		}
-		
-		void onClick(final Which which, int index, int pos);
+//		public enum Which {
+//			BASE_GROUP, PANEL_GROUP, PANEL, LINE_GROUP, LINE;
+//			
+//			public int getId() {
+//				return this.ordinal();
+//			}
+//		}
+		//void onClick(final Which which, int index, int pos);
+		void onBaseGroupClick();
+		void onLineGroupClick(int index);
+		void onLineClick(int index, int pos);
+		void onPanelClick(final Code.Type type);
 	}	
 
 	public static class Lines {
@@ -82,9 +95,12 @@ public class Code {
 			init();
 		}
 
-//		public void setButton(int func, int pos, final Code.Type type) {
-//			node[func][pos] = type;
-//		}
+		public void setNode(int func, int pos, final Code.Type type, final PlayScreenListener.ManagerEventListener listener) {
+			node[func][pos] = type;
+			if (listener != null) {
+				listener.onCodeLineUpdated(this, func, pos);
+			}
+		}
 
 		public void loadCmdSet(final CommandSet cmdSet, final PlayScreenListener.ManagerEventListener listener) {
 			if (cmdSet != null) {
@@ -160,7 +176,6 @@ public class Code {
 
 			return null;
 		}		
-		
 	}
 	
 	public static class Button {
