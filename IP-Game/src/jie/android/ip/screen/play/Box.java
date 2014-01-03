@@ -137,14 +137,18 @@ public class Box {
 	}
 	
 	//
+	
+	private final PlayScreenListener.ManagerInternalEventListener internalListener;
+	
 	private BlockArray source;
 	private BlockArray target;
-	private Tray tray;
+	private Tray tray;	
 
-	public Box() {
+	public Box(final PlayScreenListener.ManagerInternalEventListener listener) {
+		this.internalListener = listener;
 	}
 	
-	public void loadScript(final Script script, final PlayScreenListener.ManagerEventListener listener) {
+	public void loadScript(final Script script) {
 		source = new BlockArray(Const.Box.MAX_ROW, Const.Box.MAX_COL);
 		if (script.getSource() != null) {
 			for (final Script.BlockData data : script.getSource()) {
@@ -162,24 +166,20 @@ public class Box {
 		final Script.TrayData td = script.getTray();
 		tray = new Tray(td.style, td.col);
 		
-		if (listener != null) {
-			listener.onBoxInitCompleted(tray, source, target);
-		}
+		internalListener.onBoxLoadCompleted(tray, source, target);
 	}
 
 	private void inflateBlock(BlockArray block, BlockData unit) {
 		block.add(unit.row,  unit.col, new Block(unit.value, unit.style));
 	}	
 	
-	public void reload(final Script script, final PlayScreenListener.ManagerEventListener listener) {
-		if (listener != null) {
-			listener.onBoxPreReload(tray, source, target);			
-		}
+	public void reload(final Script script) {
+		internalListener.onBoxPreReload(tray, source, target);			
 		
-		loadScript(script, listener); 
+		loadScript(script); 
 	}
 	
-	public boolean moveBlock(int col, final Direction direction, final PlayScreenListener.ManagerEventListener listener) throws BoxException {
+	private boolean moveBlock(int col, final Direction direction) throws BoxException {
 		Block block = null;
 		int row = -1, trow = -1;
 		//updata block
@@ -224,14 +224,12 @@ public class Box {
 			throw new BoxException(BoxException.E_DIRECTION_UNSUPPORT);
 		}
 		
-		if (listener != null) {
-			listener.onBoxMoved(null, block, col, row, col, trow);
-		}
+		internalListener.onBoxMoved(null, block, col, row, col, trow);
 		
 		return true;
 	}
 	
-	public boolean moveTray(Direction direction, final PlayScreenListener.ManagerEventListener listener) throws BoxException {
+	private boolean moveTray(Direction direction) throws BoxException {
 		
 		Block block = null;
 		int col = tray.posCol;
@@ -244,7 +242,8 @@ public class Box {
 			throw new BoxException(BoxException.E_DIRECTION_UNSUPPORT);
 		}
 
-		if (tcol == 0 || tcol == Const.Box.MAX_COL) {
+		//if (tcol == 0 || tcol == Const.Box.MAX_COL) {
+		if (tcol < 0 || tcol > Const.Box.MAX_COL) {
 			throw new BoxException(BoxException.E_TRAY_OUT);
 		}
 		
@@ -257,10 +256,38 @@ public class Box {
 			}			
 		}
 		
-		if (listener != null) {
-			listener.onBoxMoved(tray, block, col, 0, tcol, 0);
-		}
+		internalListener.onBoxMoved(tray, block, col, 0, tcol, 0);
 		
 		return true;
-	}	
+	}
+
+	public void tryMoveBlock() {
+		try {	
+			if (tray.status == Tray.STATUS_EMPTY) {
+				moveBlock(tray.posCol, Direction.DOWN);
+			} else {
+				moveBlock(tray.posCol, Direction.UP);
+			}
+		} catch (BoxException e) {
+			e.printStackTrace();
+			internalListener.onBoxMoveException(e.error());
+		}		
+	}
+
+	public void tryMoveTray(boolean right) {
+		try {
+			if (right) {
+				moveTray(Direction.RIGHT);
+			} else {
+				moveTray(Direction.LEFT);
+			}
+		} catch (BoxException e) {
+			e.printStackTrace();
+			internalListener.onBoxMoveException(e.error());			
+		}
+	}
+
+	public boolean checkResult() {
+		return target.isMatch(source);
+	}
 }

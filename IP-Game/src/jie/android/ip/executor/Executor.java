@@ -381,6 +381,10 @@ public class Executor extends BaseExecutor {
 		}
 	}
 	
+	public boolean isRunning() {
+		return (executor != null && executor.isRunning());
+	}
+	
 	
 //
 //	private static void test() {

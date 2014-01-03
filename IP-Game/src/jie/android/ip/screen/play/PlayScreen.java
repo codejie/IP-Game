@@ -24,6 +24,13 @@ public class PlayScreen extends BaseScreen {
 		loadScript();
 	}
 
+	@Override
+	public void dispose() {
+		manager.dispose();
+		
+		super.dispose();
+	}
+
 	private void init() {
 		
 		initBackgroup();

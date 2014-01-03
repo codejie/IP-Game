@@ -34,7 +34,7 @@ public class BoxException extends Exception {
 		if (what() != null) {
 			return String.format("BoxException(%d) : %s", error, what());
 		} else {
-			return String.format("BoxException(%d) : null");
+			return String.format("BoxException(%d) : null", error);
 		}
 	}
 }

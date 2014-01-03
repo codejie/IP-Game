@@ -1,6 +1,14 @@
 package jie.android.ip.screen.play;
 
+
 import java.util.Map.Entry;
+
+import aurelienribon.tweenengine.BaseTween;
+import aurelienribon.tweenengine.Timeline;
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenCallback;
+import aurelienribon.tweenengine.TweenManager;
+import aurelienribon.tweenengine.equations.Quint;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import jie.android.ip.Resources;
@@ -8,6 +16,9 @@ import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.CommonConsts.ScreenPackConfig;
 import jie.android.ip.common.actor.BaseGroup;
 import jie.android.ip.common.actor.ImageActor;
+import jie.android.ip.common.actor.ImageActorAccessor;
+import jie.android.ip.screen.play.Box.BlockArray;
+import jie.android.ip.screen.play.Box.Tray;
 import jie.android.ip.screen.play.PlayConfig.Const;
 import jie.android.ip.screen.play.PlayConfig.Image;
 import jie.android.ip.utils.Extended.Pair;
@@ -16,8 +27,7 @@ public class BoxGroup {
 	
 	private class BlockGroup extends BaseGroup {
 
-		private final Resources resources;
-		
+		private final Resources resources;		
 		private final TextureAtlas textureAtlas;
 		
 		public BlockGroup(final Resources resources) {
@@ -77,17 +87,36 @@ public class BoxGroup {
 			} else {
 				return null;
 			}
+		}
+
+		public void clearActors(final Box.Tray tray, final Box.BlockArray blockArray) {
+			if (tray.actor != null) {
+				this.removeActor(tray.actor);
+			}
+			
+			for (final Entry<Pair<Integer, Integer>, Box.Block> entry : blockArray.entrySet()) {
+				final Box.Block block = entry.getValue();
+				if (block.actor != null) {
+					this.removeActor(block.actor);
+				}
+			}
 		}		
 	}
 	
 	
 	private final PlayScreen screen;
+	private final TweenManager tweenManager;
+
+	private final PlayScreenListener.RendererInternalEventListener internalListener;
 	
 	private BlockGroup groupSource;
 	private BlockGroup groupTarget;
 	
-	public BoxGroup(final PlayScreen screen) {
+	public BoxGroup(final PlayScreen screen, final PlayScreenListener.RendererInternalEventListener internalListener) {
 		this.screen = screen;
+		this.tweenManager = this.screen.getTweenManager();
+		
+		this.internalListener = internalListener;
 
 		initGroups();
 	}
@@ -111,4 +140,73 @@ public class BoxGroup {
 		groupTarget.loadBlock(target);
 	}
 	
+	public void reload(final Box.Tray tray, final Box.BlockArray source) {
+		groupSource.clear();
+		groupSource.loadBlock(source);
+		groupSource.loadTray(tray);		
+	}	
+
+	public void clearAll() {
+		groupSource.clear();
+		groupTarget.clear();		
+	}
+	
+
+	public void clearActors(final Box.Tray tray, final Box.BlockArray source, final Box.BlockArray target) {
+		groupSource.clearActors(tray, source);
+//		groupTarget.clearActors(target);
+	}
+	
+	public void move(final Box.Tray tray, final Box.Block block, int col, int row, int tcol, int trow) {
+		if (tray != null) {
+			if (tray.status == Box.Tray.STATUS_ATTACHED && block != null) {
+				moveTrayWithBlock(tray, block, col, tcol);
+			} else {
+				moveTray(tray, col, tcol);
+			}
+		} else if (block != null) {
+			moveBlock(block, col, row, tcol, trow);
+		}
+	}
+	
+	private void moveBlock(final Box.Block block, final int scol, final int srow, final int tcol, final int trow) {
+		if (block.actor != null) {
+			float delay = Math.abs(trow - srow) * 0.1f;
+			Tween.to(block.actor, ImageActorAccessor.POSITION_Y, delay).target(groupSource.rowToBlockY(trow)).ease(Quint.INOUT).setCallback(new TweenCallback() {
+				@Override
+				public void onEvent(int type, BaseTween<?> source) {
+					internalListener.onBoxMoveEnd();
+				}
+			}).start(tweenManager);
+		}
+	}
+
+	private void moveTrayWithBlock(final Box.Tray tray, final Box.Block block, final int scol, final int tcol) {
+		if (block.actor != null) {
+			float tbx = groupSource.colToBlockX(tcol);
+			float ttx = groupSource.colToTrayX(tcol);
+			float delay = Math.abs(tcol - scol) * 0.1f;
+			Timeline.createParallel()
+				.push(Tween.to(block.actor, ImageActorAccessor.POSITION_X, delay).target(tbx))
+				.push(Tween.to(tray.actor, ImageActorAccessor.POSITION_X, delay).target(ttx))
+			.setCallback(new TweenCallback() {
+				@Override
+				public void onEvent(int type, BaseTween<?> source) {
+					internalListener.onBoxMoveEnd();
+				}
+			})
+			.start(tweenManager);		}		
+	}
+
+	private void moveTray(final Box.Tray tray, final int scol, final int tcol) {
+		float ttx = groupSource.colToTrayX(tcol);
+		float delay = Math.abs(tcol - scol) * 0.1f;
+		Tween.to(tray.actor, ImageActorAccessor.POSITION_X, delay).target(ttx).setCallback(new TweenCallback() {
+			@Override
+			public void onEvent(int type, BaseTween<?> source) {
+				internalListener.onBoxMoveEnd();
+			}
+		}).start(tweenManager);
+	}
+
 }

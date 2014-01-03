@@ -21,6 +21,7 @@ import jie.android.ip.common.actor.BaseGroupAccessor;
 import jie.android.ip.common.actor.ImageActor;
 import jie.android.ip.screen.play.PlayConfig.Const;
 import jie.android.ip.screen.play.PlayConfig.Image;
+import jie.android.ip.screen.play.PlayScreenListener.RendererInternalEventListener;
 
 public class CodeLineGroup extends BaseGroup {
 
@@ -366,7 +367,7 @@ public class CodeLineGroup extends BaseGroup {
 			actor.setBounds(x, y, w, h);
 		}
 		
-		public void toggleState(final TweenManager tweenManager, final SyncEventListener listener) {
+		public void toggleState(final TweenManager tweenManager) {
 			
 			final TweenCallback callback = new TweenCallback() {
 				@Override
@@ -381,9 +382,7 @@ public class CodeLineGroup extends BaseGroup {
 							setState(LineState.SMALL);
 						}
 					} else if (type == TweenCallback.START) {
-						if (listener != null) {
-							listener.onLineGroupChangeBegin(state == LineState.SMALL);
-						}
+						internalListener.onLineGroupChangeBegin(state == LineState.SMALL);
 					}
 				}
 			};
@@ -657,7 +656,8 @@ public class CodeLineGroup extends BaseGroup {
 	//
 	private final PlayScreen screen;
 	private final TweenManager tweenManager;
-	private PlayScreenListener.RendererEventListener rendererListener;
+//	private PlayScreenListener.RendererEventListener rendererListener;
+	private final PlayScreenListener.RendererInternalEventListener internalListener;
 	
 	private final LineGroup[] groupLine = new LineGroup[Code.NUM_CODE_LINES];
 	private PanelGroup groupPanel;
@@ -688,9 +688,10 @@ public class CodeLineGroup extends BaseGroup {
 		}
 	};
 	
-	public CodeLineGroup(final PlayScreen screen) {
+	public CodeLineGroup(final PlayScreen screen, final PlayScreenListener.RendererInternalEventListener internalListener) {
 		this.screen = screen;
 		this.tweenManager = this.screen.getTweenManager();
+		this.internalListener = internalListener;
 
 		initGroups();
 	}
@@ -700,9 +701,9 @@ public class CodeLineGroup extends BaseGroup {
 		// TODO Auto-generated method stub
 	}
 	
-	public void setRendererEventListener(final PlayScreenListener.RendererEventListener listener) {
-		rendererListener = listener;
-	}
+//	public void setRendererEventListener(final PlayScreenListener.RendererEventListener listener) {
+//		rendererListener = listener;
+//	}
 
 	private void initGroups() {
 		final Group base = this;
@@ -745,11 +746,11 @@ public class CodeLineGroup extends BaseGroup {
 		cacheLinePos = -1;
 		
 		if (cacheLineIndex != -1) {
-			groupLine[cacheLineIndex].toggleState(tweenManager, syncEventListener);
+			groupLine[cacheLineIndex].toggleState(tweenManager);
 		}
 		
 		if (cacheLineIndex != index) {
-			groupLine[index].toggleState(tweenManager, syncEventListener);
+			groupLine[index].toggleState(tweenManager);
 			cacheLineIndex = index;
 		} else {
 			cacheLineIndex = -1;
@@ -765,9 +766,7 @@ public class CodeLineGroup extends BaseGroup {
 
 	protected void onPanelClicked(final Code.Type type) {
 		
-		if (rendererListener != null) {
-			rendererListener.onPanelButtonClicked(cacheLineIndex, cacheLinePos, type);
-		}
+		internalListener.onPanelButtonClicked(cacheLineIndex, cacheLinePos, type);
 		
 		groupPanel.hide(cacheLineIndex, tweenManager);
 		cacheLinePos = -1;
@@ -776,12 +775,8 @@ public class CodeLineGroup extends BaseGroup {
 	protected void onBaseGroupClicked() {
 		groupPanel.hide(-1, tweenManager);
 		if (cacheLineIndex != -1) {
-			groupLine[cacheLineIndex].toggleState(tweenManager, syncEventListener);
+			groupLine[cacheLineIndex].toggleState(tweenManager);
 			cacheLineIndex = -1;
 		}		
 	}
-
-	
-	protected void showCmdPanel(boolean show) {
-	}	
 }

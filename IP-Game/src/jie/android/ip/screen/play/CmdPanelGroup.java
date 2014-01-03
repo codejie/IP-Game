@@ -1,5 +1,8 @@
 package jie.android.ip.screen.play;
 
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenManager;
+
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -7,10 +10,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
+import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.CommonConsts.ScreenPackConfig;
 import jie.android.ip.common.actor.BaseGroup;
+import jie.android.ip.common.actor.BaseGroupAccessor;
 import jie.android.ip.common.actor.ButtonActor;
 import jie.android.ip.common.actor.ImageActor;
+import jie.android.ip.screen.play.Cmd.Type;
 import jie.android.ip.screen.play.PlayConfig.Const;
 import jie.android.ip.screen.play.PlayConfig.Image;
 import jie.android.ip.screen.play.PlayScreenListener.RendererInternalEventListener;
@@ -20,9 +26,10 @@ public class CmdPanelGroup extends BaseGroup {
 	private final PlayScreen screen;
 	private final TextureAtlas textureAtlas;
 	private final Skin skin;
+	private final TweenManager tweenManager;
 	
-	private PlayScreenListener.RendererEventListener rendererListener;
-	private final PlayScreen
+//	private PlayScreenListener.RendererEventListener rendererListener;
+	final PlayScreenListener.RendererInternalEventListener internalListener;
 	
 	private final Cmd.Panel cmdPanel;
 	
@@ -32,16 +39,16 @@ public class CmdPanelGroup extends BaseGroup {
 		
 		@Override
 		public void onClick(final Cmd.Button button) {
-			if (rendererListener != null) {
-				rendererListener.onCmdButtonClicked(button.type);
-			}
+			internalListener.onCmdButtonClicked(button.type, button.state);
 		}
 	};
 	
-	public CmdPanelGroup(final PlayScreen screen, RendererInternalEventListener rendererInternalListener) {
+	public CmdPanelGroup(final PlayScreen screen, final PlayScreenListener.RendererInternalEventListener internalListener) {
 		this.screen = screen;
 		this.textureAtlas = screen.getGame().getResources().getTextureAtlas(ScreenPackConfig.SCREEN_BOX);
 		this.skin = new Skin(this.textureAtlas);
+		this.tweenManager = this.screen.getTweenManager();
+		this.internalListener = internalListener;
 		
 		cmdPanel = new Cmd.Panel(cmdListener);
 		
@@ -52,10 +59,10 @@ public class CmdPanelGroup extends BaseGroup {
 		setBounds();
 	}
 	
-	public void setRendererEventListener(final PlayScreenListener.RendererEventListener listener) {
-		this.rendererListener = listener;
-	}
-	
+//	public void setRendererEventListener(final PlayScreenListener.RendererEventListener listener) {
+//		this.rendererListener = listener;
+//	}
+//	
 	@Override
 	protected void initStage() {
 //		secondGroup = new Group();
@@ -100,6 +107,18 @@ public class CmdPanelGroup extends BaseGroup {
 		this.setBounds(Const.Console.Cmd.BASE_X, Const.Console.Cmd.BASE_Y, Const.Console.Cmd.WIDTH, Const.Console.Cmd.HEIGHT);
 		
 		screen.addActor(this);
+	}
+
+	public void showPanel(boolean show) {
+		if (show) {
+			Tween.to(this, BaseGroupAccessor.POSITION_X, 0.1f).target(Const.Console.Cmd.BASE_X).start(tweenManager);
+		} else {
+			Tween.to(this, BaseGroupAccessor.POSITION_X, 0.1f).target(ScreenConfig.WIDTH).start(tweenManager);
+		}
+	}
+
+	public void setChecked(final Cmd.Type type, boolean checked) {
+		cmdPanel.setState(type, checked ? Cmd.State.SELECTED : Cmd.State.NONE);
 	}
 	
 }

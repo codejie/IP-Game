@@ -2,8 +2,9 @@ package jie.android.ip.screen.play;
 
 import jie.android.ip.executor.CommandConsts;
 import jie.android.ip.executor.CommandSet;
-import jie.android.ip.screen.play.Code.Type;
-
+import jie.android.ip.executor.CommandConsts.ActType;
+import jie.android.ip.executor.CommandConsts.CommandType;
+import jie.android.ip.executor.CommandConsts.EmptyType;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Code {
@@ -65,9 +66,13 @@ public class Code {
 
 	public static class Lines {
 		
+		final PlayScreenListener.ManagerInternalEventListener internalListener;
+		
 		private Type[][] node = new Type[NUM_CODE_LINES][NUM_CODE_PER_LINE];
 		
-		public Lines() {
+		public Lines(final PlayScreenListener.ManagerInternalEventListener listener) {
+			this.internalListener = listener;
+			
 			init();
 		}
 		
@@ -95,14 +100,12 @@ public class Code {
 			init();
 		}
 
-		public void setNode(int func, int pos, final Code.Type type, final PlayScreenListener.ManagerEventListener listener) {
+		public void setNode(int func, int pos, final Code.Type type) {
 			node[func][pos] = type;
-			if (listener != null) {
-				listener.onCodeLineUpdated(this, func, pos);
-			}
+			internalListener.onCodeLineUpdated(this, func, pos);
 		}
 
-		public void loadCmdSet(final CommandSet cmdSet, final PlayScreenListener.ManagerEventListener listener) {
+		public void loadCmdSet(final CommandSet cmdSet) {
 			if (cmdSet != null) {
 				for (int i = 0; i < Code.NUM_CODE_LINES; ++ i) {
 					final CommandSet.CommandQueue que = cmdSet.get(i);
@@ -118,9 +121,7 @@ public class Code {
 				}
 			}
 			
-			if (listener != null) {
-				listener.onCodeLineInitCompleted(this);
-			}
+			internalListener.onCodeLineLoadCompleted(this);
 		}
 		
 		private final Code.Type getCodeTypeByCommand(final CommandSet.Command cmd) {
@@ -175,6 +176,52 @@ public class Code {
 			}
 
 			return null;
+		}
+
+		public final CommandSet makeCommandSet() {
+			final CommandSet cmdSet = new CommandSet();
+			for (int f = 0; f < Code.NUM_CODE_LINES; ++ f) {
+				CommandSet.CommandQueue que = CommandSet.makeCommandQueue();
+				for (int p = 0; p < Code.NUM_CODE_PER_LINE; ++ p) {					
+					if (node[f][p] == Code.Type.IF_NULL) {
+						que.add(CommandSet.makeCommand(CommandType.EMPTY, EmptyType.CHECK.getId()));
+					} else if (node[f][p] == Code.Type.NULL) {
+						que.add(CommandSet.makeCommand(CommandType.EMPTY, EmptyType.ACT.getId()));
+					} else if (node[f][p] == Code.Type.RIGHT) {
+						que.add(CommandSet.makeCommand(CommandType.ACT, ActType.MOVE_RIGHT.getId(), 1));
+					} if (node[f][p] == Code.Type.LEFT) {
+						que.add(CommandSet.makeCommand(CommandType.ACT, ActType.MOVE_LEFT.getId(), 1));
+					} if (node[f][p] == Code.Type.ACT) {
+						que.add(CommandSet.makeCommand(CommandType.ACT, ActType.ACTION.getId(), 0));
+					} if (node[f][p] == Code.Type.CALL_0) {
+						que.add(CommandSet.makeCommand(CommandType.CALL, 0));
+					} if (node[f][p] == Code.Type.CALL_1) {
+						que.add(CommandSet.makeCommand(CommandType.CALL, 1));
+					} if (node[f][p] == Code.Type.CALL_2) {
+						que.add(CommandSet.makeCommand(CommandType.CALL, 2));
+					} if (node[f][p] == Code.Type.CALL_3) {
+						que.add(CommandSet.makeCommand(CommandType.CALL, 3));
+					} if (node[f][p] == Code.Type.IF_0) {
+						que.add(CommandSet.makeCommand(CommandType.CHECK, 0, 0));//variant 0 is the value of block
+					} if (node[f][p] == Code.Type.IF_1) {
+						que.add(CommandSet.makeCommand(CommandType.CHECK, 1, 0));
+					} if (node[f][p] == Code.Type.IF_2) {
+						que.add(CommandSet.makeCommand(CommandType.CHECK, 2, 0));
+					} if (node[f][p] == Code.Type.IF_3) {
+						que.add(CommandSet.makeCommand(CommandType.CHECK, 3, 0));
+					} if (node[f][p] == Code.Type.IF_ANY) {
+						que.add(CommandSet.makeCommand(CommandType.CHECK, 1, 1));//variant 1 is the indication of block
+					} if (node[f][p] == Code.Type.IF_NONE) {
+						que.add(CommandSet.makeCommand(CommandType.CHECK, 0, 1));
+					} 
+				}
+				
+				if (que != null && que.size() > 0) {
+					cmdSet.put(f, que);
+				}
+			}
+			
+			return cmdSet;
 		}		
 	}
 	
