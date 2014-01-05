@@ -5,6 +5,8 @@ import com.badlogic.gdx.utils.Disposable;
 import jie.android.ip.database.DBAccess;
 import jie.android.ip.executor.CommandSet;
 import jie.android.ip.executor.Script;
+import jie.android.ip.screen.play.Cmd.State;
+import jie.android.ip.screen.play.Code.Lines;
 import jie.android.ip.utils.Utils;
 
 public class PlayManager implements Disposable {
@@ -36,8 +38,8 @@ public class PlayManager implements Disposable {
 			if (!box.checkResult()) {
 				executor.next();
 			} else {
-				executor.stop();
-				onExecuteEnd(true);
+				executor.stop(PlayExecutor.StopReason.SUCC);
+//				onExecuteEnd(true);
 			}
 		}
 
@@ -50,8 +52,8 @@ public class PlayManager implements Disposable {
 		public void onCmdButtonClicked(final Cmd.Type type, final Cmd.State state) {
 			if (type == Cmd.Type.RUN) {
 				onCmdRun(state);
-			} else {
-				
+			} else if (type == Cmd.Type.CLEAR) {
+				onCmdClear(state);
 			}
 			
 		}
@@ -66,9 +68,22 @@ public class PlayManager implements Disposable {
 		}
 		
 		@Override
-		public void onExecuteCompleted(boolean succ) {
-			Utils.log(Tag, "executeCompleted : " + succ);
-			onExecuteEnd(succ);
+		public void onExecuteCompleted(final PlayExecutor.StopReason reason) {
+			Utils.log(Tag, "executeCompleted : " + reason);
+			
+			if (reason == PlayExecutor.StopReason.SUCC) {
+				onExecuteSucc();
+			} else if (reason == PlayExecutor.StopReason.RESET) {
+				onExecuteReset();
+			} else if (reason == PlayExecutor.StopReason.FINISHED) {
+				onExecuteFinished();
+			} else if (reason == PlayExecutor.StopReason.EXCEPTION) {
+				onExecuteException();
+			} else {
+				Utils.log(Tag, "Unsupport execute stop reason - " + reason);
+			}
+			
+//			onExecuteEnd(succ);
 		}
 		
 		@Override
@@ -105,6 +120,13 @@ public class PlayManager implements Disposable {
 		}
 
 		@Override
+		public void onCodeLineResetCompleted(Lines lines) {
+			if (managerListener != null) {
+				managerListener.onCodeLineResetCompleted(lines);
+			}			
+		}		
+
+		@Override
 		public void onBoxMoved(final Box.Tray tray, final Box.Block block, int col, int row, int tcol, int trow) {
 			if (managerListener != null) {
 				managerListener.onBoxMoved(tray, block, col, row, tcol, trow);
@@ -112,14 +134,19 @@ public class PlayManager implements Disposable {
 		}
 
 		@Override
+		public void onBoxMoveEmpty() {
+			if (managerListener != null) {
+				managerListener.onBoxMoveEmpty();
+			}
+		}
+		
+		@Override
 		public void onBoxMoveException(int error) {
-			Utils.log(Tag, "onBoxMoveException : " + false);			
+			Utils.log(Tag, "onBoxMoveException : " + error);
+			executor.stop(PlayExecutor.StopReason.EXCEPTION);
+//			onExecuteEnd(false);
 		}
 
-		@Override
-		public void onExecuteBroken() {
-			Utils.log(Tag, "onExecuteBroken : " + false);			
-		}
 	};
 
 	//
@@ -183,7 +210,30 @@ public class PlayManager implements Disposable {
 		}
 	}
 
-	protected void onExecuteEnd(boolean succ) {
-		Utils.log(Tag, "execute end : " + succ);		
+	protected void onCmdClear(State state) {
+		box.reload(script);
+		executor.reset();
+		
+		codeLines.reset();
 	}	
+
+	protected void onExecuteSucc() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected void onExecuteReset() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected void onExecuteFinished() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	protected void onExecuteException() {
+		// TODO Auto-generated method stub
+		
+	}
 }

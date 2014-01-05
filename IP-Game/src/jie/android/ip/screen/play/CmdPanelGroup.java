@@ -120,5 +120,4 @@ public class CmdPanelGroup extends BaseGroup {
 	public void setChecked(final Cmd.Type type, boolean checked) {
 		cmdPanel.setState(type, checked ? Cmd.State.SELECTED : Cmd.State.NONE);
 	}
-	
 }

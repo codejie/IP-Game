@@ -264,9 +264,13 @@ public class Box {
 	public void tryMoveBlock() {
 		try {	
 			if (tray.status == Tray.STATUS_EMPTY) {
-				moveBlock(tray.posCol, Direction.DOWN);
+				if (!moveBlock(tray.posCol, Direction.DOWN)) {
+					internalListener.onBoxMoveEmpty();
+				}
 			} else {
-				moveBlock(tray.posCol, Direction.UP);
+				if (!moveBlock(tray.posCol, Direction.UP)) {
+					internalListener.onBoxMoveEmpty();
+				}
 			}
 		} catch (BoxException e) {
 			e.printStackTrace();
@@ -282,7 +286,7 @@ public class Box {
 				moveTray(Direction.LEFT);
 			}
 		} catch (BoxException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			internalListener.onBoxMoveException(e.error());			
 		}
 	}

@@ -19,6 +19,7 @@ import jie.android.ip.CommonConsts.ScreenPackConfig;
 import jie.android.ip.common.actor.BaseGroup;
 import jie.android.ip.common.actor.BaseGroupAccessor;
 import jie.android.ip.common.actor.ImageActor;
+import jie.android.ip.screen.play.Code.Lines;
 import jie.android.ip.screen.play.PlayConfig.Const;
 import jie.android.ip.screen.play.PlayConfig.Image;
 import jie.android.ip.screen.play.PlayScreenListener.RendererInternalEventListener;
@@ -656,7 +657,6 @@ public class CodeLineGroup extends BaseGroup {
 	//
 	private final PlayScreen screen;
 	private final TweenManager tweenManager;
-//	private PlayScreenListener.RendererEventListener rendererListener;
 	private final PlayScreenListener.RendererInternalEventListener internalListener;
 	
 	private final LineGroup[] groupLine = new LineGroup[Code.NUM_CODE_LINES];
@@ -665,25 +665,43 @@ public class CodeLineGroup extends BaseGroup {
 	private int cacheLineIndex = -1;
 	private int cacheLinePos = -1;
 	
+	private boolean isMinimized = false;
+	
 	private final Code.OnButtonListener buttonlistener = new Code.OnButtonListener() {
 
 		@Override
 		public void onBaseGroupClick() {
+			if (isMinimized) {
+				return;
+			}
+
 			onBaseGroupClicked();			
 		}
 
 		@Override
 		public void onLineGroupClick(int index) {
+			if (isMinimized) {
+				return;
+			}
+
 			onLineGroupClicked(index);
 		}
 
 		@Override
 		public void onLineClick(int index, int pos) {
+			if (isMinimized) {
+				return;
+			}
+			
 			onLineClicked(index, pos);			
 		}
 
 		@Override
 		public void onPanelClick(final Code.Type type) {
+			if (isMinimized) {
+				return;
+			}
+			
 			onPanelClicked(type);
 		}
 	};
@@ -739,6 +757,46 @@ public class CodeLineGroup extends BaseGroup {
 
 	public void update(final Code.Lines lines, int index, int pos) {
 		groupLine[index].updateButton(pos, lines.getNode(index, pos));
+	}
+	
+	public void reset(final Code.Lines lines) {
+		for (int i = 0; i < groupLine.length; ++ i) {
+			groupLine[i].loadButtons(lines.getFuncNode(i));
+		}
+	}
+	
+	public void minimizeLines(boolean show) {
+		if (show) {
+			final Vector2 vct2 = groupLine[2].getCodeLinePosition();
+			final Vector2 vct3 = groupLine[3].getCodeLinePosition();	
+
+			Timeline.createParallel()			
+				.push(Tween.to(groupLine[0], BaseGroupAccessor.POSITION_Y, 0.1f).target(vct2.y))
+				.push(Tween.to(groupLine[1], BaseGroupAccessor.POSITION_Y, 0.1f).target(vct3.y))
+				.push(Tween.to(groupLine[0], BaseGroupAccessor.SCALE_XY, 0.1f).target(0.8f, 0.8f))
+				.push(Tween.to(groupLine[1], BaseGroupAccessor.SCALE_XY, 0.1f).target(0.8f, 0.8f))
+				.push(Tween.to(groupLine[2], BaseGroupAccessor.POSITION_X, 0.1f).targetRelative(Const.Console.Lines.Small.WIDTH_BG * 0.8f + Const.Console.Lines.Small.SPACE_X))
+				.push(Tween.to(groupLine[3], BaseGroupAccessor.POSITION_X, 0.1f).targetRelative(Const.Console.Lines.Small.WIDTH_BG * 0.8f + Const.Console.Lines.Small.SPACE_X))
+				.push(Tween.to(groupLine[2], BaseGroupAccessor.SCALE_XY, 0.1f).target(0.8f, 0.8f))				
+				.push(Tween.to(groupLine[3], BaseGroupAccessor.SCALE_XY, 0.1f).target(0.8f, 0.8f))
+				.start(tweenManager);
+		} else {
+			final Vector2 vct0 = groupLine[0].getCodeLinePosition();
+			final Vector2 vct1 = groupLine[1].getCodeLinePosition();	
+
+			Timeline.createParallel()
+				.push(Tween.to(groupLine[0], BaseGroupAccessor.POSITION_Y, 0.1f).target(vct0.y))
+				.push(Tween.to(groupLine[1], BaseGroupAccessor.POSITION_Y, 0.1f).target(vct1.y))
+				.push(Tween.to(groupLine[0], BaseGroupAccessor.SCALE_XY, 0.1f).target(1.0f, 1.0f))
+				.push(Tween.to(groupLine[1], BaseGroupAccessor.SCALE_XY, 0.1f).target(1.0f, 1.0f))
+				.push(Tween.to(groupLine[2], BaseGroupAccessor.POSITION_X, 0.1f).targetRelative(-(Const.Console.Lines.Small.WIDTH_BG * 0.8f + Const.Console.Lines.Small.SPACE_X)))
+				.push(Tween.to(groupLine[3], BaseGroupAccessor.POSITION_X, 0.1f).targetRelative(-(Const.Console.Lines.Small.WIDTH_BG * 0.8f + Const.Console.Lines.Small.SPACE_X)))
+				.push(Tween.to(groupLine[2], BaseGroupAccessor.SCALE_XY, 0.1f).target(1.0f, 1.0f))
+				.push(Tween.to(groupLine[3], BaseGroupAccessor.SCALE_XY, 0.1f).target(1.0f, 1.0f))				
+				.start(tweenManager);			
+		}
+		
+		isMinimized = show;
 	}	
 	
 	protected void onLineGroupClicked(int index) {
@@ -755,8 +813,8 @@ public class CodeLineGroup extends BaseGroup {
 		} else {
 			cacheLineIndex = -1;
 		}
-	}	
-
+	}
+	
 	protected void onLineClicked(int index, int pos) {
 		cacheLinePos = pos;
 
@@ -779,4 +837,5 @@ public class CodeLineGroup extends BaseGroup {
 			cacheLineIndex = -1;
 		}		
 	}
+
 }

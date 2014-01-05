@@ -1,5 +1,8 @@
 package jie.android.ip.screen.play;
 
+import jie.android.ip.screen.play.Cmd.Type;
+import jie.android.ip.screen.play.Code.Lines;
+
 
 public class PlayRenderer {
 
@@ -23,6 +26,7 @@ public class PlayRenderer {
 		}
 		@Override
 		public void onBoxPreReload(final Box.Tray tray, final Box.BlockArray source, final Box.BlockArray target) {
+			groupCmdPanel.setChecked(Cmd.Type.RUN, false);
 			groupBox.clearActors(tray, source, target);			
 		}
 
@@ -32,32 +36,24 @@ public class PlayRenderer {
 		}
 
 		@Override
-		public void onScriptReload() {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void onScriptStart() {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void onScriptCompleted(boolean succ) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
 		public void onBoxMoved(final Box.Tray tray, final Box.Block block, int col, int row, int tcol, int trow) {
 			groupBox.move(tray, block, col, row, tcol, trow);
 		}
+		
+		@Override
+		public void onBoxMoveEmpty() {
+			internalListener.onBoxMoveEnd();
+		}
+		
 		@Override
 		public void onCodeLineUpdated(final Code.Lines lines, int index, int pos) {
 			groupCodeLine.update(lines, index, pos);
 		}
-
+		
+		@Override
+		public void onCodeLineResetCompleted(final Code.Lines lines) {
+			groupCodeLine.reset(lines);
+		}
 	};	
 	
 	private final PlayScreenListener.RendererInternalEventListener internalListener = new PlayScreenListener.RendererInternalEventListener() {
@@ -76,20 +72,31 @@ public class PlayRenderer {
 
 		@Override
 		public void onCmdButtonClicked(final Cmd.Type type, final Cmd.State state) {
+
 			
 			if (type == Cmd.Type.RUN) {
-				groupCmdPanel.setChecked(type, state == Cmd.State.NONE);
+				changeRunStage(state == Cmd.State.NONE);
+				if (state == Cmd.State.NONE) {
+					return;
+				}
 			}
 			
 			if (rendererListener != null) {
 				rendererListener.onCmdButtonClicked(type, state);
-			}			
+			}
 		}
 
 		@Override
 		public void onBoxMoveEnd() {
 			if (rendererListener != null) {
 				rendererListener.onBoxkMoveEnd();
+			}
+		}
+
+		@Override
+		public void onSourceFocused() {
+			if (rendererListener != null) {
+				rendererListener.onCmdButtonClicked(Cmd.Type.RUN, Cmd.State.NONE);
 			}
 		}
 	};
@@ -113,4 +120,10 @@ public class PlayRenderer {
 		groupCodeLine = new CodeLineGroup(screen, internalListener);
 		groupCmdPanel = new CmdPanelGroup(screen, internalListener);
 	}
+
+	protected void changeRunStage(boolean show) {		
+		groupBox.focusSource(show);
+		groupCodeLine.minimizeLines(show);
+		groupCmdPanel.setChecked(Cmd.Type.RUN, show);
+	}	
 }

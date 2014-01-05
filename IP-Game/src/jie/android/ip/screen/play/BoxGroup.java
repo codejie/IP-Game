@@ -15,6 +15,7 @@ import jie.android.ip.Resources;
 import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.CommonConsts.ScreenPackConfig;
 import jie.android.ip.common.actor.BaseGroup;
+import jie.android.ip.common.actor.BaseGroupAccessor;
 import jie.android.ip.common.actor.ImageActor;
 import jie.android.ip.common.actor.ImageActorAccessor;
 import jie.android.ip.screen.play.Box.BlockArray;
@@ -195,7 +196,8 @@ public class BoxGroup {
 					internalListener.onBoxMoveEnd();
 				}
 			})
-			.start(tweenManager);		}		
+			.start(tweenManager);
+		}		
 	}
 
 	private void moveTray(final Box.Tray tray, final int scol, final int tcol) {
@@ -207,6 +209,31 @@ public class BoxGroup {
 				internalListener.onBoxMoveEnd();
 			}
 		}).start(tweenManager);
+	}
+
+	public void focusSource(boolean show) {
+		if (show) {
+//			groupSource.setZIndex(0x0f);
+			Timeline.createParallel()
+				.push(Tween.to(groupSource, BaseGroupAccessor.POSITION_XY, 0.1f).target(0, ScreenConfig.HEIGHT * 0.334f))
+				.push(Tween.to(groupSource, BaseGroupAccessor.SCALE_XY, 0.1f).target(0.667f, 0.667f))
+				.push(Tween.to(groupTarget, BaseGroupAccessor.POSITION_XY, 0.1f).target(ScreenConfig.WIDTH * 0.667f, ScreenConfig.HEIGHT * 0.667f))
+				.push(Tween.to(groupTarget, BaseGroupAccessor.SCALE_XY, 0.1f).target(0.334f, 0.334f))
+				.setCallback(new TweenCallback() {
+					@Override
+					public void onEvent(int type, BaseTween<?> source) {
+						internalListener.onSourceFocused();
+					}					
+				})
+				.start(tweenManager);
+		} else {
+			Timeline.createParallel()
+				.push(Tween.to(groupSource, BaseGroupAccessor.POSITION_XY, 0.1f).target(0, ScreenConfig.HEIGHT / 2))
+				.push(Tween.to(groupSource, BaseGroupAccessor.SCALE_XY, 0.1f).target(0.5f, 0.5f))
+				.push(Tween.to(groupTarget, BaseGroupAccessor.POSITION_XY, 0.1f).target(ScreenConfig.WIDTH / 2, ScreenConfig.HEIGHT / 2))
+				.push(Tween.to(groupTarget, BaseGroupAccessor.SCALE_XY, 0.1f).target(0.5f, 0.5f))				
+				.start(tweenManager);			
+		}
 	}
 
 }

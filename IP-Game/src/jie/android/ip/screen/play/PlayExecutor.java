@@ -14,6 +14,10 @@ public class PlayExecutor implements Disposable {
 
 	private static final String Tag = PlayExecutor.class.getSimpleName();
 	
+	public enum StopReason {
+		NONE, SUCC, RESET, FINISHED, BROKEN, EXCEPTION;
+	}
+	
 	private static class CallbackQueue implements Runnable {
 
 		private enum EventType {
@@ -107,6 +111,8 @@ public class PlayExecutor implements Disposable {
 	private final CallbackQueue callbackQueue;
 	private final PlayScreenListener.ManagerInternalEventListener internalListener;
 	
+	private StopReason stopReason = StopReason.NONE;
+	
 	private final OnCommandListener cmdListener = new OnCommandListener() {
 
 		@Override
@@ -114,12 +120,18 @@ public class PlayExecutor implements Disposable {
 		}
 
 		@Override
-		public void onEnd(boolean broken) {
-			if (!broken) {
-				onExecuteCompleted(false);
-			} else {
-				onExecuteBroken();
+		public void onEnd(boolean scriptFinished) {
+			if (scriptFinished) {
+				stopReason = StopReason.FINISHED;
 			}
+			onExecuteCompleted(stopReason);
+			
+//			
+//			if (scriptFinished) {
+//				onExecuteCompleted(false);
+//			} else {
+//				onExecuteBroken(isScriptSucc);
+//			}
 		}
 
 		@Override
@@ -139,8 +151,7 @@ public class PlayExecutor implements Disposable {
 
 		@Override
 		public void onBreakPoint(int func, int index, String cmd, Object param1, Object param2) {
-		}
-		
+		}		
 	};
 	
 	
@@ -163,6 +174,7 @@ public class PlayExecutor implements Disposable {
 	}
 	
 	public void execute(final CommandSet cmdset) {
+		stopReason = StopReason.NONE;
 		executor.start(cmdset, cmdListener);
 	}
 
@@ -171,10 +183,12 @@ public class PlayExecutor implements Disposable {
 	}	
 
 	public void reset() {
+		stopReason = StopReason.RESET;
 		executor.stop();		
 	}
 	
-	public void stop() {
+	public void stop(final StopReason reason) {
+		stopReason = reason;
 		executor.stop();		
 	}
 	
@@ -183,18 +197,18 @@ public class PlayExecutor implements Disposable {
 	}
 	
 
-	protected void onExecuteCompleted(boolean succ) {
+	protected void onExecuteCompleted(final StopReason reason) {
 		if (internalListener != null) {
-			internalListener.onExecuteCompleted(succ);
+			internalListener.onExecuteCompleted(reason);
 		}
 	}
 
-	protected void onExecuteBroken() {
-		Utils.log(Tag, "execute broken.");
-		if (internalListener != null) {
-			internalListener.onExecuteBroken();
-		}		
-	}
+//	protected void onExecuteBroken(boolean scriptSucc) {
+//		Utils.log(Tag, "execute broken.");
+//		if (internalListener != null) {
+//			internalListener.onExecuteBroken(scriptSucc);
+//		}		
+//	}
 	
 	public void onEventCall(int func, int index, int funcIndex, boolean found) {
 		next();

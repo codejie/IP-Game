@@ -98,6 +98,7 @@ public class Code {
 
 		public void reset() {
 			init();
+			internalListener.onCodeLineResetCompleted(this);
 		}
 
 		public void setNode(int func, int pos, final Code.Type type) {

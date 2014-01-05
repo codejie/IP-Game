@@ -209,7 +209,7 @@ public class Executor extends BaseExecutor {
 		private void postExecute() {
 			isRunning = false;
 			if (cmdListener != null) {
-				cmdListener.onEnd(stopRun);
+				cmdListener.onEnd(!stopRun);
 			}
 		}
 		
