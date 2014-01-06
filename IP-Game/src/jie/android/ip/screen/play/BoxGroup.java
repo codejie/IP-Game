@@ -50,15 +50,15 @@ public class BoxGroup {
 		}
 		
 		private int colToBlockX(int col) {
-			return Const.Box.COL_BASE + col * (Const.Box.BLOCK_WIDTH + Const.Box.COL_SPACE);
+			return Const.Box.COL_BASE + (col - 1) * (Const.Box.BLOCK_WIDTH + Const.Box.COL_SPACE);
 		}
 		
 		private int rowToBlockY(int row) {
-			return Const.Box.ROW_BASE + row * (Const.Box.BLOCK_HEIGHT + Const.Box.ROW_SPACE);
+			return Const.Box.ROW_BASE + (row) * (Const.Box.BLOCK_HEIGHT + Const.Box.ROW_SPACE);
 		}
 		
 		private int colToTrayX(int col) {
-			return Const.Box.TRAY_SPACE + col * (Const.Box.TRAY_WIDTH);
+			return Const.Box.TRAY_SPACE + (col - 1) * (Const.Box.TRAY_WIDTH);
 		}
 		
 		private int rowToTrayY() {

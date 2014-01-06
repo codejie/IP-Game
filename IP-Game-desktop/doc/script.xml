@@ -9,11 +9,33 @@
     </Config>
     <Source>
 		<Block row="6" col="1" value="0" style="0" />
-		<Block row="6" col="2" value="0" style="0" /> 
+		<Block row="5" col="2" value="0" style="0" /> 
+		<Block row="4" col="3" value="0" style="0" />
+		<Block row="3" col="4" value="0" style="0" />
+		<Block row="2" col="5" value="0" style="0" />
+		<Block row="1" col="6" value="0" style="0" />
+		<Block row="6" col="7" value="0" style="0" />
+		<Block row="6" col="8" value="0" style="0" />
+		<Block row="5" col="8" value="0" style="0" />
+		<Block row="4" col="8" value="0" style="0" />
+		<Block row="3" col="8" value="0" style="0" />
+		<Block row="2" col="8" value="0" style="0" />
+		<Block row="1" col="8" value="0" style="0" />
     </Source>
     <Target>
-		<Block row="6" col="2" value="0" style="0" />
-		<Block row="5" col="2" value="0" style="0" />
+		<Block row="6" col="1" value="0" style="0" />
+		<Block row="6" col="2" value="0" style="0" /> 
+		<Block row="6" col="3" value="0" style="0" />
+		<Block row="6" col="4" value="0" style="0" />
+		<Block row="6" col="5" value="0" style="0" />
+		<Block row="6" col="6" value="0" style="0" />
+		<Block row="6" col="7" value="0" style="0" />
+		<Block row="6" col="8" value="0" style="0" />
+		<Block row="5" col="8" value="0" style="0" />
+		<Block row="4" col="8" value="0" style="0" />
+		<Block row="3" col="8" value="0" style="0" />
+		<Block row="2" col="8" value="0" style="0" />
+		<Block row="1" col="8" value="0" style="0" />
     </Target>
     <Tray col="1" style="1" />
 </IP-Script-Format>

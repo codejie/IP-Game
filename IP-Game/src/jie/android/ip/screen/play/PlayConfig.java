@@ -117,20 +117,20 @@ public interface PlayConfig {
 			public static final int MAX_ROW = 6;
 			public static final int MAX_COL = 9;
 			
-			public static final int BLOCK_WIDTH = 72;
-			public static final int BLOCK_HEIGHT = 72;
+			public static final int BLOCK_WIDTH = 96;
+			public static final int BLOCK_HEIGHT = 96;
 			public static final int TRAY_WIDTH = 144;
 			public static final int TRAY_HEIGHT = 48;
 			
 			public static final int MAX_RENDER_WIDTH = ScreenConfig.WIDTH;
 			public static final int MAX_RENDER_HEIGHT = ScreenConfig.HEIGHT;
 			
-			public static final int COL_BASE = 36;
-			public static final int COL_SPACE = 36;
+			public static final int COL_BASE = 72;
+			public static final int COL_SPACE = 48;
 			public static final int ROW_BASE = 32;
-			public static final int ROW_SPACE = 8;
-			public static final int TRAY_BASE = 0;
-			public static final int TRAY_SPACE = 0;
+			public static final int ROW_SPACE = 4;
+			public static final int TRAY_BASE = 4;
+			public static final int TRAY_SPACE = 48;
 			
 			public static final float SOURCE_SCALE = 0.5f;
 			public static final float TARGET_SCALE = 0.5f;
