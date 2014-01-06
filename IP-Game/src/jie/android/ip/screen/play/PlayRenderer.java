@@ -1,11 +1,7 @@
 package jie.android.ip.screen.play;
 
-import jie.android.ip.screen.play.Cmd.Type;
-import jie.android.ip.screen.play.Code.Lines;
-
 
 public class PlayRenderer {
-
 
 	public interface RendererInternalEventListener {
 		public void onLineGroupChangeBegin(boolean fromSmall);
@@ -54,6 +50,21 @@ public class PlayRenderer {
 		public void onCodeLineResetCompleted(final Code.Lines lines) {
 			groupCodeLine.reset(lines);
 		}
+		
+		@Override
+		public void onExecuteSucc() {
+			groupCmdPanel.showSuccStage();
+		}
+		
+		@Override
+		public void onExecuteFail() {
+			groupCmdPanel.showFailStage();
+		}
+		
+		@Override
+		public void onExecuteFinished() {
+			groupCmdPanel.showFinishedStage();
+		}
 	};	
 	
 	private final PlayScreenListener.RendererInternalEventListener internalListener = new PlayScreenListener.RendererInternalEventListener() {
@@ -73,10 +84,16 @@ public class PlayRenderer {
 		@Override
 		public void onCmdButtonClicked(final Cmd.Type type, final Cmd.State state) {
 
-			
 			if (type == Cmd.Type.RUN) {
-				changeRunStage(state == Cmd.State.NONE);
-				if (state == Cmd.State.NONE) {
+				if (!onCmdRun(state)) {
+					return;
+				}
+			} else if (type == Cmd.Type.MENU) {
+				if (!onCmdMenu(state)) {
+					return;
+				}
+			} else if (type == Cmd.Type.BACK) {
+				if (!onCmdBack(state)) {
 					return;
 				}
 			}
@@ -121,9 +138,30 @@ public class PlayRenderer {
 		groupCmdPanel = new CmdPanelGroup(screen, internalListener);
 	}
 
-	protected void changeRunStage(boolean show) {		
+	protected void changeRunStage(boolean show) {
+		groupCmdPanel.focusRun(show);
+		
 		groupBox.focusSource(show);
 		groupCodeLine.minimizeLines(show);
 		groupCmdPanel.setChecked(Cmd.Type.RUN, show);
 	}	
+	
+	protected boolean onCmdRun(final Cmd.State state) {
+		changeRunStage(state == Cmd.State.NONE);
+		if (state == Cmd.State.NONE) {					
+			return false;
+		}
+
+		return true;
+	}
+
+	protected boolean onCmdMenu(final Cmd.State state) {
+		groupCmdPanel.showSecondMenu(true);		
+		return true;
+	}	
+
+	protected boolean onCmdBack(final Cmd.State state) {
+		groupCmdPanel.showSecondMenu(false);
+		return true;
+	}
 }

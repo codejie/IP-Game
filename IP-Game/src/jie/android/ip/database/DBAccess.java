@@ -36,7 +36,7 @@ public class DBAccess {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return -1;
+		return -2;
 	}
 	
 	private final ResultSet querySQL(final String sql) {
@@ -92,7 +92,8 @@ public class DBAccess {
 				+ "int INTEGER,"
 				+ "str TEXT"
 				+ ")";
-		if (execSQL(sql) == -1) {
+		int ret = execSQL(sql);
+		if (ret == -1) {
 			return false;
 		}
 		

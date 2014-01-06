@@ -125,7 +125,7 @@ public class CodeLineGroup extends BaseGroup {
 		
 		private void init() {
 			final Vector2 v = getCodeLinePosition();
-			this.setBounds(v.x, v.y, Const.Console.Lines.Small.WIDTH_BG, Const.Console.Lines.Small.HEIGHT_BG);
+			this.setBounds(v.x, v.y, Const.Lines.Small.WIDTH_BG, Const.Lines.Small.HEIGHT_BG);
 			
 			this.addListener(new ClickListener() {
 				@Override
@@ -143,16 +143,16 @@ public class CodeLineGroup extends BaseGroup {
 
 		public final Vector2 getCodeLinePosition() {
 			Vector2 vct = new Vector2();
-			vct.x =	Const.Console.Lines.BASE_X;
-			vct.y = Const.Console.Lines.BASE_Y + (Code.NUM_CODE_LINES - index - 1) * (Const.Console.Lines.Small.HEIGHT_BG + Const.Console.Lines.SPACE_LILNES);
+			vct.x =	Const.Lines.BASE_X;
+			vct.y = Const.Lines.BASE_Y + (Code.NUM_CODE_LINES - index - 1) * (Const.Lines.Small.HEIGHT_BG + Const.Lines.SPACE_LILNES);
 			return vct;
 		}
 
 		@Override
 		protected void initStage() {
 			//Small
-			smallBg = new ImageActor(textureAtlas.findRegion(Image.Console.Lines.Small.BG));
-			smallBg.setBounds(0, 0, Const.Console.Lines.Small.WIDTH_BG, Const.Console.Lines.Small.HEIGHT_BG);
+			smallBg = new ImageActor(textureAtlas.findRegion(Image.Lines.Small.BG));
+			smallBg.setBounds(0, 0, Const.Lines.Small.WIDTH_BG, Const.Lines.Small.HEIGHT_BG);
 			smallBg.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
@@ -166,16 +166,16 @@ public class CodeLineGroup extends BaseGroup {
 			this.addActor(smallBg);
 			
 			if (index == 0) {
-				smallTitle = new ImageActor(textureAtlas.findRegion(Image.Console.Lines.Small.TITLE_0));
+				smallTitle = new ImageActor(textureAtlas.findRegion(Image.Lines.Small.TITLE_0));
 			} else if (index == 1) {
-				smallTitle = new ImageActor(textureAtlas.findRegion(Image.Console.Lines.Small.TITLE_1));
+				smallTitle = new ImageActor(textureAtlas.findRegion(Image.Lines.Small.TITLE_1));
 			} else if (index == 2) {
-				smallTitle = new ImageActor(textureAtlas.findRegion(Image.Console.Lines.Small.TITLE_2));
+				smallTitle = new ImageActor(textureAtlas.findRegion(Image.Lines.Small.TITLE_2));
 			} else {
-				smallTitle = new ImageActor(textureAtlas.findRegion(Image.Console.Lines.Small.TITLE_3));
+				smallTitle = new ImageActor(textureAtlas.findRegion(Image.Lines.Small.TITLE_3));
 			}
 
-			smallTitle.setBounds(0, 0, Const.Console.Lines.Small.WIDTH_TITLE, Const.Console.Lines.Small.HEIGHT_TITLE);
+			smallTitle.setBounds(0, 0, Const.Lines.Small.WIDTH_TITLE, Const.Lines.Small.HEIGHT_TITLE);
 			smallTitle.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
@@ -189,8 +189,8 @@ public class CodeLineGroup extends BaseGroup {
 			this.addActor(smallTitle);
 			
 			//Big
-			bigBg = new ImageActor(textureAtlas.findRegion(Image.Console.Lines.Big.BG));
-			bigBg.setBounds(0, 0, Const.Console.Lines.Big.WIDTH_BG, Const.Console.Lines.Big.HEIGHT_BG);
+			bigBg = new ImageActor(textureAtlas.findRegion(Image.Lines.Big.BG));
+			bigBg.setBounds(0, 0, Const.Lines.Big.WIDTH_BG, Const.Lines.Big.HEIGHT_BG);
 //				bigBg.addListener(new ClickListener() {
 //					@Override
 //					public void clicked(InputEvent event, float x, float y) {
@@ -204,15 +204,15 @@ public class CodeLineGroup extends BaseGroup {
 			this.addActor(bigBg);
 		
 			if (index == 0) {
-				bigTitle = new ImageActor(textureAtlas.findRegion(Image.Console.Lines.Big.TITLE_0));
+				bigTitle = new ImageActor(textureAtlas.findRegion(Image.Lines.Big.TITLE_0));
 			} else if (index == 1) {
-				bigTitle = new ImageActor(textureAtlas.findRegion(Image.Console.Lines.Big.TITLE_1));
+				bigTitle = new ImageActor(textureAtlas.findRegion(Image.Lines.Big.TITLE_1));
 			} else if (index == 2) {
-				bigTitle = new ImageActor(textureAtlas.findRegion(Image.Console.Lines.Big.TITLE_2));
+				bigTitle = new ImageActor(textureAtlas.findRegion(Image.Lines.Big.TITLE_2));
 			} else {
-				bigTitle = new ImageActor(textureAtlas.findRegion(Image.Console.Lines.Big.TITLE_3));
+				bigTitle = new ImageActor(textureAtlas.findRegion(Image.Lines.Big.TITLE_3));
 			}
-			bigTitle.setBounds(0, 0, Const.Console.Lines.Big.WIDTH_TITLE, Const.Console.Lines.Big.HEIGHT_TITLE);
+			bigTitle.setBounds(0, 0, Const.Lines.Big.WIDTH_TITLE, Const.Lines.Big.HEIGHT_TITLE);
 			bigTitle.addListener(new ClickListener() {
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
@@ -283,35 +283,35 @@ public class CodeLineGroup extends BaseGroup {
 			ImageActor ret = null;
 			
 			if (type == Code.Type.NULL) {
-				ret = new ImageActor(textureAtlas.findRegion(small ? Image.Console.Lines.Small.CODE_NULL : Image.Console.Lines.Big.CODE_NULL));
+				ret = new ImageActor(textureAtlas.findRegion(small ? Image.Lines.Small.CODE_NULL : Image.Lines.Big.CODE_NULL));
 			} else if (type == Code.Type.IF_NULL) {
-				ret = new ImageActor(textureAtlas.findRegion(small ? Image.Console.Lines.Small.CODE_IF_NULL : Image.Console.Lines.Big.CODE_IF_NULL));			
+				ret = new ImageActor(textureAtlas.findRegion(small ? Image.Lines.Small.CODE_IF_NULL : Image.Lines.Big.CODE_IF_NULL));			
 			} else if (type == Code.Type.RIGHT) {
-				ret = new ImageActor(textureAtlas.findRegion(small ? Image.Console.Lines.Small.CODE_RIGHT : Image.Console.Lines.Big.CODE_RIGHT));
+				ret = new ImageActor(textureAtlas.findRegion(small ? Image.Lines.Small.CODE_RIGHT : Image.Lines.Big.CODE_RIGHT));
 			} else if (type == Code.Type.LEFT) {
-				ret = new ImageActor(textureAtlas.findRegion(small ? Image.Console.Lines.Small.CODE_LEFT : Image.Console.Lines.Big.CODE_LEFT));
+				ret = new ImageActor(textureAtlas.findRegion(small ? Image.Lines.Small.CODE_LEFT : Image.Lines.Big.CODE_LEFT));
 			} else if (type == Code.Type.ACT) {
-				ret = new ImageActor(textureAtlas.findRegion(small ? Image.Console.Lines.Small.CODE_ACT : Image.Console.Lines.Big.CODE_ACT));
+				ret = new ImageActor(textureAtlas.findRegion(small ? Image.Lines.Small.CODE_ACT : Image.Lines.Big.CODE_ACT));
 			} else if (type == Code.Type.IF_0) {
-				ret = new ImageActor(textureAtlas.findRegion(small ? Image.Console.Lines.Small.CODE_IF_0 : Image.Console.Lines.Big.CODE_IF_0));
+				ret = new ImageActor(textureAtlas.findRegion(small ? Image.Lines.Small.CODE_IF_0 : Image.Lines.Big.CODE_IF_0));
 			} else if (type == Code.Type.IF_1) {
-				ret = new ImageActor(textureAtlas.findRegion(small ? Image.Console.Lines.Small.CODE_IF_1 : Image.Console.Lines.Big.CODE_IF_1));
+				ret = new ImageActor(textureAtlas.findRegion(small ? Image.Lines.Small.CODE_IF_1 : Image.Lines.Big.CODE_IF_1));
 			} else if (type == Code.Type.IF_2) {
-				ret = new ImageActor(textureAtlas.findRegion(small ? Image.Console.Lines.Small.CODE_IF_2 : Image.Console.Lines.Big.CODE_IF_2));
+				ret = new ImageActor(textureAtlas.findRegion(small ? Image.Lines.Small.CODE_IF_2 : Image.Lines.Big.CODE_IF_2));
 			} else if (type == Code.Type.IF_3) {
-				ret = new ImageActor(textureAtlas.findRegion(small ? Image.Console.Lines.Small.CODE_IF_3 : Image.Console.Lines.Big.CODE_IF_3));
+				ret = new ImageActor(textureAtlas.findRegion(small ? Image.Lines.Small.CODE_IF_3 : Image.Lines.Big.CODE_IF_3));
 			} else if (type == Code.Type.IF_ANY) {
-				ret = new ImageActor(textureAtlas.findRegion(small ? Image.Console.Lines.Small.CODE_IF_ANY : Image.Console.Lines.Big.CODE_IF_ANY));
+				ret = new ImageActor(textureAtlas.findRegion(small ? Image.Lines.Small.CODE_IF_ANY : Image.Lines.Big.CODE_IF_ANY));
 			} else if (type == Code.Type.IF_NONE) {
-				ret = new ImageActor(textureAtlas.findRegion(small ? Image.Console.Lines.Small.CODE_IF_NONE : Image.Console.Lines.Big.CODE_IF_NONE));
+				ret = new ImageActor(textureAtlas.findRegion(small ? Image.Lines.Small.CODE_IF_NONE : Image.Lines.Big.CODE_IF_NONE));
 			} else if (type == Code.Type.CALL_0) {
-				ret = new ImageActor(textureAtlas.findRegion(small ? Image.Console.Lines.Small.CODE_CALL_0 : Image.Console.Lines.Big.CODE_CALL_0));
+				ret = new ImageActor(textureAtlas.findRegion(small ? Image.Lines.Small.CODE_CALL_0 : Image.Lines.Big.CODE_CALL_0));
 			} else if (type == Code.Type.CALL_1) {
-				ret = new ImageActor(textureAtlas.findRegion(small ? Image.Console.Lines.Small.CODE_CALL_1 : Image.Console.Lines.Big.CODE_CALL_1));
+				ret = new ImageActor(textureAtlas.findRegion(small ? Image.Lines.Small.CODE_CALL_1 : Image.Lines.Big.CODE_CALL_1));
 			} else if (type == Code.Type.CALL_2) {
-				ret = new ImageActor(textureAtlas.findRegion(small ? Image.Console.Lines.Small.CODE_CALL_2 : Image.Console.Lines.Big.CODE_CALL_2));
+				ret = new ImageActor(textureAtlas.findRegion(small ? Image.Lines.Small.CODE_CALL_2 : Image.Lines.Big.CODE_CALL_2));
 			} else if (type == Code.Type.CALL_3) {
-				ret = new ImageActor(textureAtlas.findRegion(small ? Image.Console.Lines.Small.CODE_CALL_3 : Image.Console.Lines.Big.CODE_CALL_3));
+				ret = new ImageActor(textureAtlas.findRegion(small ? Image.Lines.Small.CODE_CALL_3 : Image.Lines.Big.CODE_CALL_3));
 			} else {
 				return null;
 			}
@@ -340,28 +340,28 @@ public class CodeLineGroup extends BaseGroup {
 			float w = 0, h = 0;
 			if (small) {
 				if (pos % 2 == 0) {				
-					x = Const.Console.Lines.Small.WIDTH_TITLE + (Const.Console.Lines.Small.WIDTH_BUTTON_ORDER + Const.Console.Lines.Small.SPACE_X) * (pos / 2) + Const.Console.Lines.Small.SPACE_X;
-					y = Const.Console.Lines.Small.SPACE_Y + Const.Console.Lines.Small.HEIGHT_BUTTON_ORDER - Const.Console.Lines.Small.HEIGHT_BUTTON_JUDGE;
-					w = Const.Console.Lines.Small.WIDTH_BUTTON_JUDGE;
-					h = Const.Console.Lines.Small.HEIGHT_BUTTON_JUDGE;				
+					x = Const.Lines.Small.WIDTH_TITLE + (Const.Lines.Small.WIDTH_BUTTON_ORDER + Const.Lines.Small.SPACE_X) * (pos / 2) + Const.Lines.Small.SPACE_X;
+					y = Const.Lines.Small.SPACE_Y + Const.Lines.Small.HEIGHT_BUTTON_ORDER - Const.Lines.Small.HEIGHT_BUTTON_JUDGE;
+					w = Const.Lines.Small.WIDTH_BUTTON_JUDGE;
+					h = Const.Lines.Small.HEIGHT_BUTTON_JUDGE;				
 				} else {
 					//order
-					x = Const.Console.Lines.Small.WIDTH_TITLE + (Const.Console.Lines.Small.WIDTH_BUTTON_ORDER + Const.Console.Lines.Small.SPACE_X) * ((pos - 1) / 2) + Const.Console.Lines.Small.SPACE_X;
-					y = Const.Console.Lines.Small.SPACE_Y;
-					w = Const.Console.Lines.Small.WIDTH_BUTTON_ORDER;
-					h = Const.Console.Lines.Small.HEIGHT_BUTTON_ORDER;
+					x = Const.Lines.Small.WIDTH_TITLE + (Const.Lines.Small.WIDTH_BUTTON_ORDER + Const.Lines.Small.SPACE_X) * ((pos - 1) / 2) + Const.Lines.Small.SPACE_X;
+					y = Const.Lines.Small.SPACE_Y;
+					w = Const.Lines.Small.WIDTH_BUTTON_ORDER;
+					h = Const.Lines.Small.HEIGHT_BUTTON_ORDER;
 				}
 			} else {
 				if (pos % 2 == 0) {				
-					x = Const.Console.Lines.Big.WIDTH_TITLE + (Const.Console.Lines.Big.WIDTH_BUTTON_JUDGE + Const.Console.Lines.Big.SPACE_X) * (pos / 2) + Const.Console.Lines.Big.SPACE_X;
-					y = Const.Console.Lines.Big.SPACE_Y + Const.Console.Lines.Big.HEIGHT_BUTTON_ORDER;// - Const.Console.Lines.Big.HEIGHT_BUTTON_JUDGE;
-					w = Const.Console.Lines.Big.WIDTH_BUTTON_JUDGE;
-					h = Const.Console.Lines.Big.HEIGHT_BUTTON_JUDGE;					
+					x = Const.Lines.Big.WIDTH_TITLE + (Const.Lines.Big.WIDTH_BUTTON_JUDGE + Const.Lines.Big.SPACE_X) * (pos / 2) + Const.Lines.Big.SPACE_X;
+					y = Const.Lines.Big.SPACE_Y + Const.Lines.Big.HEIGHT_BUTTON_ORDER;// - Const.Lines.Big.HEIGHT_BUTTON_JUDGE;
+					w = Const.Lines.Big.WIDTH_BUTTON_JUDGE;
+					h = Const.Lines.Big.HEIGHT_BUTTON_JUDGE;					
 				} else {
-					x = Const.Console.Lines.Big.WIDTH_TITLE + (Const.Console.Lines.Big.WIDTH_BUTTON_ORDER + Const.Console.Lines.Big.SPACE_X) * ((pos - 1) / 2) + Const.Console.Lines.Big.SPACE_X;
-					y = Const.Console.Lines.Big.SPACE_Y;
-					w = Const.Console.Lines.Big.WIDTH_BUTTON_ORDER;
-					h = Const.Console.Lines.Big.HEIGHT_BUTTON_ORDER;				
+					x = Const.Lines.Big.WIDTH_TITLE + (Const.Lines.Big.WIDTH_BUTTON_ORDER + Const.Lines.Big.SPACE_X) * ((pos - 1) / 2) + Const.Lines.Big.SPACE_X;
+					y = Const.Lines.Big.SPACE_Y;
+					w = Const.Lines.Big.WIDTH_BUTTON_ORDER;
+					h = Const.Lines.Big.HEIGHT_BUTTON_ORDER;				
 				}
 			}
 			
@@ -393,7 +393,7 @@ public class CodeLineGroup extends BaseGroup {
 			
 			if (state == LineState.SMALL) {
 				if (index == 0 || index == 1) {
-					vct.y = vct.y - (Const.Console.Lines.Big.HEIGHT_BG - Const.Console.Lines.Small.HEIGHT_BG);
+					vct.y = vct.y - (Const.Lines.Big.HEIGHT_BG - Const.Lines.Small.HEIGHT_BG);
 				} else {
 				
 				}
@@ -444,13 +444,13 @@ public class CodeLineGroup extends BaseGroup {
 		@Override
 		protected void initStage() {
 			groupJudge = new Group();
-			ImageActor bg = new ImageActor(this.textureAtlas.findRegion(Image.Console.Panel.JUDGE_BG));
-			bg.setBounds(0, 0, Const.Console.Panel.Judge.WIDTH_BG, Const.Console.Panel.Judge.HEIGHT_BG);
+			ImageActor bg = new ImageActor(this.textureAtlas.findRegion(Image.Lines.Panel.JUDGE_BG));
+			bg.setBounds(0, 0, Const.Lines.Panel.Judge.WIDTH_BG, Const.Lines.Panel.Judge.HEIGHT_BG);
 			groupJudge.addActor(bg);
 			
 			groupOrder = new Group();
-			bg = new ImageActor(this.textureAtlas.findRegion(Image.Console.Panel.ORDER_BG));
-			bg.setBounds(0, 0, Const.Console.Panel.Order.WIDTH_BG, Const.Console.Panel.Order.HEIGHT_BG);
+			bg = new ImageActor(this.textureAtlas.findRegion(Image.Lines.Panel.ORDER_BG));
+			bg.setBounds(0, 0, Const.Lines.Panel.Order.WIDTH_BG, Const.Lines.Panel.Order.HEIGHT_BG);
 			groupOrder.addActor(bg);
 			
 			groupJudge.setVisible(false);
@@ -496,42 +496,42 @@ public class CodeLineGroup extends BaseGroup {
 			ImageActor ret = null;
 
 			if (type == Code.Type.NULL) {
-				ret = new ImageActor(this.textureAtlas.findRegion(Image.Console.Panel.CODE_NULL));
+				ret = new ImageActor(this.textureAtlas.findRegion(Image.Lines.Panel.CODE_NULL));
 			} else if (type == Code.Type.RIGHT) {
-				ret = new ImageActor(this.textureAtlas.findRegion(Image.Console.Panel.CODE_RIGHT));
+				ret = new ImageActor(this.textureAtlas.findRegion(Image.Lines.Panel.CODE_RIGHT));
 			} else if (type == Code.Type.LEFT) {
-				ret = new ImageActor(this.textureAtlas.findRegion(Image.Console.Panel.CODE_LEFT));
+				ret = new ImageActor(this.textureAtlas.findRegion(Image.Lines.Panel.CODE_LEFT));
 			} else if (type == Code.Type.ACT) {
-				ret = new ImageActor(this.textureAtlas.findRegion(Image.Console.Panel.CODE_ACT));
+				ret = new ImageActor(this.textureAtlas.findRegion(Image.Lines.Panel.CODE_ACT));
 			} else if (type == Code.Type.IF_0) {
-				ret = new ImageActor(this.textureAtlas.findRegion(Image.Console.Panel.CODE_IF_0));
+				ret = new ImageActor(this.textureAtlas.findRegion(Image.Lines.Panel.CODE_IF_0));
 			} else if (type == Code.Type.IF_1) {
-				ret = new ImageActor(this.textureAtlas.findRegion(Image.Console.Panel.CODE_IF_1));
+				ret = new ImageActor(this.textureAtlas.findRegion(Image.Lines.Panel.CODE_IF_1));
 			} else if (type == Code.Type.IF_2) {
-				ret = new ImageActor(this.textureAtlas.findRegion(Image.Console.Panel.CODE_IF_2));
+				ret = new ImageActor(this.textureAtlas.findRegion(Image.Lines.Panel.CODE_IF_2));
 			} else if (type == Code.Type.IF_3) {
-				ret = new ImageActor(this.textureAtlas.findRegion(Image.Console.Panel.CODE_IF_3));
+				ret = new ImageActor(this.textureAtlas.findRegion(Image.Lines.Panel.CODE_IF_3));
 			} else if (type == Code.Type.IF_ANY) {
-				ret = new ImageActor(this.textureAtlas.findRegion(Image.Console.Panel.CODE_IF_ANY));
+				ret = new ImageActor(this.textureAtlas.findRegion(Image.Lines.Panel.CODE_IF_ANY));
 			} else if (type == Code.Type.IF_NULL) {
-				ret = new ImageActor(this.textureAtlas.findRegion(Image.Console.Panel.CODE_IF_NULL));			
+				ret = new ImageActor(this.textureAtlas.findRegion(Image.Lines.Panel.CODE_IF_NULL));			
 			} else if (type == Code.Type.IF_NONE) {
-				ret = new ImageActor(this.textureAtlas.findRegion(Image.Console.Panel.CODE_IF_NONE));
+				ret = new ImageActor(this.textureAtlas.findRegion(Image.Lines.Panel.CODE_IF_NONE));
 			} else if (type == Code.Type.CALL_0) {
-				ret = new ImageActor(this.textureAtlas.findRegion(Image.Console.Panel.CODE_CALL_0));
+				ret = new ImageActor(this.textureAtlas.findRegion(Image.Lines.Panel.CODE_CALL_0));
 			} else if (type == Code.Type.CALL_1) {
-				ret = new ImageActor(this.textureAtlas.findRegion(Image.Console.Panel.CODE_CALL_1));
+				ret = new ImageActor(this.textureAtlas.findRegion(Image.Lines.Panel.CODE_CALL_1));
 			} else if (type == Code.Type.CALL_2) {
-				ret = new ImageActor(this.textureAtlas.findRegion(Image.Console.Panel.CODE_CALL_2));
+				ret = new ImageActor(this.textureAtlas.findRegion(Image.Lines.Panel.CODE_CALL_2));
 			} else if (type == Code.Type.CALL_3) {
-				ret = new ImageActor(this.textureAtlas.findRegion(Image.Console.Panel.CODE_CALL_3));
+				ret = new ImageActor(this.textureAtlas.findRegion(Image.Lines.Panel.CODE_CALL_3));
 			} else {
 				return null;
 			}		
 				
-			float x = Const.Console.Panel.SPACE_X + (Const.Console.Panel.WIDTH_BUTTON + Const.Console.Panel.SPACE_X) * pos;
-			float y = Const.Console.Panel.SPACE_Y;
-			ret.setBounds(x, y, Const.Console.Panel.WIDTH_BUTTON, Const.Console.Panel.HEIGHT_BUTTON);
+			float x = Const.Lines.Panel.SPACE_X + (Const.Lines.Panel.WIDTH_BUTTON + Const.Lines.Panel.SPACE_X) * pos;
+			float y = Const.Lines.Panel.SPACE_Y;
+			ret.setBounds(x, y, Const.Lines.Panel.WIDTH_BUTTON, Const.Lines.Panel.HEIGHT_BUTTON);
 			
 			return ret;
 		}
@@ -553,13 +553,13 @@ public class CodeLineGroup extends BaseGroup {
 				groupOrder.setVisible(false);
 				groupOrder.setZIndex(0x00);
 				
-				this.setBounds(0, 0, Const.Console.Panel.Judge.WIDTH_BG, Const.Console.Panel.Judge.HEIGHT_BG);
+				this.setBounds(0, 0, Const.Lines.Panel.Judge.WIDTH_BG, Const.Lines.Panel.Judge.HEIGHT_BG);
 			} else if (this.state == PanelState.ORDER) {
 				groupJudge.setVisible(false);
 				groupJudge.setZIndex(0x00);
 				groupOrder.setVisible(true);
 				groupOrder.setZIndex(0x0F);
-				this.setBounds(0, 0, Const.Console.Panel.Order.WIDTH_BG, Const.Console.Panel.Order.HEIGHT_BG);
+				this.setBounds(0, 0, Const.Lines.Panel.Order.WIDTH_BG, Const.Lines.Panel.Order.HEIGHT_BG);
 			}
 			this.setVisible(this.state != PanelState.HIDE);
 			
@@ -583,8 +583,8 @@ public class CodeLineGroup extends BaseGroup {
 			if (state != PanelState.HIDE) {
 				
 				if (pos != -1) {
-					float x = groupPanel.getX() + (Const.Console.Panel.SPACE_X + Const.Console.Panel.WIDTH_BUTTON) * (pos + 0.5f);
-					float y = groupPanel.getY() + Const.Console.Panel.SPACE_Y + Const.Console.Panel.HEIGHT_BUTTON * 0.5f;
+					float x = groupPanel.getX() + (Const.Lines.Panel.SPACE_X + Const.Lines.Panel.WIDTH_BUTTON) * (pos + 0.5f);
+					float y = groupPanel.getY() + Const.Lines.Panel.SPACE_Y + Const.Lines.Panel.HEIGHT_BUTTON * 0.5f;
 					
 					TweenCallback completeCallback = new TweenCallback() {
 						@Override
@@ -609,35 +609,35 @@ public class CodeLineGroup extends BaseGroup {
 			float x = 0, y = 0;
 			
 			if (pos % 2 == 0) {			
-				x = Const.Console.Lines.Big.WIDTH_TITLE + (Const.Console.Lines.Big.WIDTH_BUTTON_JUDGE + Const.Console.Lines.Big.SPACE_X) * (pos / 2) / 1.5f + Const.Console.Lines.Big.SPACE_X;
-				if (x + Const.Console.Panel.Judge.WIDTH_BG > ScreenConfig.WIDTH) {
-					x = ScreenConfig.WIDTH - Const.Console.Panel.Judge.WIDTH_BG;
+				x = Const.Lines.Big.WIDTH_TITLE + (Const.Lines.Big.WIDTH_BUTTON_JUDGE + Const.Lines.Big.SPACE_X) * (pos / 2) / 1.5f + Const.Lines.Big.SPACE_X;
+				if (x + Const.Lines.Panel.Judge.WIDTH_BG > ScreenConfig.WIDTH) {
+					x = ScreenConfig.WIDTH - Const.Lines.Panel.Judge.WIDTH_BG;
 				}				
 			} else {
-				x = Const.Console.Lines.Big.WIDTH_TITLE + (Const.Console.Lines.Big.WIDTH_BUTTON_ORDER + Const.Console.Lines.Big.SPACE_X) * ((pos - 1) / 2) / 1.5f + Const.Console.Lines.Big.SPACE_X;
-				if (x + Const.Console.Panel.Order.WIDTH_BG > ScreenConfig.WIDTH) {
-					x = ScreenConfig.WIDTH - Const.Console.Panel.Order.WIDTH_BG;
+				x = Const.Lines.Big.WIDTH_TITLE + (Const.Lines.Big.WIDTH_BUTTON_ORDER + Const.Lines.Big.SPACE_X) * ((pos - 1) / 2) / 1.5f + Const.Lines.Big.SPACE_X;
+				if (x + Const.Lines.Panel.Order.WIDTH_BG > ScreenConfig.WIDTH) {
+					x = ScreenConfig.WIDTH - Const.Lines.Panel.Order.WIDTH_BG;
 				}			
 			}
 			
 			if (index == 0 || index == 1) {
 				if (pos % 2 == 0) {				
-					y = ly + Const.Console.Lines.Small.HEIGHT_BG;
+					y = ly + Const.Lines.Small.HEIGHT_BG;
 				} else {
-					y = ly - (Const.Console.Lines.Big.HEIGHT_BG - Const.Console.Lines.Small.HEIGHT_BG) - Const.Console.Panel.Order.HEIGHT_BG;
+					y = ly - (Const.Lines.Big.HEIGHT_BG - Const.Lines.Small.HEIGHT_BG) - Const.Lines.Panel.Order.HEIGHT_BG;
 				}
 			} else if (index == 2) {
 				if (pos % 2 == 0) {				
-					y = ly + Const.Console.Lines.Big.HEIGHT_BG;
+					y = ly + Const.Lines.Big.HEIGHT_BG;
 				} else {
-					y = ly - Const.Console.Panel.Order.HEIGHT_BG;
+					y = ly - Const.Lines.Panel.Order.HEIGHT_BG;
 				}
 			} else {
-				y = ly + Const.Console.Lines.Big.HEIGHT_BG;
+				y = ly + Const.Lines.Big.HEIGHT_BG;
 			}
 			
-			float sx = x + (Const.Console.Panel.SPACE_X + Const.Console.Panel.WIDTH_BUTTON) * (3 + 0.5f);
-			float sy = y + Const.Console.Panel.SPACE_Y + Const.Console.Panel.HEIGHT_BUTTON * 0.5f;
+			float sx = x + (Const.Lines.Panel.SPACE_X + Const.Lines.Panel.WIDTH_BUTTON) * (3 + 0.5f);
+			float sy = y + Const.Lines.Panel.SPACE_Y + Const.Lines.Panel.HEIGHT_BUTTON * 0.5f;
 			
 			boolean changed = groupPanel.setState((pos % 2 == 0) ? PanelState.JUDGE : PanelState.ORDER);
 			
@@ -771,12 +771,12 @@ public class CodeLineGroup extends BaseGroup {
 			final Vector2 vct3 = groupLine[3].getCodeLinePosition();	
 
 			Timeline.createParallel()			
-				.push(Tween.to(groupLine[0], BaseGroupAccessor.POSITION_Y, 0.1f).target(vct2.y))
-				.push(Tween.to(groupLine[1], BaseGroupAccessor.POSITION_Y, 0.1f).target(vct3.y))
+				.push(Tween.to(groupLine[0], BaseGroupAccessor.POSITION_Y, 0.1f).target(vct2.y + Const.Lines.Small.HEIGHT_BG / 2))
+				.push(Tween.to(groupLine[1], BaseGroupAccessor.POSITION_Y, 0.1f).target(vct3.y + Const.Lines.Small.HEIGHT_BG / 2))
 				.push(Tween.to(groupLine[0], BaseGroupAccessor.SCALE_XY, 0.1f).target(0.8f, 0.8f))
 				.push(Tween.to(groupLine[1], BaseGroupAccessor.SCALE_XY, 0.1f).target(0.8f, 0.8f))
-				.push(Tween.to(groupLine[2], BaseGroupAccessor.POSITION_X, 0.1f).targetRelative(Const.Console.Lines.Small.WIDTH_BG * 0.8f + Const.Console.Lines.Small.SPACE_X))
-				.push(Tween.to(groupLine[3], BaseGroupAccessor.POSITION_X, 0.1f).targetRelative(Const.Console.Lines.Small.WIDTH_BG * 0.8f + Const.Console.Lines.Small.SPACE_X))
+				.push(Tween.to(groupLine[2], BaseGroupAccessor.POSITION_X, 0.1f).targetRelative(Const.Lines.Small.WIDTH_BG * 0.8f + Const.Lines.Small.SPACE_X))
+				.push(Tween.to(groupLine[3], BaseGroupAccessor.POSITION_X, 0.1f).targetRelative(Const.Lines.Small.WIDTH_BG * 0.8f + Const.Lines.Small.SPACE_X))
 				.push(Tween.to(groupLine[2], BaseGroupAccessor.SCALE_XY, 0.1f).target(0.8f, 0.8f))				
 				.push(Tween.to(groupLine[3], BaseGroupAccessor.SCALE_XY, 0.1f).target(0.8f, 0.8f))
 				.start(tweenManager);
@@ -789,8 +789,8 @@ public class CodeLineGroup extends BaseGroup {
 				.push(Tween.to(groupLine[1], BaseGroupAccessor.POSITION_Y, 0.1f).target(vct1.y))
 				.push(Tween.to(groupLine[0], BaseGroupAccessor.SCALE_XY, 0.1f).target(1.0f, 1.0f))
 				.push(Tween.to(groupLine[1], BaseGroupAccessor.SCALE_XY, 0.1f).target(1.0f, 1.0f))
-				.push(Tween.to(groupLine[2], BaseGroupAccessor.POSITION_X, 0.1f).targetRelative(-(Const.Console.Lines.Small.WIDTH_BG * 0.8f + Const.Console.Lines.Small.SPACE_X)))
-				.push(Tween.to(groupLine[3], BaseGroupAccessor.POSITION_X, 0.1f).targetRelative(-(Const.Console.Lines.Small.WIDTH_BG * 0.8f + Const.Console.Lines.Small.SPACE_X)))
+				.push(Tween.to(groupLine[2], BaseGroupAccessor.POSITION_X, 0.1f).targetRelative(-(Const.Lines.Small.WIDTH_BG * 0.8f + Const.Lines.Small.SPACE_X)))
+				.push(Tween.to(groupLine[3], BaseGroupAccessor.POSITION_X, 0.1f).targetRelative(-(Const.Lines.Small.WIDTH_BG * 0.8f + Const.Lines.Small.SPACE_X)))
 				.push(Tween.to(groupLine[2], BaseGroupAccessor.SCALE_XY, 0.1f).target(1.0f, 1.0f))
 				.push(Tween.to(groupLine[3], BaseGroupAccessor.SCALE_XY, 0.1f).target(1.0f, 1.0f))				
 				.start(tweenManager);			

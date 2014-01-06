@@ -8,7 +8,6 @@ import jie.android.ip.executor.CommandSet;
 import jie.android.ip.executor.Executor;
 import jie.android.ip.executor.OnCommandListener;
 import jie.android.ip.executor.CommandConsts.ActType;
-import jie.android.ip.utils.Utils;
 
 public class PlayExecutor implements Disposable {
 
@@ -60,7 +59,7 @@ public class PlayExecutor implements Disposable {
 		private void processData(final Data data) {
 			//delay
 			try {
-				Thread.sleep(100);
+				Thread.sleep((long) (PlayConfig.DELAY * 1000));
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

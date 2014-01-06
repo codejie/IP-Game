@@ -243,7 +243,7 @@ public class Box {
 		}
 
 		//if (tcol == 0 || tcol == Const.Box.MAX_COL) {
-		if (tcol < 0 || tcol > Const.Box.MAX_COL) {
+		if (tcol == 0 || tcol > Const.Box.MAX_COL) {
 			throw new BoxException(BoxException.E_TRAY_OUT);
 		}
 		

@@ -8,8 +8,10 @@ import jie.android.ip.common.actor.ButtonActor;
 public final class Cmd {
 	
 	public enum Type { 
-		NONE, RUN, CLEAR, MENU,
-		BACK, INFO, CLOSE;
+		NONE, 
+		RUN, CLEAR, MENU,
+		BACK, INFO, SETTING, CLOSE,
+		SHARE, NEXT, BACK2, CLOSE2;
 		
 		public int getId() {
 			return this.ordinal();
@@ -24,23 +26,28 @@ public final class Cmd {
 		}
 	}
 	
-//	public enum Layer {
+	public enum Layer {
+		FIRST, SECOND, THIRD;
+	}
+	
+//	public enum LayerState {
 //		FIRST, SECOND;
 //	}
-	
-	public enum LayerState {
-		FIRST, SECOND;
-	}
 	
 	public static class Button {
 		
 		public final Type type;
-//		public final Layer layer = Layer.FIRST;
+		public final Layer layer;
 		public State state = State.NONE;
 		public ButtonActor actor;
 		
 		public Button(final Type type) {
+			this(type, Layer.FIRST);
+		}
+		
+		public Button(final Type type, final Layer layer) {
 			this.type = type;
+			this.layer = layer;
 		}
 	}
 	
@@ -53,10 +60,14 @@ public final class Cmd {
 		private static final long serialVersionUID = 1L;
 
 		public Panel(final OnButtonListener listener) {
-			Type type[] = Type.values();
-			for (int i = 0; i < type.length; ++ i) {
-				Button btn = new Button(type[i]);
-				super.add(btn);
+			for (final Type type : Type.values()) {				
+				if (type == Type.RUN || type == Type.CLEAR || type ==Type.MENU) {
+					super.add(new Button(type, Layer.FIRST));
+				} else if (type == Type.BACK || type == Type.INFO || type == Type.SETTING|| type == Type.CLOSE){
+					super.add(new Button(type, Layer.SECOND));
+				} else {
+					super.add(new Button(type, Layer.THIRD));
+				}
 			}
 		}
 		
@@ -79,6 +90,15 @@ public final class Cmd {
 							btn.actor.setDisabled(true);
 						}
 					}
+					return btn;
+				}
+			}
+			return null;
+		}
+		
+		public final Button getButton(final Type type) {
+			for (final Button btn : this) {
+				if (btn.type == type) {
 					return btn;
 				}
 			}

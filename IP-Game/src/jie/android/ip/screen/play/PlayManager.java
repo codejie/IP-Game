@@ -219,7 +219,9 @@ public class PlayManager implements Disposable {
 
 	protected void onExecuteSucc() {
 		// TODO Auto-generated method stub
-		
+		if (managerListener != null) {
+			managerListener.onExecuteSucc();
+		}
 	}
 
 	protected void onExecuteReset() {
@@ -228,12 +230,15 @@ public class PlayManager implements Disposable {
 	}
 
 	protected void onExecuteFinished() {
-		// TODO Auto-generated method stub
-		
+		if (managerListener != null) {
+			managerListener.onExecuteFinished();
+		}
 	}
 
 	protected void onExecuteException() {
-		// TODO Auto-generated method stub
+		if (managerListener != null) {
+			managerListener.onExecuteFail();
+		}
 		
 	}
 }
