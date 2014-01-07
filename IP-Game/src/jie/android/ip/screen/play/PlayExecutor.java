@@ -195,7 +195,18 @@ public class PlayExecutor implements Disposable {
 		return executor.isRunning();
 	}
 	
-
+	public void setRTVariant(int variant, int value) {
+		if (executor != null) {
+			executor.setRTVariant(variant, value);
+		}
+	}
+	
+	public void clearRTVariant(int variant) {
+		if (executor != null) {
+			executor.clearRTVariant(variant);
+		}
+	}
+	
 	protected void onExecuteCompleted(final StopReason reason) {
 		if (internalListener != null) {
 			internalListener.onExecuteCompleted(reason);

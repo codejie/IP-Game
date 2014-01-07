@@ -17,7 +17,6 @@ import jie.android.ip.common.actor.BaseGroup;
 import jie.android.ip.common.actor.BaseGroupAccessor;
 import jie.android.ip.common.actor.ButtonActor;
 import jie.android.ip.common.actor.ButtonActorAccessor;
-import jie.android.ip.common.actor.ImageActor;
 import jie.android.ip.screen.play.PlayConfig.Const;
 import jie.android.ip.screen.play.PlayConfig.Image;
 
@@ -32,9 +31,7 @@ public class CmdPanelGroup extends BaseGroup {
 	
 	private final Cmd.Panel cmdPanel;
 	
-	private ImageActor backGround;
-	private ImageActor backGlass;
-	private ImageActor tagResult;
+//	private ImageActor backGround;
 	
 	private Cmd.OnButtonListener cmdListener = new Cmd.OnButtonListener() {
 		
@@ -67,8 +64,9 @@ public class CmdPanelGroup extends BaseGroup {
 	@Override
 	protected void initStage() {
 //		secondGroup = new Group();
-		//backGround =
-		//backGlass = 
+//		backGround = new ImageActor(textureAtlas.findRegion(Image.Cmd.BG));
+//		backGround.setBounds(0, 0, Const.Cmd.WIDTH, Const.Cmd.HEIGHT);
+//		this.addActor(backGround);
 		this.setBounds(Const.Cmd.BASE_X, Const.Cmd.BASE_Y, Const.Cmd.WIDTH, Const.Cmd.HEIGHT);		
 	}
 
@@ -85,7 +83,10 @@ public class CmdPanelGroup extends BaseGroup {
 				btn.actor.setBounds(Const.Cmd.X_MENU, Const.Cmd.Y_MENU, btn.actor.getWidth(), btn.actor.getHeight());
 			} else if (btn.type == Cmd.Type.BACK) {
 				btn.actor = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Cmd.BACK_UP), skin.getDrawable(Image.Cmd.BACK_DOWN), null));
-				btn.actor.setBounds(Const.Cmd.X_BACK, Const.Cmd.Y_BACK, btn.actor.getWidth(), btn.actor.getHeight());				
+				btn.actor.setBounds(Const.Cmd.X_BACK, Const.Cmd.Y_BACK, btn.actor.getWidth(), btn.actor.getHeight());
+			} else if (btn.type == Cmd.Type.SHARE) {
+				btn.actor = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Cmd.SHARE_UP), skin.getDrawable(Image.Cmd.SHARE_DOWN), null));
+				btn.actor.setBounds(Const.Cmd.X_SHARE, Const.Cmd.Y_SHARE, btn.actor.getWidth(), btn.actor.getHeight());								
 			} else {
 				continue;
 			}
@@ -124,6 +125,10 @@ public class CmdPanelGroup extends BaseGroup {
 				btn.actor.setVisible(btn.layer == layer);
 			}
 		}
+		
+//		if (layer != Cmd.Layer.FIRST) {
+//			this.setBounds(0, 0, Const.Cmd.WIDTH, Const.Cmd.HEIGHT);
+//		}
 	}
 	
 	public void showPanel(boolean show) {
@@ -150,41 +155,40 @@ public class CmdPanelGroup extends BaseGroup {
 		}
 	}
 
-	public void showSecondMenu(boolean show) {
-		if (show) {
-			Tween.to(this, BaseGroupAccessor.POSITION_X, 0.1f).target(ScreenConfig.WIDTH)
-				.setCallback(new TweenCallback() {
-					@Override
-					public void onEvent(int type, BaseTween<?> source) {
-						showButtons(Cmd.Layer.SECOND);
-						Tween.to(CmdPanelGroup.this, BaseGroupAccessor.POSITION_X, 0.1f).target(Const.Cmd.BASE_X).start(tweenManager);
-					}					
-				})
-				.start(tweenManager);
-		} else {
-			Tween.to(this, BaseGroupAccessor.POSITION_X, 0.1f).target(ScreenConfig.WIDTH)
-				.setCallback(new TweenCallback() {
-					@Override
-					public void onEvent(int type, BaseTween<?> source) {
-						showButtons(Cmd.Layer.FIRST);
-						Tween.to(CmdPanelGroup.this, BaseGroupAccessor.POSITION_X, 0.1f).target(Const.Cmd.BASE_X).start(tweenManager);
-					}
-				})
-				.start(tweenManager);			
-		}
+//	public void showSecondMenu(boolean show) {
+//		if (show) {
+//			Tween.to(this, BaseGroupAccessor.POSITION_X, 0.1f).target(ScreenConfig.WIDTH)
+//				.setCallback(new TweenCallback() {
+//					@Override
+//					public void onEvent(int type, BaseTween<?> source) {
+//						showButtons(Cmd.Layer.SECOND);
+//						Tween.to(CmdPanelGroup.this, BaseGroupAccessor.POSITION_X, 0.1f).target(Const.Cmd.BASE_X).start(tweenManager);
+//					}					
+//				})
+//				.start(tweenManager);
+//		} else {
+//			Tween.to(this, BaseGroupAccessor.POSITION_X, 0.1f).target(ScreenConfig.WIDTH)
+//				.setCallback(new TweenCallback() {
+//					@Override
+//					public void onEvent(int type, BaseTween<?> source) {
+//						showButtons(Cmd.Layer.FIRST);
+//						Tween.to(CmdPanelGroup.this, BaseGroupAccessor.POSITION_X, 0.1f).target(Const.Cmd.BASE_X).start(tweenManager);
+//					}
+//				})
+//				.start(tweenManager);			
+//		}
+//	}
+	
+	public void showMenu(final Cmd.Layer layer) {
+		Tween.to(this, BaseGroupAccessor.POSITION_X, 0.1f).target(ScreenConfig.WIDTH)
+		.setCallback(new TweenCallback() {
+			@Override
+			public void onEvent(int type, BaseTween<?> source) {
+				showButtons(layer);
+				Tween.to(CmdPanelGroup.this, BaseGroupAccessor.POSITION_X, 0.1f).target(Const.Cmd.BASE_X).start(tweenManager);
+			}					
+		})
+		.start(tweenManager);		
 	}
 
-	public void showSuccStage() {
-		
-	}
-
-	public void showFailStage() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	public void showFinishedStage() {
-		// TODO Auto-generated method stub
-		
-	}
 }

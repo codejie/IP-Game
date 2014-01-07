@@ -1,5 +1,7 @@
 package jie.android.ip.screen.play;
 
+import jie.android.ip.screen.play.Cmd.State;
+
 
 public class PlayRenderer {
 
@@ -13,6 +15,7 @@ public class PlayRenderer {
 	private BoxGroup groupBox;
 	private CodeLineGroup groupCodeLine;
 	private CmdPanelGroup groupCmdPanel;
+	private ResultGroup groupResult;
 	
 	private final PlayScreenListener.ManagerEventListener managerListener = new PlayScreenListener.ManagerEventListener() {
 
@@ -53,17 +56,18 @@ public class PlayRenderer {
 		
 		@Override
 		public void onExecuteSucc() {
-			groupCmdPanel.showSuccStage();
+			groupCmdPanel.showMenu(Cmd.Layer.THIRD);
+			groupResult.showSuccStage();			
 		}
 		
 		@Override
 		public void onExecuteFail() {
-			groupCmdPanel.showFailStage();
+			groupResult.showFailStage();
 		}
 		
 		@Override
 		public void onExecuteFinished() {
-			groupCmdPanel.showFinishedStage();
+			groupResult.showFinishedStage();
 		}
 	};	
 	
@@ -94,6 +98,10 @@ public class PlayRenderer {
 				}
 			} else if (type == Cmd.Type.BACK) {
 				if (!onCmdBack(state)) {
+					return;
+				}
+			} else if (type == Cmd.Type.SHARE) {
+				if (!onCmdShare(state)) {
 					return;
 				}
 			}
@@ -135,10 +143,12 @@ public class PlayRenderer {
 	public void initGroups() {
 		groupBox = new BoxGroup(screen, internalListener);
 		groupCodeLine = new CodeLineGroup(screen, internalListener);
+		groupResult = new ResultGroup(screen, internalListener);		
 		groupCmdPanel = new CmdPanelGroup(screen, internalListener);
 	}
 
 	protected void changeRunStage(boolean show) {
+		groupResult.hideStage();
 		groupCmdPanel.focusRun(show);
 		
 		groupBox.focusSource(show);
@@ -156,12 +166,20 @@ public class PlayRenderer {
 	}
 
 	protected boolean onCmdMenu(final Cmd.State state) {
-		groupCmdPanel.showSecondMenu(true);		
+		//groupCmdPanel.showSecondMenu(true);		
+		groupCmdPanel.showMenu(Cmd.Layer.SECOND);
 		return true;
 	}	
 
 	protected boolean onCmdBack(final Cmd.State state) {
-		groupCmdPanel.showSecondMenu(false);
+		//groupCmdPanel.showSecondMenu(false);
+		groupCmdPanel.showMenu(Cmd.Layer.FIRST);
 		return true;
 	}
+
+	private boolean onCmdShare(State state) {
+		groupResult.hideStage();
+		groupCmdPanel.showMenu(Cmd.Layer.FIRST);
+		return true;
+	}	
 }

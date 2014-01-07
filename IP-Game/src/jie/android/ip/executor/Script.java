@@ -43,11 +43,21 @@ public class Script {
 		}
 	}
 	
+	private final int id;
+			
 	public String comment;
 	public ArrayList<BlockData> source;
 	public ArrayList<BlockData> target;
 	public TrayData tray;
-		
+	
+	public Script(int id) {
+		this.id = id;
+	}
+	
+	public final int getId() {
+		return id;
+	}
+	
 	public boolean loadFile(final String file) {
 		
 		try {

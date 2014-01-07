@@ -37,7 +37,7 @@ public class IPGame extends Game {
 		//this.setScreen(new StartScreen(this));
 		//this.setScreen(new DDTestScreen(this));
 		//this.setScreen(new BoxScreen(this));
-		this.setScreen(new PlayScreen(this, 1));
+		this.setScreen(new PlayScreen(this, 2));
 	}
 
 	@Override

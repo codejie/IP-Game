@@ -35,6 +35,7 @@ public class PlayManager implements Disposable {
 
 		@Override
 		public void onBoxkMoveEnd() {
+			
 			if (!box.checkResult()) {
 				executor.next();
 			} else {
@@ -82,8 +83,6 @@ public class PlayManager implements Disposable {
 			} else {
 				Utils.log(Tag, "Unsupport execute stop reason - " + reason);
 			}
-			
-//			onExecuteEnd(succ);
 		}
 		
 		@Override
@@ -128,6 +127,17 @@ public class PlayManager implements Disposable {
 
 		@Override
 		public void onBoxMoved(final Box.Tray tray, final Box.Block block, int col, int row, int tcol, int trow) {
+			
+			if (tray == null && block != null) { // block moved
+				if (row - trow > 0) { // down
+					executor.setRTVariant(0, block.value);
+					executor.setRTVariant(1, 1);
+				} else {
+					executor.clearRTVariant(0);				
+					executor.setRTVariant(1, 0);					
+				}
+			}
+			
 			if (managerListener != null) {
 				managerListener.onBoxMoved(tray, block, col, row, tcol, trow);
 			}
@@ -170,7 +180,7 @@ public class PlayManager implements Disposable {
 		if (str == null) {
 			return false;
 		}
-		script = new Script();
+		script = new Script(scriptId);
 		if (!script.loadString(str)) {
 			return false;
 		}
@@ -202,7 +212,7 @@ public class PlayManager implements Disposable {
 	protected void onCmdRun(final Cmd.State state) {
 		if (state == Cmd.State.NONE) {
 			final CommandSet cmdset = codeLines.makeCommandSet();
-			dbAccess.saveSolution(1, cmdset.saveToString());
+			dbAccess.saveSolution(script.getId(), cmdset.saveToString());
 			executor.execute(cmdset);
 		} else {
 			box.reload(script);

@@ -272,7 +272,7 @@ public class Box {
 				}
 			}
 		} catch (BoxException e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			internalListener.onBoxMoveException(e.error());
 		}		
 	}

@@ -340,8 +340,8 @@ public class Executor extends BaseExecutor {
 	@Override
 	public void stop() {
 		if (executor != null && executor.isRunning()) {
-			executor.stepOver();
-			executor.stop();			
+			executor.stop();
+			executor.stepOver();			
 		}
 	}
 

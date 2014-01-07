@@ -22,7 +22,6 @@ public interface PlayConfig {
 		
 		public interface Cmd {
 			public static final String BG = "cmd_bg";
-			public static final String GLASS = "cmd_glass";			
 			
 			public static final String RUN_UP = "lines_big_code_right";//"cmd_run_up";
 			public static final String RUN_DOWN = "lines_big_code_left";//"cmd_run_down";
@@ -33,10 +32,9 @@ public interface PlayConfig {
 			public static final String MENU_DOWN = "lines_big_code_left";//"cmd_menu_down";
 			public static final String BACK_UP = "lines_big_code_right";//"cmd_back_up";
 			public static final String BACK_DOWN = "lines_big_code_left";//"cmd_back_down";
-			
-			public static final String TAG_SUCC = "cmd_tag_succ";
-			public static final String TAG_FAIL = "cmd_tag_fail";
-			public static final String TAG_FINISHED = "cmd_tag_finished";			
+
+			public static final String SHARE_DOWN = "lines_big_code_right";//"cmd_share_up";
+			public static final String SHARE_UP = "lines_big_code_left";//"cmd_share_down";
 		}
 		
 		public interface Lines {
@@ -109,6 +107,12 @@ public interface PlayConfig {
 				public static final String CODE_CALL_3 = "panel_code_call_d";			
 			}
 		}
+		public interface Result {
+			public static final String BG = "result_bg";			
+			public static final String SUCC = "lines_big_title";//"result_succ";
+			public static final String FAIL = "result_fail";
+			public static final String FINISHED = "result_finished";			
+		}
 	}
 	
 	public interface Const {
@@ -121,13 +125,13 @@ public interface PlayConfig {
 			public static final int BLOCK_HEIGHT = 96;
 			public static final int TRAY_WIDTH = 144;
 			public static final int TRAY_HEIGHT = 48;
-			
-			public static final int MAX_RENDER_WIDTH = ScreenConfig.WIDTH;
-			public static final int MAX_RENDER_HEIGHT = ScreenConfig.HEIGHT;
+//			
+//			public static final int MAX_RENDER_WIDTH = ScreenConfig.WIDTH;
+//			public static final int MAX_RENDER_HEIGHT = ScreenConfig.HEIGHT;
 			
 			public static final int COL_BASE = 72;
 			public static final int COL_SPACE = 48;
-			public static final int ROW_BASE = 32;
+			public static final int ROW_BASE = 48;
 			public static final int ROW_SPACE = 4;
 			public static final int TRAY_BASE = 4;
 			public static final int TRAY_SPACE = 48;
@@ -161,8 +165,8 @@ public interface PlayConfig {
 			public static final int X_BACK = 0;
 			public static final int Y_BACK = HEIGHT - 80;
 			
-			public static final int X_TAG = 0;
-			public static final int Y_TAG = 0;
+			public static final int X_SHARE = 0;
+			public static final int Y_SHARE = HEIGHT - 80;
 		}
 		
 		public interface Lines {
@@ -226,5 +230,27 @@ public interface PlayConfig {
 			}			
 		}
 		
+		public interface Result {
+			public static final int BASE_X = 0;
+			public static final int BASE_Y = 0;
+			
+			public static final int WIDTH = ScreenConfig.WIDTH;// - Cmd.WIDTH;
+			public static final int HEIGHT = ScreenConfig.HEIGHT;
+			
+			public static final int BASE_X_SUCC = 0;
+			public static final int BASE_Y_SUCC = 0;
+			public static final int WIDTH_SUCC = 100;
+			public static final int HEIGHT_SUCC = 100;
+
+			public static final int BASE_X_FAIL = 0;
+			public static final int BASE_Y_FAIL = 0;
+			public static final int WIDTH_FAIL = 100;
+			public static final int HEIGHT_FAIL = 100;
+			
+			public static final int BASE_X_FINISHED = 0;
+			public static final int BASE_Y_FINISHED = 0;
+			public static final int WIDTH_FINISHED = 100;
+			public static final int HEIGHT_FINISHED = 100;
+		}
 	}
 }
