@@ -35,6 +35,9 @@ public interface PlayConfig {
 
 			public static final String SHARE_DOWN = "lines_big_code_right";//"cmd_share_up";
 			public static final String SHARE_UP = "lines_big_code_left";//"cmd_share_down";
+
+			public static final String NEXT_UP = "lines_big_code_right";//"cmd_next_up";
+			public static final String NEXT_DOWN = "lines_big_code_left";//"cmd_next_down";
 		}
 		
 		public interface Lines {
@@ -110,8 +113,8 @@ public interface PlayConfig {
 		public interface Result {
 			public static final String BG = "result_bg";			
 			public static final String SUCC = "lines_big_title";//"result_succ";
-			public static final String FAIL = "result_fail";
-			public static final String FINISHED = "result_finished";			
+			public static final String FAIL = "lines_big_code_if_none";//"result_fail";
+			public static final String FINISHED = "lines_big_code_if_any";//"result_finished";			
 		}
 	}
 	
@@ -125,9 +128,6 @@ public interface PlayConfig {
 			public static final int BLOCK_HEIGHT = 96;
 			public static final int TRAY_WIDTH = 144;
 			public static final int TRAY_HEIGHT = 48;
-//			
-//			public static final int MAX_RENDER_WIDTH = ScreenConfig.WIDTH;
-//			public static final int MAX_RENDER_HEIGHT = ScreenConfig.HEIGHT;
 			
 			public static final int COL_BASE = 72;
 			public static final int COL_SPACE = 48;
@@ -167,6 +167,9 @@ public interface PlayConfig {
 			
 			public static final int X_SHARE = 0;
 			public static final int Y_SHARE = HEIGHT - 80;
+			
+			public static final float X_NEXT = 0;
+			public static final float Y_NEXT = HEIGHT - 80 - 64 * 2;
 		}
 		
 		public interface Lines {

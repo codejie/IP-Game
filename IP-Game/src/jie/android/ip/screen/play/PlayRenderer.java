@@ -1,7 +1,5 @@
 package jie.android.ip.screen.play;
 
-import jie.android.ip.screen.play.Cmd.State;
-
 
 public class PlayRenderer {
 
@@ -104,6 +102,10 @@ public class PlayRenderer {
 				if (!onCmdShare(state)) {
 					return;
 				}
+			} else if (type == Cmd.Type.NEXT) {
+				if (!onCmdNext(state)) {
+					return;
+				}
 			}
 			
 			if (rendererListener != null) {
@@ -177,9 +179,15 @@ public class PlayRenderer {
 		return true;
 	}
 
-	private boolean onCmdShare(State state) {
+	private boolean onCmdShare(final Cmd.State state) {
 		groupResult.hideStage();
 		groupCmdPanel.showMenu(Cmd.Layer.FIRST);
 		return true;
+	}
+	
+	private boolean onCmdNext(final Cmd.State state) {
+		//this.screen.getGame().setScreen(new PlayScreen(this.screen.getGame(), 1));
+		return true;
 	}	
+	
 }

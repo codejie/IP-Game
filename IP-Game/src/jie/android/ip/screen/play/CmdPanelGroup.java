@@ -87,6 +87,9 @@ public class CmdPanelGroup extends BaseGroup {
 			} else if (btn.type == Cmd.Type.SHARE) {
 				btn.actor = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Cmd.SHARE_UP), skin.getDrawable(Image.Cmd.SHARE_DOWN), null));
 				btn.actor.setBounds(Const.Cmd.X_SHARE, Const.Cmd.Y_SHARE, btn.actor.getWidth(), btn.actor.getHeight());								
+			} else if (btn.type == Cmd.Type.NEXT) {
+				btn.actor = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Cmd.NEXT_UP), skin.getDrawable(Image.Cmd.NEXT_DOWN), null));
+				btn.actor.setBounds(Const.Cmd.X_NEXT, Const.Cmd.Y_NEXT, btn.actor.getWidth(), btn.actor.getHeight());								
 			} else {
 				continue;
 			}
