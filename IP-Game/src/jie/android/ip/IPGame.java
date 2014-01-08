@@ -2,6 +2,7 @@ package jie.android.ip;
 
 import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.database.DBAccess;
+import jie.android.ip.screen.menu.MenuScreen;
 import jie.android.ip.screen.play.PlayScreen;
 import jie.android.ip.setup.Setup;
 
@@ -37,7 +38,8 @@ public class IPGame extends Game {
 		//this.setScreen(new StartScreen(this));
 		//this.setScreen(new DDTestScreen(this));
 		//this.setScreen(new BoxScreen(this));
-		this.setScreen(new PlayScreen(this, 2));
+		//this.setScreen(new PlayScreen(this, 2));
+		this.setScreen(new MenuScreen(this));
 	}
 
 	@Override

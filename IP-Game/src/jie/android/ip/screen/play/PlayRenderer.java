@@ -2,10 +2,6 @@ package jie.android.ip.screen.play;
 
 
 public class PlayRenderer {
-
-	public interface RendererInternalEventListener {
-		public void onLineGroupChangeBegin(boolean fromSmall);
-	}	
 	
 	private final PlayScreen screen;
 	private PlayScreenListener.RendererEventListener rendererListener;
@@ -186,7 +182,7 @@ public class PlayRenderer {
 	}
 	
 	private boolean onCmdNext(final Cmd.State state) {
-		//this.screen.getGame().setScreen(new PlayScreen(this.screen.getGame(), 1));
+		this.screen.setNextScreen();
 		return true;
 	}	
 	

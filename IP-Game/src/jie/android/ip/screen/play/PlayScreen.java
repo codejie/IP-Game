@@ -1,5 +1,8 @@
 package jie.android.ip.screen.play;
 
+import aurelienribon.tweenengine.BaseTween;
+import aurelienribon.tweenengine.TweenCallback;
+
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import jie.android.ip.CommonConsts.ScreenPackConfig;
@@ -21,7 +24,9 @@ public class PlayScreen extends BaseScreen {
 		
 		init();
 		
-		loadScript();
+		enter();
+		
+		loadScript();		
 	}
 
 	@Override
@@ -52,4 +57,38 @@ public class PlayScreen extends BaseScreen {
 	private void loadScript() {
 		manager.loadScript(scriptId);
 	}
+	
+	private void enter() {
+		final ToggleGroup toggle = new ToggleGroup(this);
+		toggle.enter(new TweenCallback() {
+
+			@Override
+			public void onEvent(int type, BaseTween<?> source) {
+				PlayScreen.this.removeActor(toggle);
+			}			
+		});	;
+	}	
+	
+	private void out(final int id) {
+		final ToggleGroup toggle = new ToggleGroup(this);
+		toggle.out(new TweenCallback() {
+
+			@Override
+			public void onEvent(int type, BaseTween<?> source) {
+				PlayScreen.this.removeActor(toggle);
+				setScreen(id);
+			}
+			
+		});		
+	}
+	
+	protected void setScreen(final int id) {
+		this.getGame().setScreen(new PlayScreen(this.getGame(), id));
+	}
+
+	public void setNextScreen() {
+		int id = 1;
+		out(id);
+	}
+	
 }

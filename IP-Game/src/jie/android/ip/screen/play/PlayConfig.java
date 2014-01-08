@@ -110,11 +110,20 @@ public interface PlayConfig {
 				public static final String CODE_CALL_3 = "panel_code_call_d";			
 			}
 		}
+		
 		public interface Result {
 			public static final String BG = "result_bg";			
 			public static final String SUCC = "lines_big_title";//"result_succ";
 			public static final String FAIL = "lines_big_code_if_none";//"result_fail";
 			public static final String FINISHED = "lines_big_code_if_any";//"result_finished";			
+		}
+		
+		public interface Toggle {
+
+			public static String BG = "cmd_bg";//"toggle_bg";
+			public static String RIGHT = "panel_order_bg";// "toggle_right";
+			public static String LEFT = "panel_order_bg";//"toggle_left";
+			
 		}
 	}
 	
@@ -255,5 +264,22 @@ public interface PlayConfig {
 			public static final int WIDTH_FINISHED = 100;
 			public static final int HEIGHT_FINISHED = 100;
 		}
+		
+		public interface Toggle {
+
+			public static int BASE_X = 0;
+			public static int BASE_Y = 0;
+			public static int WIDTH = ScreenConfig.WIDTH;
+			public static int HEIGHT = ScreenConfig.HEIGHT;
+			
+			public static int BASE_X_RIGHT = ScreenConfig.WIDTH / 2;
+			public static int BASE_Y_RIGHT = 0;
+			public static int WIDTH_RIGHT = ScreenConfig.WIDTH / 2;
+			public static int HEIGHT_RIGHT = ScreenConfig.HEIGHT;
+			public static int BASE_X_LEFT = 0;
+			public static int BASE_Y_LEFT = 0;
+			public static int WIDTH_LEFT = ScreenConfig.WIDTH / 2;
+			public static int HEIGHT_LEFT = ScreenConfig.HEIGHT;			
+		}		
 	}
 }

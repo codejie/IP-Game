@@ -176,4 +176,11 @@ public class DBAccess {
 		return null;
 	}
 	
+	public final ResultSet loadPacks() {
+		final String sql = "select pack.id, pack.title, t.c, t.s from pack join (select pack_id, count(*) as c, sum(status) as s from script group by pack_id) as t on pack.id = t.pack_id";
+		final ResultSet rs = querySQL(sql);
+		return rs;
+	}
+	
+	
 }

@@ -5,8 +5,13 @@ import jie.android.ip.screen.BaseScreen;
 
 public class MenuScreen extends BaseScreen {
 
+	private MenuManager manager;
+	private MenuRenderer renderer;
+	
 	public MenuScreen(IPGame game) {
 		super(game);
+		
+		init();
 	}
 
 	@Override
@@ -15,5 +20,13 @@ public class MenuScreen extends BaseScreen {
 		super.dispose();
 	}
 
+	private void init() {
+		manager = new MenuManager(this);
+		renderer = new MenuRenderer(this);
+		
+		manager.setEventListener(renderer.getManagerEventListener());
+		
+		manager.loadPacks();
+	}
 	
 }

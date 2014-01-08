@@ -15,5 +15,11 @@ public interface CommonConsts {
 		public static final String SCREEN_START = "data/screen_start.pack";
 		public static final String SCREEN_BOX = "data/screen_box.pack";		
 	}
+	
+	public interface ScreenFontConfig {
+		public static final String FONT_18 = "data/font/arial-18.fnt";
+		public static final String FONT_20 = "data/font/arial-20.fnt";
+		public static final String FONT_24 = "data/font/arial-24.fnt";
+	}
 
 }

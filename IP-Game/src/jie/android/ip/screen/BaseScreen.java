@@ -46,6 +46,10 @@ public class BaseScreen implements Screen {
 		actorStage.addActor(actor);
 	}
 	
+	public void removeActor(final Actor actor) {
+		actorStage.removeActor(actor);
+	}
+	
 	public void addSprite(final Sprite sprite) {
 		screenCanvas.addSprite(sprite);
 	}

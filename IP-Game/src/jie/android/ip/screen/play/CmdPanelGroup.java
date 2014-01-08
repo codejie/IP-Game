@@ -49,7 +49,6 @@ public class CmdPanelGroup extends BaseGroup {
 		this.internalListener = internalListener;
 		
 		cmdPanel = new Cmd.Panel(cmdListener);
-		
 		initStage();
 		
 		initButtons();
