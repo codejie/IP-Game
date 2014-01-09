@@ -11,13 +11,16 @@ public class MenuRenderer {
 	}
 	
 	private final MenuScreen screen;
+	private MenuScreenListener.RendererEventListener rendererListener;
 	
 	private PackGroup groupPack;
+	
+	
 	
 	private final MenuScreenListener.ManagerEventListener managerListener = new MenuScreenListener.ManagerEventListener() {
 		
 		@Override
-		public void onPackLoadCompleted(final ArrayList<Pack> packs) {
+		public void onPackLoadCompleted(final Pack[] packs) {
 			groupPack.load(packs);
 			
 		}
@@ -27,8 +30,9 @@ public class MenuRenderer {
 
 		@Override
 		public void onClick(int id) {
-			// TODO Auto-generated method stub
-			
+			if (rendererListener != null) {
+				rendererListener.onPackClicked(id);
+			}
 		}
 		
 	};
@@ -60,6 +64,10 @@ public class MenuRenderer {
 		groupPack = new PackGroup(screen, packClickListener, itemClickListener);
 	}
 
+	public void setEventListener(final MenuScreenListener.RendererEventListener listener) {
+		this.rendererListener = listener;
+	}
+	
 	public final MenuScreenListener.ManagerEventListener getManagerEventListener() {
 		return managerListener;
 	}

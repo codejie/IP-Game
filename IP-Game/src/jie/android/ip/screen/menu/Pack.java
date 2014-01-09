@@ -4,17 +4,37 @@ import java.util.ArrayList;
 
 public class Pack {
 
+	public static final int NUM_PACK = 6;
+	
 	public class Item {
 
 		private final int id;
 		private final int status;
 		private final int score;
+		private final String script;
 		
-		public Item(int id, int status, int score) {
+		public Item(int id, int status, int score, final String script) {
 			this.id = id;
 			this.status = status;
 			this.score = score;
+			this.script = script;
 		}
+
+		public int getId() {
+			return id;
+		}
+
+		public int getStatus() {
+			return status;
+		}
+
+		public int getScore() {
+			return score;
+		}
+
+		public String getScript() {
+			return script;
+		}		
 	}
 	
 	//
@@ -53,8 +73,8 @@ public class Pack {
 		return (Item[]) items.toArray();
 	}
 	
-	public void addItem(int id, int status, int score) {
-		items.add(new Item(id, status, score));
+	public void addItem(int id, int status, int score, final String script) {
+		items.add(new Item(id, status, score, script));
 	}
 	
 }

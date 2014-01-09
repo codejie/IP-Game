@@ -25,6 +25,7 @@ public class MenuScreen extends BaseScreen {
 		renderer = new MenuRenderer(this);
 		
 		manager.setEventListener(renderer.getManagerEventListener());
+		renderer.setEventListener(manager.getRendererEventListener());
 		
 		manager.loadPacks();
 	}

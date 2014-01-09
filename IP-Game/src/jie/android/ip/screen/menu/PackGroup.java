@@ -54,14 +54,10 @@ public class PackGroup extends BaseGroup {
 		}		
 	}
 	
-	private static final int NUM_PACK = 6;
-	
 	private final MenuScreen screen;
 	private final TextureAtlas textureAtlas;
 	private final BitmapFont bitmapFont;
 	private final ItemClickListener packClickListener, itemClickListener;
-	
-	private final ItemActor[] itemActors;
 	
 	public PackGroup(final MenuScreen screen, final ItemClickListener packClickListener, final ItemClickListener itemClickListener) {
 		this.screen = screen;
@@ -70,8 +66,6 @@ public class PackGroup extends BaseGroup {
 		this.packClickListener = packClickListener;
 		this.itemClickListener = itemClickListener;
 
-		this.itemActors = new ItemActor[NUM_PACK];
-		
 		this.setBounds(0, 0, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);		
 		this.screen.addActor(this);
 	}
@@ -80,7 +74,7 @@ public class PackGroup extends BaseGroup {
 	protected void initStage() {		
 	}
 	
-	public void load(final ArrayList<Pack> packs) {
+	public void load(final Pack[] packs) {
 		for (final Pack pack : packs) {
 			ItemActor actor = new ItemActor(pack.getTitle(), pack.getTotal_all(), pack.getTotal_pass());
 			setPackBounds(pack.getId(), actor);

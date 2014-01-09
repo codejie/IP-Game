@@ -178,9 +178,16 @@ public class DBAccess {
 	
 	public final ResultSet loadPacks() {
 		//final String sql = "select pack.id, pack.title, t.c, t.s from pack join (select pack_id, count(*) as c, sum(status) as s from script group by pack_id) as t on pack.id = t.pack_id order by pack.id";
-		final String sql = "select pack.id, pack.title, t.c, t.s from pack left join (select pack_id, count(*) as c, sum(status) as s from script group by pack_id) as t on pack.id = t.pack_id";
+		final String sql = "select pack.id, pack.title, t.c, t.s from pack left join (select pack_id, count(*) as c, sum(status) as s from script group by pack_id) as t on pack.id = t.pack_id order by pack.id";
 		final ResultSet rs = querySQL(sql);
 		return rs;
+	}
+
+	public ResultSet loadPackItems(int id) {
+		final String sql = "select script.id, solution.score from script left join solution on (script.id=solution.script_id) where script.pack_id=? order by script.id";
+		ArrayList<String> val = new ArrayList<String>();
+		val.add(String.valueOf(id));
+		return querySQL(sql, val);
 	}
 	
 	
