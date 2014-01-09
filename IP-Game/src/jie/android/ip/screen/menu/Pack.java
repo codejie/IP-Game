@@ -4,6 +4,21 @@ import java.util.ArrayList;
 
 public class Pack {
 
+	public class Item {
+
+		private final int id;
+		private final int status;
+		private final int score;
+		
+		public Item(int id, int status, int score) {
+			this.id = id;
+			this.status = status;
+			this.score = score;
+		}
+	}
+	
+	//
+	
 	private final int id;
 	private final String title;
 	private final int total_all;

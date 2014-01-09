@@ -38,7 +38,7 @@ public class MenuManager {
 					rs.close();
 				}
 			} catch (SQLException e) {
-				//
+				e.printStackTrace();
 			}
 		}
 		

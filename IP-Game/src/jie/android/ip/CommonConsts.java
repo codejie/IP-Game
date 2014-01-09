@@ -13,7 +13,8 @@ public interface CommonConsts {
 	
 	public interface ScreenPackConfig {
 		public static final String SCREEN_START = "data/screen_start.pack";
-		public static final String SCREEN_BOX = "data/screen_box.pack";		
+		public static final String SCREEN_BOX = "data/screen_box.pack";
+		public static final String SCREEN_MENU = "data/screen_box.pack";//"data/screen_menu.pack";		
 	}
 	
 	public interface ScreenFontConfig {

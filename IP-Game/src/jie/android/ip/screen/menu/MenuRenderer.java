@@ -57,7 +57,7 @@ public class MenuRenderer {
 	}
 
 	private void initGroups() {
-		groupPack = new PackGroup(screen, packClickListener);
+		groupPack = new PackGroup(screen, packClickListener, itemClickListener);
 	}
 
 	public final MenuScreenListener.ManagerEventListener getManagerEventListener() {
