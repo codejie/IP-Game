@@ -1,13 +1,10 @@
 package jie.android.ip.screen.menu;
 
-import java.util.ArrayList;
-
-import jie.android.ip.screen.menu.MenuScreenListener.ManagerEventListener;
-
 public class MenuRenderer {
 	
-	public interface ItemClickListener {
-		public void onClick(int id);
+	public interface PackGroupEventListener {
+		public void onPackClick(int id);
+		public void onPackItemClick(int id);
 	}
 	
 	private final MenuScreen screen;
@@ -22,30 +19,51 @@ public class MenuRenderer {
 		@Override
 		public void onPackLoadCompleted(final Pack[] packs) {
 			groupPack.load(packs);
-			
+		}
+
+		@Override
+		public void onPackItemLoadCompleted(final Pack pack) {
+			//groupPack.
 		}
 	};
 	
-	private final ItemClickListener packClickListener = new ItemClickListener() {
+	private final PackGroupEventListener packGroupListener = new PackGroupEventListener() {
 
 		@Override
-		public void onClick(int id) {
+		public void onPackClick(int id) {
 			if (rendererListener != null) {
 				rendererListener.onPackClicked(id);
 			}
 		}
-		
-	};
-	
-	private final ItemClickListener itemClickListener = new ItemClickListener() {
 
 		@Override
-		public void onClick(int id) {
+		public void onPackItemClick(int id) {
 			// TODO Auto-generated method stub
 			
 		}
 		
 	};
+	
+//	private final ItemClickListener packClickListener = new ItemClickListener() {
+//
+//		@Override
+//		public void onClick(int id) {
+//			if (rendererListener != null) {
+//				rendererListener.onPackClicked(id);
+//			}
+//		}
+//		
+//	};
+//	
+//	private final ItemClickListener itemClickListener = new ItemClickListener() {
+//
+//		@Override
+//		public void onClick(int id) {
+//			// TODO Auto-generated method stub
+//			
+//		}
+//		
+//	};
 	
 	
 	public MenuRenderer(final MenuScreen screen) {
@@ -61,7 +79,7 @@ public class MenuRenderer {
 	}
 
 	private void initGroups() {
-		groupPack = new PackGroup(screen, packClickListener, itemClickListener);
+		groupPack = new PackGroup(screen, packGroupListener);
 	}
 
 	public void setEventListener(final MenuScreenListener.RendererEventListener listener) {
