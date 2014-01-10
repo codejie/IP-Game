@@ -70,7 +70,8 @@ public class Pack {
 	}
 
 	public final Item[] getItems() {
-		return (Item[]) items.toArray();
+		final Item[] ret = new Item[items.size()];		
+		return items.toArray(ret);
 	}
 	
 	public void addItem(int id, int status, int score, final String script) {

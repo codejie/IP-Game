@@ -184,7 +184,7 @@ public class DBAccess {
 	}
 
 	public ResultSet loadPackItems(int id) {
-		final String sql = "select script.id, solution.score from script left join solution on (script.id=solution.script_id) where script.pack_id=? order by script.id";
+		final String sql = "select script.id, script.status, solution.score, script.script from script left join solution on (script.id=solution.script_id) where script.pack_id=? order by script.id";
 		ArrayList<String> val = new ArrayList<String>();
 		val.add(String.valueOf(id));
 		return querySQL(sql, val);

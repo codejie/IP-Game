@@ -1,7 +1,5 @@
 package jie.android.ip.screen.menu;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
@@ -16,7 +14,7 @@ import jie.android.ip.common.actor.ImageActor;
 import jie.android.ip.common.actor.LabelActor;
 import jie.android.ip.screen.menu.MenuConfig.Const;
 import jie.android.ip.screen.menu.MenuConfig.Image;
-import jie.android.ip.screen.menu.MenuRenderer.ItemClickListener;
+import jie.android.ip.screen.menu.MenuRenderer.PackGroupEventListener;
 
 public class PackGroup extends BaseGroup {
 
@@ -57,14 +55,13 @@ public class PackGroup extends BaseGroup {
 	private final MenuScreen screen;
 	private final TextureAtlas textureAtlas;
 	private final BitmapFont bitmapFont;
-	private final ItemClickListener packClickListener, itemClickListener;
+	private final PackGroupEventListener listener;
 	
-	public PackGroup(final MenuScreen screen, final ItemClickListener packClickListener, final ItemClickListener itemClickListener) {
+	public PackGroup(final MenuScreen screen, final PackGroupEventListener listener) {
 		this.screen = screen;
 		this.textureAtlas = screen.getGame().getResources().getTextureAtlas(ScreenPackConfig.SCREEN_MENU);
 		this.bitmapFont = screen.getGame().getResources().getBitmapFont(24);
-		this.packClickListener = packClickListener;
-		this.itemClickListener = itemClickListener;
+		this.listener = listener;
 
 		this.setBounds(0, 0, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);		
 		this.screen.addActor(this);
@@ -82,7 +79,7 @@ public class PackGroup extends BaseGroup {
 
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
-					packClickListener.onClick(pack.getId());
+					listener.onPackClick(pack.getId());
 				}
 				
 			});
