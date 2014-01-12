@@ -18,12 +18,12 @@ public class MenuRenderer {
 		
 		@Override
 		public void onPackLoadCompleted(final Pack[] packs) {
-			groupPack.load(packs);
+			groupPack.loadPacks(packs);
 		}
 
 		@Override
-		public void onPackItemLoadCompleted(final Pack pack) {
-			//groupPack.
+		public void onPackItemLoadCompleted(final Pack pack, int itemStart) {
+			groupPack.loadPackItem(pack, itemStart);
 		}
 	};
 	

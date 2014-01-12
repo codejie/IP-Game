@@ -33,7 +33,8 @@ public interface MenuConfig {
 		}
 		
 		public interface Item {
-			
+			public static final int NUM_TOTAL = 6;
+			public static final int NUM_PER_LINE = 3;
 		}		
 	}
 	

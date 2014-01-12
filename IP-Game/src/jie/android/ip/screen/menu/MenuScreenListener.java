@@ -1,12 +1,9 @@
 package jie.android.ip.screen.menu;
 
-import java.util.ArrayList;
-
 public interface MenuScreenListener {
 	public interface ManagerEventListener {
 		public void onPackLoadCompleted(final Pack[] packs);
-
-		public void onPackItemLoadCompleted(final Pack pack);
+		void onPackItemLoadCompleted(final Pack pack, int itemStart);
 	}
 	
 	public interface RendererEventListener {

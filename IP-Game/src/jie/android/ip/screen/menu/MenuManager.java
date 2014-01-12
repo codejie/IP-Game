@@ -60,7 +60,7 @@ public class MenuManager {
 	}
 	
 	protected void loadPackItems(int id) {
-		final Pack pack = packs[id];
+		final Pack pack = packs[id-1];
 		if (pack == null) {
 			return;
 		}
@@ -84,7 +84,7 @@ public class MenuManager {
 		}
 		
 		if (managerListener != null) {
-			managerListener.onPackItemLoadCompleted(pack);
+			managerListener.onPackItemLoadCompleted(pack, 0);
 		}		
 	}
 

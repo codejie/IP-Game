@@ -18,12 +18,12 @@ import jie.android.ip.screen.menu.MenuRenderer.PackGroupEventListener;
 
 public class PackGroup extends BaseGroup {
 
-	private class ItemActor extends BaseGroup {
+	private class PackActor extends BaseGroup {
 		
 		private final String title;
 		private final String info;
 		
-		public ItemActor(final String title, int all, int pass) {
+		public PackActor(final String title, int all, int pass) {
 			this.title = title;
 			this.info = String.format("%d/%d", pass, all);
 			
@@ -57,6 +57,8 @@ public class PackGroup extends BaseGroup {
 	private final BitmapFont bitmapFont;
 	private final PackGroupEventListener listener;
 	
+	private int itemStart = 0;
+	
 	public PackGroup(final MenuScreen screen, final PackGroupEventListener listener) {
 		this.screen = screen;
 		this.textureAtlas = screen.getGame().getResources().getTextureAtlas(ScreenPackConfig.SCREEN_MENU);
@@ -71,9 +73,9 @@ public class PackGroup extends BaseGroup {
 	protected void initStage() {		
 	}
 	
-	public void load(final Pack[] packs) {
+	public void loadPacks(final Pack[] packs) {
 		for (final Pack pack : packs) {
-			ItemActor actor = new ItemActor(pack.getTitle(), pack.getTotal_all(), pack.getTotal_pass());
+			PackActor actor = new PackActor(pack.getTitle(), pack.getTotal_all(), pack.getTotal_pass());
 			setPackBounds(pack.getId(), actor);
 			actor.addListener(new ClickListener() {
 
@@ -85,9 +87,11 @@ public class PackGroup extends BaseGroup {
 			});
 			this.addActor(actor);
 		}
+		
+		itemStart = 0;
 	}
 
-	private void setPackBounds(int id, final ItemActor actor) {
+	private void setPackBounds(int id, final PackActor actor) {
 		int x = 0, y = 0;
 		switch(id) {
 		case 1:
@@ -107,6 +111,27 @@ public class PackGroup extends BaseGroup {
 		}
 		
 		actor.setBounds(x, y, Const.Pack.WIDTH, Const.Pack.HEIGHT);
+	}
+
+	public void loadPackItem(final Pack pack, int start) {
+		final Pack.Item items[] = pack.getItems();
+		int end = (items.length - start) <= MenuConfig.Const.Item.NUM_TOTAL ? items.length - start : MenuConfig.Const.Item.NUM_TOTAL;  
+		for (int i = 0; i < end; ++ i) {
+			final Pack.Item item = items[start + i];
+			ItemActor actor = new ItemActor(item.getStatus(), item.getScore(), item.getScript());
+			setItemBounds(i, actor);
+			actor.addListener(new ClickListener() {
+				@Override
+				public void clicked(InputEvent event, float x, float y) {
+					listener.onPackItemClick(item.getId());
+				}				
+			});
+			this.addActor(actor);
+		}
+		
+		itemStart = start + end;
+		
+		moveGroup(true);		
 	}
 	
 	
