@@ -7,6 +7,7 @@ public interface MenuScreenListener {
 	}
 	
 	public interface RendererEventListener {
-		void onPackClicked(int id);		
+		void onPackClicked(int id);
+		void onPackItemClicked(int id);		
 	}
 }

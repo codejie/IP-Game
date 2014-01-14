@@ -38,8 +38,9 @@ public class MenuRenderer {
 
 		@Override
 		public void onPackItemClick(int id) {
-			// TODO Auto-generated method stub
-			
+			if (rendererListener != null) {
+				rendererListener.onPackItemClicked(id);
+			}
 		}
 		
 	};

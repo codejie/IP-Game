@@ -148,7 +148,7 @@ public class DBAccess {
 	}
 
 	public void saveSolution(int scriptid, final String cmd) {
-		final String sql = "REPLACE INTO solution (scriptid, command, utime, score) VALUES(?, ?, ?, ?)";
+		final String sql = "REPLACE INTO solution (script_id, command, utime, score) VALUES(?, ?, ?, ?)";
 		ArrayList<String> val = new ArrayList<String>();
 		val.add(String.valueOf(scriptid));
 		val.add(cmd);
@@ -158,7 +158,7 @@ public class DBAccess {
 	}
 
 	public final String loadSolution(int i) {
-		final String sql = "SELECT command FROM solution WHERE scriptid=" + i;
+		final String sql = "SELECT command FROM solution WHERE script_id=" + i;
 		final ResultSet rs = querySQL(sql);
 		try {
 			try {

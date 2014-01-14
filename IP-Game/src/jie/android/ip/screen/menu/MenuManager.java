@@ -20,6 +20,11 @@ public class MenuManager {
 		public void onPackClicked(int id) {
 			loadPackItems(id);
 		}
+
+		@Override
+		public void onPackItemClicked(int id) {
+			loadScriptScreen(id);
+		}
 	};
 	
 	private final Pack[] packs = new Pack[Pack.NUM_PACK];
@@ -86,6 +91,10 @@ public class MenuManager {
 		if (managerListener != null) {
 			managerListener.onPackItemLoadCompleted(pack, 0);
 		}		
+	}
+
+	protected void loadScriptScreen(int id) {
+		this.screen.getGame().setPlayScreen(id);
 	}
 
 	

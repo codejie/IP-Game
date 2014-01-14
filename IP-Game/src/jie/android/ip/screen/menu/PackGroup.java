@@ -249,19 +249,19 @@ public class PackGroup extends BaseGroup {
 		}
 	}
 
-	private void setItemBounds(int id, final ItemActor actor) {
+	private void setItemBounds(int pos, final ItemActor actor) {
 		int x = 0, y = 0;
-		switch(id) {
+		switch(pos) {
+		case 0:
 		case 1:
 		case 2:
-		case 3:
-			x = Const.Item.BASE_X + (id - 1)* (Const.Item.WIDTH + Const.Item.SPACE_X);
+			x = Const.Item.BASE_X + pos * (Const.Item.WIDTH + Const.Item.SPACE_X);
 			y = - (Const.Item.BASE_Y + Const.Item.HEIGHT + Const.Item.SPACE_Y);
 			break;
+		case 3:
 		case 4:
 		case 5:
-		case 6:
-			x = Const.Item.BASE_X + (id - 4)* (Const.Item.WIDTH + Const.Item.SPACE_X);
+			x = Const.Item.BASE_X + (pos - 3) * (Const.Item.WIDTH + Const.Item.SPACE_X);
 			y = - Const.Item.BASE_Y;			
 			break;
 		default:
@@ -295,8 +295,21 @@ public class PackGroup extends BaseGroup {
 		for (int i = 0; i < actorCache2.length; ++ i) {
 			final BaseGroup actor = actorCache2[i];
 			if (actor != null) {
+				float y = 0;
+				switch(i) {
+				case 0:
+				case 1:
+				case 2:
+					y = (Const.Item.BASE_Y + Const.Item.HEIGHT + Const.Item.SPACE_Y);
+					break;
+				default:
+					y = Const.Item.BASE_Y;
+					break;
+				}
+					
+					
 //				timeline.push(Tween.set(actor, BaseGroupAccessor.POSITION_Y).targetRelative(-Const.Item.HEIGHT));
-				timeline.push(Tween.to(actor, BaseGroupAccessor.POSITION_Y, 0.2f + 0.1f * i).targetRelative(Const.Item.BASE_Y + Const.Item.HEIGHT + Const.Item.SPACE_Y));
+				timeline.push(Tween.to(actor, BaseGroupAccessor.POSITION_Y, 0.2f + 0.1f * i).target(y));
 			}
 		}
 		
