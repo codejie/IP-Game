@@ -23,7 +23,7 @@ public class MenuRenderer {
 
 		@Override
 		public void onPackItemLoadCompleted(final Pack pack, int itemStart) {
-			groupPack.loadPackItem(pack, itemStart);
+			groupPack.loadPackItem(pack);
 		}
 	};
 	

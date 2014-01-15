@@ -14,12 +14,15 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.CommonConsts.ScreenPackConfig;
 import jie.android.ip.common.actor.BaseGroup;
 import jie.android.ip.common.actor.BaseGroupAccessor;
+import jie.android.ip.common.actor.ButtonActor;
 import jie.android.ip.common.actor.ImageActor;
 import jie.android.ip.common.actor.LabelActor;
 import jie.android.ip.executor.Script;
@@ -151,19 +154,24 @@ public class PackGroup extends BaseGroup {
 	//
 	private final MenuScreen screen;
 	private final TextureAtlas textureAtlas;
+	private final Skin skin;
 	private final BitmapFont bitmapFont;
 	private final TweenManager tweenManager;
 	
 	private final PackGroupEventListener listener;
 	
+	private int curPack = -1;
 	private int itemStart = 0;
 	
 	private BaseGroup[] actorCache1 = new BaseGroup[Pack.NUM_PACK]; 
 	private BaseGroup[] actorCache2 = new BaseGroup[Pack.NUM_PACK];
 	
+	private ButtonActor btnBack, btnNext, btnPrev;
+	
 	public PackGroup(final MenuScreen screen, final PackGroupEventListener listener) {
 		this.screen = screen;
 		this.textureAtlas = screen.getGame().getResources().getTextureAtlas(ScreenPackConfig.SCREEN_MENU);
+		this.skin = new Skin(this.textureAtlas);
 		this.bitmapFont = screen.getGame().getResources().getBitmapFont(24);
 		this.tweenManager = screen.getTweenManager();
 		this.listener = listener;
@@ -173,10 +181,44 @@ public class PackGroup extends BaseGroup {
 	}
 
 	@Override
-	protected void initStage() {		
+	protected void initStage() {
+		btnBack = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Button.BACK_UP), skin.getDrawable(Image.Button.BACK_DOWN), null));
+		btnBack.setBounds(Const.Button.BACK_X, Const.Button.BACK_Y, Const.Button.BACK_WIDTH, Const.Button.BACK_HEIGHT);
+		btnBack.addListener(new ClickListener() {
+
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				onBtnBackClicked();
+			}
+		
+		});
+
+		btnNext = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Button.NEXT_UP), skin.getDrawable(Image.Button.NEXT_DOWN), null));
+		btnNext.setBounds(Const.Button.NEXT_X, Const.Button.NEXT_Y, Const.Button.NEXT_WIDTH, Const.Button.NEXT_HEIGHT);
+		btnNext.addListener(new ClickListener() {
+
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				onBtnNextClicked();
+			}
+		
+		});		
+
+		btnPrev = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Button.PREV_UP), skin.getDrawable(Image.Button.PREV_DOWN), null));
+		btnPrev.setBounds(Const.Button.PREV_X, Const.Button.PREV_Y, Const.Button.PREV_WIDTH, Const.Button.PREV_HEIGHT);
+		btnPrev.addListener(new ClickListener() {
+
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				onBtnPrevClicked();
+			}
+		
+		});		
 	}
-	
+
 	public void loadPacks(final Pack[] packs) {
+		hideButtons();
+		
 		for (int i = 0; i < packs.length; ++ i) {
 			final Pack pack = packs[i];
 			PackActor actor = new PackActor(pack.getTitle(), pack.getTotal_all(), pack.getTotal_pass());
@@ -185,7 +227,8 @@ public class PackGroup extends BaseGroup {
 
 				@Override
 				public void clicked(InputEvent event, float x, float y) {
-					listener.onPackClick(pack.getId());
+					curPack = pack.getId();
+					listener.onPackClick(curPack);
 				}
 				
 			});
@@ -219,11 +262,19 @@ public class PackGroup extends BaseGroup {
 		actor.setBounds(x, y, Const.Pack.WIDTH, Const.Pack.HEIGHT);
 	}
 
-	public void loadPackItem(final Pack pack, int start) {
+	public void loadPackItem(final Pack pack) {
+		itemStart = 0;
 		final Pack.Item items[] = pack.getItems();
-		int end = (items.length - start) <= MenuConfig.Const.Item.NUM_TOTAL ? items.length - start : MenuConfig.Const.Item.NUM_TOTAL;  
+		int end = (items.length) <= MenuConfig.Const.Item.NUM_PER_PAGE ? items.length : MenuConfig.Const.Item.NUM_PER_PAGE;
+		
+		loadPackItem(items, itemStart, end);
+		
+		moveOutPackGroup(itemStart, end, items.length);		
+	}
+
+	private void loadPackItem(final Pack.Item[] items, int start, int end) {
 		for (int i = 0; i < end; ++ i) {
-			final Pack.Item item = items[start + i];
+			final Pack.Item item = items[i];
 			ItemActor actor = new ItemActor(item.getId(), item.getStatus(), item.getScore(), item.getScript());
 			setItemBounds(i, actor);
 			actor.addListener(new ClickListener() {
@@ -233,22 +284,11 @@ public class PackGroup extends BaseGroup {
 				}				
 			});
 			
-			//actor.setVisible(false);
 			this.addActor(actor);
 			actorCache2[i] = actor;
-		}
-		
-		itemStart = start + end;
-
-		moveGroup();
-		
-		if (start == 0) {
-			movePackGroup(true);
-		} else {
-			moveItemGroup(true);
-		}
+		}	
 	}
-
+	
 	private void setItemBounds(int pos, final ItemActor actor) {
 		int x = 0, y = 0;
 		switch(pos) {
@@ -271,25 +311,22 @@ public class PackGroup extends BaseGroup {
 		actor.setBounds(x, y, Const.Item.WIDTH, Const.Item.HEIGHT);		
 	}
 
-	private void moveGroup() {
+	private void moveOutPackGroup(final int start, final int end, final int total) {
+	
 		final TweenCallback callback = new TweenCallback() {
 
 			@Override
 			public void onEvent(int type, BaseTween<?> source) {
-				for (final BaseGroup actor : actorCache1) {
-					PackGroup.this.removeActor(actor);
-				}
-				
-				actorCache1 = actorCache2;
-			}
-			
+				showButtons(start, end, total);
+				swapActorCache();
+			}			
 		};
 		
 		// cache 1 out, cache 2 in
 		Timeline timeline = Timeline.createParallel();
 		for (int i = 0; i < actorCache1.length; ++ i) {
 			final BaseGroup actor = actorCache1[i];
-			timeline.push(Tween.to(actor, BaseGroupAccessor.POSITION_Y, 0.2f + 0.1f * i).targetRelative(ScreenConfig.HEIGHT));
+			timeline.push(Tween.to(actor, BaseGroupAccessor.POSITION_Y, 0.2f + 0.05f * i).targetRelative(ScreenConfig.HEIGHT));
 		}
 		timeline.delay(0.2f);
 		for (int i = 0; i < actorCache2.length; ++ i) {
@@ -309,19 +346,47 @@ public class PackGroup extends BaseGroup {
 					
 					
 //				timeline.push(Tween.set(actor, BaseGroupAccessor.POSITION_Y).targetRelative(-Const.Item.HEIGHT));
-				timeline.push(Tween.to(actor, BaseGroupAccessor.POSITION_Y, 0.2f + 0.1f * i).target(y));
+				timeline.push(Tween.to(actor, BaseGroupAccessor.POSITION_Y, 0.2f + 0.05f * i).target(y));
 			}
 		}
 		
 		timeline.setCallback(callback);		
-		timeline.start(tweenManager);
+		timeline.start(tweenManager);		
 	}
 	
-	private void movePackGroup(boolean out) {
+	protected void swapActorCache() {
+		for (final BaseGroup actor : actorCache1) {
+			PackGroup.this.removeActor(actor);
+		}				
+		actorCache1 = actorCache2;
+	}
+
+	protected void hideButtons() {
+		btnBack.setVisible(false);
+		btnNext.setVisible(false);
+		btnPrev.setVisible(false);
+	}
+	
+	protected void showButtons(int start, int end, int total) {
+		btnBack.setVisible(true);
+		btnPrev.setVisible(start != 0);
+		btnNext.setVisible((start + end) < total);
+	}
+
+	
+	protected void onBtnBackClicked() {
+		// TODO Auto-generated method stub
 		
 	}
 
-	private void moveItemGroup(boolean out) {
+	protected void onBtnNextClicked() {
+		// TODO Auto-generated method stub
 		
 	}
+
+	protected void onBtnPrevClicked() {
+		// TODO Auto-generated method stub
+		
+	}	
+	
 }
