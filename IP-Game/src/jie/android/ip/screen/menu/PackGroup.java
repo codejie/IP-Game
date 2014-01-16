@@ -163,8 +163,8 @@ public class PackGroup extends BaseGroup {
 	private int curPack = -1;
 	private int itemStart = 0;
 	
-	private BaseGroup[] actorCache1 = new BaseGroup[Pack.NUM_PACK]; 
-	private BaseGroup[] actorCache2 = new BaseGroup[Pack.NUM_PACK];
+	private BaseGroup[] actorCache1 = null;//new BaseGroup[Pack.NUM_PACK]; 
+	private BaseGroup[] actorCache2 = null;//new BaseGroup[Pack.NUM_PACK];
 	
 	private ButtonActor btnBack, btnNext, btnPrev;
 	
@@ -178,6 +178,8 @@ public class PackGroup extends BaseGroup {
 
 		this.setBounds(0, 0, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);		
 		this.screen.addActor(this);
+		
+		initStage();
 	}
 
 	@Override
@@ -192,6 +194,7 @@ public class PackGroup extends BaseGroup {
 			}
 		
 		});
+		this.addActor(btnBack);
 
 		btnNext = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Button.NEXT_UP), skin.getDrawable(Image.Button.NEXT_DOWN), null));
 		btnNext.setBounds(Const.Button.NEXT_X, Const.Button.NEXT_Y, Const.Button.NEXT_WIDTH, Const.Button.NEXT_HEIGHT);
@@ -202,7 +205,8 @@ public class PackGroup extends BaseGroup {
 				onBtnNextClicked();
 			}
 		
-		});		
+		});
+		this.addActor(btnNext);
 
 		btnPrev = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Button.PREV_UP), skin.getDrawable(Image.Button.PREV_DOWN), null));
 		btnPrev.setBounds(Const.Button.PREV_X, Const.Button.PREV_Y, Const.Button.PREV_WIDTH, Const.Button.PREV_HEIGHT);
@@ -213,11 +217,37 @@ public class PackGroup extends BaseGroup {
 				onBtnPrevClicked();
 			}
 		
-		});		
+		});
+		this.addActor(btnPrev);
+	}
+	
+	private void cacheNewActor(int i, final BaseGroup actor) {
+		if (actorCache2 == null) {
+			actorCache2 = new BaseGroup[Pack.NUM_PACK];
+		}
+		if (i < Pack.NUM_PACK) {
+			actorCache2[i] = actor;
+		}
+	}
+	
+	protected void swapActorCache() {
+		for (final BaseGroup actor : actorCache1) {
+			PackGroup.this.removeActor(actor);			
+		}				
+		actorCache1 = actorCache2;
+		actorCache2 = null;
+	}	
+	
+	public void loadPacks(final Pack[] packs) {
+		
+		renderPacks(packs);		
+		
+		itemStart = 0;
+		
+		moveInPackGroup();
 	}
 
-	public void loadPacks(final Pack[] packs) {
-		hideButtons();
+	private void renderPacks(final Pack[] packs) {
 		
 		for (int i = 0; i < packs.length; ++ i) {
 			final Pack pack = packs[i];
@@ -234,12 +264,11 @@ public class PackGroup extends BaseGroup {
 			});
 			
 			this.addActor(actor);
-			actorCache1[i] = actor;
-		}
-		
-		itemStart = 0;
+			cacheNewActor(i, actor);
+//			actorCache1[i] = actor;
+		}		
 	}
-
+	
 	private void setPackBounds(int id, final PackActor actor) {
 		int x = 0, y = 0;
 		switch(id) {
@@ -296,13 +325,13 @@ public class PackGroup extends BaseGroup {
 		case 1:
 		case 2:
 			x = Const.Item.BASE_X + pos * (Const.Item.WIDTH + Const.Item.SPACE_X);
-			y = - (Const.Item.BASE_Y + Const.Item.HEIGHT + Const.Item.SPACE_Y);
+			y = - (ScreenConfig.HEIGHT - (Const.Item.BASE_Y + Const.Item.HEIGHT + Const.Item.SPACE_Y));
 			break;
 		case 3:
 		case 4:
 		case 5:
 			x = Const.Item.BASE_X + (pos - 3) * (Const.Item.WIDTH + Const.Item.SPACE_X);
-			y = - Const.Item.BASE_Y;			
+			y = - (ScreenConfig.HEIGHT - Const.Item.BASE_Y);			
 			break;
 		default:
 			return;
@@ -311,6 +340,45 @@ public class PackGroup extends BaseGroup {
 		actor.setBounds(x, y, Const.Item.WIDTH, Const.Item.HEIGHT);		
 	}
 
+	private void moveInPackGroup() {
+		hideButtons();
+
+		Timeline timeline = Timeline.createParallel();
+		if (actorCache1 != null) {
+			for (int i = 0; i < actorCache1.length; ++ i) {
+				final BaseGroup actor = actorCache1[i];
+				if (actor != null) {
+					timeline.push(Tween.to(actor, BaseGroupAccessor.POSITION_Y, 0.2f + 0.05f * i).targetRelative(ScreenConfig.HEIGHT));
+				}
+			}
+			timeline.delay(0.2f);
+		}
+		if (actorCache2 != null) {
+			for (int i = 0; i < actorCache2.length; ++ i) {
+				final BaseGroup actor = actorCache2[i];
+				if (actor != null) {
+					float y = 0;
+					switch(i) {
+					case 0:
+					case 1:
+					case 2:
+						y = (Const.Item.BASE_Y + Const.Item.HEIGHT + Const.Item.SPACE_Y);
+						break;
+					default:
+						y = Const.Item.BASE_Y;
+						break;
+					}
+					timeline.push(Tween.to(actor, BaseGroupAccessor.POSITION_Y, 0.2f + 0.05f * i).target(y));
+				}
+			}
+		}		
+//		timeline.setCallback(callback);		
+		timeline.start(tweenManager);		
+		
+		
+	}
+	
+	
 	private void moveOutPackGroup(final int start, final int end, final int total) {
 	
 		final TweenCallback callback = new TweenCallback() {
@@ -343,9 +411,6 @@ public class PackGroup extends BaseGroup {
 					y = Const.Item.BASE_Y;
 					break;
 				}
-					
-					
-//				timeline.push(Tween.set(actor, BaseGroupAccessor.POSITION_Y).targetRelative(-Const.Item.HEIGHT));
 				timeline.push(Tween.to(actor, BaseGroupAccessor.POSITION_Y, 0.2f + 0.05f * i).target(y));
 			}
 		}
@@ -354,13 +419,6 @@ public class PackGroup extends BaseGroup {
 		timeline.start(tweenManager);		
 	}
 	
-	protected void swapActorCache() {
-		for (final BaseGroup actor : actorCache1) {
-			PackGroup.this.removeActor(actor);
-		}				
-		actorCache1 = actorCache2;
-	}
-
 	protected void hideButtons() {
 		btnBack.setVisible(false);
 		btnNext.setVisible(false);
@@ -372,15 +430,13 @@ public class PackGroup extends BaseGroup {
 		btnPrev.setVisible(start != 0);
 		btnNext.setVisible((start + end) < total);
 	}
-
 	
 	protected void onBtnBackClicked() {
-		// TODO Auto-generated method stub
-		
+		listener.onBtnBackClicked(curPack);
+		curPack = -1;
 	}
 
 	protected void onBtnNextClicked() {
-		// TODO Auto-generated method stub
 		
 	}
 

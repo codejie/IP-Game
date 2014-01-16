@@ -9,12 +9,12 @@ public interface MenuConfig {
 		public static final String BACKGROUND = "background";
 		
 		public interface Button {
-			public static final String BACK_UP = "button_back_up";
-			public static final String BACK_DOWN = "button_back_down";
-			public static final String NEXT_UP = "button_next";
-			public static final String NEXT_DOWN = "button_next";
-			public static final String PREV_UP = "button_prev";
-			public static final String PREV_DOWN = "button_prev";
+			public static final String BACK_UP = "background";//"button_back_up";
+			public static final String BACK_DOWN = "box_frame";//"button_back_down";
+			public static final String NEXT_UP = "background";//"button_next";
+			public static final String NEXT_DOWN = "box_frame";//"button_next";
+			public static final String PREV_UP = "background";//"button_prev";
+			public static final String PREV_DOWN = "box_frame";//"button_prev";
 		}
 		
 		public interface Pack {
@@ -32,32 +32,31 @@ public interface MenuConfig {
 	public interface Const {
 		
 		public interface Button {
-			public static final int BACK_X = 0;
-			public static final int BACK_Y = 0;
-			public static final int BACK_WIDTH = 0;
-			public static final int BACK_HEIGHT = 0;
-
-			public static final int NEXT_X = 0;
-			public static final int NEXT_Y = 0;
-			public static final int NEXT_WIDTH = 0;
-			public static final int NEXT_HEIGHT = 0;
-
-			public static final int PREV_X = 0;
-			public static final int PREV_Y = 0;
-			public static final int PREV_WIDTH = 0;
-			public static final int PREV_HEIGHT = 0;
+			public static final int BACK_WIDTH = 64;
+			public static final int BACK_HEIGHT = 128;
+			public static final int BACK_X = 24;
+			public static final int BACK_Y = ScreenConfig.HEIGHT - BACK_HEIGHT - 32;
 			
+			public static final int NEXT_WIDTH = 128;
+			public static final int NEXT_HEIGHT = 64;
+			public static final int NEXT_X = ScreenConfig.WIDTH - NEXT_WIDTH - 24;
+			public static final int NEXT_Y = 24;
+
+			public static final int PREV_WIDTH = 128;
+			public static final int PREV_HEIGHT = 64;
+			public static final int PREV_X = 24;
+			public static final int PREV_Y = 24;
 		}
 		
 		public interface Pack {
 			public static final int NUM_TOTAL = 6;
 			public static final int NUM_PER_LINE = 3;
 			
-			public static final int BASE_X = 96;
-			public static final int BASE_Y = 48;
+			public static final int BASE_X = 128;
+			public static final int BASE_Y = 104;
 			
-			public static final int SPACE_X = 48;
-			public static final int SPACE_Y = 48;
+			public static final int SPACE_X = 32;
+			public static final int SPACE_Y = 32;
 			
 			public static final int WIDTH = (ScreenConfig.WIDTH - SPACE_X * 2 - BASE_X * 2) / 3;
 			public static final int HEIGHT = 232;			
@@ -67,11 +66,11 @@ public interface MenuConfig {
 			public static final int NUM_PER_PAGE = 6;
 			public static final int NUM_PER_LINE = 3;
 
-			public static final int BASE_X = 96;
-			public static final int BASE_Y = 48;
+			public static final int BASE_X = 128;
+			public static final int BASE_Y = 104;
 			
-			public static final int SPACE_X = 48;
-			public static final int SPACE_Y = 48;
+			public static final int SPACE_X = 32;
+			public static final int SPACE_Y = 32;
 			
 			public static final int WIDTH = (ScreenConfig.WIDTH - SPACE_X * 2 - BASE_X * 2) / 3;
 			public static final int HEIGHT = 232;

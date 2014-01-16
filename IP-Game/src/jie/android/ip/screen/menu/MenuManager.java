@@ -25,6 +25,11 @@ public class MenuManager {
 		public void onPackItemClicked(int id) {
 			loadScriptScreen(id);
 		}
+
+		@Override
+		public void onLoadPack() {
+			loadPacks();
+		}
 	};
 	
 	private final Pack[] packs = new Pack[Pack.NUM_PACK];
