@@ -4,8 +4,10 @@ public class MenuRenderer {
 	
 	public interface PackGroupEventListener {
 		public void onPackClick(int id);
-		public void onPackItemClick(int id);
-		public void onBtnBackClicked(int curPack);
+		public void onPackItemClick(int pack, int id);
+		public void onBtnBackClicked(int pack);
+		public void onBtnNextClicked(int pack);
+		public void onBtnPrevCllicked(int pack);
 	}
 	
 	private final MenuScreen screen;
@@ -38,9 +40,9 @@ public class MenuRenderer {
 		}
 
 		@Override
-		public void onPackItemClick(int id) {
+		public void onPackItemClick(int pack, int id) {
 			if (rendererListener != null) {
-				rendererListener.onPackItemClicked(id);
+				rendererListener.onPackItemClicked(pack, id);
 			}
 		}
 
@@ -50,8 +52,20 @@ public class MenuRenderer {
 				rendererListener.onLoadPack();
 			}
 		}
-		
-		
+
+		@Override
+		public void onBtnNextClicked(int curPack) {
+			if (rendererListener != null) {
+				rendererListener.onPackClicked(curPack);
+			}			
+		}
+
+		@Override
+		public void onBtnPrevCllicked(int curPack) {
+			if (rendererListener != null) {
+				rendererListener.onPackClicked(curPack);
+			}
+		}
 		
 	};
 	

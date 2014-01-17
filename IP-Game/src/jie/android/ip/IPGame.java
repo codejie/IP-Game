@@ -87,8 +87,8 @@ public class IPGame extends Game {
 		batch.setProjectionMatrix(camera.combined);
 	}
 
-	public void setPlayScreen(int scriptId) {
-		this.setScreen(new PlayScreen(this, scriptId));
+	public void setPlayScreen(int packId, int scriptId) {
+		this.setScreen(new PlayScreen(this, packId, scriptId));
 	}
 	
 }

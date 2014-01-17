@@ -22,8 +22,8 @@ public class MenuManager {
 		}
 
 		@Override
-		public void onPackItemClicked(int id) {
-			loadScriptScreen(id);
+		public void onPackItemClicked(int pack, int id) {
+			loadScriptScreen(pack, id);
 		}
 
 		@Override
@@ -98,8 +98,8 @@ public class MenuManager {
 		}		
 	}
 
-	protected void loadScriptScreen(int id) {
-		this.screen.getGame().setPlayScreen(id);
+	protected void loadScriptScreen(int packId, int scriptId) {
+		this.screen.getGame().setPlayScreen(packId, scriptId);
 	}
 
 	

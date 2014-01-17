@@ -13,13 +13,15 @@ import jie.android.ip.screen.play.PlayConfig.Image;
 
 public class PlayScreen extends BaseScreen {
 
+	private final int packId;
 	private final int scriptId;
 	
 	private PlayManager manager;
 	private PlayRenderer renderer;
 	
-	public PlayScreen(IPGame game, int scriptId) {
+	public PlayScreen(IPGame game, int packId, int scriptId) {
 		super(game);
+		this.packId = packId;
 		this.scriptId = scriptId;
 		
 		init();
@@ -69,26 +71,27 @@ public class PlayScreen extends BaseScreen {
 		});	;
 	}	
 	
-	private void out(final int id) {
+	private void out(final int packId, final int scriptId) {
 		final ToggleGroup toggle = new ToggleGroup(this);
 		toggle.out(new TweenCallback() {
 
 			@Override
 			public void onEvent(int type, BaseTween<?> source) {
 				PlayScreen.this.removeActor(toggle);
-				setScreen(id);
+				setScreen(packId, scriptId);
 			}
 			
 		});		
 	}
 	
-	protected void setScreen(final int id) {
-		this.getGame().setScreen(new PlayScreen(this.getGame(), id));
+	protected void setScreen(final int packId, final int scriptId) {
+		this.getGame().setScreen(new PlayScreen(this.getGame(), packId, scriptId));
 	}
 
 	public void setNextScreen() {
-		int id = 1;
-		out(id);
+		int pid = packId;
+		int sid = 1;
+		out(pid, sid);
 	}
 	
 }
