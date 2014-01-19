@@ -85,13 +85,11 @@ public class PlayScreen extends BaseScreen {
 	}
 	
 	protected void setScreen(final int packId, final int scriptId) {
-		this.getGame().setScreen(new PlayScreen(this.getGame(), packId, scriptId));
+		this.getGame().setNextPlayScreen(packId, scriptId);
 	}
 
 	public void setNextScreen() {
-		int pid = packId;
-		int sid = 1;
-		out(pid, sid);
+		out(packId, scriptId);
 	}
 	
 }

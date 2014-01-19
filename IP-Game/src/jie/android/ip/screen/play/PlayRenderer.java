@@ -182,7 +182,7 @@ public class PlayRenderer {
 	}
 	
 	private boolean onCmdNext(final Cmd.State state) {
-		this.screen.setNextScreen();
+		//this.screen.setNextScreen();
 		return true;
 	}	
 	

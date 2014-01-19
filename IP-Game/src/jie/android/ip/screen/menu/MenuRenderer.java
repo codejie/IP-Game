@@ -1,5 +1,11 @@
 package jie.android.ip.screen.menu;
 
+import jie.android.ip.CommonConsts.SoundConfig;
+import jie.android.ip.Sounder;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
+
 public class MenuRenderer {
 	
 	public interface PackGroupEventListener {
@@ -11,10 +17,12 @@ public class MenuRenderer {
 	}
 	
 	private final MenuScreen screen;
+	private final Sounder sounder;
+//	private final Sound soundClick;
+	
 	private MenuScreenListener.RendererEventListener rendererListener;
 	
 	private PackGroup groupPack;
-	
 	
 	
 	private final MenuScreenListener.ManagerEventListener managerListener = new MenuScreenListener.ManagerEventListener() {
@@ -34,6 +42,7 @@ public class MenuRenderer {
 
 		@Override
 		public void onPackClick(int id) {
+			playClick();
 			if (rendererListener != null) {
 				rendererListener.onPackClicked(id);
 			}
@@ -41,6 +50,7 @@ public class MenuRenderer {
 
 		@Override
 		public void onPackItemClick(int pack, int id) {
+			playClick();
 			if (rendererListener != null) {
 				rendererListener.onPackItemClicked(pack, id);
 			}
@@ -48,6 +58,7 @@ public class MenuRenderer {
 
 		@Override
 		public void onBtnBackClicked(int curPack) {
+			playClick();
 			if (rendererListener != null) {
 				rendererListener.onLoadPack();
 			}
@@ -55,6 +66,7 @@ public class MenuRenderer {
 
 		@Override
 		public void onBtnNextClicked(int curPack) {
+			playClick();
 			if (rendererListener != null) {
 				rendererListener.onPackClicked(curPack);
 			}			
@@ -62,6 +74,7 @@ public class MenuRenderer {
 
 		@Override
 		public void onBtnPrevCllicked(int curPack) {
+			playClick();
 			if (rendererListener != null) {
 				rendererListener.onPackClicked(curPack);
 			}
@@ -72,6 +85,7 @@ public class MenuRenderer {
 	
 	public MenuRenderer(final MenuScreen screen) {
 		this.screen = screen;
+		this.sounder = this.screen.getGame().getSounder();
 		
 		initBackgroup();
 		
@@ -93,4 +107,8 @@ public class MenuRenderer {
 	public final MenuScreenListener.ManagerEventListener getManagerEventListener() {
 		return managerListener;
 	}
+	
+	protected void playClick() {
+		sounder.play(SoundConfig.MENU_CLICK);
+	}	
 }

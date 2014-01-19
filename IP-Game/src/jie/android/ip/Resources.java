@@ -1,9 +1,11 @@
 package jie.android.ip;
 
-import jie.android.ip.CommonConsts.ScreenFontConfig;
+import jie.android.ip.CommonConsts.FontConfig;
 import jie.android.ip.CommonConsts.ScreenPackConfig;
+import jie.android.ip.CommonConsts.SoundConfig;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -16,7 +18,7 @@ public class Resources implements Disposable {
 	public Resources() {		
 		initAssetManager();		
 		//for Debug
-		loadAssetManager();
+		//loadAssetManager();
 	}
 
 	@Override
@@ -39,10 +41,13 @@ public class Resources implements Disposable {
 	public final void loadAssetManager() {
 		
 		assetManager.load(ScreenPackConfig.SCREEN_BOX, TextureAtlas.class);
-		assetManager.load(ScreenFontConfig.FONT_18, BitmapFont.class);
-		assetManager.load(ScreenFontConfig.FONT_20, BitmapFont.class);
-		assetManager.load(ScreenFontConfig.FONT_24, BitmapFont.class);
+		assetManager.load(FontConfig.FONT_18, BitmapFont.class);
+		assetManager.load(FontConfig.FONT_20, BitmapFont.class);
+		assetManager.load(FontConfig.FONT_24, BitmapFont.class);
 //		assetManager.load(ResourceConfig.CONSOLE_PACK_NAME, TextureAtlas.class);
+		
+		assetManager.load(SoundConfig.MENU_CLICK, Sound.class);
+		
 		assetManager.finishLoading();
 	}
 	
@@ -53,16 +58,20 @@ public class Resources implements Disposable {
 	public final BitmapFont getBitmapFont(int size) {
 		BitmapFont font = null;
 		if (size == 18) {
-			 font = assetManager.get(ScreenFontConfig.FONT_18, BitmapFont.class);
+			 font = assetManager.get(FontConfig.FONT_18, BitmapFont.class);
 		} else if (size == 20) {
-			font = assetManager.get(ScreenFontConfig.FONT_20, BitmapFont.class);
+			font = assetManager.get(FontConfig.FONT_20, BitmapFont.class);
 		} else {
-			font = assetManager.get(ScreenFontConfig.FONT_24, BitmapFont.class);
+			font = assetManager.get(FontConfig.FONT_24, BitmapFont.class);
 		}
 		
 		if (font != null) {
 			font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		}
 		return font;
+	}
+	
+	public final Sound getSuond(final String name) {
+		return assetManager.get(name, Sound.class);
 	}
 }

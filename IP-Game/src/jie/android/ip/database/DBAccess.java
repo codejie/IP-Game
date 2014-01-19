@@ -189,6 +189,28 @@ public class DBAccess {
 		val.add(String.valueOf(id));
 		return querySQL(sql, val);
 	}
+
+	public int getNextScriptId(int packId, int scriptId) {
+		final String sql = "SELECT id FROM script WHERE pack_id=? and id>? ORDER BY id LIMIT 1";
+		final ArrayList<String> val = new ArrayList<String>();
+		val.add(String.valueOf(packId));
+		val.add(String.valueOf(scriptId));
+		final ResultSet rs = querySQL(sql, val);
+		try {
+			try {
+				if (rs.next()) {
+					return rs.getInt(1);
+				}
+			} finally {
+				rs.close();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// TODO Auto-generated method stub
+		return -1;
+	}
 	
 	
 }

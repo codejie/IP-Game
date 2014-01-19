@@ -4,6 +4,7 @@ import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.database.DBAccess;
 import jie.android.ip.screen.menu.MenuScreen;
 import jie.android.ip.screen.play.PlayScreen;
+import jie.android.ip.screen.start.StartScreen;
 import jie.android.ip.setup.Setup;
 
 import com.badlogic.gdx.Game;
@@ -19,6 +20,7 @@ public class IPGame extends Game {
 	
 	private Resources resources;
 	private DBAccess dbAccess;
+	private Sounder sounder;
 	
 	public IPGame(final Setup setup) {
 		this.setup = setup;
@@ -30,6 +32,7 @@ public class IPGame extends Game {
 	public void create() {
 		initDBAccess();
 		initResources();
+		initSounder();
 		
 		initCamera();
 		initSpriteBatch();
@@ -39,15 +42,20 @@ public class IPGame extends Game {
 		//this.setScreen(new DDTestScreen(this));
 		//this.setScreen(new BoxScreen(this));
 		//this.setScreen(new PlayScreen(this, 2));
-		this.setScreen(new MenuScreen(this));
+		//this.setScreen(new MenuScreen(this));
+		
+		setStartScreen();
 	}
 
 	@Override
 	public void dispose() {
 		super.dispose();
 		
-		resources.dispose();
+		
+		sounder.dispose();
+		resources.dispose();		
 		batch.dispose();
+		
 		dbAccess.close();
 	}
 
@@ -87,8 +95,29 @@ public class IPGame extends Game {
 		batch.setProjectionMatrix(camera.combined);
 	}
 
+	private void initSounder() {
+		sounder = new Sounder(resources);
+	}
+	
+	public final Sounder getSounder() {
+		return sounder;
+	}
+	
+	private void setStartScreen() {
+		this.setScreen(new StartScreen(this));		
+	}
+	
 	public void setPlayScreen(int packId, int scriptId) {
 		this.setScreen(new PlayScreen(this, packId, scriptId));
+	}
+
+	public void setNextPlayScreen(int packId, int scriptId) {
+		int id = dbAccess.getNextScriptId(packId, scriptId);
+		if (id != -1) {
+			setPlayScreen(packId, id);
+		} else {
+			setStartScreen();
+		}
 	}
 	
 }

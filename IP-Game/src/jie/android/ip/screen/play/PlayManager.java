@@ -55,6 +55,8 @@ public class PlayManager implements Disposable {
 				onCmdRun(state);
 			} else if (type == Cmd.Type.CLEAR) {
 				onCmdClear(state);
+			} else if (type == Cmd.Type.NEXT) {
+				onCmdNext(state);
 			}
 			
 		}
@@ -220,13 +222,17 @@ public class PlayManager implements Disposable {
 		}
 	}
 
-	protected void onCmdClear(State state) {
+	protected void onCmdClear(final Cmd.State state) {
 		box.reload(script);
 		executor.reset();
 		
 		codeLines.reset();
 	}	
 
+	protected void onCmdNext(final Cmd.State state) {
+		screen.setNextScreen();
+	}
+	
 	protected void onExecuteSucc() {
 		// TODO Auto-generated method stub
 		if (managerListener != null) {
@@ -251,4 +257,5 @@ public class PlayManager implements Disposable {
 		}
 		
 	}
+	
 }
