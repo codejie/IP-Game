@@ -9,7 +9,7 @@ import aurelienribon.tweenengine.TweenManager;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 import jie.android.ip.CommonConsts.ScreenConfig;
-import jie.android.ip.CommonConsts.ScreenPackConfig;
+import jie.android.ip.CommonConsts.PackConfig;
 import jie.android.ip.common.actor.BaseGroup;
 import jie.android.ip.common.actor.ImageActor;
 import jie.android.ip.common.actor.ImageActorAccessor;
@@ -35,7 +35,7 @@ public class ResultGroup extends BaseGroup {
 	
 	public ResultGroup(final PlayScreen screen, final PlayScreenListener.RendererInternalEventListener internalListener) {
 		this.screen = screen;
-		this.textureAtlas = screen.getGame().getResources().getTextureAtlas(ScreenPackConfig.SCREEN_BOX);
+		this.textureAtlas = screen.getGame().getResources().getTextureAtlas(PackConfig.SCREEN_PLAY);
 		this.tweenManager = this.screen.getTweenManager();
 		this.internalListener = internalListener;
 

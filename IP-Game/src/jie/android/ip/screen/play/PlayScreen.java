@@ -5,7 +5,7 @@ import aurelienribon.tweenengine.TweenCallback;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-import jie.android.ip.CommonConsts.ScreenPackConfig;
+import jie.android.ip.CommonConsts.PackConfig;
 import jie.android.ip.IPGame;
 import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.screen.BaseScreen;
@@ -51,7 +51,7 @@ public class PlayScreen extends BaseScreen {
 	}
 	
 	private void initBackgroup() {
-		Sprite bg = game.getResources().getTextureAtlas(ScreenPackConfig.SCREEN_BOX).createSprite(Image.BACKGROUND);
+		Sprite bg = game.getResources().getTextureAtlas(PackConfig.SCREEN_PLAY).createSprite(Image.BACKGROUND);
 		bg.setBounds(0, 0, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);		
 		this.addSprite(bg);		
 	}

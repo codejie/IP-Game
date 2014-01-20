@@ -2,6 +2,7 @@ package jie.android.ip.screen.menu;
 
 import jie.android.ip.CommonConsts.SoundConfig;
 import jie.android.ip.Sounder;
+import jie.android.ip.common.dialog.BaseDialog;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;

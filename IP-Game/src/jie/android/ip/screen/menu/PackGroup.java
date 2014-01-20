@@ -19,7 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import jie.android.ip.CommonConsts.ScreenConfig;
-import jie.android.ip.CommonConsts.ScreenPackConfig;
+import jie.android.ip.CommonConsts.PackConfig;
 import jie.android.ip.common.actor.BaseGroup;
 import jie.android.ip.common.actor.BaseGroupAccessor;
 import jie.android.ip.common.actor.ButtonActor;
@@ -203,7 +203,7 @@ public class PackGroup extends BaseGroup {
 	
 	public PackGroup(final MenuScreen screen, final PackGroupEventListener listener) {
 		this.screen = screen;
-		this.textureAtlas = screen.getGame().getResources().getTextureAtlas(ScreenPackConfig.SCREEN_MENU);
+		this.textureAtlas = screen.getGame().getResources().getTextureAtlas(PackConfig.SCREEN_MENU);
 		this.skin = new Skin(this.textureAtlas);
 		this.bitmapFont = screen.getGame().getResources().getBitmapFont(24);
 		this.tweenManager = screen.getTweenManager();

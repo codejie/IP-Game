@@ -13,7 +13,7 @@ import aurelienribon.tweenengine.equations.Quint;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import jie.android.ip.Resources;
 import jie.android.ip.CommonConsts.ScreenConfig;
-import jie.android.ip.CommonConsts.ScreenPackConfig;
+import jie.android.ip.CommonConsts.PackConfig;
 import jie.android.ip.common.actor.BaseGroup;
 import jie.android.ip.common.actor.BaseGroupAccessor;
 import jie.android.ip.common.actor.ImageActor;
@@ -33,7 +33,7 @@ public class BoxGroup {
 		
 		public BlockGroup(final Resources resources) {
 			this.resources = resources;			
-			this.textureAtlas = resources.getTextureAtlas(ScreenPackConfig.SCREEN_BOX);
+			this.textureAtlas = resources.getTextureAtlas(PackConfig.SCREEN_PLAY);
 			
 			initStage();
 		}

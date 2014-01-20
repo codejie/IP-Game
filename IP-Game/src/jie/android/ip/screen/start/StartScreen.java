@@ -9,7 +9,7 @@ import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.equations.Bounce;
 import aurelienribon.tweenengine.equations.Expo;
 import jie.android.ip.CommonConsts.ScreenConfig;
-import jie.android.ip.CommonConsts.ScreenPackConfig;
+import jie.android.ip.CommonConsts.PackConfig;
 import jie.android.ip.IPGame;
 import jie.android.ip.common.actor.ImageActor;
 import jie.android.ip.common.actor.ImageActorAccessor;
@@ -51,7 +51,7 @@ public class StartScreen extends BaseScreen {
 	public StartScreen(IPGame game) {
 		super(game);
 		
-		textureAtlas = game.getResources().getTextureAtlas(ScreenPackConfig.SCREEN_START);
+		textureAtlas = game.getResources().getTextureAtlas(PackConfig.SCREEN_START);
 
 		initActors();
 

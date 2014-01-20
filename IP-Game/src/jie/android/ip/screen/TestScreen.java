@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
-import jie.android.ip.CommonConsts.ScreenPackConfig;
+import jie.android.ip.CommonConsts.PackConfig;
 import jie.android.ip.IPGame;
 import jie.android.ip.screen.BaseScreen;
 
@@ -16,7 +16,7 @@ public class TestScreen extends BaseScreen {
 	public TestScreen(IPGame game) {
 		super(game);
 	
-		atlas = game.getResources().getTextureAtlas(ScreenPackConfig.SCREEN_BOX);
+		atlas = game.getResources().getTextureAtlas(PackConfig.SCREEN_PLAY);
 		skin = new Skin();
 		skin.addRegions(atlas);
 		

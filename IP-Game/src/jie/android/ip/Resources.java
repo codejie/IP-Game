@@ -1,7 +1,7 @@
 package jie.android.ip;
 
 import jie.android.ip.CommonConsts.FontConfig;
-import jie.android.ip.CommonConsts.ScreenPackConfig;
+import jie.android.ip.CommonConsts.PackConfig;
 import jie.android.ip.CommonConsts.SoundConfig;
 
 import com.badlogic.gdx.assets.AssetManager;
@@ -30,7 +30,7 @@ public class Resources implements Disposable {
 
 	private void initAssetManager() {
 		assetManager = new AssetManager();
-		assetManager.load(ScreenPackConfig.SCREEN_START, TextureAtlas.class);
+		assetManager.load(PackConfig.SCREEN_START, TextureAtlas.class);
 		assetManager.finishLoading();
 	}
 	
@@ -40,7 +40,7 @@ public class Resources implements Disposable {
 	
 	public final void loadAssetManager() {
 		
-		assetManager.load(ScreenPackConfig.SCREEN_BOX, TextureAtlas.class);
+		assetManager.load(PackConfig.SCREEN_PLAY, TextureAtlas.class);
 		assetManager.load(FontConfig.FONT_18, BitmapFont.class);
 		assetManager.load(FontConfig.FONT_20, BitmapFont.class);
 		assetManager.load(FontConfig.FONT_24, BitmapFont.class);

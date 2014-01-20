@@ -11,10 +11,11 @@ public interface CommonConsts {
 		public static final int HEIGHT = 768;
 	}	
 	
-	public interface ScreenPackConfig {
+	public interface PackConfig {
 		public static final String SCREEN_START = "data/screen_start.pack";
-		public static final String SCREEN_BOX = "data/screen_box.pack";
+		public static final String SCREEN_PLAY = "data/screen_box.pack";
 		public static final String SCREEN_MENU = "data/screen_box.pack";//"data/screen_menu.pack";		
+		public static final String DIALOG = "data/screen_box.pack";//"data/dialog.pack";
 	}
 	
 	public interface FontConfig {

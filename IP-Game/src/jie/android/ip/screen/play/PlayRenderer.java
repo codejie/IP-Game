@@ -1,5 +1,8 @@
 package jie.android.ip.screen.play;
 
+import jie.android.ip.common.dialog.BaseDialog;
+import jie.android.ip.screen.play.Cmd.State;
+
 
 public class PlayRenderer {
 	
@@ -102,6 +105,10 @@ public class PlayRenderer {
 				if (!onCmdNext(state)) {
 					return;
 				}
+			} else if (type == Cmd.Type.CLEAR) {
+				if(!onCmdClear(state)) {
+					return;
+				}
 			}
 			
 			if (rendererListener != null) {
@@ -185,5 +192,29 @@ public class PlayRenderer {
 		//this.screen.setNextScreen();
 		return true;
 	}	
-	
+
+
+	protected boolean onCmdClear(final Cmd.State state) {
+		final BaseDialog dlg = new BaseDialog(screen);
+		dlg.setPositiveButton(new BaseDialog.ButtonClickListener() {
+			
+			@Override
+			public void onClick(int id) {
+				if (rendererListener != null) {
+					rendererListener.onCmdButtonClicked(Cmd.Type.CLEAR, state);
+				}
+				dlg.dismiss();
+			}
+		});
+		dlg.setNegativeButton(new BaseDialog.ButtonClickListener() {
+			
+			@Override
+			public void onClick(int id) {
+				dlg.dismiss();				
+			}
+		});
+		dlg.show();
+		
+		return false;
+	}
 }

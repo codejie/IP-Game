@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import jie.android.ip.Resources;
 import jie.android.ip.CommonConsts.ScreenConfig;
-import jie.android.ip.CommonConsts.ScreenPackConfig;
+import jie.android.ip.CommonConsts.PackConfig;
 import jie.android.ip.common.actor.BaseGroup;
 import jie.android.ip.common.actor.BaseGroupAccessor;
 import jie.android.ip.common.actor.ImageActor;
@@ -115,7 +115,7 @@ public class CodeLineGroup extends BaseGroup {
 		
 		public LineGroup(int index, final Resources resources, final Code.OnButtonListener listener) {
 			this.index = index;
-			this.textureAtlas = resources.getTextureAtlas(ScreenPackConfig.SCREEN_BOX);
+			this.textureAtlas = resources.getTextureAtlas(PackConfig.SCREEN_PLAY);
 			this.onClickListener = listener;
 			
 			init();
@@ -433,7 +433,7 @@ public class CodeLineGroup extends BaseGroup {
 		private PanelState state = PanelState.HIDE;
 		
 		public PanelGroup(final Resources resources, final Code.OnButtonListener listener) {
-			this.textureAtlas = resources.getTextureAtlas(ScreenPackConfig.SCREEN_BOX);
+			this.textureAtlas = resources.getTextureAtlas(PackConfig.SCREEN_PLAY);
 			this.onClickListener = listener;
 			
 			initStage();

@@ -6,7 +6,7 @@ import aurelienribon.tweenengine.Timeline;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenManager;
-import jie.android.ip.CommonConsts.ScreenPackConfig;
+import jie.android.ip.CommonConsts.PackConfig;
 import jie.android.ip.common.actor.BaseGroup;
 import jie.android.ip.common.actor.ImageActor;
 import jie.android.ip.common.actor.ImageActorAccessor;
@@ -25,7 +25,7 @@ public class ToggleGroup extends BaseGroup {
 	
 	public ToggleGroup(final PlayScreen screen) {
 		this.screen = screen;
-		this.textureAtlas = this.screen.getGame().getResources().getTextureAtlas(ScreenPackConfig.SCREEN_BOX);
+		this.textureAtlas = this.screen.getGame().getResources().getTextureAtlas(PackConfig.SCREEN_PLAY);
 		this.tweenManager = this.screen.getTweenManager();
 //		this.internalListener = internalListener;
 		

@@ -1,6 +1,7 @@
 package jie.android.ip.screen;
 
 import jie.android.ip.IPGame;
+import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.common.actor.BaseGroup;
 import jie.android.ip.common.actor.BaseGroupAccessor;
 import jie.android.ip.common.actor.ImageActor;
