@@ -23,7 +23,8 @@ public interface MenuConfig {
 		
 		public interface Item {
 			public static final String Item_Bg = "background";
-			public static final String FRAME = "box_frame";
+			public static final String FRAME_TOP = "box_frame_top";
+			public static final String FRAME_BOTTOM = "box_frame_bottom";
 			public static final String TRAY = "tray";
 			public static final String BOX_0 = "box_a";
 		}		
@@ -75,12 +76,19 @@ public interface MenuConfig {
 			public static final int WIDTH = (ScreenConfig.WIDTH - SPACE_X * 2 - BASE_X * 2) / 3;
 			public static final int HEIGHT = 232;
 			
-			public static final int FRAME_HEIGHT = 2;
-			public static final int FRAME_WIDTH = WIDTH - 16;
-			public static final int FRAME_TOP_X = 8;
-			public static final int FRAME_TOP_Y = HEIGHT - 16;
-			public static final int FRAME_BOTTOM_X = 8;
-			public static final int FRAME_BOTTOM_Y = 16;
+//			public static final int FRAME_HEIGHT = 2;
+//			public static final int FRAME_WIDTH = WIDTH - 16;
+//			public static final int FRAME_TOP_X = 8;
+//			public static final int FRAME_TOP_Y = HEIGHT - 16;
+//			public static final int FRAME_BOTTOM_X = 8;
+//			public static final int FRAME_BOTTOM_Y = 16;
+			
+			public static final int FRAME_X = 16;
+			public static final int FRAME_Y_TOP = ScreenConfig.HEIGHT - 16;
+			public static final int FRAME_Y_BOTTOM = 4;
+			public static final int FRAME_WIDTH = ScreenConfig.WIDTH - FRAME_X * 2;
+			public static final int FRAME_HEIGHT_TOP = 16;
+			public static final int FRAME_HEIGHT_BOTTOM = 64;			
 
 			public static final int BLOCK_WIDTH = 24;
 			public static final int BLOCK_HEIGHT = 24;			

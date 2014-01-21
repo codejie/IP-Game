@@ -10,7 +10,8 @@ public interface PlayConfig {
 		public static final String BACKGROUND = "background";
 		
 		public interface Box {
-			public static final String FRAME = "box_frame";
+			public static final String FRAME_TOP = "box_frame_top";
+			public static final String FRAME_BOTTOM = "box_frame_bottom";
 			
 			public static final String BOX_0 = "box_a";
 			public static final String BOX_1 = "box_b";
@@ -132,6 +133,14 @@ public interface PlayConfig {
 		public interface Box {
 			public static final int MAX_ROW = 6;
 			public static final int MAX_COL = 9;
+			
+			public static final int FRAME_X = 16;
+			public static final int FRAME_Y_TOP = ScreenConfig.HEIGHT - 16;
+			public static final int FRAME_Y_BOTTOM = 4;
+			public static final int FRAME_WIDTH = ScreenConfig.WIDTH - FRAME_X * 2;
+			public static final int FRAME_HEIGHT_TOP = 16;
+			public static final int FRAME_HEIGHT_BOTTOM = 64;
+			
 			
 			public static final int BLOCK_WIDTH = 96;
 			public static final int BLOCK_HEIGHT = 96;

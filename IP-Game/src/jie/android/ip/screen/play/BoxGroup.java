@@ -40,12 +40,16 @@ public class BoxGroup {
 		
 		@Override
 		protected void initStage() {
-			ImageActor top = new ImageActor(textureAtlas.findRegion(Image.Box.FRAME));
-			top.setBounds(4, ScreenConfig.HEIGHT - 16, ScreenConfig.WIDTH - 4, 16);
+			//this.setBounds(0, 0, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);
+			
+			ImageActor top = new ImageActor(textureAtlas.findRegion(Image.Box.FRAME_TOP));
+			//top.setBounds(4, ScreenConfig.HEIGHT - 16, ScreenConfig.WIDTH - 4, 16);
+			top.setBounds(Const.Box.FRAME_X, Const.Box.FRAME_Y_TOP, Const.Box.FRAME_WIDTH, Const.Box.FRAME_HEIGHT_TOP);
 			this.addActor(top);
 			
-			ImageActor bottom = new ImageActor(textureAtlas.findRegion(Image.Box.FRAME));
-			bottom.setBounds(4, 0, ScreenConfig.WIDTH - 4, 16);
+			ImageActor bottom = new ImageActor(textureAtlas.findRegion(Image.Box.FRAME_BOTTOM));
+			//bottom.setBounds(4, 0, ScreenConfig.WIDTH - 4, 16);
+			bottom.setBounds(Const.Box.FRAME_X, Const.Box.FRAME_Y_BOTTOM, Const.Box.FRAME_WIDTH, Const.Box.FRAME_HEIGHT_BOTTOM);
 			this.addActor(bottom);			
 		}
 		

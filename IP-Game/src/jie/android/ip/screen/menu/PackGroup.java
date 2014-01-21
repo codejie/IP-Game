@@ -88,13 +88,23 @@ public class PackGroup extends BaseGroup {
 			bg.setBounds(0, 0, Const.Item.WIDTH, Const.Item.HEIGHT);
 			this.addActor(bg);
 
-			final ImageActor top = new ImageActor(textureAtlas.findRegion(Image.Item.FRAME));
-			top.setBounds(Const.Item.FRAME_TOP_X, Const.Item.FRAME_TOP_Y, Const.Item.FRAME_WIDTH, Const.Item.FRAME_HEIGHT);
+//			final ImageActor top = new ImageActor(textureAtlas.findRegion(Image.Item.FRAME));
+//			top.setBounds(Const.Item.FRAME_TOP_X, Const.Item.FRAME_TOP_Y, Const.Item.FRAME_WIDTH, Const.Item.FRAME_HEIGHT);
+//			this.addActor(top);
+//
+//			final ImageActor bottom = new ImageActor(textureAtlas.findRegion(Image.Item.FRAME));
+//			bottom.setBounds(Const.Item.FRAME_BOTTOM_X, Const.Item.FRAME_BOTTOM_Y, Const.Item.FRAME_WIDTH, Const.Item.FRAME_HEIGHT);
+//			this.addActor(bottom);
+			
+			ImageActor top = new ImageActor(textureAtlas.findRegion(Image.Item.FRAME_TOP));
+			//top.setBounds(4, ScreenConfig.HEIGHT - 16, ScreenConfig.WIDTH - 4, 16);
+			top.setBounds(Const.Item.FRAME_X, Const.Item.FRAME_Y_TOP, Const.Item.FRAME_WIDTH, Const.Item.FRAME_HEIGHT_TOP);
 			this.addActor(top);
-
-			final ImageActor bottom = new ImageActor(textureAtlas.findRegion(Image.Item.FRAME));
-			bottom.setBounds(Const.Item.FRAME_BOTTOM_X, Const.Item.FRAME_BOTTOM_Y, Const.Item.FRAME_WIDTH, Const.Item.FRAME_HEIGHT);
-			this.addActor(bottom);
+			
+			ImageActor bottom = new ImageActor(textureAtlas.findRegion(Image.Item.FRAME_BOTTOM));
+			//bottom.setBounds(4, 0, ScreenConfig.WIDTH - 4, 16);
+			bottom.setBounds(Const.Item.FRAME_X, Const.Item.FRAME_Y_BOTTOM, Const.Item.FRAME_WIDTH, Const.Item.FRAME_HEIGHT_BOTTOM);
+			this.addActor(bottom);					
 			
 			final Script st = new Script(id); 
 			if (!st.loadString(script)) {
