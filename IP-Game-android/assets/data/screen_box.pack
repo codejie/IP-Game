@@ -5,406 +5,427 @@ filter: Nearest,Nearest
 repeat: none
 background
   rotate: false
-  xy: 1, 267
+  xy: 1, 273
   size: 1000, 750
   orig: 1000, 750
   offset: 0, 0
   index: -1
 lines_big_bg
   rotate: false
-  xy: 1, 121
+  xy: 1, 127
   size: 1168, 144
   orig: 1168, 144
   offset: 0, 0
   index: -1
 lines_small_bg
   rotate: false
-  xy: 1, 39
+  xy: 1, 45
   size: 684, 80
   orig: 684, 80
   offset: 0, 0
   index: -1
 panel_order_bg
   rotate: false
-  xy: 1003, 929
+  xy: 1003, 935
   size: 648, 88
   orig: 648, 88
   offset: 0, 0
   index: -1
 panel_judge_bg
   rotate: false
-  xy: 1003, 839
+  xy: 1003, 845
   size: 568, 88
   orig: 568, 88
   offset: 0, 0
   index: -1
+tray
+  rotate: false
+  xy: 1, 1
+  size: 144, 42
+  orig: 144, 42
+  offset: 0, 0
+  index: -1
 cmd_run
   rotate: false
-  xy: 1003, 693
+  xy: 1003, 699
   size: 144, 144
   orig: 144, 144
   offset: 0, 0
   index: -1
 cmd_bg
   rotate: false
-  xy: 1003, 563
+  xy: 1003, 569
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 result_bg
   rotate: false
-  xy: 1149, 709
-  size: 128, 128
-  orig: 128, 128
-  offset: 0, 0
-  index: -1
-tray
-  rotate: false
-  xy: 1003, 433
+  xy: 1149, 715
   size: 128, 128
   orig: 128, 128
   offset: 0, 0
   index: -1
 lines_big_title
   rotate: false
-  xy: 1003, 287
+  xy: 1003, 423
   size: 72, 144
   orig: 72, 144
   offset: 0, 0
   index: -1
 lines_big_code_act
   rotate: false
-  xy: 687, 39
+  xy: 687, 45
   size: 128, 80
   orig: 128, 80
   offset: 0, 0
   index: -1
 lines_big_code_call_a
   rotate: false
-  xy: 1653, 937
+  xy: 1653, 943
   size: 128, 80
   orig: 128, 80
   offset: 0, 0
   index: -1
 lines_big_code_call_b
   rotate: false
-  xy: 1279, 757
+  xy: 1279, 763
   size: 128, 80
   orig: 128, 80
   offset: 0, 0
   index: -1
 lines_big_code_call_c
   rotate: false
-  xy: 817, 39
+  xy: 817, 45
   size: 128, 80
   orig: 128, 80
   offset: 0, 0
   index: -1
 lines_big_code_call_d
   rotate: false
-  xy: 1783, 937
+  xy: 1783, 943
   size: 128, 80
   orig: 128, 80
   offset: 0, 0
   index: -1
 lines_big_code_left
   rotate: false
-  xy: 1409, 757
+  xy: 1409, 763
   size: 128, 80
   orig: 128, 80
   offset: 0, 0
   index: -1
 lines_big_code_null
   rotate: false
-  xy: 947, 39
+  xy: 947, 45
   size: 128, 80
   orig: 128, 80
   offset: 0, 0
   index: -1
 lines_big_code_right
   rotate: false
-  xy: 1913, 937
+  xy: 1913, 943
   size: 128, 80
   orig: 128, 80
   offset: 0, 0
   index: -1
 lines_big_code_if_a
   rotate: false
-  xy: 1279, 707
+  xy: 1279, 713
   size: 128, 48
   orig: 128, 48
   offset: 0, 0
   index: -1
 lines_big_code_if_any
   rotate: false
-  xy: 1409, 707
+  xy: 1409, 713
   size: 128, 48
   orig: 128, 48
   offset: 0, 0
   index: -1
-lines_small_title
+box_a
   rotate: false
-  xy: 1573, 847
-  size: 72, 80
-  orig: 72, 80
+  xy: 1077, 29
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+box_b
+  rotate: false
+  xy: 1003, 325
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+box_c
+  rotate: false
+  xy: 1573, 837
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1
+box_d
+  rotate: false
+  xy: 1671, 845
+  size: 96, 96
+  orig: 96, 96
   offset: 0, 0
   index: -1
 lines_big_code_if_b
   rotate: false
-  xy: 1149, 659
+  xy: 1769, 893
   size: 128, 48
   orig: 128, 48
   offset: 0, 0
   index: -1
 lines_big_code_if_c
   rotate: false
-  xy: 1279, 657
+  xy: 1899, 893
   size: 128, 48
   orig: 128, 48
   offset: 0, 0
   index: -1
 lines_big_code_if_d
   rotate: false
-  xy: 1409, 657
+  xy: 1769, 843
   size: 128, 48
   orig: 128, 48
   offset: 0, 0
   index: -1
 lines_big_code_if_none
   rotate: false
-  xy: 1133, 609
+  xy: 1899, 843
   size: 128, 48
   orig: 128, 48
   offset: 0, 0
   index: -1
 lines_big_code_if_null
   rotate: false
-  xy: 1133, 559
+  xy: 1149, 665
   size: 128, 48
   orig: 128, 48
   offset: 0, 0
   index: -1
+lines_small_title
+  rotate: false
+  xy: 1133, 583
+  size: 72, 80
+  orig: 72, 80
+  offset: 0, 0
+  index: -1
 lines_small_code_act
   rotate: false
-  xy: 1077, 47
+  xy: 1207, 591
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 lines_small_code_call_a
   rotate: false
-  xy: 1133, 485
+  xy: 1077, 495
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 lines_small_code_call_b
   rotate: false
-  xy: 1263, 583
+  xy: 1151, 509
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 lines_small_code_call_c
   rotate: false
-  xy: 1337, 583
+  xy: 1225, 517
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 lines_small_code_call_d
   rotate: false
-  xy: 1411, 583
+  xy: 1539, 763
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 lines_small_code_if_none
   rotate: false
-  xy: 1077, 359
+  xy: 1613, 763
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 lines_small_code_left
   rotate: false
-  xy: 1077, 285
+  xy: 1687, 771
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 lines_small_code_null
   rotate: false
-  xy: 1207, 485
+  xy: 1761, 769
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 lines_small_code_right
   rotate: false
-  xy: 1485, 583
+  xy: 1835, 769
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 panel_code_act
   rotate: false
-  xy: 1281, 509
+  xy: 1909, 769
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 panel_code_call_a
   rotate: false
-  xy: 1355, 509
+  xy: 1539, 689
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 panel_code_call_b
   rotate: false
-  xy: 1429, 509
+  xy: 1613, 689
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 panel_code_call_c
   rotate: false
-  xy: 1503, 509
+  xy: 1687, 697
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 panel_code_call_d
   rotate: false
-  xy: 1539, 765
+  xy: 1761, 695
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 panel_code_if_a
   rotate: false
-  xy: 1539, 691
+  xy: 1835, 695
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 panel_code_if_any
   rotate: false
-  xy: 1613, 773
+  xy: 1909, 695
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 panel_code_if_b
   rotate: false
-  xy: 1613, 699
+  xy: 1281, 639
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 panel_code_if_c
   rotate: false
-  xy: 1281, 435
+  xy: 1355, 639
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 panel_code_if_d
   rotate: false
-  xy: 1355, 435
+  xy: 1429, 639
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 panel_code_if_none
   rotate: false
-  xy: 1429, 435
+  xy: 1299, 565
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 panel_code_if_null
   rotate: false
-  xy: 1503, 435
+  xy: 1373, 565
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 panel_code_left
   rotate: false
-  xy: 1151, 411
+  xy: 1447, 565
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 panel_code_none
   rotate: false
-  xy: 1151, 337
+  xy: 1299, 491
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
-box_a
-  rotate: false
-  xy: 1151, 271
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
 panel_code_right
   rotate: false
-  xy: 1171, 197
+  xy: 1373, 491
   size: 72, 72
   orig: 72, 72
   offset: 0, 0
   index: -1
 lines_small_code_if_a
   rotate: false
-  xy: 1, 1
+  xy: 147, 7
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 lines_small_code_if_any
   rotate: false
-  xy: 1225, 447
+  xy: 1003, 287
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 lines_small_code_if_b
   rotate: false
-  xy: 1171, 159
+  xy: 1983, 805
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 lines_small_code_if_c
   rotate: false
-  xy: 39, 1
+  xy: 1077, 457
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 lines_small_code_if_d
   rotate: false
-  xy: 1225, 409
+  xy: 1447, 527
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 lines_small_code_if_null
   rotate: false
-  xy: 1171, 121
+  xy: 185, 7
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 box_frame
   rotate: false
-  xy: 1263, 565
+  xy: 1281, 621
   size: 16, 16
   orig: 16, 16
   offset: 0, 0

@@ -61,8 +61,7 @@ public class BaseDialog extends BaseGroup {
 	}
 	
 	public void show() {
-		Tween.to(this, BaseGroupAccessor.SCALE_XY, duration)
-		
+//		Tween.to(this, BaseGroupAccessor.SCALE_XY, duration)		
 		this.screen.addActor(this);
 	}
 

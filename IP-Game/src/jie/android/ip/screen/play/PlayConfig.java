@@ -136,7 +136,7 @@ public interface PlayConfig {
 			public static final int BLOCK_WIDTH = 96;
 			public static final int BLOCK_HEIGHT = 96;
 			public static final int TRAY_WIDTH = 144;
-			public static final int TRAY_HEIGHT = 48;
+			public static final int TRAY_HEIGHT = 42;
 			
 			public static final int COL_BASE = 72;
 			public static final int COL_SPACE = 48;
