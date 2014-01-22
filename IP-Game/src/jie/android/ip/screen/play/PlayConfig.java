@@ -45,9 +45,9 @@ public interface PlayConfig {
 			public interface Small {
 				public static final String BG = "lines_small_bg";
 				public static final String TITLE_0 = "lines_small_title_a";
-				public static final String TITLE_1 = "lines_small_title";//"lines_big_title_b";
-				public static final String TITLE_2 = "lines_small_title";//"lines_big_title_c";
-				public static final String TITLE_3 = "lines_small_title";//"lines_big_title_d";
+				public static final String TITLE_1 = "lines_small_title_b";
+				public static final String TITLE_2 = "lines_small_title_c";
+				public static final String TITLE_3 = "lines_small_title_d";
 				
 				public static final String CODE_NULL = "lines_small_code_null";
 				public static final String CODE_RIGHT = "lines_small_code_right";
@@ -198,17 +198,17 @@ public interface PlayConfig {
 			public static final int SPACE_LILNES = 8;			
 			
 			public interface Small {
-				public static final int WIDTH_BG = 688;
+				public static final int WIDTH_BG = 674;
 				public static final int HEIGHT_BG = 80;// same as the height of small group
 				
 				public static final int WIDTH_TITLE = 72;
 				public static final int HEIGHT_TITLE = 80;
 				
-				public static final int SPACE_X = 4;
-				public static final int SPACE_Y = 4;
+				public static final int SPACE_X = 6;
+				public static final int SPACE_Y = 8;
 				
-				public static final int WIDTH_BUTTON_ORDER = 72;
-				public static final int HEIGHT_BUTTON_ORDER = 72;				
+				public static final int WIDTH_BUTTON_ORDER = 68;
+				public static final int HEIGHT_BUTTON_ORDER = 68;				
 				public static final int WIDTH_BUTTON_JUDGE = 36;
 				public static final int HEIGHT_BUTTON_JUDGE = 36;
 			}
