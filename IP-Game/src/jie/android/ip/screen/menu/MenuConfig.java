@@ -83,12 +83,12 @@ public interface MenuConfig {
 //			public static final int FRAME_BOTTOM_X = 8;
 //			public static final int FRAME_BOTTOM_Y = 16;
 			
-			public static final int FRAME_X = 16;
-			public static final int FRAME_Y_TOP = ScreenConfig.HEIGHT - 16;
-			public static final int FRAME_Y_BOTTOM = 4;
-			public static final int FRAME_WIDTH = ScreenConfig.WIDTH - FRAME_X * 2;
-			public static final int FRAME_HEIGHT_TOP = 16;
-			public static final int FRAME_HEIGHT_BOTTOM = 64;			
+			public static final int FRAME_X = 8;
+			public static final int FRAME_Y_TOP = HEIGHT - 16;
+			public static final int FRAME_Y_BOTTOM = 16;
+			public static final int FRAME_WIDTH = WIDTH - FRAME_X * 2;
+			public static final int FRAME_HEIGHT_TOP = 2;
+			public static final int FRAME_HEIGHT_BOTTOM = 16;			
 
 			public static final int BLOCK_WIDTH = 24;
 			public static final int BLOCK_HEIGHT = 24;			

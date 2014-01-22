@@ -44,7 +44,7 @@ public interface PlayConfig {
 		public interface Lines {
 			public interface Small {
 				public static final String BG = "lines_small_bg";
-				public static final String TITLE_0 = "lines_small_title";//"lines_small_title_a";
+				public static final String TITLE_0 = "lines_small_title_a";
 				public static final String TITLE_1 = "lines_small_title";//"lines_big_title_b";
 				public static final String TITLE_2 = "lines_small_title";//"lines_big_title_c";
 				public static final String TITLE_3 = "lines_small_title";//"lines_big_title_d";
