@@ -39,6 +39,21 @@ public interface PlayConfig {
 
 			public static final String NEXT_UP = "lines_big_code_right";//"cmd_next_up";
 			public static final String NEXT_DOWN = "lines_big_code_left";//"cmd_next_down";
+
+			public static final String INFO_UP = "lines_big_code_right";//"cmd_info_up";
+			public static final String INFO_DOWN = "lines_big_code_left";//"cmd_info_down";
+
+			public static final String SETTING_UP = "lines_big_code_right";//"cmd_setting_up";
+			public static final String SETTING_DOWN = "lines_big_code_left";//"cmd_setting_down";
+
+			public static final String CLOSE_UP = "lines_big_code_right";//"cmd_close_up";
+			public static final String CLOSE_DOWN = "lines_big_code_left";//"cmd_close_down";
+
+			public static final String BACK2_UP = "lines_big_code_right";//"cmd_back2_up";
+			public static final String BACK2_DOWN = "lines_big_code_left";//"cmd_back2_down";
+
+			public static final String CLOSE2_UP = "lines_big_code_right";//"cmd_close2_up";
+			public static final String CLOSE2_DOWN = "lines_big_code_left";//"cmd_close2_down";
 		}
 		
 		public interface Lines {
@@ -159,35 +174,54 @@ public interface PlayConfig {
 		}	
 		
 		public interface Cmd {
-			public static final int BASE_X = ScreenConfig.WIDTH - 128;
+			
+			public static final int WIDTH_BUTTON = 128;
+			public static final int HEIGHT_BUTTON = 64;
+			
+			public static final int BASE_X = ScreenConfig.WIDTH - WIDTH_BUTTON;
 			public static final int BASE_Y = 16;
 			
 			public static final int WIDTH = 128;
 			public static final int HEIGHT = ScreenConfig.HEIGHT - 32;
 			
-			public static final int WIDTH_BUTTON = 128;
-			public static final int HEIGHT_BUTTON = 64;
-			
 			public static final int BASE_BUTTON_X = 0;
 			public static final int BASE_BUTTON_Y = 16;
+			public static final int SPACE_BUTTON_Y = 48;			
 			
-			public static final int X_RUN = 0;//ScreenConfig.WIDTH - 128;
-			public static final int Y_RUN = 16;
+			public static final int X_RUN = BASE_BUTTON_X;//0;//ScreenConfig.WIDTH - 128;
+			public static final int Y_RUN = BASE_BUTTON_Y;//16;
 			
-			public static final int X_CLEAR = 0;//ScreenConfig.WIDTH - 128;
-			public static final int Y_CLEAR = 328;
+			public static final int X_CLEAR = BASE_BUTTON_X;//0;//ScreenConfig.WIDTH - 128;
+			public static final int Y_CLEAR = BASE_BUTTON_Y + (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 3;//300;
 			
-			public static final int X_MENU = 0;//ScreenConfig.WIDTH - 128;
-			public static final int Y_MENU = 198;
+			public static final int X_MENU = BASE_BUTTON_X;//0;//ScreenConfig.WIDTH - 128;
+			public static final int Y_MENU = BASE_BUTTON_Y + (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 2;// + 198;
 			
-			public static final int X_BACK = 0;
-			public static final int Y_BACK = HEIGHT - 80;
+			public static final int X_BACK = BASE_BUTTON_X;//0;
+			public static final int Y_BACK = HEIGHT - HEIGHT_BUTTON;//80;
+
+			public static final float X_INFO = BASE_BUTTON_X;//0;
+			public static final float Y_INFO = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 1;
 			
-			public static final int X_SHARE = 0;
-			public static final int Y_SHARE = HEIGHT - 80;
+			public static final float X_SETTING = BASE_BUTTON_X;//0;
+			public static final float Y_SETTING = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 2;
 			
-			public static final float X_NEXT = 0;
-			public static final float Y_NEXT = HEIGHT - 80 - 64 * 2;
+			public static final float X_CLOSE = BASE_BUTTON_X;//0;
+			public static final float Y_CLOSE = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 3;
+			
+			
+			public static final int X_SHARE = BASE_BUTTON_X;//0;
+			public static final int Y_SHARE = HEIGHT - HEIGHT_BUTTON;//80;
+			
+			public static final float X_NEXT = BASE_BUTTON_X;//0;
+			public static final float Y_NEXT = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 1;
+			
+			public static final float X_BACK2 = BASE_BUTTON_X;//0;
+			public static final float Y_BACK2 = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 2;
+			
+			public static final float X_CLOSE2 = BASE_BUTTON_X;//0;
+			public static final float Y_CLOSE2 = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 3;
+			
 		}
 		
 		public interface Lines {

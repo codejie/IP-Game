@@ -78,18 +78,40 @@ public class PlayScreen extends BaseScreen {
 			@Override
 			public void onEvent(int type, BaseTween<?> source) {
 				PlayScreen.this.removeActor(toggle);
-				setScreen(packId, scriptId);
+				setNextPlayScreen(packId, scriptId);
 			}
 			
 		});		
 	}
 	
-	protected void setScreen(final int packId, final int scriptId) {
+	private void out() {
+		final ToggleGroup toggle = new ToggleGroup(this);
+		toggle.out(new TweenCallback() {
+
+			@Override
+			public void onEvent(int type, BaseTween<?> source) {
+				//PlayScreen.this.removeActor(toggle);
+				setMenuScreen();
+			}
+			
+		});	
+		
+	}
+	
+	private void setNextPlayScreen(final int packId, final int scriptId) {
 		this.getGame().setNextPlayScreen(packId, scriptId);
 	}
-
+	
 	public void setNextScreen() {
 		out(packId, scriptId);
+	}
+	
+	private void setMenuScreen() {
+		this.getGame().setMenuScreen();
+	}	
+	
+	public void returnMenuScreen() {
+		out();
 	}
 	
 }

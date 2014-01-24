@@ -83,12 +83,27 @@ public class CmdPanelGroup extends BaseGroup {
 			} else if (btn.type == Cmd.Type.BACK) {
 				btn.actor = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Cmd.BACK_UP), skin.getDrawable(Image.Cmd.BACK_DOWN), null));
 				btn.actor.setBounds(Const.Cmd.X_BACK, Const.Cmd.Y_BACK, btn.actor.getWidth(), btn.actor.getHeight());
+			} else if (btn.type == Cmd.Type.INFO) {
+				btn.actor = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Cmd.INFO_UP), skin.getDrawable(Image.Cmd.INFO_DOWN), null));
+				btn.actor.setBounds(Const.Cmd.X_INFO, Const.Cmd.Y_INFO, btn.actor.getWidth(), btn.actor.getHeight());
+			} else if (btn.type == Cmd.Type.SETTING) {
+				btn.actor = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Cmd.SETTING_UP), skin.getDrawable(Image.Cmd.SETTING_DOWN), null));
+				btn.actor.setBounds(Const.Cmd.X_SETTING, Const.Cmd.Y_SETTING, btn.actor.getWidth(), btn.actor.getHeight());
+			} else if (btn.type == Cmd.Type.CLOSE) {
+				btn.actor = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Cmd.CLOSE_UP), skin.getDrawable(Image.Cmd.CLOSE_DOWN), null));
+				btn.actor.setBounds(Const.Cmd.X_CLOSE, Const.Cmd.Y_CLOSE, btn.actor.getWidth(), btn.actor.getHeight());
 			} else if (btn.type == Cmd.Type.SHARE) {
 				btn.actor = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Cmd.SHARE_UP), skin.getDrawable(Image.Cmd.SHARE_DOWN), null));
 				btn.actor.setBounds(Const.Cmd.X_SHARE, Const.Cmd.Y_SHARE, btn.actor.getWidth(), btn.actor.getHeight());								
 			} else if (btn.type == Cmd.Type.NEXT) {
 				btn.actor = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Cmd.NEXT_UP), skin.getDrawable(Image.Cmd.NEXT_DOWN), null));
-				btn.actor.setBounds(Const.Cmd.X_NEXT, Const.Cmd.Y_NEXT, btn.actor.getWidth(), btn.actor.getHeight());								
+				btn.actor.setBounds(Const.Cmd.X_NEXT, Const.Cmd.Y_NEXT, btn.actor.getWidth(), btn.actor.getHeight());
+			} else if (btn.type == Cmd.Type.BACK2) {
+				btn.actor = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Cmd.BACK2_UP), skin.getDrawable(Image.Cmd.BACK2_DOWN), null));
+				btn.actor.setBounds(Const.Cmd.X_BACK2, Const.Cmd.Y_BACK2, btn.actor.getWidth(), btn.actor.getHeight());
+			} else if (btn.type == Cmd.Type.CLOSE2) {
+				btn.actor = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Cmd.CLOSE2_UP), skin.getDrawable(Image.Cmd.CLOSE2_DOWN), null));
+				btn.actor.setBounds(Const.Cmd.X_CLOSE2, Const.Cmd.Y_CLOSE2, btn.actor.getWidth(), btn.actor.getHeight());				
 			} else {
 				continue;
 			}
@@ -127,10 +142,6 @@ public class CmdPanelGroup extends BaseGroup {
 				btn.actor.setVisible(btn.layer == layer);
 			}
 		}
-		
-//		if (layer != Cmd.Layer.FIRST) {
-//			this.setBounds(0, 0, Const.Cmd.WIDTH, Const.Cmd.HEIGHT);
-//		}
 	}
 	
 	public void showPanel(boolean show) {
@@ -157,29 +168,6 @@ public class CmdPanelGroup extends BaseGroup {
 		}
 	}
 
-//	public void showSecondMenu(boolean show) {
-//		if (show) {
-//			Tween.to(this, BaseGroupAccessor.POSITION_X, 0.1f).target(ScreenConfig.WIDTH)
-//				.setCallback(new TweenCallback() {
-//					@Override
-//					public void onEvent(int type, BaseTween<?> source) {
-//						showButtons(Cmd.Layer.SECOND);
-//						Tween.to(CmdPanelGroup.this, BaseGroupAccessor.POSITION_X, 0.1f).target(Const.Cmd.BASE_X).start(tweenManager);
-//					}					
-//				})
-//				.start(tweenManager);
-//		} else {
-//			Tween.to(this, BaseGroupAccessor.POSITION_X, 0.1f).target(ScreenConfig.WIDTH)
-//				.setCallback(new TweenCallback() {
-//					@Override
-//					public void onEvent(int type, BaseTween<?> source) {
-//						showButtons(Cmd.Layer.FIRST);
-//						Tween.to(CmdPanelGroup.this, BaseGroupAccessor.POSITION_X, 0.1f).target(Const.Cmd.BASE_X).start(tweenManager);
-//					}
-//				})
-//				.start(tweenManager);			
-//		}
-//	}
 	
 	public void showMenu(final Cmd.Layer layer) {
 		Tween.to(this, BaseGroupAccessor.POSITION_X, 0.1f).target(ScreenConfig.WIDTH)

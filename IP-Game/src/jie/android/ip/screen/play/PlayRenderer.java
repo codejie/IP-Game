@@ -2,6 +2,7 @@ package jie.android.ip.screen.play;
 
 import jie.android.ip.common.dialog.BaseDialog;
 import jie.android.ip.screen.play.Cmd.State;
+import jie.android.ip.utils.Utils;
 
 
 public class PlayRenderer {
@@ -93,7 +94,7 @@ public class PlayRenderer {
 				if (!onCmdMenu(state)) {
 					return;
 				}
-			} else if (type == Cmd.Type.BACK) {
+			} else if (type == Cmd.Type.BACK || type == Cmd.Type.BACK2) {
 				if (!onCmdBack(state)) {
 					return;
 				}
@@ -107,6 +108,18 @@ public class PlayRenderer {
 				}
 			} else if (type == Cmd.Type.CLEAR) {
 				if(!onCmdClear(state)) {
+					return;
+				}
+			} else if (type == Cmd.Type.INFO) {
+				if (!onCmdInfo(state)) {
+					return;
+				}
+			} else if (type == Cmd.Type.SETTING) {
+				if (!onCmdSetting(state)) {
+					return;
+				}
+			} else if (type == Cmd.Type.CLOSE || type == Cmd.Type.CLOSE2) {
+				if (!onCmdClose(state)) {
 					return;
 				}
 			}
@@ -183,8 +196,9 @@ public class PlayRenderer {
 	}
 
 	private boolean onCmdShare(final Cmd.State state) {
-		groupResult.hideStage();
-		groupCmdPanel.showMenu(Cmd.Layer.FIRST);
+		Utils.saveScreenToFile("./doc/a.png");
+//		groupResult.hideStage();
+//		groupCmdPanel.showMenu(Cmd.Layer.FIRST);
 		return true;
 	}
 	
@@ -217,4 +231,20 @@ public class PlayRenderer {
 		
 		return false;
 	}
+	
+
+	protected boolean onCmdClose(final Cmd.State state) {
+		//back to menu screen;
+		return true;
+	}
+
+	protected boolean onCmdSetting(final Cmd.State state) {
+		//Setting Dialog
+		return false;
+	}
+
+	protected boolean onCmdInfo(final Cmd.State state) {
+		// Info Dialog
+		return false;
+	}	
 }

@@ -57,8 +57,13 @@ public class PlayManager implements Disposable {
 				onCmdClear(state);
 			} else if (type == Cmd.Type.NEXT) {
 				onCmdNext(state);
-			}
-			
+			} else if (type == Cmd.Type.CLOSE) {
+				onCmdClose(state);
+			} else if (type == Cmd.Type.SETTING) {
+				
+			} else if (type == Cmd.Type.INFO) {
+				
+			}			
 		}
 
 	};
@@ -231,6 +236,10 @@ public class PlayManager implements Disposable {
 
 	protected void onCmdNext(final Cmd.State state) {
 		screen.setNextScreen();
+	}
+	
+	protected void onCmdClose(State state) {
+		screen.returnMenuScreen();
 	}
 	
 	protected void onExecuteSucc() {

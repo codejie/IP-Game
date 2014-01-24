@@ -107,6 +107,10 @@ public class IPGame extends Game {
 		this.setScreen(new StartScreen(this));		
 	}
 	
+	public void setMenuScreen() {
+		this.setScreen(new MenuScreen(this));
+	}
+	
 	public void setPlayScreen(int packId, int scriptId) {
 		this.setScreen(new PlayScreen(this, packId, scriptId));
 	}
@@ -116,7 +120,7 @@ public class IPGame extends Game {
 		if (id != -1) {
 			setPlayScreen(packId, id);
 		} else {
-			setStartScreen();
+			setMenuScreen();
 		}
 	}
 	

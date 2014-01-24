@@ -7,12 +7,20 @@ import jie.android.ip.CommonConsts.SystemConfig;
 import jie.android.ip.database.ConnectionAdapter;
 import jie.android.ip.database.DesktopConnectionAdapter;
 
-public class DesktopSetup implements Setup {
+public class DesktopSetup extends Setup {
 
 	private final ConnectionAdapter connectionAdapter;
 	
 	public DesktopSetup() {
+		super();
+		
 		connectionAdapter = new DesktopConnectionAdapter(getStorageDirectory() + SystemConfig.DATABASE_FILE);
+	}
+
+	@Override
+	public void create() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	@Override

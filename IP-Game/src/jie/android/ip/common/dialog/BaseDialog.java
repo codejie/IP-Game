@@ -53,7 +53,7 @@ public class BaseDialog extends BaseGroup {
 	protected void initStage() {
 		
 		this.setBounds(Consts.BASE_X, Consts.BASE_Y, Consts.WIDTH, Consts.HEIGHT);
-		this.setScale(0.01f);
+		//this.setScale(0.01f);
 		
 		backGround = new ImageActor(textureAtlas.findRegion(Image.BACKGROUND));
 		backGround.setBounds(0, 0, getWidth(), getHeight());
