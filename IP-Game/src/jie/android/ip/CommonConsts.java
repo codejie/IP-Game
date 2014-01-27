@@ -4,6 +4,8 @@ public interface CommonConsts {
 
 	public interface SystemConfig {
 		public static final String DATABASE_FILE = "ip.db3";
+		
+		public static final int SYS_ATTR_VERSION = 1;
 	}
 	
 	public interface ScreenConfig {

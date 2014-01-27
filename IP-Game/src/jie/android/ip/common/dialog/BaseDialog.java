@@ -1,23 +1,19 @@
 package jie.android.ip.common.dialog;
 
-import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import jie.android.ip.CommonConsts.PackConfig;
 import jie.android.ip.common.actor.BaseGroup;
-import jie.android.ip.common.actor.BaseGroupAccessor;
 import jie.android.ip.common.actor.ButtonActor;
 import jie.android.ip.common.actor.ImageActor;
-import jie.android.ip.common.dialog.DialogConfig.Consts;
+import jie.android.ip.common.dialog.DialogConfig.Const;
 import jie.android.ip.common.dialog.DialogConfig.Image;
 import jie.android.ip.screen.BaseScreen;
-import jie.android.ip.screen.play.PlayConfig.Const;
 
 
 public class BaseDialog extends BaseGroup {
@@ -35,7 +31,8 @@ public class BaseDialog extends BaseGroup {
 	private final Skin skin;
 	private final TweenManager tweenManager;
 	
-	private ImageActor backGround;
+	private ImageActor background;
+	private ImageActor window;
 	private ButtonActor btnPositive;
 	private ButtonActor btnNegative;
 //	private ImageActor btnModdle;
@@ -52,12 +49,16 @@ public class BaseDialog extends BaseGroup {
 	@Override
 	protected void initStage() {
 		
-		this.setBounds(Consts.BASE_X, Consts.BASE_Y, Consts.WIDTH, Consts.HEIGHT);
+		this.setBounds(Const.BASE_X, Const.BASE_Y, Const.WIDTH, Const.HEIGHT);
 		//this.setScale(0.01f);
 		
-		backGround = new ImageActor(textureAtlas.findRegion(Image.BACKGROUND));
-		backGround.setBounds(0, 0, getWidth(), getHeight());
-		this.addActor(backGround);
+		background = new ImageActor(textureAtlas.findRegion(Image.BACKGROUND));
+		background.setBounds(Const.BASE_X, Const.BASE_Y, Const.WIDTH, Const.HEIGHT);
+		this.addActor(background);		
+		
+		window = new ImageActor(textureAtlas.findRegion(Image.WINDOW));
+		window.setBounds(Const.BASE_X_WINDOW, Const.BASE_Y_WINDOW, Const.WIDTH_WINDOW, Const.HEIGHT_WINDOW);
+		this.addActor(window);
 	}
 	
 	public void show() {
@@ -105,20 +106,20 @@ public class BaseDialog extends BaseGroup {
 		float x = 0, y = 0;
 		if (btnPositive != null) {
 			if (btnNegative == null) {
-				x = (getWidth() - Consts.BUTTON_WIDTH) / 2;
-				y = Consts.BUTTON_BASE_Y;
+				x = Const.BASE_X_WINDOW + (Const.WIDTH_WINDOW - Const.BUTTON_WIDTH) / 2;
+				y = Const.BUTTON_BASE_Y;
 			} else {
-				x = (getWidth() - Consts.BUTTON_SPACE_X) / 2 - Consts.BUTTON_WIDTH;
-				y = Consts.BUTTON_BASE_Y;
-				btnNegative.setBounds(x + Consts.BUTTON_WIDTH + Consts.BUTTON_SPACE_X, y, Consts.BUTTON_WIDTH, Consts.BUTTON_HEIGHT);
+				x = Const.BASE_X_WINDOW + (Const.WIDTH_WINDOW - Const.BUTTON_SPACE_X) / 2 - Const.BUTTON_WIDTH;
+				y = Const.BUTTON_BASE_Y;
+				btnNegative.setBounds(x + Const.BUTTON_WIDTH + Const.BUTTON_SPACE_X, y, Const.BUTTON_WIDTH, Const.BUTTON_HEIGHT);
 			}
-			btnPositive.setBounds(x, y, Consts.BUTTON_WIDTH, Consts.BUTTON_HEIGHT);			
+			btnPositive.setBounds(x, y, Const.BUTTON_WIDTH, Const.BUTTON_HEIGHT);			
 		} else {
 			if (btnNegative != null) {
-				x = (getWidth() - Consts.BUTTON_WIDTH) / 2;
-				y = Consts.BUTTON_BASE_Y;
+				x = Const.BASE_X_WINDOW + (Const.WIDTH_WINDOW - Const.BUTTON_WIDTH) / 2;
+				y = Const.BUTTON_BASE_Y;
 
-				btnNegative.setBounds(x, y, Consts.BUTTON_WIDTH, Consts.BUTTON_HEIGHT);
+				btnNegative.setBounds(x, y, Const.BUTTON_WIDTH, Const.BUTTON_HEIGHT);
 			}
 		}
 	}

@@ -44,6 +44,8 @@ public class IPGame extends Game {
 		//this.setScreen(new PlayScreen(this, 2));
 		//this.setScreen(new MenuScreen(this));
 		
+		Environment.loadAppData(dbAccess);
+		
 		setStartScreen();
 	}
 

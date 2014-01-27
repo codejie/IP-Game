@@ -211,6 +211,23 @@ public class DBAccess {
 		// TODO Auto-generated method stub
 		return -1;
 	}
+
+	public final String getSysDataAsString(int attr) {
+		final String sql = "SELECT str FROM sys WHERE attr=" + attr;
+		final ResultSet rs = querySQL(sql);
+		try {
+			try {
+				if (rs.next()) {
+					return rs.getString(1);
+				}
+			} finally {
+				rs.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	
 	
 }

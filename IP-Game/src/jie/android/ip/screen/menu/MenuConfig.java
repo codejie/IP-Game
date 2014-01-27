@@ -7,6 +7,7 @@ public interface MenuConfig {
 	public interface Image {
 		
 		public static final String BACKGROUND = "background";
+		public static final String TITLE = "background";//"title";
 		
 		public interface Button {
 			public static final String BACK_UP = "background";//"button_back_up";
@@ -31,6 +32,12 @@ public interface MenuConfig {
 	}
 	
 	public interface Const {
+		
+		public static final int TITLE_X = 0;
+		public static final float TITLE_Y = ScreenConfig.HEIGHT - 128;
+		public static final float TITLE_WIDTH = ScreenConfig.WIDTH;
+		public static final float TITLE_HEIGHT = 128;		
+
 		
 		public interface Button {
 			public static final int BACK_WIDTH = 64;
@@ -103,7 +110,8 @@ public interface MenuConfig {
 			
 			public static final int TRAY_BASE = 16;
 			public static final int TRAY_SPACE = 42;		
-		}		
+		}
+
 	}
 	
 }

@@ -209,6 +209,7 @@ public class PackGroup extends BaseGroup {
 
 	private final ActorCache cacheActor;
 	
+	private ImageActor title;
 	private ButtonActor btnBack, btnNext, btnPrev;
 	
 	public PackGroup(final MenuScreen screen, final PackGroupEventListener listener) {
@@ -229,6 +230,10 @@ public class PackGroup extends BaseGroup {
 
 	@Override
 	protected void initStage() {
+		title = new ImageActor(textureAtlas.findRegion(Image.TITLE));
+		title.setBounds(Const.TITLE_X, Const.TITLE_Y, Const.TITLE_WIDTH, Const.TITLE_HEIGHT);
+		this.addActor(title);
+		
 		btnBack = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Button.BACK_UP), skin.getDrawable(Image.Button.BACK_DOWN), null));
 		btnBack.setBounds(Const.Button.BACK_X, Const.Button.BACK_Y, Const.Button.BACK_WIDTH, Const.Button.BACK_HEIGHT);
 		btnBack.addListener(new ClickListener() {
