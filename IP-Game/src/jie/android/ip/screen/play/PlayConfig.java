@@ -83,10 +83,10 @@ public interface PlayConfig {
 			
 			public interface Big {
 				public static final String BG = "lines_big_bg";
-				public static final String TITLE_0 = "lines_big_title";//"lines_big_title_a";
-				public static final String TITLE_1 = "lines_big_title";//"lines_big_title_b";
-				public static final String TITLE_2 = "lines_big_title";//"lines_big_title_c";
-				public static final String TITLE_3 = "lines_big_title";//"lines_big_title_d";
+				public static final String TITLE_0 = "lines_big_title_a";
+				public static final String TITLE_1 = "lines_big_title_b";
+				public static final String TITLE_2 = "lines_big_title_c";
+				public static final String TITLE_3 = "lines_big_title_d";
 				
 				public static final String CODE_NULL = "lines_big_code_null";
 				public static final String CODE_RIGHT = "lines_big_code_right";
@@ -109,21 +109,21 @@ public interface PlayConfig {
 				public static final String ORDER_BG = "panel_order_bg";
 				public static final String JUDGE_BG = "panel_judge_bg";
 				
-				public static final String CODE_NULL = "panel_code_if_null";//"panel_code_null";
-				public static final String CODE_RIGHT = "panel_code_right";
-				public static final String CODE_LEFT = "panel_code_left";
-				public static final String CODE_ACT = "panel_code_act";
-				public static final String CODE_IF_NULL = "panel_code_if_null";
+				public static final String CODE_NULL = "panel_code_null";
+				public static final String CODE_RIGHT = "lines_small_code_right";//"panel_code_right";
+				public static final String CODE_LEFT = "lines_small_code_left";//"panel_code_left";
+				public static final String CODE_ACT = "lines_small_code_act";//"panel_code_act";
+				public static final String CODE_IF_NULL = "panel_code_null";//"panel_code_if_null";
 				public static final String CODE_IF_0 = "panel_code_if_a";
 				public static final String CODE_IF_1 = "panel_code_if_b";
 				public static final String CODE_IF_2 = "panel_code_if_c";
 				public static final String CODE_IF_3 = "panel_code_if_d";
 				public static final String CODE_IF_ANY = "panel_code_if_any";
 				public static final String CODE_IF_NONE = "panel_code_if_none";
-				public static final String CODE_CALL_0 = "panel_code_call_a";
-				public static final String CODE_CALL_1 = "panel_code_call_b";
-				public static final String CODE_CALL_2 = "panel_code_call_c";
-				public static final String CODE_CALL_3 = "panel_code_call_d";			
+				public static final String CODE_CALL_0 = "lines_small_code_call_a";//"panel_code_call_a";
+				public static final String CODE_CALL_1 = "lines_small_code_call_b";//"panel_code_call_b";
+				public static final String CODE_CALL_2 = "lines_small_code_call_c";//"panel_code_call_c";
+				public static final String CODE_CALL_3 = "lines_small_code_call_d";//"panel_code_call_d";			
 			}
 		}
 		
