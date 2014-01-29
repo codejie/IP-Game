@@ -11,11 +11,11 @@ public interface MenuConfig {
 		
 		public interface Button {
 			public static final String BACK_UP = "background";//"button_back_up";
-			public static final String BACK_DOWN = "box_frame";//"button_back_down";
+			public static final String BACK_DOWN = "box_frame_top";//"button_back_down";
 			public static final String NEXT_UP = "background";//"button_next";
-			public static final String NEXT_DOWN = "box_frame";//"button_next";
+			public static final String NEXT_DOWN = "box_frame_top";//"button_next";
 			public static final String PREV_UP = "background";//"button_prev";
-			public static final String PREV_DOWN = "box_frame";//"button_prev";
+			public static final String PREV_DOWN = "box_frame_top";//"button_prev";
 		}
 		
 		public interface Pack {

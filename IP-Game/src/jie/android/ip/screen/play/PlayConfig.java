@@ -129,7 +129,7 @@ public interface PlayConfig {
 		
 		public interface Result {
 			public static final String BG = "result_bg";			
-			public static final String SUCC = "lines_big_title";//"result_succ";
+			public static final String SUCC = "result_succ";
 			public static final String FAIL = "lines_big_code_if_none";//"result_fail";
 			public static final String FINISHED = "lines_big_code_if_any";//"result_finished";			
 		}
