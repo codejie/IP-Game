@@ -4,6 +4,7 @@ import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
@@ -51,6 +52,8 @@ public class BaseDialog extends BaseGroup {
 		
 		this.setBounds(Const.BASE_X, Const.BASE_Y, Const.WIDTH, Const.HEIGHT);
 		//this.setScale(0.01f);
+		
+		ScrollPane sp = new ScrollPane(this);
 		
 		background = new ImageActor(textureAtlas.findRegion(Image.BACKGROUND));
 		background.setBounds(Const.BASE_X, Const.BASE_Y, Const.WIDTH, Const.HEIGHT);

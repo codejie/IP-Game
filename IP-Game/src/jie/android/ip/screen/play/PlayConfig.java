@@ -291,21 +291,21 @@ public interface PlayConfig {
 			
 			public static final int WIDTH = ScreenConfig.WIDTH;// - Cmd.WIDTH;
 			public static final int HEIGHT = ScreenConfig.HEIGHT;
-			
-			public static final int BASE_X_SUCC = 0;
-			public static final int BASE_Y_SUCC = 0;
-			public static final int WIDTH_SUCC = 100;
-			public static final int HEIGHT_SUCC = 100;
 
-			public static final int BASE_X_FAIL = 0;
-			public static final int BASE_Y_FAIL = 0;
-			public static final int WIDTH_FAIL = 100;
-			public static final int HEIGHT_FAIL = 100;
+			public static final int WIDTH_SUCC = 640;//WIDTH / 2;//100;
+			public static final int HEIGHT_SUCC = 256;//HEIGHT / 3;//100;			
+			public static final int BASE_X_SUCC = (WIDTH - WIDTH_SUCC) / 2;
+			public static final int BASE_Y_SUCC = (HEIGHT / 2);// - HEIGHT_SUCC * 2);
+
+			public static final int WIDTH_FAIL = 640;
+			public static final int HEIGHT_FAIL = 256;			
+			public static final int BASE_X_FAIL = (WIDTH - WIDTH_SUCC) / 2;
+			public static final int BASE_Y_FAIL = (HEIGHT / 2);
 			
-			public static final int BASE_X_FINISHED = 0;
-			public static final int BASE_Y_FINISHED = 0;
-			public static final int WIDTH_FINISHED = 100;
-			public static final int HEIGHT_FINISHED = 100;
+			public static final int WIDTH_FINISHED = 640;
+			public static final int HEIGHT_FINISHED = 256;
+			public static final int BASE_X_FINISHED = (WIDTH - WIDTH_SUCC) / 2;
+			public static final int BASE_Y_FINISHED = (HEIGHT / 2);
 		}
 		
 		public interface Toggle {

@@ -45,8 +45,8 @@ public class ImageActorAccessor implements TweenAccessor<ImageActor> {
 			returnValues[2] = target.getColor().b;
 			return 3;
 		case SCALE_TO_XY:
-			returnValues[0] = target.getX();
-			returnValues[1] = target.getY();
+			returnValues[0] = target.getWidth();// .getX();
+			returnValues[1] = target.getHeight();//.getY();
 			return 2;			
 		default:
 			return -1;

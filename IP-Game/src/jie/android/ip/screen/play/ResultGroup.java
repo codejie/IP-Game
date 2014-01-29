@@ -15,6 +15,7 @@ import jie.android.ip.common.actor.ImageActor;
 import jie.android.ip.common.actor.ImageActorAccessor;
 import jie.android.ip.screen.play.PlayConfig.Const;
 import jie.android.ip.screen.play.PlayConfig.Image;
+import jie.android.ip.utils.Utils;
 
 public class ResultGroup extends BaseGroup {
 
@@ -75,7 +76,7 @@ public class ResultGroup extends BaseGroup {
 			result.setBounds(Const.Result.BASE_X_FINISHED, Const.Result.BASE_Y_FINISHED, Const.Result.WIDTH_FINISHED, Const.Result.HEIGHT_FINISHED);			
 		}
 		
-		result.setScale(0.0f);
+		//result.setScale(0.0f);
 		
 		this.addActor(result);
 		
@@ -84,23 +85,42 @@ public class ResultGroup extends BaseGroup {
 	
 	public void showSuccStage() {
 		updateResult(Which.SUCC);
+		
+		final float zoom = 20.0f;
 		this.setVisible(true);
-		Timeline.createSequence()
-			.push(Tween.to(backGround, ImageActorAccessor.POSITION_X, 0.05f).target(Const.Result.BASE_X))
-			.push(Tween.to(result, ImageActorAccessor.SCALE_XY, 0.05f).target(1.0f, 1.0f))
+
+		Timeline.createParallel()
+			.push(Tween.set(result, ImageActorAccessor.OPACITY).target(0.0f))
+			.push(Tween.set(result, ImageActorAccessor.SCALE_XY).target(zoom, zoom))
+			.push(Tween.set(result, ImageActorAccessor.POSITION_XY).target(0, 0))
+			
+			.push(Tween.to(result, ImageActorAccessor.OPACITY, 0.2f).target(1.0f))
+			.push(Tween.to(result, ImageActorAccessor.SCALE_XY, 0.2f).target(1.0f, 1.0f))
+			.push(Tween.to(result, ImageActorAccessor.POSITION_XY, 0.2f).target(Const.Result.BASE_X_SUCC, Const.Result.BASE_Y_SUCC))			
 			.start(tweenManager);
 	}
 
 	public void showFailStage() {
 		updateResult(Which.FAIL);
+		
+		final float zoom = 20.0f;
 		this.setVisible(true);
-		Tween.to(result, ImageActorAccessor.SCALE_XY, 0.1f).target(1.0f, 1.0f).start(tweenManager);
+
+		Timeline.createParallel()
+			.push(Tween.set(result, ImageActorAccessor.OPACITY).target(0.0f))
+			.push(Tween.set(result, ImageActorAccessor.SCALE_XY).target(zoom, zoom))
+			.push(Tween.set(result, ImageActorAccessor.POSITION_XY).target(0, 0))
+			
+			.push(Tween.to(result, ImageActorAccessor.OPACITY, 0.2f).target(1.0f))
+			.push(Tween.to(result, ImageActorAccessor.SCALE_XY, 0.2f).target(1.0f, 1.0f))
+			.push(Tween.to(result, ImageActorAccessor.POSITION_XY, 0.2f).target(Const.Result.BASE_X_FAIL, Const.Result.BASE_Y_FAIL))			
+			.start(tweenManager);	
 	}
 
 	public void showFinishedStage() {
 		updateResult(Which.FINISHED);
-		this.setVisible(true);
-		Tween.to(result, ImageActorAccessor.SCALE_XY, 0.1f).target(1.0f, 1.0f).start(tweenManager);
+		this.setVisible(true);		
+		Tween.to(result, ImageActorAccessor.SCALE_XY, 0.2f).target(1.0f, 1.0f).start(tweenManager);
 	}
 	
 	public void hideStage() {
