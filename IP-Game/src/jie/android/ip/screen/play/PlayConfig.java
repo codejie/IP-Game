@@ -24,9 +24,9 @@ public interface PlayConfig {
 		public interface Cmd {
 			public static final String BG = "cmd_bg";
 			
-			public static final String RUN_UP = "lines_big_code_right";//"cmd_run_up";
-			public static final String RUN_DOWN = "lines_big_code_left";//"cmd_run_down";
-			public static final String RUN_CHECKED = "lines_big_code_act";//"cmd_run_checked";
+			public static final String RUN_UP = "cmd_run_up";
+			public static final String RUN_DOWN = "cmd_run_down";
+			public static final String RUN_CHECKED = "cmd_run_checked";
 			public static final String CLEAR_UP = "lines_big_code_right";//"cmd_clear_up";
 			public static final String CLEAR_DOWN = "lines_big_code_left";//"cmd_clear_up_down";
 			public static final String MENU_UP = "lines_big_code_right";//"cmd_menu_up";
@@ -37,8 +37,8 @@ public interface PlayConfig {
 			public static final String SHARE_DOWN = "lines_big_code_right";//"cmd_share_up";
 			public static final String SHARE_UP = "lines_big_code_left";//"cmd_share_down";
 
-			public static final String NEXT_UP = "lines_big_code_right";//"cmd_next_up";
-			public static final String NEXT_DOWN = "lines_big_code_left";//"cmd_next_down";
+			public static final String NEXT_UP = "cmd_next_up";
+			public static final String NEXT_DOWN = "cmd_next_down";
 
 			public static final String INFO_UP = "lines_big_code_right";//"cmd_info_up";
 			public static final String INFO_DOWN = "lines_big_code_left";//"cmd_info_down";
@@ -130,8 +130,8 @@ public interface PlayConfig {
 		public interface Result {
 			public static final String BG = "result_bg";			
 			public static final String SUCC = "result_succ";
-			public static final String FAIL = "lines_big_code_if_none";//"result_fail";
-			public static final String FINISHED = "lines_big_code_if_any";//"result_finished";			
+			public static final String FAIL = "result_failed";
+			public static final String FINISHED = "result_finished";			
 		}
 		
 		public interface Toggle {
@@ -190,6 +190,8 @@ public interface PlayConfig {
 			
 			public static final int X_RUN = BASE_BUTTON_X;//0;//ScreenConfig.WIDTH - 128;
 			public static final int Y_RUN = BASE_BUTTON_Y;//16;
+			public static final int X_RUN_WIDTH = WIDTH_BUTTON;
+			public static final int X_RUN_HEIGHT = 128;
 			
 			public static final int X_CLEAR = BASE_BUTTON_X;//0;//ScreenConfig.WIDTH - 128;
 			public static final int Y_CLEAR = BASE_BUTTON_Y + (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 3;//300;
@@ -292,19 +294,19 @@ public interface PlayConfig {
 			public static final int WIDTH = ScreenConfig.WIDTH;// - Cmd.WIDTH;
 			public static final int HEIGHT = ScreenConfig.HEIGHT;
 
-			public static final int WIDTH_SUCC = 640;//WIDTH / 2;//100;
-			public static final int HEIGHT_SUCC = 256;//HEIGHT / 3;//100;			
+			public static final int WIDTH_SUCC = 749;//WIDTH / 2;//100;
+			public static final int HEIGHT_SUCC = 261;//HEIGHT / 3;//100;			
 			public static final int BASE_X_SUCC = (WIDTH - WIDTH_SUCC) / 2;
 			public static final int BASE_Y_SUCC = (HEIGHT / 2);// - HEIGHT_SUCC * 2);
 
-			public static final int WIDTH_FAIL = 640;
-			public static final int HEIGHT_FAIL = 256;			
-			public static final int BASE_X_FAIL = (WIDTH - WIDTH_SUCC) / 2;
+			public static final int WIDTH_FAIL = 441;
+			public static final int HEIGHT_FAIL = 245;			
+			public static final int BASE_X_FAIL = (WIDTH - WIDTH_FAIL) / 2;
 			public static final int BASE_Y_FAIL = (HEIGHT / 2);
 			
 			public static final int WIDTH_FINISHED = 640;
 			public static final int HEIGHT_FINISHED = 256;
-			public static final int BASE_X_FINISHED = (WIDTH - WIDTH_SUCC) / 2;
+			public static final int BASE_X_FINISHED = (WIDTH - WIDTH_FINISHED) / 2;
 			public static final int BASE_Y_FINISHED = (HEIGHT / 2);
 		}
 		
