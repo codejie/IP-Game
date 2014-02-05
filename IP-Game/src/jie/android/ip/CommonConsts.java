@@ -9,14 +9,14 @@ public interface CommonConsts {
 	}
 	
 	public interface ScreenConfig {
-		public static final int WIDTH = 1280;
-		public static final int HEIGHT = 768;
+		public static final int WIDTH = 1280;//1296;
+		public static final int HEIGHT = 768;//832;
 	}	
 	
 	public interface PackConfig {
 		public static final String SCREEN_START = "data/screen_start.pack";
 		public static final String SCREEN_PLAY = "data/screen_box.pack";
-		public static final String SCREEN_MENU = "data/screen_box.pack";//"data/screen_menu.pack";		
+		public static final String SCREEN_MENU = "data/screen_menu.pack";		
 		public static final String DIALOG = "data/screen_box.pack";//"data/dialog.pack";
 	}
 	

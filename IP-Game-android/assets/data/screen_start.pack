@@ -5,37 +5,58 @@ filter: Nearest,Nearest
 repeat: none
 p1
   rotate: false
-  xy: 1, 45
-  size: 581, 59
-  orig: 581, 59
+  xy: 1, 147
+  size: 882, 99
+  orig: 882, 99
   offset: 0, 0
   index: -1
 title
   rotate: false
-  xy: 1, 14
+  xy: 1, 116
   size: 271, 29
   orig: 271, 29
   offset: 0, 0
   index: -1
-author
-  rotate: false
-  xy: 584, 89
-  size: 149, 15
-  orig: 149, 15
-  offset: 0, 0
-  index: -1
 am
   rotate: false
-  xy: 584, 28
-  size: 98, 59
-  orig: 98, 59
+  xy: 1, 14
+  size: 141, 100
+  orig: 141, 100
   offset: 0, 0
   index: -1
 a
   rotate: false
-  xy: 684, 28
-  size: 64, 59
-  orig: 64, 59
+  xy: 885, 151
+  size: 99, 95
+  orig: 99, 95
+  offset: 0, 0
+  index: -1
+p
+  rotate: false
+  xy: 144, 19
+  size: 80, 95
+  orig: 80, 95
+  offset: 0, 0
+  index: -1
+author
+  rotate: false
+  xy: 274, 130
+  size: 149, 15
+  orig: 149, 15
+  offset: 0, 0
+  index: -1
+I
+  rotate: false
+  xy: 226, 19
+  size: 59, 95
+  orig: 59, 95
+  offset: 0, 0
+  index: -1
+semi
+  rotate: false
+  xy: 287, 32
+  size: 42, 96
+  orig: 42, 96
   offset: 0, 0
   index: -1
 ver
@@ -45,30 +66,9 @@ ver
   orig: 96, 11
   offset: 0, 0
   index: -1
-p
-  rotate: false
-  xy: 750, 47
-  size: 50, 57
-  orig: 50, 57
-  offset: 0, 0
-  index: -1
-I
-  rotate: false
-  xy: 802, 47
-  size: 31, 57
-  orig: 31, 57
-  offset: 0, 0
-  index: -1
-semi
-  rotate: false
-  xy: 835, 50
-  size: 26, 54
-  orig: 26, 54
-  offset: 0, 0
-  index: -1
 s-bg
   rotate: false
-  xy: 274, 41
+  xy: 885, 147
   size: 2, 2
   orig: 2, 2
   offset: 0, 0

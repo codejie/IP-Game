@@ -7,43 +7,50 @@ public interface MenuConfig {
 	public interface Image {
 		
 		public static final String BACKGROUND = "background";
-		public static final String TITLE = "background";//"title";
+		public static final String TITLE = "title";
 		
 		public interface Button {
-			public static final String BACK_UP = "background";//"button_back_up";
-			public static final String BACK_DOWN = "box_frame_top";//"button_back_down";
-			public static final String NEXT_UP = "background";//"button_next";
-			public static final String NEXT_DOWN = "box_frame_top";//"button_next";
-			public static final String PREV_UP = "background";//"button_prev";
-			public static final String PREV_DOWN = "box_frame_top";//"button_prev";
+			public static final String BACK_UP = "back_up";//"button_back_up";
+			public static final String BACK_DOWN = "back_up";//"button_back_down";
+			public static final String NEXT_UP = "next_up";//"button_next";
+			public static final String NEXT_DOWN = "next_up";//"button_next";
+			public static final String PREV_UP = "prev_up";//"button_prev";
+			public static final String PREV_DOWN = "prev_up";//"button_prev";
 		}
 		
 		public interface Pack {
-			public static final String Item_Bg = "background";//"pack_item_bg";			
+			public static final String Bg = "pack_bg";
+			public static final String Bg_0 = "pack_0_bg";
 		}
 		
 		public interface Item {
-			public static final String Item_Bg = "background";
-			public static final String FRAME_TOP = "box_frame_top";
-			public static final String FRAME_BOTTOM = "box_frame_bottom";
+			public static final String Bg = "item_bg";
+			public static final String FRAME_TOP = "frame_top";
+			public static final String FRAME_BOTTOM = "frame_bottom";
 			public static final String TRAY = "tray";
 			public static final String BOX_0 = "box_a";
+			public static final String BOX_1 = "box_b";
+			public static final String BOX_2 = "box_c";
+			public static final String BOX_3 = "box_d";
 		}		
 	}
 	
 	public interface Const {
 		
 		public static final int TITLE_X = 0;
-		public static final float TITLE_Y = ScreenConfig.HEIGHT - 128;
-		public static final float TITLE_WIDTH = ScreenConfig.WIDTH;
-		public static final float TITLE_HEIGHT = 128;		
-
+		public static final int TITLE_Y = ScreenConfig.HEIGHT - 128;
+		public static final int TITLE_WIDTH = ScreenConfig.WIDTH;
+		public static final int TITLE_HEIGHT = 128;
+		public static final int BG_X = 0;
+		public static final int BG_Y = 0;
+		public static final int BG_WIDTH = ScreenConfig.WIDTH;
+		public static final int BG_HEIGHT = ScreenConfig.HEIGHT - 128;
 		
 		public interface Button {
 			public static final int BACK_WIDTH = 64;
 			public static final int BACK_HEIGHT = 128;
 			public static final int BACK_X = 24;
-			public static final int BACK_Y = ScreenConfig.HEIGHT - BACK_HEIGHT - 32;
+			public static final int BACK_Y = ScreenConfig.HEIGHT - BACK_HEIGHT - TITLE_HEIGHT - 32;
 			
 			public static final int NEXT_WIDTH = 128;
 			public static final int NEXT_HEIGHT = 64;
@@ -82,13 +89,6 @@ public interface MenuConfig {
 			
 			public static final int WIDTH = (ScreenConfig.WIDTH - SPACE_X * 2 - BASE_X * 2) / 3;
 			public static final int HEIGHT = 232;
-			
-//			public static final int FRAME_HEIGHT = 2;
-//			public static final int FRAME_WIDTH = WIDTH - 16;
-//			public static final int FRAME_TOP_X = 8;
-//			public static final int FRAME_TOP_Y = HEIGHT - 16;
-//			public static final int FRAME_BOTTOM_X = 8;
-//			public static final int FRAME_BOTTOM_Y = 16;
 			
 			public static final int FRAME_X = 8;
 			public static final int FRAME_Y_TOP = HEIGHT - 16;

@@ -27,33 +27,33 @@ public interface PlayConfig {
 			public static final String RUN_UP = "cmd_run_up";
 			public static final String RUN_DOWN = "cmd_run_down";
 			public static final String RUN_CHECKED = "cmd_run_checked";
-			public static final String CLEAR_UP = "lines_big_code_right";//"cmd_clear_up";
-			public static final String CLEAR_DOWN = "lines_big_code_left";//"cmd_clear_up_down";
-			public static final String MENU_UP = "lines_big_code_right";//"cmd_menu_up";
-			public static final String MENU_DOWN = "lines_big_code_left";//"cmd_menu_down";
-			public static final String BACK_UP = "lines_big_code_right";//"cmd_back_up";
-			public static final String BACK_DOWN = "lines_big_code_left";//"cmd_back_down";
+			public static final String CLEAR_UP = "cmd_clean_up";
+			public static final String CLEAR_DOWN = "cmd_clean_down";
+			public static final String MENU_UP = "cmd_more_up";
+			public static final String MENU_DOWN = "cmd_more_down";
+			public static final String BACK_UP = "cmd_back_up";
+			public static final String BACK_DOWN = "cmd_back_down";
 
-			public static final String SHARE_DOWN = "lines_big_code_right";//"cmd_share_up";
-			public static final String SHARE_UP = "lines_big_code_left";//"cmd_share_down";
+			public static final String SHARE_DOWN = "cmd_share_down";
+			public static final String SHARE_UP = "cmd_share_up";
 
 			public static final String NEXT_UP = "cmd_next_up";
 			public static final String NEXT_DOWN = "cmd_next_down";
 
-			public static final String INFO_UP = "lines_big_code_right";//"cmd_info_up";
-			public static final String INFO_DOWN = "lines_big_code_left";//"cmd_info_down";
+			public static final String INFO_UP = "cmd_info_up";
+			public static final String INFO_DOWN = "cmd_info_down";
 
-			public static final String SETTING_UP = "lines_big_code_right";//"cmd_setting_up";
-			public static final String SETTING_DOWN = "lines_big_code_left";//"cmd_setting_down";
+			public static final String SETTING_UP = "cmd_setup_up";
+			public static final String SETTING_DOWN = "cmd_setup_down";
 
-			public static final String CLOSE_UP = "lines_big_code_right";//"cmd_close_up";
-			public static final String CLOSE_DOWN = "lines_big_code_left";//"cmd_close_down";
+			public static final String CLOSE_UP = "cmd_close_up";
+			public static final String CLOSE_DOWN = "cmd_close_down";
 
-			public static final String BACK2_UP = "lines_big_code_right";//"cmd_back2_up";
-			public static final String BACK2_DOWN = "lines_big_code_left";//"cmd_back2_down";
+			public static final String BACK2_UP = "cmd_back_up";
+			public static final String BACK2_DOWN = "cmd_back_down";
 
-			public static final String CLOSE2_UP = "lines_big_code_right";//"cmd_close2_up";
-			public static final String CLOSE2_DOWN = "lines_big_code_left";//"cmd_close2_down";
+			public static final String CLOSE2_UP = "cmd_close_up";
+			public static final String CLOSE2_DOWN = "cmd_close_down";
 		}
 		
 		public interface Lines {
@@ -179,13 +179,13 @@ public interface PlayConfig {
 			public static final int HEIGHT_BUTTON = 64;
 			
 			public static final int BASE_X = ScreenConfig.WIDTH - WIDTH_BUTTON;
-			public static final int BASE_Y = 16;
+			public static final int BASE_Y = 0;
 			
 			public static final int WIDTH = 128;
-			public static final int HEIGHT = ScreenConfig.HEIGHT - 32;
+			public static final int HEIGHT = ScreenConfig.HEIGHT - 16;
 			
 			public static final int BASE_BUTTON_X = 0;
-			public static final int BASE_BUTTON_Y = 16;
+			public static final int BASE_BUTTON_Y = 0;
 			public static final int SPACE_BUTTON_Y = 48;			
 			
 			public static final int X_RUN = BASE_BUTTON_X;//0;//ScreenConfig.WIDTH - 128;

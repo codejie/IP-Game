@@ -57,7 +57,7 @@ public class PlayManager implements Disposable {
 				onCmdClear(state);
 			} else if (type == Cmd.Type.NEXT) {
 				onCmdNext(state);
-			} else if (type == Cmd.Type.CLOSE) {
+			} else if (type == Cmd.Type.CLOSE || type == Cmd.Type.CLOSE2) {
 				onCmdClose(state);
 			} else if (type == Cmd.Type.SETTING) {
 				

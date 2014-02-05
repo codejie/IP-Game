@@ -34,10 +34,12 @@ public class PackGroup extends BaseGroup {
 
 	private class PackActor extends BaseGroup {
 		
+		private final int id;
 		private final String title;
 		private final String info;
 		
-		public PackActor(final String title, int all, int pass) {
+		public PackActor(int id, final String title, int all, int pass) {
+			this.id = id;
 			this.title = title;
 			this.info = String.format("%d/%d", pass, all);
 			
@@ -46,10 +48,15 @@ public class PackGroup extends BaseGroup {
 		
 		@Override
 		protected void initStage() {
-			ImageActor bg = new ImageActor(textureAtlas.findRegion(Image.Pack.Item_Bg));
-			bg.setBounds(0, 0, Const.Pack.WIDTH, Const.Pack.HEIGHT);
-			this.addActor(bg);
-			
+			if (id != 1) {
+				ImageActor bg = new ImageActor(textureAtlas.findRegion(Image.Pack.Bg));
+				bg.setBounds(0, 0, Const.Pack.WIDTH, Const.Pack.HEIGHT);
+				this.addActor(bg);
+			} else {
+				ImageActor bg = new ImageActor(textureAtlas.findRegion(Image.Pack.Bg_0));
+				bg.setBounds(0, 0, Const.Pack.WIDTH, Const.Pack.HEIGHT);
+				this.addActor(bg);
+			}
 			LabelActor tl = new LabelActor(title, bitmapFont);
 			tl.setColor(Color.BLUE);
 			tl.setScale(2.8f);
@@ -84,7 +91,7 @@ public class PackGroup extends BaseGroup {
 		
 		@Override
 		protected void initStage() {
-			final ImageActor bg = new ImageActor(textureAtlas.findRegion(Image.Item.Item_Bg));
+			final ImageActor bg = new ImageActor(textureAtlas.findRegion(Image.Item.Bg));
 			bg.setBounds(0, 0, Const.Item.WIDTH, Const.Item.HEIGHT);
 			this.addActor(bg);
 
@@ -154,6 +161,12 @@ public class PackGroup extends BaseGroup {
 		private final ImageActor makeActor(int value, int style) {
 			if (value == 0) {
 				return new ImageActor(textureAtlas.findRegion(Image.Item.BOX_0));// adapter.getResources().getSkin().getRegion("ic"));
+			} if (value == 1) {
+				return new ImageActor(textureAtlas.findRegion(Image.Item.BOX_1));
+			} if (value == 2) {
+				return new ImageActor(textureAtlas.findRegion(Image.Item.BOX_2));
+			} if (value == 3) {
+				return new ImageActor(textureAtlas.findRegion(Image.Item.BOX_3));
 			} else {
 				return null;
 			}
@@ -210,6 +223,7 @@ public class PackGroup extends BaseGroup {
 	private final ActorCache cacheActor;
 	
 	private ImageActor title;
+	private ImageActor background;
 	private ButtonActor btnBack, btnNext, btnPrev;
 	
 	public PackGroup(final MenuScreen screen, final PackGroupEventListener listener) {
@@ -230,9 +244,15 @@ public class PackGroup extends BaseGroup {
 
 	@Override
 	protected void initStage() {
+		background = new ImageActor(textureAtlas.findRegion(Image.BACKGROUND));
+		background.setBounds(Const.BG_X, Const.BG_Y, Const.BG_WIDTH, Const.BG_HEIGHT);
+		this.addActor(background);
+		background.setZIndex(0);
+		
 		title = new ImageActor(textureAtlas.findRegion(Image.TITLE));
 		title.setBounds(Const.TITLE_X, Const.TITLE_Y, Const.TITLE_WIDTH, Const.TITLE_HEIGHT);
 		this.addActor(title);
+		title.setZIndex(0x0f);
 		
 		btnBack = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Button.BACK_UP), skin.getDrawable(Image.Button.BACK_DOWN), null));
 		btnBack.setBounds(Const.Button.BACK_X, Const.Button.BACK_Y, Const.Button.BACK_WIDTH, Const.Button.BACK_HEIGHT);
@@ -284,7 +304,7 @@ public class PackGroup extends BaseGroup {
 		
 		for (int i = 0; i < packs.length; ++ i) {
 			final Pack pack = packs[i];
-			PackActor actor = new PackActor(pack.getTitle(), pack.getTotal_all(), pack.getTotal_pass());
+			PackActor actor = new PackActor(pack.getId(), pack.getTitle(), pack.getTotal_all(), pack.getTotal_pass());
 			setPackBounds(pack.getId(), actor);
 			actor.addListener(new ClickListener() {
 
@@ -297,6 +317,7 @@ public class PackGroup extends BaseGroup {
 			});
 			
 			this.addActor(actor);
+			actor.setZIndex(0x01);
 			cacheActor.addActor(i, actor);
 		}		
 	}
@@ -437,16 +458,19 @@ public class PackGroup extends BaseGroup {
 	}
 	
 	protected void onBtnBackClicked() {
+		hideButtons();
 		listener.onBtnBackClicked(curPack);
 		curPack = -1;
 	}
 
 	protected void onBtnNextClicked() {
+		hideButtons();
 		itemStart = itemStart + MenuConfig.Const.Item.NUM_PER_PAGE;
 		listener.onBtnNextClicked(curPack);
 	}
 
 	protected void onBtnPrevClicked() {
+		hideButtons();
 		itemStart = itemStart - MenuConfig.Const.Item.NUM_PER_PAGE; 
 		listener.onBtnPrevCllicked(curPack);
 	}	

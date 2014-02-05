@@ -1,5 +1,6 @@
 package jie.android.ip.screen.start;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 import aurelienribon.tweenengine.BaseTween;
@@ -51,6 +52,8 @@ public class StartScreen extends BaseScreen {
 	public StartScreen(IPGame game) {
 		super(game);
 		
+		//Utils.log("===", "width = " + Gdx.graphics.getWidth() + " height = " + Gdx.graphics.getHeight());
+		
 		textureAtlas = game.getResources().getTextureAtlas(PackConfig.SCREEN_START);
 
 		initActors();
@@ -67,7 +70,9 @@ public class StartScreen extends BaseScreen {
 		p1 = new ImageActor(textureAtlas.findRegion(Image.P1));
 		semi = new ImageActor(textureAtlas.findRegion(Image.SEMI));
 
-		bg = new ImageActor(textureAtlas.findRegion(Image.BG));		
+		bg = new ImageActor(textureAtlas.findRegion(Image.BG));
+		bg.setBounds(0, 0, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);
+		
 		title = new ImageActor(textureAtlas.findRegion(Image.TITLE));
 		ver = new ImageActor(textureAtlas.findRegion(Image.VER));
 		author = new ImageActor(textureAtlas.findRegion(Image.AUTHOR));
@@ -103,8 +108,8 @@ public class StartScreen extends BaseScreen {
 	private Timeline tweenSet() {
 		return Timeline.createParallel()
 				//bg
-				.push(Tween.set(bg, ImageActorAccessor.POSITION_XY).target(0, ScreenConfig.HEIGHT))
-				.push(Tween.set(bg, ImageActorAccessor.SCALE_TO_XY).target(ScreenConfig.WIDTH, ScreenConfig.HEIGHT))
+				.push(Tween.set(bg, ImageActorAccessor.POSITION_XY).target(0, ScreenConfig.HEIGHT * 1.2f))
+				//.push(Tween.set(bg, ImageActorAccessor.SCALE_TO_XY).target(ScreenConfig.WIDTH, ScreenConfig.HEIGHT))
 				//i
 				.push(Tween.set(i, ImageActorAccessor.POSITION_XY).target(Const.LINE1_X_1 - i.getWidth() * Const.SCALE_1, Const.LINE1_Y_1))
 				.push(Tween.set(i, ImageActorAccessor.SCALE_XY).target(Const.SCALE_1, Const.SCALE_1))
