@@ -30,7 +30,7 @@ public interface StartConfig {
 		public static final float DELAY_2 = -0.6f;
 		public static final float DELAY_3 = 1.0f;
 		
-		public static final float SPACEX_1 = 15.0f;
+		public static final float SPACEX_1 = 35.0f;
 		public static final float SPACEX_2 = 6.0f;
 		public static final float SPACEY_1 = 0.0f;
 		

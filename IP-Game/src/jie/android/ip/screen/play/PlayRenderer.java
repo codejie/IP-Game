@@ -227,6 +227,7 @@ public class PlayRenderer {
 				dlg.dismiss();				
 			}
 		});
+		dlg.setTextImage();
 		dlg.show();
 		
 		return false;

@@ -374,11 +374,11 @@ cmd_share_up
   orig: 128, 64
   offset: 0, 0
   index: -1
-panel_code_right
+lines_small_code_act
   rotate: false
-  xy: 1413, 1196
-  size: 72, 72
-  orig: 72, 72
+  xy: 1413, 1200
+  size: 68, 68
+  orig: 68, 68
   offset: 0, 0
   index: -1
 lines_big_code_if_a
@@ -397,63 +397,56 @@ lines_big_code_if_any
   index: -1
 lines_big_code_if_b
   rotate: false
-  xy: 1487, 1168
+  xy: 391, 440
   size: 128, 48
   orig: 128, 48
   offset: 0, 0
   index: -1
 lines_big_code_if_c
   rotate: false
-  xy: 1617, 1168
+  xy: 407, 390
   size: 128, 48
   orig: 128, 48
   offset: 0, 0
   index: -1
 lines_big_code_if_d
   rotate: false
-  xy: 391, 440
+  xy: 407, 340
   size: 128, 48
   orig: 128, 48
   offset: 0, 0
   index: -1
 lines_big_code_if_none
   rotate: false
-  xy: 407, 390
+  xy: 391, 290
   size: 128, 48
   orig: 128, 48
   offset: 0, 0
   index: -1
 lines_big_code_if_null
   rotate: false
-  xy: 407, 340
+  xy: 574, 490
   size: 128, 48
   orig: 128, 48
   offset: 0, 0
   index: -1
-lines_small_code_act
+lines_small_code_call_a
   rotate: false
   xy: 1163, 866
   size: 68, 68
   orig: 68, 68
   offset: 0, 0
   index: -1
-lines_small_code_call_a
+lines_small_code_call_b
   rotate: false
   xy: 1163, 796
   size: 68, 68
   orig: 68, 68
   offset: 0, 0
   index: -1
-lines_small_code_call_b
-  rotate: false
-  xy: 1163, 726
-  size: 68, 68
-  orig: 68, 68
-  offset: 0, 0
-  index: -1
 lines_small_code_call_c
   rotate: false
-  xy: 574, 470
+  xy: 1163, 726
   size: 68, 68
   orig: 68, 68
   offset: 0, 0
@@ -537,7 +530,7 @@ panel_code_none
   index: -1
 panel_code_null
   rotate: false
-  xy: 648, 526
+  xy: 1841, 1260
   size: 68, 68
   orig: 68, 68
   offset: 0, 0
@@ -565,28 +558,28 @@ lines_small_code_if_b
   index: -1
 lines_small_code_if_c
   rotate: false
-  xy: 75, 315
+  xy: 648, 558
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 lines_small_code_if_d
   rotate: false
-  xy: 718, 730
+  xy: 1841, 1222
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 lines_small_code_if_none
   rotate: false
-  xy: 75, 277
+  xy: 75, 315
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 lines_small_code_if_null
   rotate: false
-  xy: 718, 692
+  xy: 559, 452
   size: 36, 36
   orig: 36, 36
   offset: 0, 0

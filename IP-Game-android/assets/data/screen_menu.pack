@@ -52,6 +52,13 @@ frame_top
   orig: 304, 2
   offset: 0, 0
   index: -1
+back_down
+  rotate: false
+  xy: 323, 123
+  size: 64, 128
+  orig: 64, 128
+  offset: 0, 0
+  index: -1
 back_up
   rotate: false
   xy: 323, 123

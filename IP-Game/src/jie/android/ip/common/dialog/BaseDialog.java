@@ -12,6 +12,7 @@ import jie.android.ip.CommonConsts.PackConfig;
 import jie.android.ip.common.actor.BaseGroup;
 import jie.android.ip.common.actor.ButtonActor;
 import jie.android.ip.common.actor.ImageActor;
+import jie.android.ip.common.actor.LabelActor;
 import jie.android.ip.common.dialog.DialogConfig.Const;
 import jie.android.ip.common.dialog.DialogConfig.Image;
 import jie.android.ip.screen.BaseScreen;
@@ -40,7 +41,7 @@ public class BaseDialog extends BaseGroup {
 	
 	public BaseDialog(final BaseScreen screen) {
 		this.screen = screen;
-		this.textureAtlas = this.screen.getGame().getResources().getTextureAtlas(PackConfig.DIALOG);
+		this.textureAtlas = this.screen.getGame().getResources().getTextureAtlas(PackConfig.SCREEN_DIALOG);
 		this.skin = new Skin(this.textureAtlas);
 		this.tweenManager = this.screen.getTweenManager();
 		
@@ -92,7 +93,7 @@ public class BaseDialog extends BaseGroup {
 	}
 	
 	public void setNegativeButton(final ButtonClickListener listener) {
-		btnNegative = new ButtonActor(skin, Image.BUTTON_POSITIVE_UP, Image.BUTTON_POSITIVE_DOWN);
+		btnNegative = new ButtonActor(skin, Image.BUTTON_NEGATIVE_UP, Image.BUTTON_NEGATIVE_DOWN);
 		btnNegative.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -126,5 +127,18 @@ public class BaseDialog extends BaseGroup {
 			}
 		}
 	}
+	
+	public void loadTextImage(final String res) {
+		ImageActor text = new ImageActor(textureAtlas.findRegion(res));
+		float x = Const.BASE_X_WINDOW + (Const.WIDTH_WINDOW - text.getWidth()) / 2;
+		float y = Const.TEXT_BASE_Y + (Const.TEXT_HEIGHT - text.getHeight()) / 2; 
+			
+		text.setPosition(x, y);// .setBounds(x, y, Const.TEXT_WIDTH, Const.TEXT_HEIGHT);
+		this.addActor(text);
+		text.setZIndex(0x0f);
+	}
 
+	public void setTextImage() {
+		loadTextImage(Image.TEXT_CLEAN_CODE);
+	}
 }

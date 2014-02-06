@@ -1,0 +1,54 @@
+
+screen_dialog.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+window
+  rotate: false
+  xy: 1, 278
+  size: 1024, 512
+  orig: 1024, 512
+  offset: 0, 0
+  index: -1
+text_clean_code
+  rotate: false
+  xy: 1, 229
+  size: 875, 47
+  orig: 875, 47
+  offset: 0, 0
+  index: -1
+negative_down
+  rotate: false
+  xy: 1027, 694
+  size: 256, 96
+  orig: 256, 96
+  offset: 0, 0
+  index: -1
+negative_up
+  rotate: false
+  xy: 1, 131
+  size: 256, 96
+  orig: 256, 96
+  offset: 0, 0
+  index: -1
+positive_down
+  rotate: false
+  xy: 1027, 596
+  size: 256, 96
+  orig: 256, 96
+  offset: 0, 0
+  index: -1
+positive_up
+  rotate: false
+  xy: 1285, 694
+  size: 256, 96
+  orig: 256, 96
+  offset: 0, 0
+  index: -1
+bg
+  rotate: false
+  xy: 1, 1
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1

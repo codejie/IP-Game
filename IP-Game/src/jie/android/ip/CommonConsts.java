@@ -17,7 +17,7 @@ public interface CommonConsts {
 		public static final String SCREEN_START = "data/screen_start.pack";
 		public static final String SCREEN_PLAY = "data/screen_box.pack";
 		public static final String SCREEN_MENU = "data/screen_menu.pack";		
-		public static final String DIALOG = "data/screen_box.pack";//"data/dialog.pack";
+		public static final String SCREEN_DIALOG = "data/screen_dialog.pack";
 	}
 	
 	public interface FontConfig {
