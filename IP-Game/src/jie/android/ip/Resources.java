@@ -3,8 +3,11 @@ package jie.android.ip;
 import jie.android.ip.CommonConsts.FontConfig;
 import jie.android.ip.CommonConsts.PackConfig;
 import jie.android.ip.CommonConsts.SoundConfig;
+import jie.android.ip.common.ttf.BitmapTrueFont;
+import jie.android.ip.common.ttf.BitmapTrueFontLoader;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -14,6 +17,7 @@ import com.badlogic.gdx.utils.Disposable;
 public class Resources implements Disposable {
 
 	private AssetManager assetManager;
+	private BitmapTrueFont bitmapTrueFont;
 	
 	public Resources() {		
 		initAssetManager();		
@@ -23,6 +27,10 @@ public class Resources implements Disposable {
 
 	@Override
 	public void dispose() {
+//		if (bitmapTrueFont != null) {
+//			bitmapTrueFont.dispose();
+//		}
+//		
 		if (assetManager != null) {
 			assetManager.dispose();
 		}
@@ -30,7 +38,7 @@ public class Resources implements Disposable {
 
 	private void initAssetManager() {
 		assetManager = new AssetManager();
-		assetManager.setLoader()
+		assetManager.setLoader(BitmapTrueFont.class, new BitmapTrueFontLoader(new InternalFileHandleResolver()));
 		assetManager.load(PackConfig.SCREEN_START, TextureAtlas.class);
 		assetManager.finishLoading();
 	}
@@ -50,6 +58,8 @@ public class Resources implements Disposable {
 //		assetManager.load(ResourceConfig.CONSOLE_PACK_NAME, TextureAtlas.class);
 		
 		assetManager.load(SoundConfig.MENU_CLICK, Sound.class);
+		
+		assetManager.load(FontConfig.FONT_TRUE, BitmapTrueFont.class, new BitmapTrueFont.BitmapTrueFontParameter(FontConfig.FONT_TRUE_CHARS));
 		
 		assetManager.finishLoading();
 	}
@@ -76,5 +86,12 @@ public class Resources implements Disposable {
 	
 	public final Sound getSuond(final String name) {
 		return assetManager.get(name, Sound.class);
+	}
+	
+	public final BitmapFont getBitmapTrueFont(int size) {
+		if (bitmapTrueFont == null) {
+			bitmapTrueFont = assetManager.get(FontConfig.FONT_TRUE, BitmapTrueFont.class);
+		}
+		return bitmapTrueFont.getBitmapFont(size);
 	}
 }

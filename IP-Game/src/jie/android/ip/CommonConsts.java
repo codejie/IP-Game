@@ -24,6 +24,10 @@ public interface CommonConsts {
 		public static final String FONT_18 = "data/font/arial-18.fnt";
 		public static final String FONT_20 = "data/font/arial-20.fnt";
 		public static final String FONT_24 = "data/font/arial-24.fnt";
+		
+		public static final String FONT_TRUE = "data/font/segoeuib.ttf";
+//		public static final String FONT_TRUE = "data/font/simli.ttf";
+		public static final String FONT_TRUE_CHARS = null;
 	}
 
 	public interface SoundConfig {

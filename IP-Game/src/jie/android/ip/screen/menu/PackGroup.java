@@ -59,13 +59,13 @@ public class PackGroup extends BaseGroup {
 			}
 			LabelActor tl = new LabelActor(title, bitmapFont);
 			tl.setColor(Color.BLUE);
-			tl.setScale(2.8f);
+//			tl.setScale(2.8f);
 			TextBounds tb = tl.getBounds();
 			tl.setBounds((Const.Pack.WIDTH - tb.width) / 2, Const.Pack.HEIGHT * 0.8f, tb.width, tb.height);
 			this.addActor(tl);
 			
 			LabelActor i = new LabelActor(info, bitmapFont);
-			i.setScale(2.1f);
+			i.setScale(0.8f);
 			tb = i.getBounds();
 			i.setBounds((Const.Pack.WIDTH - tb.width) / 2, Const.Pack.HEIGHT * 0.33f, tb.width, tb.height);
 			this.addActor(i);
@@ -230,7 +230,7 @@ public class PackGroup extends BaseGroup {
 		this.screen = screen;
 		this.textureAtlas = screen.getGame().getResources().getTextureAtlas(PackConfig.SCREEN_MENU);
 		this.skin = new Skin(this.textureAtlas);
-		this.bitmapFont = screen.getGame().getResources().getBitmapFont(24);
+		this.bitmapFont = screen.getGame().getResources().getBitmapTrueFont(56);//.getBitmapFont(24);
 		this.tweenManager = screen.getTweenManager();
 		this.listener = listener;
 		

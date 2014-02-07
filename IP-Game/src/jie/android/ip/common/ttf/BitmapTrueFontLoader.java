@@ -7,11 +7,12 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.AsynchronousAssetLoader;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.Array;
 
 public class BitmapTrueFontLoader extends AsynchronousAssetLoader<BitmapTrueFont, BitmapTrueFont.BitmapTrueFontParameter> {
 
-	private BitmapTrueFont font;
+//	private BitmapTrueFont font;
 	
 	public BitmapTrueFontLoader(FileHandleResolver resolver) {
 		super(resolver);
@@ -19,20 +20,15 @@ public class BitmapTrueFontLoader extends AsynchronousAssetLoader<BitmapTrueFont
 
 	@Override
 	public void loadAsync(AssetManager manager, String fileName, FileHandle file, BitmapTrueFontParameter parameter) {
-		
 	}
 
 	@Override
-	public BitmapTrueFont loadSync(AssetManager manager, String fileName, FileHandle file,
-			BitmapTrueFontParameter parameter) {
-		// TODO Auto-generated method stub
-		return null;
+	public BitmapTrueFont loadSync(AssetManager manager, String fileName, FileHandle file, BitmapTrueFontParameter parameter) {
+		return new BitmapTrueFont(new FreeTypeFontGenerator(file), parameter);
 	}
 
 	@Override
 	public Array<AssetDescriptor> getDependencies(String fileName, FileHandle file, BitmapTrueFontParameter parameter) {
-		// TODO Auto-generated method stub
 		return null;
 	}
-
 }
