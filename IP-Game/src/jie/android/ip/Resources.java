@@ -30,6 +30,7 @@ public class Resources implements Disposable {
 
 	private void initAssetManager() {
 		assetManager = new AssetManager();
+		assetManager.setLoader()
 		assetManager.load(PackConfig.SCREEN_START, TextureAtlas.class);
 		assetManager.finishLoading();
 	}

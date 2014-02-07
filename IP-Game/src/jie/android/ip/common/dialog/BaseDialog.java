@@ -47,7 +47,7 @@ public class BaseDialog extends BaseGroup {
 		
 		initStage();
 	}
-	
+	 
 	@Override
 	protected void initStage() {
 		
@@ -138,7 +138,7 @@ public class BaseDialog extends BaseGroup {
 		text.setZIndex(0x0f);
 	}
 
-	public void setTextImage() {
-		loadTextImage(Image.TEXT_CLEAN_CODE);
-	}
+//	public void setTextImage() {
+//		loadTextImage(Image.TEXT_CLEAN_CODE);
+//	}
 }

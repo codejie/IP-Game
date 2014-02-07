@@ -231,6 +231,7 @@ public class PlayManager implements Disposable {
 		box.reload(script);
 		executor.reset();
 		
+		dbAccess.clearSolution(script.getId());
 		codeLines.reset();
 	}	
 

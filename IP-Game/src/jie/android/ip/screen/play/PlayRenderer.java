@@ -1,7 +1,7 @@
 package jie.android.ip.screen.play;
 
 import jie.android.ip.common.dialog.BaseDialog;
-import jie.android.ip.screen.play.Cmd.State;
+import jie.android.ip.common.dialog.DialogConfig;
 import jie.android.ip.utils.Utils;
 
 
@@ -227,7 +227,7 @@ public class PlayRenderer {
 				dlg.dismiss();				
 			}
 		});
-		dlg.setTextImage();
+		dlg.loadTextImage(DialogConfig.Image.TEXT_CLEAN_CODE);
 		dlg.show();
 		
 		return false;

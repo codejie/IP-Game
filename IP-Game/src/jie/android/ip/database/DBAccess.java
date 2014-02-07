@@ -156,6 +156,12 @@ public class DBAccess {
 		val.add("0");
 		execSQL(sql, val);
 	}
+	
+
+	public void clearSolution(int id) {
+		final String sql = "DELETE FROM solution WHERE script_id=" + id;
+		execSQL(sql);
+	}	
 
 	public final String loadSolution(int i) {
 		final String sql = "SELECT command FROM solution WHERE script_id=" + i;
@@ -228,6 +234,7 @@ public class DBAccess {
 		}
 		return null;
 	}
+
 	
 	
 }
