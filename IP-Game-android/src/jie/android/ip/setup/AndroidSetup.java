@@ -9,13 +9,17 @@ import jie.android.ip.CommonConsts.SystemConfig;
 import jie.android.ip.database.AndroidConnectionAdapter;
 import jie.android.ip.database.ConnectionAdapter;
 import jie.android.ip.utils.AssetsHelper;
+import jie.android.ip.utils.Utils;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Environment;
 
 public class AndroidSetup extends Setup {
 
 	private static final String APP_ROOT = "/jie/ip/";
+	private static final String APP_CACHE = "/jie/cache/";
 	private static final String ASSETS_FILE = "assets.zip";
 	
 	private final Context context;
@@ -59,6 +63,26 @@ public class AndroidSetup extends Setup {
 	@Override
 	public final Connection getDatabaseConnection() {
 		return connectionAdapter.getConnection();
+	}
+
+	@Override
+	public boolean shareScreen() {
+		final String root = getStorageDirectory() + APP_CACHE;
+		final File ipPath = new File(root);
+		if (!ipPath.exists()) {
+			ipPath.mkdirs();
+		}
+		final String file = root + "ip_shot.png";
+		Utils.saveScreenToFile(file);
+		
+		Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("image/*");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.putExtra(Intent.EXTRA_STREAM,Uri.fromFile(new File(file)));
+        context.startActivity(Intent.createChooser(intent, "ip"));
+		
+		
+		return true;
 	}
 
 }

@@ -2,7 +2,10 @@ package jie.android.ip.common.dialog;
 
 import aurelienribon.tweenengine.TweenManager;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -128,7 +131,7 @@ public class BaseDialog extends BaseGroup {
 		}
 	}
 	
-	public void loadTextImage(final String res) {
+	public void setTextImage(final String res) {
 		ImageActor text = new ImageActor(textureAtlas.findRegion(res));
 		float x = Const.BASE_X_WINDOW + (Const.WIDTH_WINDOW - text.getWidth()) / 2;
 		float y = Const.TEXT_BASE_Y + (Const.TEXT_HEIGHT - text.getHeight()) / 2; 
@@ -137,8 +140,17 @@ public class BaseDialog extends BaseGroup {
 		this.addActor(text);
 		text.setZIndex(0x0f);
 	}
-
-//	public void setTextImage() {
-//		loadTextImage(Image.TEXT_CLEAN_CODE);
-//	}
+	
+	public void setTextString(final String text, final BitmapFont font, final Color color) {
+		LabelActor label = new LabelActor(text,font);
+		label.setColor(color);
+		
+		TextBounds tb = label.getBounds();
+		float x = Const.BASE_X_WINDOW + (Const.WIDTH_WINDOW - tb.width) / 2;
+		float y = Const.TEXT_BASE_Y + (Const.TEXT_HEIGHT - tb.height) / 2;
+		
+		label.setPosition(x, y);
+		this.addActor(label);
+		label.setZIndex(0x0f);
+	}
 }

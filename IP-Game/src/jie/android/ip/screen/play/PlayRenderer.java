@@ -1,5 +1,8 @@
 package jie.android.ip.screen.play;
 
+import com.badlogic.gdx.graphics.Color;
+
+import jie.android.ip.common.dialog.AlertDialog;
 import jie.android.ip.common.dialog.BaseDialog;
 import jie.android.ip.common.dialog.DialogConfig;
 import jie.android.ip.utils.Utils;
@@ -196,10 +199,14 @@ public class PlayRenderer {
 	}
 
 	private boolean onCmdShare(final Cmd.State state) {
-		Utils.saveScreenToFile("./doc/a.png");
+		this.screen.getGame().getSetup().shareScreen();
+		//Utils.saveScreenToFile("./doc/a.png");
+		final AlertDialog dlg = new AlertDialog(this.screen, "No Implemented.", this.screen.getGame().getResources().getBitmapTrueFont(100), Color.YELLOW, null);
+		dlg.show();
+
 //		groupResult.hideStage();
 //		groupCmdPanel.showMenu(Cmd.Layer.FIRST);
-		return true;
+		return false;
 	}
 	
 	private boolean onCmdNext(final Cmd.State state) {
@@ -227,7 +234,7 @@ public class PlayRenderer {
 				dlg.dismiss();				
 			}
 		});
-		dlg.loadTextImage(DialogConfig.Image.TEXT_CLEAN_CODE);
+		dlg.setTextImage(DialogConfig.Image.TEXT_CLEAN_CODE);
 		dlg.show();
 		
 		return false;
@@ -241,11 +248,16 @@ public class PlayRenderer {
 
 	protected boolean onCmdSetting(final Cmd.State state) {
 		//Setting Dialog
+		final AlertDialog dlg = new AlertDialog(this.screen, "No Implemented.", this.screen.getGame().getResources().getBitmapTrueFont(100), Color.YELLOW, null);
+		dlg.show();
+		
 		return false;
 	}
 
 	protected boolean onCmdInfo(final Cmd.State state) {
-		// Info Dialog
+		final AlertDialog dlg = new AlertDialog(this.screen, "No Implemented.", this.screen.getGame().getResources().getBitmapTrueFont(100), Color.YELLOW, null);
+		dlg.show();
+
 		return false;
 	}	
 }

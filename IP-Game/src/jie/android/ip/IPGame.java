@@ -70,6 +70,10 @@ public class IPGame extends Game {
 		camera.position.set(ScreenConfig.WIDTH / 2, ScreenConfig.HEIGHT / 2, 0);		
 	}
 
+	public final Setup getSetup() {
+		return setup;
+	}
+	
 	public SpriteBatch getSpriteBatch() {
 		return batch;
 	}

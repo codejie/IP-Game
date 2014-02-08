@@ -33,4 +33,9 @@ public class DesktopSetup extends Setup {
 		return connectionAdapter.getConnection();
 	}
 
+	@Override
+	public boolean shareScreen() {
+		return false;
+	}
+
 }

@@ -7,4 +7,6 @@ public abstract class Setup {
 	public abstract void create();
 	public abstract String getStorageDirectory();
 	public abstract Connection getDatabaseConnection();
+	
+	public abstract boolean shareScreen();
 }
