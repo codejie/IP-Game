@@ -75,12 +75,11 @@ public class AndroidSetup extends Setup {
 		final String file = root + "ip_shot.png";
 		Utils.saveScreenToFile(file);
 		
-		Intent intent = new Intent(Intent.ACTION_SEND);
+        Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("image/*");
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.putExtra(Intent.EXTRA_STREAM,Uri.fromFile(new File(file)));
-        context.startActivity(Intent.createChooser(intent, "ip"));
-		
+        intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(new File(file)));
+        context.startActivity(intent);
 		
 		return true;
 	}

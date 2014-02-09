@@ -17,6 +17,8 @@ public interface StartConfig {
 		public static final String TITLE = "title";
 		public static final String VER = "ver";
 		public static final String AUTHOR = "author";
+
+		public static final String LOADING = "loading";
 	}
 	
 	public interface Const {
@@ -60,6 +62,8 @@ public interface StartConfig {
 		public static final float FINAL_X_I = 200.0f;	
 		public static final float FINAL_Y_I = 260.0f;
 		
-		public static final float FINAL_Y_OTHER = 800.0f;		
+		public static final float FINAL_Y_OTHER = 800.0f;
+		
+		public static final float LOADING_Y = 160; 
 	}
 }

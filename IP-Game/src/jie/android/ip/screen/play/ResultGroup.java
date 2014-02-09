@@ -67,15 +67,19 @@ public class ResultGroup extends BaseGroup {
 		
 		if (which == Which.SUCC) {
 			result = new ImageActor(textureAtlas.findRegion(Image.Result.SUCC));
-			result.setBounds(Const.Result.BASE_X_SUCC, Const.Result.BASE_Y_SUCC, Const.Result.WIDTH_SUCC, Const.Result.HEIGHT_SUCC);
+			//result.setBounds(Const.Result.BASE_X_SUCC, Const.Result.BASE_Y_SUCC, Const.Result.WIDTH_SUCC, Const.Result.HEIGHT_SUCC);
 		} else if (which == Which.FAIL) {
 			result = new ImageActor(textureAtlas.findRegion(Image.Result.FAIL));
-			result.setBounds(Const.Result.BASE_X_FAIL, Const.Result.BASE_Y_FAIL, Const.Result.WIDTH_FAIL, Const.Result.HEIGHT_FAIL);
+			//result.setBounds(Const.Result.BASE_X_FAIL, Const.Result.BASE_Y_FAIL, Const.Result.WIDTH_FAIL, Const.Result.HEIGHT_FAIL);
 		} else { // if (which == Which.FINISHED) {
 			result = new ImageActor(textureAtlas.findRegion(Image.Result.FINISHED));
-			result.setBounds(Const.Result.BASE_X_FINISHED, Const.Result.BASE_Y_FINISHED, Const.Result.WIDTH_FINISHED, Const.Result.HEIGHT_FINISHED);			
+			//result.setBounds(Const.Result.BASE_X_FINISHED, Const.Result.BASE_Y_FINISHED, Const.Result.WIDTH_FINISHED, Const.Result.HEIGHT_FINISHED);
 		}
+
+		float x = (Const.Result.WIDTH - result.getWidth()) / 2;
+		float y = Const.Result.BASE_Y_RESULT;
 		
+		result.setPosition(x, y);
 		//result.setScale(0.0f);
 		
 		this.addActor(result);
@@ -87,6 +91,9 @@ public class ResultGroup extends BaseGroup {
 		updateResult(Which.SUCC);
 		
 		final float zoom = 20.0f;
+		float x = (Const.Result.WIDTH - result.getWidth()) / 2;
+		float y = Const.Result.BASE_Y_RESULT;
+		
 		this.setVisible(true);
 
 		Timeline.createParallel()
@@ -96,7 +103,7 @@ public class ResultGroup extends BaseGroup {
 			
 			.push(Tween.to(result, ImageActorAccessor.OPACITY, 0.2f).target(1.0f))
 			.push(Tween.to(result, ImageActorAccessor.SCALE_XY, 0.2f).target(1.0f, 1.0f))
-			.push(Tween.to(result, ImageActorAccessor.POSITION_XY, 0.2f).target(Const.Result.BASE_X_SUCC, Const.Result.BASE_Y_SUCC))			
+			.push(Tween.to(result, ImageActorAccessor.POSITION_XY, 0.2f).target(x, y))			
 			.start(tweenManager);
 	}
 
@@ -104,6 +111,9 @@ public class ResultGroup extends BaseGroup {
 		updateResult(Which.FAIL);
 		
 		final float zoom = 20.0f;
+		float x = (Const.Result.WIDTH - result.getWidth()) / 2;
+		float y = Const.Result.BASE_Y_RESULT;
+		
 		this.setVisible(true);
 
 		Timeline.createParallel()
@@ -113,7 +123,7 @@ public class ResultGroup extends BaseGroup {
 			
 			.push(Tween.to(result, ImageActorAccessor.OPACITY, 0.2f).target(1.0f))
 			.push(Tween.to(result, ImageActorAccessor.SCALE_XY, 0.2f).target(1.0f, 1.0f))
-			.push(Tween.to(result, ImageActorAccessor.POSITION_XY, 0.2f).target(Const.Result.BASE_X_FAIL, Const.Result.BASE_Y_FAIL))			
+			.push(Tween.to(result, ImageActorAccessor.POSITION_XY, 0.2f).target(x, y))			
 			.start(tweenManager);	
 	}
 

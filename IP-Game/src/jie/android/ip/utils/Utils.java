@@ -28,7 +28,7 @@ public class Utils {
     public static final Pixmap getScreenshot(int x, int y, int w, int h, boolean flipY) {
         Gdx.gl.glPixelStorei(GL10.GL_PACK_ALIGNMENT, 1);
         
-        final Pixmap pixmap = new Pixmap(w, h, Pixmap.Format.RGBA8888);
+        final Pixmap pixmap = new Pixmap(w, h, Pixmap.Format.Alpha.RGBA8888);
         ByteBuffer pixels = pixmap.getPixels();
         Gdx.gl.glReadPixels(x, y, w, h, GL10.GL_RGBA, GL10.GL_UNSIGNED_BYTE, pixels);
         

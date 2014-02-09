@@ -201,11 +201,9 @@ public class PlayRenderer {
 	private boolean onCmdShare(final Cmd.State state) {
 		this.screen.getGame().getSetup().shareScreen();
 		//Utils.saveScreenToFile("./doc/a.png");
-		final AlertDialog dlg = new AlertDialog(this.screen, "No Implemented.", this.screen.getGame().getResources().getBitmapTrueFont(100), Color.YELLOW, null);
-		dlg.show();
+//		final AlertDialog dlg = new AlertDialog(this.screen, "No Implemented.", this.screen.getGame().getResources().getBitmapTrueFont(100), Color.YELLOW, null);
+//		dlg.show();
 
-//		groupResult.hideStage();
-//		groupCmdPanel.showMenu(Cmd.Layer.FIRST);
 		return false;
 	}
 	

@@ -8,7 +8,6 @@
 	<classpathentry exported="true" kind="lib" path="/IP-Game/libs/gdx.jar" sourcepath="/IP-Game/libs/gdx-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/gdx-backend-android.jar" sourcepath="libs/gdx-backend-android-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="/IP-Game/libs/tween-engine-api.jar" sourcepath="/IP-Game/libs/tween-engine-api-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="/IP-Game/libs/bodyeditor-loader.jar" sourcepath="/IP-Game/libs/bodyeditor-loader-sources.jar"/>
 	<classpathentry kind="lib" path="libs/sqldroid-1.0.0RC1.jar"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="output" path="bin/classes"/>

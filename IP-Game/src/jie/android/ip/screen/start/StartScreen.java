@@ -27,32 +27,22 @@ public class StartScreen extends BaseScreen {
 	private ImageActor bg;
 	private ImageActor i, am, a, p, p1, semi;
 	private ImageActor title, ver, author;
+	private ImageActor loading;
+	
 	private TweenCallback tweenCompleteCallback = new TweenCallback() {
 
 		@Override
 		public void onEvent(int type, BaseTween<?> source) {
-			Utils.log("tween event", "type = " + type + " source = " + source.toString());
+//			Utils.log("tween event", "type = " + type + " source = " + source.toString());
 			
 			game.getResources().loadAssetManager();
 			game.setScreen(new MenuScreen(game));
-//			game.setScreen(new BoxScreen(game));
-			//game.setScreen(new TestScreen(game));
 		}
 		
 	};
-//	private TweenCallback pScaleCallback = new TweenCallback() {
-//
-//		@Override
-//		public void onEvent(int type, BaseTween<?> source) {
-//			Utils.log("scale tween event", "type = " + type + " source = " + source.toString());			
-//		}
-//		
-//	};
 
 	public StartScreen(IPGame game) {
 		super(game);
-		
-		//Utils.log("===", "width = " + Gdx.graphics.getWidth() + " height = " + Gdx.graphics.getHeight());
 		
 		textureAtlas = game.getResources().getTextureAtlas(PackConfig.SCREEN_START);
 
@@ -77,6 +67,11 @@ public class StartScreen extends BaseScreen {
 		ver = new ImageActor(textureAtlas.findRegion(Image.VER));
 		author = new ImageActor(textureAtlas.findRegion(Image.AUTHOR));
 		
+		loading = new ImageActor(textureAtlas.findRegion(Image.LOADING));
+		float x = (ScreenConfig.WIDTH - loading.getWidth()) / 2;
+		loading.setPosition(x, Const.LOADING_Y);
+		loading.setScale(0.0f, 0.0f);
+		
 		this.addActor(bg);
 		
 		this.addActor(i);
@@ -89,6 +84,8 @@ public class StartScreen extends BaseScreen {
 		this.addActor(title);
 		this.addActor(ver);
 		this.addActor(author);
+		
+		this.addActor(loading);
 	}
 
 	private void initTween() {
@@ -175,6 +172,8 @@ public class StartScreen extends BaseScreen {
 	
 	private Timeline tweenState3() {
 		return Timeline.createParallel()
+				//loading
+				.push(Tween.set(loading, ImageActorAccessor.SCALE_XY).target(1.0f, 1.0f))
 				//title, ver
 				.push(Tween.to(title, ImageActorAccessor.POSITION_X, Const.DURATION_4).target(Const.LINE3_X_2 - title.getWidth()))
 				.push(Tween.to(ver, ImageActorAccessor.POSITION_X, Const.DURATION_4).target(Const.LINE4_X_2 - ver.getWidth()))
