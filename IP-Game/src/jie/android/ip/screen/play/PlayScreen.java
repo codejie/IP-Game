@@ -28,7 +28,7 @@ public class PlayScreen extends BaseScreen {
 		
 		enter();
 		
-		loadScript();		
+		loadScript();
 	}
 
 	@Override

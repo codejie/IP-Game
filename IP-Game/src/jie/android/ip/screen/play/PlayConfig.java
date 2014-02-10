@@ -19,6 +19,7 @@ public interface PlayConfig {
 			public static final String BOX_3 = "box_d";
 			
 			public static final String TRAY = "tray";
+			public static final String COLUMN = "column";
 		}
 		
 		public interface Cmd {
@@ -171,6 +172,12 @@ public interface PlayConfig {
 			
 			public static final float SOURCE_SCALE = 0.5f;
 			public static final float TARGET_SCALE = 0.5f;
+			
+			public static final int COLUMN_X = COL_BASE - 24 - 2;// 48;
+			public static final int COLUMN_Y = 144;
+			public static final int COLUMN_SPACE = 144;//48 + 96;
+			public static final float COLUMN_WIDTH = 4;
+			public static final float COLUMN_HEIGHT = 592;
 		}	
 		
 		public interface Cmd {

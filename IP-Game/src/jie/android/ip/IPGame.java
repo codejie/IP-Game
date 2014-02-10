@@ -10,6 +10,8 @@ import jie.android.ip.setup.Setup;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 
 public class IPGame extends Game {
 
@@ -67,7 +69,7 @@ public class IPGame extends Game {
 	
 	private void initCamera() {
 		camera = new OrthographicCamera();
-		camera.position.set(ScreenConfig.WIDTH / 2, ScreenConfig.HEIGHT / 2, 0);		
+		camera.position.set(ScreenConfig.WIDTH / 3, ScreenConfig.HEIGHT / 3, 0);		
 	}
 
 	public final Setup getSetup() {

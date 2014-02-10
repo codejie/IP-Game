@@ -535,6 +535,13 @@ panel_code_null
   orig: 68, 68
   offset: 0, 0
   index: -1
+column
+  rotate: false
+  xy: 1803, 1467
+  size: 4, 64
+  orig: 4, 64
+  offset: 0, 0
+  index: -1
 lines_small_code_if_a
   rotate: false
   xy: 1982, 1792
@@ -544,28 +551,28 @@ lines_small_code_if_a
   index: -1
 lines_small_code_if_any
   rotate: false
-  xy: 1803, 1495
+  xy: 1853, 1585
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 lines_small_code_if_b
   rotate: false
-  xy: 1853, 1585
+  xy: 1497, 1369
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 lines_small_code_if_c
   rotate: false
-  xy: 1497, 1369
+  xy: 275, 81
   size: 36, 36
   orig: 36, 36
   offset: 0, 0
   index: -1
 lines_small_code_if_d
   rotate: false
-  xy: 275, 81
+  xy: 1809, 1495
   size: 36, 36
   orig: 36, 36
   offset: 0, 0

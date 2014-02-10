@@ -1,7 +1,13 @@
 package jie.android.ip.screen.play;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
+import jie.android.ip.CommonConsts.ScreenConfig;
+import jie.android.ip.common.actor.BaseGroup;
 import jie.android.ip.common.dialog.AlertDialog;
 import jie.android.ip.common.dialog.BaseDialog;
 import jie.android.ip.common.dialog.DialogConfig;
@@ -166,6 +172,37 @@ public class PlayRenderer {
 		groupCodeLine = new CodeLineGroup(screen, internalListener);
 		groupResult = new ResultGroup(screen, internalListener);		
 		groupCmdPanel = new CmdPanelGroup(screen, internalListener);
+		
+		
+		final Group base = new Group() {
+
+			@Override
+			public Actor hit(float x, float y, boolean touchable) {
+				return null;
+//				Utils.log("===", "hit: x = " + x + " y = " + y);
+//				return super.hit(x, y, touchable);
+			}
+			
+		};
+		base.setBounds(0, 0, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);
+		base.addListener(new ClickListener() {
+
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+				//event.handle();
+//				return false;
+				
+				return super.touchDown(event, x, y, pointer, button);
+			}
+
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				Utils.log("===", "click:" + event.getBubbles());
+			}
+			
+		});
+		screen.addActor(base);
+		//base.setZIndex(0xf0);
 	}
 
 	protected void changeRunStage(boolean show) {

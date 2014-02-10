@@ -50,7 +50,16 @@ public class BoxGroup {
 			ImageActor bottom = new ImageActor(textureAtlas.findRegion(Image.Box.FRAME_BOTTOM));
 			//bottom.setBounds(4, 0, ScreenConfig.WIDTH - 4, 16);
 			bottom.setBounds(Const.Box.FRAME_X, Const.Box.FRAME_Y_BOTTOM, Const.Box.FRAME_WIDTH, Const.Box.FRAME_HEIGHT_BOTTOM);
-			this.addActor(bottom);			
+			this.addActor(bottom);
+			
+			//columns
+			for (int i = 0 + 1; i < Const.Box.MAX_COL - 1; ++ i) {
+				ImageActor col = new ImageActor(textureAtlas.findRegion(Image.Box.COLUMN));
+				float x = Const.Box.COLUMN_X + i * Const.Box.COLUMN_SPACE;
+				col.setBounds(x, Const.Box.COLUMN_Y, Const.Box.COLUMN_WIDTH, Const.Box.COLUMN_HEIGHT);
+				this.addActor(col);
+			}
+			
 		}
 		
 		private int colToBlockX(int col) {
