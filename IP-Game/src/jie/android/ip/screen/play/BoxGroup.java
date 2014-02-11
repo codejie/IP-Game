@@ -18,6 +18,7 @@ import jie.android.ip.common.actor.BaseGroup;
 import jie.android.ip.common.actor.BaseGroupAccessor;
 import jie.android.ip.common.actor.ImageActor;
 import jie.android.ip.common.actor.ImageActorAccessor;
+import jie.android.ip.common.actor.NinePatchActor;
 import jie.android.ip.screen.play.Box.BlockArray;
 import jie.android.ip.screen.play.Box.Tray;
 import jie.android.ip.screen.play.PlayConfig.Const;
@@ -59,6 +60,10 @@ public class BoxGroup {
 				col.setBounds(x, Const.Box.COLUMN_Y, Const.Box.COLUMN_WIDTH, Const.Box.COLUMN_HEIGHT);
 				this.addActor(col);
 			}
+			
+			NinePatchActor np = new NinePatchActor(textureAtlas.findRegion(Image.Lesson.FRAME), 4, 0, 0, 100, 200);
+			this.addActor(np);
+
 			
 		}
 		

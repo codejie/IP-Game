@@ -3,9 +3,13 @@ package jie.android.ip.screen.play.lesson;
 import java.util.ArrayList;
 
 import jie.android.ip.common.actor.ImageActor;
+import jie.android.ip.common.actor.NinePatchActor;
 import jie.android.ip.screen.play.LessonGroup;
+import jie.android.ip.screen.play.PlayConfig.Const;
+import jie.android.ip.screen.play.PlayConfig.Image;
 import aurelienribon.tweenengine.TweenManager;
 
+import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
@@ -16,7 +20,8 @@ public abstract class BaseLesson {
 	protected TweenManager tweenManager;
 	
 	protected int stage = 0;
-	protected ArrayList<ImageActor> arrayActor = new ArrayList<ImageActor>();
+	protected NinePatchActor trapActor;
+	protected ArrayList<Actor> arrayActor = new ArrayList<Actor>();
 	
 	public BaseLesson(final LessonGroup group, final TextureAtlas textureAltas, final TweenManager tweenMaanger) {
 		this.group = group;
@@ -27,19 +32,19 @@ public abstract class BaseLesson {
 	}
 
 	private void showActors() {
-		for (final ImageActor actor : arrayActor) {
+		for (final Actor actor : arrayActor) {
 			group.addActor(actor);
 		}
 	}
 	
 	private void clearActors() {
-		for (final ImageActor actor : arrayActor) {
+		for (final Actor actor : arrayActor) {
 			group.removeActor(actor);
 		}
 		arrayActor.clear();
 	}
 	
-	protected void addActor(final ImageActor actor) {
+	protected void addActor(final Actor actor) {
 		arrayActor.add(actor);
 	}
 	
@@ -58,8 +63,16 @@ public abstract class BaseLesson {
 		return true;
 	}
 	
+	protected void makeTrapActor(int x, int y, int width, int height) {
+		trapActor = new NinePatchActor(textureAtlas.findRegion(Image.Lesson.FRAME), Const.Lesson.FRAME_SIZE, x, y, width, height);
+		addActor(trapActor);
+	}
+
+	public final Actor getTrapActor() {
+		return trapActor;
+	}
+	
 	protected abstract boolean loadStage(int stage);
-	public abstract Actor getTrapActor();
 	
 	
 }

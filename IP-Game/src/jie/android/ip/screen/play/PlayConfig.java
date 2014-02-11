@@ -137,10 +137,13 @@ public interface PlayConfig {
 		
 		public interface Toggle {
 
-			public static String BG = "cmd_bg";//"toggle_bg";
-			public static String RIGHT = "panel_order_bg";// "toggle_right";
-			public static String LEFT = "panel_order_bg";//"toggle_left";
-			
+			public static final String BG = "cmd_bg";//"toggle_bg";
+			public static final String RIGHT = "panel_order_bg";// "toggle_right";
+			public static final String LEFT = "panel_order_bg";//"toggle_left";			
+		}
+		
+		public interface Lesson {
+			public static final String FRAME = "lesson_frame";
 		}
 	}
 	
@@ -307,19 +310,23 @@ public interface PlayConfig {
 		
 		public interface Toggle {
 
-			public static int BASE_X = 0;
-			public static int BASE_Y = 0;
-			public static int WIDTH = ScreenConfig.WIDTH;
-			public static int HEIGHT = ScreenConfig.HEIGHT;
+			public static final int BASE_X = 0;
+			public static final int BASE_Y = 0;
+			public static final int WIDTH = ScreenConfig.WIDTH;
+			public static final int HEIGHT = ScreenConfig.HEIGHT;
 			
-			public static int BASE_X_RIGHT = ScreenConfig.WIDTH / 2;
-			public static int BASE_Y_RIGHT = 0;
-			public static int WIDTH_RIGHT = ScreenConfig.WIDTH / 2;
-			public static int HEIGHT_RIGHT = ScreenConfig.HEIGHT;
-			public static int BASE_X_LEFT = 0;
-			public static int BASE_Y_LEFT = 0;
-			public static int WIDTH_LEFT = ScreenConfig.WIDTH / 2;
-			public static int HEIGHT_LEFT = ScreenConfig.HEIGHT;			
-		}		
+			public static final int BASE_X_RIGHT = ScreenConfig.WIDTH / 2;
+			public static final int BASE_Y_RIGHT = 0;
+			public static final int WIDTH_RIGHT = ScreenConfig.WIDTH / 2;
+			public static final int HEIGHT_RIGHT = ScreenConfig.HEIGHT;
+			public static final int BASE_X_LEFT = 0;
+			public static final int BASE_Y_LEFT = 0;
+			public static final int WIDTH_LEFT = ScreenConfig.WIDTH / 2;
+			public static final int HEIGHT_LEFT = ScreenConfig.HEIGHT;			
+		}
+		
+		public interface Lesson {
+			public static final int FRAME_SIZE = 4;
+		}
 	}
 }

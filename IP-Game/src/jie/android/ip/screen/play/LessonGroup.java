@@ -81,8 +81,5 @@ public class LessonGroup extends BaseGroup {
 			return null;
 		}
 	}
-	
-	
-	
 
 }

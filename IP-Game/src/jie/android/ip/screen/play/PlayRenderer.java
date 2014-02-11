@@ -173,36 +173,35 @@ public class PlayRenderer {
 		groupResult = new ResultGroup(screen, internalListener);		
 		groupCmdPanel = new CmdPanelGroup(screen, internalListener);
 		
-		
-		final Group base = new Group() {
-
-			@Override
-			public Actor hit(float x, float y, boolean touchable) {
-				return null;
-//				Utils.log("===", "hit: x = " + x + " y = " + y);
-//				return super.hit(x, y, touchable);
-			}
-			
-		};
-		base.setBounds(0, 0, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);
-		base.addListener(new ClickListener() {
-
-			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				//event.handle();
-//				return false;
-				
-				return super.touchDown(event, x, y, pointer, button);
-			}
-
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				Utils.log("===", "click:" + event.getBubbles());
-			}
-			
-		});
-		screen.addActor(base);
-		//base.setZIndex(0xf0);
+//		final Group base = new Group() {
+//
+//			@Override
+//			public Actor hit(float x, float y, boolean touchable) {
+//				return null;
+////				Utils.log("===", "hit: x = " + x + " y = " + y);
+////				return super.hit(x, y, touchable);
+//			}
+//			
+//		};
+//		base.setBounds(0, 0, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);
+//		base.addListener(new ClickListener() {
+//
+//			@Override
+//			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+//				//event.handle();
+////				return false;
+//				
+//				return super.touchDown(event, x, y, pointer, button);
+//			}
+//
+//			@Override
+//			public void clicked(InputEvent event, float x, float y) {
+//				Utils.log("===", "click:" + event.getBubbles());
+//			}
+//			
+//		});
+//		screen.addActor(base);
+//		//base.setZIndex(0xf0);
 	}
 
 	protected void changeRunStage(boolean show) {
@@ -283,14 +282,14 @@ public class PlayRenderer {
 
 	protected boolean onCmdSetting(final Cmd.State state) {
 		//Setting Dialog
-		final AlertDialog dlg = new AlertDialog(this.screen, "No Implemented.", this.screen.getGame().getResources().getBitmapTrueFont(100), Color.YELLOW, null);
+		final AlertDialog dlg = new AlertDialog(this.screen, "Not Implemented.", this.screen.getGame().getResources().getBitmapTrueFont(96), Color.YELLOW, null);
 		dlg.show();
 		
 		return false;
 	}
 
 	protected boolean onCmdInfo(final Cmd.State state) {
-		final AlertDialog dlg = new AlertDialog(this.screen, "No Implemented.", this.screen.getGame().getResources().getBitmapTrueFont(100), Color.YELLOW, null);
+		final AlertDialog dlg = new AlertDialog(this.screen, "Not Implemented.", this.screen.getGame().getResources().getBitmapTrueFont(96), Color.YELLOW, null);
 		dlg.show();
 
 		return false;
