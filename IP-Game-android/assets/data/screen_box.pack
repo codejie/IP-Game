@@ -586,8 +586,8 @@ lines_small_code_if_null
   index: -1
 lesson_frame
   rotate: false
-  xy: 1251, 1246
-  size: 16, 16
-  orig: 16, 16
+  xy: 1251, 1238
+  size: 24, 24
+  orig: 24, 24
   offset: 0, 0
   index: 9

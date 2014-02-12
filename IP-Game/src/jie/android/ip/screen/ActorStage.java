@@ -1,6 +1,7 @@
 package jie.android.ip.screen;
 
 import jie.android.ip.CommonConsts.ScreenConfig;
+import jie.android.ip.utils.Utils;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.Batch;

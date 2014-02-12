@@ -4,12 +4,16 @@ import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.TweenCallback;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import jie.android.ip.CommonConsts.PackConfig;
 import jie.android.ip.IPGame;
 import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.screen.BaseScreen;
 import jie.android.ip.screen.play.PlayConfig.Image;
+import jie.android.ip.utils.Utils;
 
 public class PlayScreen extends BaseScreen {
 
@@ -47,17 +51,19 @@ public class PlayScreen extends BaseScreen {
 		
 		manager.setEventListener(renderer.getManagerEventListener());
 		renderer.setEventListener(manager.getRendererEventListener());
-		
 	}
 	
 	private void initBackgroup() {
 		Sprite bg = game.getResources().getTextureAtlas(PackConfig.SCREEN_PLAY).createSprite(Image.BACKGROUND);
-		bg.setBounds(0, 0, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);		
-		this.addSprite(bg);		
+		bg.setBounds(0, 0, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);
+		this.addSprite(bg);
 	}
 	
 	private void loadScript() {
-		manager.loadScript(scriptId);
+		manager.loadScript(packId, scriptId);
+		if (packId == 1) {//Tutorials
+			renderer.loadLesson(packId, scriptId);
+		}
 	}
 	
 	private void enter() {

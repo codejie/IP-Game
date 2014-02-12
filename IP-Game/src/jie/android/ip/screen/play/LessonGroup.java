@@ -5,11 +5,16 @@ import aurelienribon.tweenengine.TweenManager;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+
 import jie.android.ip.CommonConsts.PackConfig;
 import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.common.actor.BaseGroup;
 import jie.android.ip.common.actor.ImageActor;
 import jie.android.ip.screen.play.lesson.BaseLesson;
+import jie.android.ip.screen.play.lesson.LessonOne;
+import jie.android.ip.utils.Utils;
 
 public class LessonGroup extends BaseGroup {
 
@@ -34,36 +39,19 @@ public class LessonGroup extends BaseGroup {
 		this.setBounds(0, 0, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);
 		screen.addActor(this);
 		this.setZIndex(0x1f);
-		
-//		final Group base = new Group() {
-//
-//			@Override
-//			public Actor hit(float x, float y, boolean touchable) {
-//				Actor actor = super.hit(x, y, touchable);
-//				if (actor == trapActor) {
-//					onTrapActorHit(x, y, touchable);
-//					return null;
-//				}
-//				return actor;
-//			}
-//			
-//		};
-//		base.setBounds(0, 0, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);
-//		
-//		screen.addActor(base);
 	}
 	
-	@Override
-	public Actor hit(float x, float y, boolean touchable) {
-		Actor actor = super.hit(x, y, touchable);
-		if (lesson != null) {
-			if (actor == lesson.getTrapActor()) {
-				onTrapActorHit(x, y, touchable);
-				return null;
-			}
-		}
-		return actor;
-	}
+//	@Override
+//	public Actor hit(float x, float y, boolean touchable) {
+//		Actor actor = super.hit(x, y, touchable);
+//		if (lesson != null) {
+//			if (actor == lesson.getTrapActor()) {
+//				onTrapActorHit(x, y, touchable);
+//				return null;
+//			}
+//		}
+//		return actor;
+//	}
 
 	protected void onTrapActorHit(float x, float y, boolean touchable) {
 		if (lesson != null) {
@@ -76,10 +64,18 @@ public class LessonGroup extends BaseGroup {
 	protected final BaseLesson loadLesson(int id) {
 		switch(id) {
 		case 1:
-			return new LessonOne(this, textureAtlas, tweenManager);
+			return new LessonOne(this);
 		default:
 			return null;
 		}
+	}
+	
+	public final TextureAtlas getTextureAtlas() {
+		return textureAtlas;
+	}
+	
+	public final TweenManager getTweenManager() {
+		return tweenManager;
 	}
 
 }

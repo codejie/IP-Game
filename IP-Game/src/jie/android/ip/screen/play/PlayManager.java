@@ -182,7 +182,7 @@ public class PlayManager implements Disposable {
 		executor.dispose();
 	}	
 	
-	public boolean loadScript(final int scriptId) {
+	public boolean loadScript(final int packId, final int scriptId) {
 		String str = dbAccess.loadScript(scriptId);
 		if (str == null) {
 			return false;

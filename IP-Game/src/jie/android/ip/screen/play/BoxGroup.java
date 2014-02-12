@@ -61,10 +61,8 @@ public class BoxGroup {
 				this.addActor(col);
 			}
 			
-			NinePatchActor np = new NinePatchActor(textureAtlas.findRegion(Image.Lesson.FRAME), 4, 0, 0, 100, 200);
-			this.addActor(np);
-
-			
+//			NinePatchActor np = new NinePatchActor(textureAtlas.findRegion(Image.Lesson.FRAME), 8, 0, 0, 600, 200);
+//			this.addActor(np);			
 		}
 		
 		private int colToBlockX(int col) {

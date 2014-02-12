@@ -326,7 +326,7 @@ public interface PlayConfig {
 		}
 		
 		public interface Lesson {
-			public static final int FRAME_SIZE = 4;
+			public static final int FRAME_SIZE = 8;
 		}
 	}
 }

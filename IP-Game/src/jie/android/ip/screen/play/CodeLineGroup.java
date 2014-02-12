@@ -748,6 +748,7 @@ public class CodeLineGroup extends BaseGroup {
 		base.addActor(groupPanel);
 		
 		screen.addActor(base);
+
 	}
 	
 	public void load(final Code.Lines lines) {
