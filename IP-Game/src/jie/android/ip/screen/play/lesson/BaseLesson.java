@@ -7,11 +7,13 @@ import jie.android.ip.common.actor.NinePatchActor;
 import jie.android.ip.screen.play.LessonGroup;
 import jie.android.ip.screen.play.PlayConfig.Const;
 import jie.android.ip.screen.play.PlayConfig.Image;
+import jie.android.ip.utils.Utils;
 import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 
 public abstract class BaseLesson {
 	
@@ -67,11 +69,14 @@ public abstract class BaseLesson {
 		addActor(trapActor);
 	}
 
-	public final Actor getTrapActor() {
-		return trapActor;
+	public boolean hitTrap(int x, int y) {
+		return ((x >= trapActor.getX() && x <= (trapActor.getX() + trapActor.getWidth()))
+				&& (y >= trapActor.getY() && y <= (trapActor.getY() + trapActor.getHeight())));
+//		Utils.log("===", "hitTrap : x = " + x + " y = " + y + " ret = " + ret);
 	}
 	
 	protected abstract boolean loadStage(int stage);
 	protected void onActorAdded(final Actor actor) {}
 	protected void onAddActorsEnd() {}
+
 }

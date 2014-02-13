@@ -11,6 +11,7 @@ import jie.android.ip.common.actor.BaseGroup;
 import jie.android.ip.common.dialog.AlertDialog;
 import jie.android.ip.common.dialog.BaseDialog;
 import jie.android.ip.common.dialog.DialogConfig;
+import jie.android.ip.screen.ActorStage;
 import jie.android.ip.utils.Utils;
 
 
@@ -23,6 +24,8 @@ public class PlayRenderer {
 	private CodeLineGroup groupCodeLine;
 	private CmdPanelGroup groupCmdPanel;
 	private ResultGroup groupResult;
+	
+	private LessonGroup groupLesson;
 	
 	private final PlayScreenListener.ManagerEventListener managerListener = new PlayScreenListener.ManagerEventListener() {
 
@@ -151,6 +154,23 @@ public class PlayRenderer {
 				rendererListener.onCmdButtonClicked(Cmd.Type.RUN, Cmd.State.NONE);
 			}
 		}
+
+		@Override
+		public void onLessonGroupAdded() {
+			screen.setOnTouchDownListener(new ActorStage.OnTouchDownListener() {
+				@Override
+				public boolean isHandled(int x, int y, int pointer, int button) {
+					{
+						return groupLesson.hitTrap(x, y);
+					}
+				}
+			});
+		}
+
+		@Override
+		public void onLessonGroupRemoved() {
+			screen.setOnTouchDownListener(null);
+		}
 	};
 	
 	public PlayRenderer(final PlayScreen screen) {
@@ -267,6 +287,6 @@ public class PlayRenderer {
 
 
 	public void loadLesson(int packId, int scriptId) {
-		final LessonGroup lesson = new LessonGroup(screen, scriptId);		
+		groupLesson = new LessonGroup(screen, scriptId, internalListener);
 	}	
 }

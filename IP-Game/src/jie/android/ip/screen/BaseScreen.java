@@ -41,8 +41,15 @@ public class BaseScreen implements Screen {
 		actorStage = new ActorStage(game.getSpriteBatch());
 		
 		Gdx.input.setInputProcessor(actorStage.getInputProcessor());
+		Gdx.input.setCatchBackKey(true);
+		
+		setDefaultKeyDownListener();
 	}
 	
+	private void setDefaultKeyDownListener() {
+		this.setOnKeyDownListener(new DefaultStageKeyDownListener(this ));
+	}
+
 	public final IPGame getGame() {
 		return game;
 	}
@@ -61,6 +68,22 @@ public class BaseScreen implements Screen {
 	
 	public void addSprite(final Sprite sprite) {
 		screenCanvas.addSprite(sprite);
+	}
+	
+	public void setOnKeyDownListener(final ActorStage.OnKeyDownListener listener) {
+		actorStage.setKeyDownListener(listener);
+	}
+	
+	public void setOnTouchDownListener(final ActorStage.OnTouchDownListener listener) {
+		actorStage.setTouchDownListener(listener);
+	}
+	
+	public int screenToStageX(int screenX) {
+		return screenX;
+	}
+	
+	public int screenToStageY(int screenY) {
+		return ScreenConfig.HEIGHT - screenY;
 	}
 
 	@Override

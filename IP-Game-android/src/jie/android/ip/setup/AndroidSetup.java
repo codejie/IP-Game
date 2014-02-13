@@ -11,6 +11,7 @@ import jie.android.ip.database.ConnectionAdapter;
 import jie.android.ip.utils.AssetsHelper;
 import jie.android.ip.utils.Utils;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;

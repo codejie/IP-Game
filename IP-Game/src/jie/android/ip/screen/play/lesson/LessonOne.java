@@ -17,6 +17,9 @@ public class LessonOne extends BaseLesson {
 		case 0:
 			super.makeTrapActor(0, 0, 300, 222);
 			break;
+		case 1:
+			super.makeTrapActor(0, 100, 300, 222);
+			break;
 		default:
 			return false;
 		}

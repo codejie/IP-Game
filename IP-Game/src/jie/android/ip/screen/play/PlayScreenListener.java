@@ -46,6 +46,9 @@ public interface PlayScreenListener {
 		public void onLineGroupChangeBegin(boolean fromSmall);
 		public void onBoxMoveEnd();
 		public void onSourceFocused();
+		
+		public void onLessonGroupAdded();
+		public void onLessonGroupRemoved();
 	}
 }
 
