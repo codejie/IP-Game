@@ -1,18 +1,10 @@
 package jie.android.ip.screen.play;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-
-import jie.android.ip.CommonConsts.ScreenConfig;
-import jie.android.ip.common.actor.BaseGroup;
 import jie.android.ip.common.dialog.AlertDialog;
 import jie.android.ip.common.dialog.BaseDialog;
 import jie.android.ip.common.dialog.DialogConfig;
 import jie.android.ip.screen.ActorStage;
-import jie.android.ip.utils.Utils;
 
 
 public class PlayRenderer {

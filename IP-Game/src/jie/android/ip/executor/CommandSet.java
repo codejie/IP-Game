@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map.Entry;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -29,7 +28,6 @@ import org.xml.sax.SAXException;
 
 import jie.android.ip.executor.CommandConsts.ActType;
 import jie.android.ip.executor.CommandConsts.CommandType;
-import jie.android.ip.executor.CommandConsts.EmptyType;
 
 public class CommandSet {
 

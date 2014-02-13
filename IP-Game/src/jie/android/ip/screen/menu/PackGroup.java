@@ -25,12 +25,14 @@ import jie.android.ip.common.actor.BaseGroupAccessor;
 import jie.android.ip.common.actor.ButtonActor;
 import jie.android.ip.common.actor.ImageActor;
 import jie.android.ip.common.actor.LabelActor;
+import jie.android.ip.common.dialog.ScreenGroup;
 import jie.android.ip.executor.Script;
+import jie.android.ip.screen.BaseScreen;
 import jie.android.ip.screen.menu.MenuConfig.Const;
 import jie.android.ip.screen.menu.MenuConfig.Image;
 import jie.android.ip.screen.menu.MenuRenderer.PackGroupEventListener;
 
-public class PackGroup extends BaseGroup {
+public class PackGroup extends ScreenGroup {
 
 	private class PackActor extends BaseGroup {
 		
@@ -209,7 +211,6 @@ public class PackGroup extends BaseGroup {
 	}
 	
 	//
-	private final MenuScreen screen;
 	private final TextureAtlas textureAtlas;
 	private final Skin skin;
 	private final BitmapFont bitmapFont;
@@ -226,9 +227,9 @@ public class PackGroup extends BaseGroup {
 	private ImageActor background;
 	private ButtonActor btnBack, btnNext, btnPrev;
 	
-	public PackGroup(final MenuScreen screen, final PackGroupEventListener listener) {
-		this.screen = screen;
-		this.textureAtlas = screen.getGame().getResources().getTextureAtlas(PackConfig.SCREEN_MENU);
+	public PackGroup(final BaseScreen screen, final PackGroupEventListener listener) {
+		super(screen);
+		this.textureAtlas = super.resources.getTextureAtlas(PackConfig.SCREEN_MENU);
 		this.skin = new Skin(this.textureAtlas);
 		this.bitmapFont = screen.getGame().getResources().getBitmapTrueFont(56);//.getBitmapFont(24);
 		this.tweenManager = screen.getTweenManager();

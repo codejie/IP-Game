@@ -4,16 +4,11 @@ import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.TweenCallback;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-
 import jie.android.ip.CommonConsts.PackConfig;
 import jie.android.ip.IPGame;
 import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.screen.BaseScreen;
 import jie.android.ip.screen.play.PlayConfig.Image;
-import jie.android.ip.utils.Utils;
 
 public class PlayScreen extends BaseScreen {
 

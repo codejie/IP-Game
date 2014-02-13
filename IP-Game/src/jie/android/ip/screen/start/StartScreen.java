@@ -1,6 +1,5 @@
 package jie.android.ip.screen.start;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 import aurelienribon.tweenengine.BaseTween;
@@ -18,7 +17,6 @@ import jie.android.ip.screen.BaseScreen;
 import jie.android.ip.screen.menu.MenuScreen;
 import jie.android.ip.screen.start.StartConfig.Image;
 import jie.android.ip.screen.start.StartConfig.Const;
-import jie.android.ip.utils.Utils;
 
 public class StartScreen extends BaseScreen {
 	

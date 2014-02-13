@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import jie.android.ip.CommonConsts.PackConfig;
-import jie.android.ip.common.actor.BaseGroup;
 import jie.android.ip.common.actor.ButtonActor;
 import jie.android.ip.common.actor.ImageActor;
 import jie.android.ip.common.actor.LabelActor;
@@ -21,7 +20,7 @@ import jie.android.ip.common.dialog.DialogConfig.Image;
 import jie.android.ip.screen.BaseScreen;
 
 
-public class BaseDialog extends BaseGroup {
+public class BaseDialog extends ScreenGroup {
 
 	public static final int BUTTON_POSITIVE = 1;
 	public static final int BUTTON_NEGATIVE = 2;
@@ -31,7 +30,6 @@ public class BaseDialog extends BaseGroup {
 		public void onClick(int id);
 	}
 	
-	private BaseScreen screen;
 	private final TextureAtlas textureAtlas;
 	private final Skin skin;
 	private final TweenManager tweenManager;
@@ -43,8 +41,8 @@ public class BaseDialog extends BaseGroup {
 //	private ImageActor btnModdle;
 	
 	public BaseDialog(final BaseScreen screen) {
-		this.screen = screen;
-		this.textureAtlas = this.screen.getGame().getResources().getTextureAtlas(PackConfig.SCREEN_DIALOG);
+		super(screen);
+		this.textureAtlas = super.resources.getTextureAtlas(PackConfig.SCREEN_DIALOG);
 		this.skin = new Skin(this.textureAtlas);
 		this.tweenManager = this.screen.getTweenManager();
 		

@@ -10,20 +10,19 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.CommonConsts.PackConfig;
-import jie.android.ip.common.actor.BaseGroup;
 import jie.android.ip.common.actor.ImageActor;
 import jie.android.ip.common.actor.ImageActorAccessor;
+import jie.android.ip.common.dialog.ScreenGroup;
+import jie.android.ip.screen.BaseScreen;
 import jie.android.ip.screen.play.PlayConfig.Const;
 import jie.android.ip.screen.play.PlayConfig.Image;
-import jie.android.ip.utils.Utils;
 
-public class ResultGroup extends BaseGroup {
+public class ResultGroup extends ScreenGroup {
 
 	private enum Which {
 		SUCC, FAIL, FINISHED;
 	}
 	
-	private final PlayScreen screen;
 	private final TextureAtlas textureAtlas;
 	private final TweenManager tweenManager;
 	
@@ -34,10 +33,10 @@ public class ResultGroup extends BaseGroup {
 	
 	private Which current;
 	
-	public ResultGroup(final PlayScreen screen, final PlayScreenListener.RendererInternalEventListener internalListener) {
-		this.screen = screen;
-		this.textureAtlas = screen.getGame().getResources().getTextureAtlas(PackConfig.SCREEN_PLAY);
-		this.tweenManager = this.screen.getTweenManager();
+	public ResultGroup(final BaseScreen screen, final PlayScreenListener.RendererInternalEventListener internalListener) {
+		super(screen);
+		this.textureAtlas = super.resources.getTextureAtlas(PackConfig.SCREEN_PLAY);
+		this.tweenManager = super.screen.getTweenManager();
 		this.internalListener = internalListener;
 
 		initStage();

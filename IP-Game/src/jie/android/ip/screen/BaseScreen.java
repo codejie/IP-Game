@@ -2,21 +2,12 @@ package jie.android.ip.screen;
 
 import jie.android.ip.IPGame;
 import jie.android.ip.CommonConsts.ScreenConfig;
-import jie.android.ip.common.actor.BaseGroup;
-import jie.android.ip.common.actor.BaseGroupAccessor;
-import jie.android.ip.common.actor.ImageActor;
-import jie.android.ip.common.actor.ImageActorAccessor;
-import jie.android.ip.setup.Setup;
-
-import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL10;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;

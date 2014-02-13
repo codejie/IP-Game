@@ -13,16 +13,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.CommonConsts.PackConfig;
-import jie.android.ip.common.actor.BaseGroup;
 import jie.android.ip.common.actor.BaseGroupAccessor;
 import jie.android.ip.common.actor.ButtonActor;
 import jie.android.ip.common.actor.ButtonActorAccessor;
+import jie.android.ip.common.dialog.ScreenGroup;
+import jie.android.ip.screen.BaseScreen;
 import jie.android.ip.screen.play.PlayConfig.Const;
 import jie.android.ip.screen.play.PlayConfig.Image;
 
-public class CmdPanelGroup extends BaseGroup {
+public class CmdPanelGroup extends ScreenGroup {
 
-	private final PlayScreen screen;
 	private final TextureAtlas textureAtlas;
 	private final Skin skin;
 	private final TweenManager tweenManager;
@@ -41,9 +41,9 @@ public class CmdPanelGroup extends BaseGroup {
 		}
 	};
 	
-	public CmdPanelGroup(final PlayScreen screen, final PlayScreenListener.RendererInternalEventListener internalListener) {
-		this.screen = screen;
-		this.textureAtlas = screen.getGame().getResources().getTextureAtlas(PackConfig.SCREEN_PLAY);
+	public CmdPanelGroup(final BaseScreen screen, final PlayScreenListener.RendererInternalEventListener internalListener) {
+		super(screen);
+		this.textureAtlas = super.resources.getTextureAtlas(PackConfig.SCREEN_PLAY);
 		this.skin = new Skin(this.textureAtlas);
 		this.tweenManager = this.screen.getTweenManager();
 		this.internalListener = internalListener;

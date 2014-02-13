@@ -2,7 +2,6 @@ package jie.android.ip.executor;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import jie.android.ip.executor.CommandConsts.ActType;
 import jie.android.ip.executor.CommandConsts.CommandType;
 import jie.android.ip.utils.Utils;
 

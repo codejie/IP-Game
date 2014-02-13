@@ -7,15 +7,15 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenManager;
 import jie.android.ip.CommonConsts.PackConfig;
-import jie.android.ip.common.actor.BaseGroup;
 import jie.android.ip.common.actor.ImageActor;
 import jie.android.ip.common.actor.ImageActorAccessor;
+import jie.android.ip.common.dialog.ScreenGroup;
+import jie.android.ip.screen.BaseScreen;
 import jie.android.ip.screen.play.PlayConfig.Const;
 import jie.android.ip.screen.play.PlayConfig.Image;
 
-public class ToggleGroup extends BaseGroup {
+public class ToggleGroup extends ScreenGroup {
 
-	private final PlayScreen screen;
 	private final TextureAtlas textureAtlas;
 	private final TweenManager tweenManager;
 //	private final PlayScreenListener.RendererInternalEventListener internalListener;
@@ -23,10 +23,10 @@ public class ToggleGroup extends BaseGroup {
 	private ImageActor right, left;
 	private ImageActor bg;
 	
-	public ToggleGroup(final PlayScreen screen) {
-		this.screen = screen;
-		this.textureAtlas = this.screen.getGame().getResources().getTextureAtlas(PackConfig.SCREEN_PLAY);
-		this.tweenManager = this.screen.getTweenManager();
+	public ToggleGroup(final BaseScreen screen) {
+		super(screen);
+		this.textureAtlas = super.resources.getTextureAtlas(PackConfig.SCREEN_PLAY);
+		this.tweenManager = super.screen.getTweenManager();
 //		this.internalListener = internalListener;
 		
 		initStage();

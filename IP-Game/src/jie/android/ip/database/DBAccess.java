@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import jie.android.ip.executor.Script;
-
 public class DBAccess {
 	
 	private final Connection connection;

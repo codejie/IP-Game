@@ -2,18 +2,11 @@ package jie.android.ip.screen.play.lesson;
 
 import java.util.ArrayList;
 
-import jie.android.ip.common.actor.ImageActor;
 import jie.android.ip.common.actor.NinePatchActor;
 import jie.android.ip.screen.play.LessonGroup;
 import jie.android.ip.screen.play.PlayConfig.Const;
 import jie.android.ip.screen.play.PlayConfig.Image;
-import jie.android.ip.utils.Utils;
-import aurelienribon.tweenengine.TweenManager;
-
-import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
 
 public abstract class BaseLesson {
 	

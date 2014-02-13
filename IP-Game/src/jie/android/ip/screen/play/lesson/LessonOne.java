@@ -1,9 +1,6 @@
 package jie.android.ip.screen.play.lesson;
 
 import jie.android.ip.screen.play.LessonGroup;
-import aurelienribon.tweenengine.TweenManager;
-
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 public class LessonOne extends BaseLesson {
 

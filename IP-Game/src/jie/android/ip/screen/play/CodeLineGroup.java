@@ -19,13 +19,12 @@ import jie.android.ip.CommonConsts.PackConfig;
 import jie.android.ip.common.actor.BaseGroup;
 import jie.android.ip.common.actor.BaseGroupAccessor;
 import jie.android.ip.common.actor.ImageActor;
-import jie.android.ip.screen.play.Code.Lines;
+import jie.android.ip.common.dialog.ScreenGroup;
+import jie.android.ip.screen.BaseScreen;
 import jie.android.ip.screen.play.PlayConfig.Const;
 import jie.android.ip.screen.play.PlayConfig.Image;
-import jie.android.ip.screen.play.PlayScreenListener.RendererInternalEventListener;
-import jie.android.ip.utils.Utils;
 
-public class CodeLineGroup extends BaseGroup {
+public class CodeLineGroup extends ScreenGroup {
 
 	protected static final String Tag = CodeLineGroup.class.getSimpleName();
 	
@@ -114,9 +113,9 @@ public class CodeLineGroup extends BaseGroup {
 		private ImageActor smallTitle, bigTitle;		
 		private LineButton lineButton;
 		
-		public LineGroup(int index, final Resources resources, final Code.OnButtonListener listener) {
+		public LineGroup(int index, final Resources resources, final TextureAtlas textureAtlas, final Code.OnButtonListener listener) {
 			this.index = index;
-			this.textureAtlas = resources.getTextureAtlas(PackConfig.SCREEN_PLAY);
+			this.textureAtlas = textureAtlas;
 			this.onClickListener = listener;
 			
 			init();
@@ -433,8 +432,8 @@ public class CodeLineGroup extends BaseGroup {
 		
 		private PanelState state = PanelState.HIDE;
 		
-		public PanelGroup(final Resources resources, final Code.OnButtonListener listener) {
-			this.textureAtlas = resources.getTextureAtlas(PackConfig.SCREEN_PLAY);
+		public PanelGroup(final Resources resources,  final TextureAtlas textureAtlas, final Code.OnButtonListener listener) {
+			this.textureAtlas = textureAtlas;
 			this.onClickListener = listener;
 			
 			initStage();
@@ -656,7 +655,7 @@ public class CodeLineGroup extends BaseGroup {
 	}
 	
 	//
-	private final PlayScreen screen;
+	private final TextureAtlas textureAtlas;
 	private final TweenManager tweenManager;
 	private final PlayScreenListener.RendererInternalEventListener internalListener;
 	
@@ -707,8 +706,9 @@ public class CodeLineGroup extends BaseGroup {
 		}
 	};
 	
-	public CodeLineGroup(final PlayScreen screen, final PlayScreenListener.RendererInternalEventListener internalListener) {
-		this.screen = screen;
+	public CodeLineGroup(final BaseScreen screen, final PlayScreenListener.RendererInternalEventListener internalListener) {
+		super(screen);
+		this.textureAtlas = super.resources.getTextureAtlas(PackConfig.SCREEN_PLAY);
 		this.tweenManager = this.screen.getTweenManager();
 		this.internalListener = internalListener;
 
@@ -739,12 +739,12 @@ public class CodeLineGroup extends BaseGroup {
 		});
 		
 		for (int i = 0; i < groupLine.length; ++ i) {
-			groupLine[i] = new LineGroup(i, screen.getGame().getResources(), buttonlistener);
+			groupLine[i] = new LineGroup(i, super.resources, textureAtlas, buttonlistener);
 			
 			base.addActor(groupLine[i]);
 		}
 		
-		groupPanel = new PanelGroup(screen.getGame().getResources(), buttonlistener);
+		groupPanel = new PanelGroup(super.resources, textureAtlas, buttonlistener);
 		base.addActor(groupPanel);
 		
 		screen.addActor(base);

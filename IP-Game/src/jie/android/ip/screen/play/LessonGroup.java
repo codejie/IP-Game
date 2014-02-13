@@ -3,25 +3,15 @@ package jie.android.ip.screen.play;
 import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-
 import jie.android.ip.CommonConsts.PackConfig;
 import jie.android.ip.CommonConsts.ScreenConfig;
-import jie.android.ip.common.actor.BaseGroup;
-import jie.android.ip.common.actor.ImageActor;
-import jie.android.ip.screen.ActorStage.OnTouchDownListener;
-import jie.android.ip.screen.play.PlayScreenListener.RendererInternalEventListener;
+import jie.android.ip.common.dialog.ScreenGroup;
 import jie.android.ip.screen.play.lesson.BaseLesson;
 import jie.android.ip.screen.play.lesson.LessonOne;
-import jie.android.ip.utils.Utils;
 
-public class LessonGroup extends BaseGroup {
+public class LessonGroup extends ScreenGroup {
 
-	private final PlayScreen screen;
 	private final TextureAtlas textureAtlas;
 	private final TweenManager tweenManager;
 	
@@ -30,8 +20,8 @@ public class LessonGroup extends BaseGroup {
 	private BaseLesson lesson;
 	
 	public LessonGroup(final PlayScreen screen, int lessonId, final PlayScreenListener.RendererInternalEventListener internalListener) {
-		this.screen = screen;
-		this.textureAtlas = screen.getGame().getResources().getTextureAtlas(PackConfig.SCREEN_PLAY);
+		super(screen);
+		this.textureAtlas = super.resources.getTextureAtlas(PackConfig.SCREEN_PLAY);
 		this.tweenManager = this.screen.getTweenManager();
 		
 		this.internalListener = internalListener;
