@@ -46,13 +46,17 @@ public class LessonGroup extends ScreenGroup {
 		}
 	}
 	
+	public void closeLesson() {
+		if (internalListener != null) {
+			internalListener.onLessonGroupRemoved();
+		}
+		screen.removeActor(this);
+	}
+	
 	protected void onTrapActorHit(float x, float y) {
 		if (lesson != null) {
 			if (!lesson.loadNextStage()) {
-				if (internalListener != null) {
-					internalListener.onLessonGroupRemoved();
-				}
-				screen.removeActor(this);
+				closeLesson();
 			}
 		}
 	}

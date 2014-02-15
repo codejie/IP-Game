@@ -1,6 +1,9 @@
 package jie.android.ip.screen.menu;
 
+import com.badlogic.gdx.Input.Keys;
+
 import jie.android.ip.IPGame;
+import jie.android.ip.common.dialog.AppExitDialog;
 import jie.android.ip.screen.BaseScreen;
 
 public class MenuScreen extends BaseScreen {
@@ -28,6 +31,19 @@ public class MenuScreen extends BaseScreen {
 		renderer.setEventListener(manager.getRendererEventListener());
 		
 		manager.loadPacks();
+	}
+
+	@Override
+	protected boolean onKeyDown(int keyCode) {
+		if (keyCode == Keys.BACK) {
+			AppExitDialog dlg = AppExitDialog.getInstance(this);
+			if (!dlg.isShow()) {
+				dlg.show();
+			}
+			return true;
+		}
+		
+		return super.onKeyDown(keyCode);
 	}
 	
 }

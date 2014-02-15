@@ -3,10 +3,12 @@ package jie.android.ip.screen.play;
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.TweenCallback;
 
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import jie.android.ip.CommonConsts.PackConfig;
 import jie.android.ip.IPGame;
 import jie.android.ip.CommonConsts.ScreenConfig;
+import jie.android.ip.common.dialog.AppExitDialog;
 import jie.android.ip.screen.BaseScreen;
 import jie.android.ip.screen.play.PlayConfig.Image;
 
@@ -20,6 +22,7 @@ public class PlayScreen extends BaseScreen {
 	
 	public PlayScreen(IPGame game, int packId, int scriptId) {
 		super(game);
+
 		this.packId = packId;
 		this.scriptId = scriptId;
 		
@@ -95,8 +98,7 @@ public class PlayScreen extends BaseScreen {
 				setMenuScreen();
 			}
 			
-		});	
-		
+		});
 	}
 	
 	private void setNextPlayScreen(final int packId, final int scriptId) {
@@ -114,5 +116,25 @@ public class PlayScreen extends BaseScreen {
 	public void returnMenuScreen() {
 		out();
 	}
-	
+
+	@Override
+	protected boolean onKeyDown(int keyCode) {
+		if (keyCode == Keys.BACK) {
+			renderer.unloadLesson();
+			AppExitDialog dlg = AppExitDialog.getInstance(this);
+			if (!dlg.isShow()) {
+				dlg.show();
+			}
+			return true;
+		}
+		return super.onKeyDown(keyCode);
+	}
+
+	@Override
+	protected boolean onTouchDown(int x, int y, int pointer, int button) {
+		if (renderer.onScreenTouchDown(x, y, pointer, button)) {
+			return true;
+		}
+		return super.onTouchDown(x, y, pointer, button);
+	}
 }

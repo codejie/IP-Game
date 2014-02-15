@@ -4,8 +4,6 @@ import com.badlogic.gdx.graphics.Color;
 import jie.android.ip.common.dialog.AlertDialog;
 import jie.android.ip.common.dialog.BaseDialog;
 import jie.android.ip.common.dialog.DialogConfig;
-import jie.android.ip.screen.ActorStage;
-
 
 public class PlayRenderer {
 	
@@ -149,19 +147,11 @@ public class PlayRenderer {
 
 		@Override
 		public void onLessonGroupAdded() {
-			screen.setOnTouchDownListener(new ActorStage.OnTouchDownListener() {
-				@Override
-				public boolean isHandled(int x, int y, int pointer, int button) {
-					{
-						return groupLesson.hitTrap(x, y);
-					}
-				}
-			});
 		}
 
 		@Override
 		public void onLessonGroupRemoved() {
-			screen.setOnTouchDownListener(null);
+			groupLesson = null;
 		}
 	};
 	
@@ -218,9 +208,6 @@ public class PlayRenderer {
 
 	private boolean onCmdShare(final Cmd.State state) {
 		this.screen.getGame().getSetup().shareScreen();
-		//Utils.saveScreenToFile("./doc/a.png");
-//		final AlertDialog dlg = new AlertDialog(this.screen, "No Implemented.", this.screen.getGame().getResources().getBitmapTrueFont(100), Color.YELLOW, null);
-//		dlg.show();
 
 		return false;
 	}
@@ -277,8 +264,20 @@ public class PlayRenderer {
 		return false;
 	}
 
-
 	public void loadLesson(int packId, int scriptId) {
 		groupLesson = new LessonGroup(screen, scriptId, internalListener);
+	}
+	
+	public void unloadLesson() {
+		if (groupLesson != null) {
+			groupLesson.closeLesson();
+		}
+	}
+
+	public boolean onScreenTouchDown(int x, int y, int pointer, int button) {
+		if (groupLesson != null) {
+			return !groupLesson.hitTrap(x, y);
+		}
+		return false;
 	}	
 }

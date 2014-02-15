@@ -2,6 +2,7 @@ package jie.android.ip.screen;
 
 import jie.android.ip.IPGame;
 import jie.android.ip.CommonConsts.ScreenConfig;
+import jie.android.ip.screen.ActorStage.OnKeyDownListener;
 import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.Gdx;
@@ -34,12 +35,18 @@ public class BaseScreen implements Screen {
 		Gdx.input.setInputProcessor(actorStage.getInputProcessor());
 		Gdx.input.setCatchBackKey(true);
 		
-		setDefaultKeyDownListener();
+		//setDefaultKeyDownListener();
+		setOnKeyDownListener();
+		setOnTouchDownListener();
 	}
-	
-	private void setDefaultKeyDownListener() {
-		this.setOnKeyDownListener(new DefaultStageKeyDownListener(this ));
-	}
+//	
+//	protected void setDefaultKeyDownListener() {
+//		this.setOnKeyDownListener(new DefaultStageKeyDownListener(this ));
+//	}
+//	
+//	protected void removeDefaultKeyDownListener() {
+//		this.setOnKeyDownListener(null);
+//	}
 
 	public final IPGame getGame() {
 		return game;
@@ -61,12 +68,26 @@ public class BaseScreen implements Screen {
 		screenCanvas.addSprite(sprite);
 	}
 	
-	public void setOnKeyDownListener(final ActorStage.OnKeyDownListener listener) {
-		actorStage.setKeyDownListener(listener);
+	private void setOnKeyDownListener() {
+		actorStage.setOnKeyDownListener(new ActorStage.OnKeyDownListener() {
+
+			@Override
+			public boolean isHandled(int keyCode) {
+				return onKeyDown(keyCode);
+			}
+			
+		});
 	}
 	
-	public void setOnTouchDownListener(final ActorStage.OnTouchDownListener listener) {
-		actorStage.setTouchDownListener(listener);
+	private void setOnTouchDownListener() {
+		actorStage.setOnTouchDownListener(new ActorStage.OnTouchDownListener() {
+
+			@Override
+			public boolean isHandled(int x, int y, int pointer, int button) {
+				return onTouchDown(x, y, pointer, button);
+			}
+			
+		});
 	}
 	
 	public int screenToStageX(int screenX) {
@@ -138,9 +159,22 @@ public class BaseScreen implements Screen {
 
 	@Override
 	public void dispose() {
+		
+		actorStage.setOnKeyDownListener(null);
+		actorStage.setOnTouchDownListener(null);
+		
 		tweenManager.killAll();
 		actorStage.dispose();
 		screenCanvas.dispose();		
 	}
+	
+	protected boolean onKeyDown(int keyCode) { 
+		return false; 
+	}
+	
+	protected boolean onTouchDown(int x, int y, int pointer, int button) {
+		return false;
+	}
+	
 
 }

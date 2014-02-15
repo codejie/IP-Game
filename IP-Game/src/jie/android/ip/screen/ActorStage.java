@@ -50,18 +50,18 @@ public class ActorStage extends Stage {
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		if (onTouchDownListener != null) {
-			if (!onTouchDownListener.isHandled(screenX, ScreenConfig.HEIGHT - screenY, pointer, button)) {
+			if (onTouchDownListener.isHandled(screenX, ScreenConfig.HEIGHT - screenY, pointer, button)) {
 				return true;
 			}
 		}
 		return super.touchDown(screenX, screenY, pointer, button);
 	}
 	
-	public void setKeyDownListener(final OnKeyDownListener listener) {
+	public void setOnKeyDownListener(final OnKeyDownListener listener) {
 		this.onKeyDownListener = listener;
 	}
 	
-	public void setTouchDownListener(final OnTouchDownListener listener) {
+	public void setOnTouchDownListener(final OnTouchDownListener listener) {
 		this.onTouchDownListener = listener;
 	}
 

@@ -40,6 +40,8 @@ public class BaseDialog extends ScreenGroup {
 	private ButtonActor btnNegative;
 //	private ImageActor btnModdle;
 	
+	private boolean isShow = false;
+	
 	public BaseDialog(final BaseScreen screen) {
 		super(screen);
 		this.textureAtlas = super.resources.getTextureAtlas(PackConfig.SCREEN_DIALOG);
@@ -69,6 +71,8 @@ public class BaseDialog extends ScreenGroup {
 	public void show() {
 //		Tween.to(this, BaseGroupAccessor.SCALE_XY, duration)		
 		this.screen.addActor(this);
+		this.setZIndex(0x1f);
+		isShow = true;
 	}
 
 	public void dismiss() {
@@ -77,6 +81,11 @@ public class BaseDialog extends ScreenGroup {
 	
 	protected void close() {
 		this.screen.removeActor(this);
+		isShow = false;
+	}
+	
+	public boolean isShow() {
+		return isShow;
 	}
 	
 	public void setPositiveButton(final ButtonClickListener listener) {
