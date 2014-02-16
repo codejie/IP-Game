@@ -28,6 +28,7 @@ import org.xml.sax.SAXException;
 
 import jie.android.ip.executor.CommandConsts.ActType;
 import jie.android.ip.executor.CommandConsts.CommandType;
+import jie.android.ip.executor.CommandConsts.EmptyType;
 
 public class CommandSet {
 
@@ -78,6 +79,10 @@ public class CommandSet {
 			return type;
 		}
 		
+		public boolean isEmpty() {
+			return type == CommandType.EMPTY;
+		}
+		
 	}
 	
 //	public static class CommandQueue extends LinkedList<Command> {
@@ -122,21 +127,30 @@ public class CommandSet {
 			//CommandSet
 			Element cmdset = doc.createElement("CommandSet");
 			for (Entry<Integer, CommandQueue> e : functionSet.entrySet()) {
+				
+				CommandQueue que = e.getValue();
+				if (que.size() == 0) {
+					continue;
+				}
+				
 				Element func = doc.createElement("Function");
 				func.setAttribute("id", e.getKey().toString());
-				CommandQueue que = e.getValue();
+				func.setAttribute("size", String.valueOf(que.size()));
 				//for (int i = que.size() - 1; i >= 0; -- i) {
 				for (int i = 0; i < que.size(); ++ i) {
 					Command cmd = que.get(i);
-					Element c = doc.createElement("Command");					
-					c.setAttribute("type", cmd.getType().getTitle());
-					if (cmd.getParam(0) != null) {
-						c.setAttribute("p1", cmd.getParamAsString(0));
+					if (!cmd.isEmpty()) {
+						Element c = doc.createElement("Command");
+						c.setAttribute("idx", String.valueOf(i));
+						c.setAttribute("type", cmd.getType().getTitle());
+						if (cmd.getParam(0) != null) {
+							c.setAttribute("p1", cmd.getParamAsString(0));
+						}
+						if (cmd.getParam(1) != null) {
+							c.setAttribute("p2", cmd.getParamAsString(1));
+						}
+						func.appendChild(c);
 					}
-					if (cmd.getParam(1) != null) {
-						c.setAttribute("p2", cmd.getParamAsString(1));
-					}
-					func.appendChild(c);
 				}
 				cmdset.appendChild(func);
 			}
@@ -268,6 +282,7 @@ public class CommandSet {
 
 	private static void addFunction(CommandSet cmdset, Node func) {
 		int id = Integer.valueOf(func.getAttributes().getNamedItem("id").getNodeValue()).intValue();
+		int size = Integer.valueOf(func.getAttributes().getNamedItem("size").getNodeValue()).intValue();
 				
 		NodeList cmd = ((Element)func).getElementsByTagName("Command");// .getChildNodes();
 		if (cmd == null || cmd.getLength() == 0) {
@@ -275,9 +290,17 @@ public class CommandSet {
 		}
 		
 		CommandSet.CommandQueue cmdq = CommandSet.makeCommandQueue();
-		
-		for (int i = 0; i < cmd.getLength(); ++ i) {
+		int idx = 0;
+		for (int i = 0; i < cmd.getLength(); ++ i, ++ idx) {
 			NamedNodeMap attr = cmd.item(i).getAttributes();
+			int pos = Integer.valueOf(attr.getNamedItem("idx").getNodeValue()).intValue();
+			
+			while (idx < pos) {
+				int p1 = (idx % 2 == 0) ? EmptyType.CHECK.getId() : EmptyType.ACT.getId(); //  Integer.valueOf(attr.getNamedItem("p1").getNodeValue()).intValue();
+				cmdq.add(CommandSet.makeCommand(CommandType.EMPTY, p1));				
+				++ idx;
+			}
+			
 			final String type = attr.getNamedItem("type").getNodeValue();
 			if (type.equals(CommandType.ACT.getTitle())) {
 				int p1 = Integer.valueOf(attr.getNamedItem("p1").getNodeValue()).intValue();
@@ -301,6 +324,40 @@ public class CommandSet {
 				//
 			}
 		}
+		
+		while (idx < size) {
+			int p1 = (idx % 2 == 0) ? EmptyType.CHECK.getId() : EmptyType.ACT.getId(); //  Integer.valueOf(attr.getNamedItem("p1").getNodeValue()).intValue();
+			cmdq.add(CommandSet.makeCommand(CommandType.EMPTY, p1));				
+			++ idx;			
+		}
+
+//		for (int i = 0; i < cmd.getLength(); ++ i) {
+//			NamedNodeMap attr = cmd.item(i).getAttributes();
+//			
+//			final String type = attr.getNamedItem("type").getNodeValue();
+//			if (type.equals(CommandType.ACT.getTitle())) {
+//				int p1 = Integer.valueOf(attr.getNamedItem("p1").getNodeValue()).intValue();
+//				if (p1 == ActType.MOVE_LEFT.getId() || p1 == ActType.MOVE_RIGHT.getId()) { //move
+//					int p2 = Integer.valueOf(attr.getNamedItem("p2").getNodeValue()).intValue();
+//					cmdq.add(CommandSet.makeCommand(CommandType.ACT, p1, p2));
+//				} else if (p1 == ActType.ACTION.getId()) { // action
+//					cmdq.add(CommandSet.makeCommand(CommandType.ACT, p1));
+//				}
+//			} else if (type.equals(CommandType.CHECK.getTitle())) {
+//				int p1 = Integer.valueOf(attr.getNamedItem("p1").getNodeValue()).intValue();
+//				int p2 = Integer.valueOf(attr.getNamedItem("p2").getNodeValue()).intValue();
+//				cmdq.add(CommandSet.makeCommand(CommandType.CHECK, p1, p2));
+//			} else if (type.equals(CommandType.CALL.getTitle())) {
+//				int p1 = Integer.valueOf(attr.getNamedItem("p1").getNodeValue()).intValue();
+//				cmdq.add(CommandSet.makeCommand(CommandType.CALL, p1));
+//			} else if (type.equals(CommandType.EMPTY.getTitle())) {
+//				int p1 = Integer.valueOf(attr.getNamedItem("p1").getNodeValue()).intValue();
+//				cmdq.add(CommandSet.makeCommand(CommandType.EMPTY, p1));
+//			} else {
+//				//
+//			}
+//		}
+		
 		if (cmdq.size() > 0) {
 			cmdset.put(id, cmdq);
 		}

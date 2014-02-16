@@ -6,12 +6,14 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import jie.android.ip.CommonConsts.PackConfig;
 import jie.android.ip.CommonConsts.ScreenConfig;
+import jie.android.ip.Resources;
 import jie.android.ip.common.dialog.ScreenGroup;
 import jie.android.ip.screen.play.lesson.BaseLesson;
 import jie.android.ip.screen.play.lesson.LessonOne;
 
 public class LessonGroup extends ScreenGroup {
 
+	private final Resources resources;
 	private final TextureAtlas textureAtlas;
 	private final TweenManager tweenManager;
 	
@@ -19,31 +21,21 @@ public class LessonGroup extends ScreenGroup {
 	
 	private BaseLesson lesson;
 	
-	public LessonGroup(final PlayScreen screen, int lessonId, final PlayScreenListener.RendererInternalEventListener internalListener) {
+	public LessonGroup(final PlayScreen screen, final PlayScreenListener.RendererInternalEventListener internalListener) {
 		super(screen);
+		this.resources = super.resources;
 		this.textureAtlas = super.resources.getTextureAtlas(PackConfig.SCREEN_PLAY);
 		this.tweenManager = this.screen.getTweenManager();
 		
 		this.internalListener = internalListener;
 		
 		initStage();
-		
-		initLesson(lessonId);
 	}
 	@Override
 	protected void initStage() {
 		this.setTouchable(Touchable.disabled);
 		this.setBounds(0, 0, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);
 		screen.addActor(this);
-	}
-
-	private void initLesson(int lessonId) {
-		lesson = loadLesson(lessonId);		
-		if (lesson != null) {
-			if (internalListener != null) {
-				internalListener.onLessonGroupAdded();
-			}
-		}
 	}
 	
 	public void closeLesson() {
@@ -61,15 +53,25 @@ public class LessonGroup extends ScreenGroup {
 		}
 	}
 	
-	protected final BaseLesson loadLesson(int id) {
+	public boolean loadLesson(int id) {
 		switch(id) {
 		case 1:
-			return new LessonOne(this);
+			lesson = new LessonOne(this);
+			break;
 		default:
-			return null;
+			return false;
 		}
+		
+		if (internalListener != null) {
+			internalListener.onLessonGroupAdded();
+		}
+		return true;
 	}
 	
+	public final Resources getResources() {
+		return resources;
+	}
+
 	public final TextureAtlas getTextureAtlas() {
 		return textureAtlas;
 	}

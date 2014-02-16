@@ -217,7 +217,6 @@ public class PlayRenderer {
 		return true;
 	}	
 
-
 	protected boolean onCmdClear(final Cmd.State state) {
 		final BaseDialog dlg = new BaseDialog(screen);
 		dlg.setPositiveButton(new BaseDialog.ButtonClickListener() {
@@ -241,8 +240,7 @@ public class PlayRenderer {
 		dlg.show();
 		
 		return false;
-	}
-	
+	}	
 
 	protected boolean onCmdClose(final Cmd.State state) {
 		//back to menu screen;
@@ -265,7 +263,10 @@ public class PlayRenderer {
 	}
 
 	public void loadLesson(int packId, int scriptId) {
-		groupLesson = new LessonGroup(screen, scriptId, internalListener);
+		groupLesson = new LessonGroup(screen, internalListener);
+		if (!groupLesson.loadLesson(scriptId)) {
+			groupLesson.closeLesson();
+		}
 	}
 	
 	public void unloadLesson() {

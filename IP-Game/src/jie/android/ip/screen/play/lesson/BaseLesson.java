@@ -2,15 +2,23 @@ package jie.android.ip.screen.play.lesson;
 
 import java.util.ArrayList;
 
+import jie.android.ip.common.actor.ImageActor;
+import jie.android.ip.common.actor.LabelActor;
 import jie.android.ip.common.actor.NinePatchActor;
 import jie.android.ip.screen.play.LessonGroup;
 import jie.android.ip.screen.play.PlayConfig.Const;
 import jie.android.ip.screen.play.PlayConfig.Image;
+
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public abstract class BaseLesson {
 	
-	protected final LessonGroup group;	
+	protected final LessonGroup group;
+	protected final TextureAtlas textureAtlas;
+	protected final BitmapFont font;
 	
 	protected int stage = 0;
 	protected NinePatchActor trapActor;
@@ -18,6 +26,8 @@ public abstract class BaseLesson {
 	
 	public BaseLesson(final LessonGroup group) {
 		this.group = group;
+		this.textureAtlas = this.group.getTextureAtlas();
+		this.font = this.group.getResources().getBitmapTrueFont(45);
 		
 		loadNextStage();
 	}
@@ -58,8 +68,21 @@ public abstract class BaseLesson {
 	}
 	
 	protected void makeTrapActor(int x, int y, int width, int height) {
-		trapActor = new NinePatchActor(group.getTextureAtlas().findRegion(Image.Lesson.FRAME), Const.Lesson.FRAME_SIZE, x, y, width, height);
+		trapActor = new NinePatchActor(textureAtlas.findRegion(Image.Lesson.FRAME), Const.Lesson.FRAME_SIZE, x, y, width, height);
 		addActor(trapActor);
+	}
+	
+	protected void makeImageActor(int x, int y, final String textRes) {
+		final ImageActor actor = new ImageActor(textureAtlas.findRegion(textRes));
+		actor.setPosition(x, y);
+		addActor(actor);		
+	}
+	
+	protected void makeLabelActor(int x, int y, final String text, final Color color) {
+		font.setColor(color);
+		final LabelActor actor = new LabelActor(text, font);
+		actor.setPosition(x, y);
+		addActor(actor);
 	}
 
 	public boolean hitTrap(int x, int y) {

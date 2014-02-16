@@ -97,9 +97,9 @@ public class DBAccess {
 		
 		sql = "CREATE TABLE IF NOT EXISTS script ("
 				+ "id INTEGER,"
+				+ "pack_id INTEGER,"
 				+ "status INTEGER,"
 				+ "script TEXT,"
-				+ "command TEXT,"
 				+ "ctime TEXT"
 				+ ")";
 		if (execSQL(sql) == -1) {
@@ -109,21 +109,12 @@ public class DBAccess {
 		sql = "CREATE TABLE IF NOT EXISTS solution ("
 				+ "scriptid INTEGER PRIMARY KEY,"
 				+ "command TEXT,"
-				+ "utime TEXT,"
-				+ "score INTEGER"
+				+ "score INTEGER,"
+				+ "utime TEXT"				
 				+ ")";
 		if (execSQL(sql) == -1) {
 			return false;
 		}
-
-//		sql = "CREATE TABLE IF NOT EXISTS group ("
-//				+ "id INTEGER,"
-//				+ "title TEXT,"
-//				+ "descript TEXT"
-//				+ ")";
-//		if (execSQL(sql) == -1) {
-//			return false;
-//		}
 				
 		return true;
 	}
@@ -146,12 +137,12 @@ public class DBAccess {
 	}
 
 	public void saveSolution(int scriptid, final String cmd) {
-		final String sql = "REPLACE INTO solution (script_id, command, utime, score) VALUES(?, ?, ?, ?)";
+		final String sql = "REPLACE INTO solution (script_id, command, score, utime) VALUES(?, ?, ?, ?)";
 		ArrayList<String> val = new ArrayList<String>();
 		val.add(String.valueOf(scriptid));
 		val.add(cmd);
-		val.add("1000-10-10");
 		val.add("0");
+		val.add("1000-10-10");		
 		execSQL(sql, val);
 	}
 	
