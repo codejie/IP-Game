@@ -18,7 +18,6 @@ public abstract class BaseLesson {
 	
 	protected final LessonGroup group;
 	protected final TextureAtlas textureAtlas;
-	protected final BitmapFont font;
 	
 	protected int stage = 0;
 	protected NinePatchActor trapActor;
@@ -27,7 +26,6 @@ public abstract class BaseLesson {
 	public BaseLesson(final LessonGroup group) {
 		this.group = group;
 		this.textureAtlas = this.group.getTextureAtlas();
-		this.font = this.group.getResources().getBitmapTrueFont(45);
 		
 		loadNextStage();
 	}
@@ -72,15 +70,17 @@ public abstract class BaseLesson {
 		addActor(trapActor);
 	}
 	
-	protected void makeImageActor(int x, int y, final String textRes) {
+	protected void makeImageActor(int x, int y, float scale, final String textRes) {
 		final ImageActor actor = new ImageActor(textureAtlas.findRegion(textRes));
 		actor.setPosition(x, y);
+		actor.setScale(scale);
 		addActor(actor);		
 	}
 	
-	protected void makeLabelActor(int x, int y, final String text, final Color color) {
-		font.setColor(color);
+	protected void makeLabelActor(int x, int y, final String text, int size, final Color color) {
+		final BitmapFont font = this.group.getResources().getBitmapTrueFont(size);
 		final LabelActor actor = new LabelActor(text, font);
+		actor.setColor(color);
 		actor.setPosition(x, y);
 		addActor(actor);
 	}

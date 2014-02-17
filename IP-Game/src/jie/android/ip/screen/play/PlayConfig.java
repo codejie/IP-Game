@@ -144,6 +144,10 @@ public interface PlayConfig {
 		
 		public interface Lesson {
 			public static final String FRAME = "lesson_frame";
+			public static final String ARROW_RU = "lesson_arrow_ru";
+			public static final String ARROW_RB = "lesson_arrow_rb";
+			public static final String ARROW_LU = "lesson_arrow_lu";
+			public static final String ARROW_LB = "lesson_arrow_lb";
 		}
 	}
 	

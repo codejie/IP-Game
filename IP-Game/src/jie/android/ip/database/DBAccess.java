@@ -118,6 +118,14 @@ public class DBAccess {
 		if (execSQL(sql) == -1) {
 			return false;
 		}
+		
+		sql = "CREATE TABLE IF NOT EXISTS pack ("
+				+ "id INTEGER PRIMARY KEY," 
+				+ "title TEXT)";
+		
+		if (execSQL(sql) == -1) {
+			return false;
+		}
 				
 		return true;
 	}
