@@ -1,5 +1,8 @@
 package jie.android.ip.screen.play;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import com.badlogic.gdx.utils.Disposable;
 
 import jie.android.ip.database.DBAccess;
@@ -183,16 +186,38 @@ public class PlayManager implements Disposable {
 	}	
 	
 	public boolean loadScript(final int packId, final int scriptId) {
-		String str = dbAccess.loadScript(scriptId);
-		if (str == null) {
-			return false;
-		}
+		
 		script = new Script(scriptId);
-		if (!script.loadString(str)) {
+		
+		final ResultSet rs = dbAccess.loadScript(scriptId);
+		if (rs != null) {
+			try {
+				try {
+					if (rs.next()) {
+						final String str = rs.getString(1);
+						if (str == null) {
+							return false;
+						}
+						if (!script.loadString(str)) {
+							return false;
+						}
+						script.setStatus(rs.getInt(2));
+						script.setBaseScore(rs.getInt(3));
+					} else {
+						return false;
+					}
+				} finally {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return false;
+			}
+		} else {
 			return false;
 		}
 		
-		str = dbAccess.loadSolution(scriptId);
+		final String str = dbAccess.loadSolution(scriptId);
 		if (str != null) {
 			cmdSet = CommandSet.loadFromString(str);
 		}
@@ -218,9 +243,9 @@ public class PlayManager implements Disposable {
 
 	protected void onCmdRun(final Cmd.State state) {
 		if (state == Cmd.State.NONE) {
-			final CommandSet cmdset = codeLines.makeCommandSet();
-			dbAccess.saveSolution(script.getId(), cmdset.saveToString());
-			executor.execute(cmdset);
+			cmdSet = codeLines.makeCommandSet();
+			dbAccess.saveSolution(script.getId(), cmdSet.saveToString());
+			executor.execute(cmdSet);
 		} else {
 			box.reload(script);
 			executor.reset();
@@ -244,9 +269,11 @@ public class PlayManager implements Disposable {
 	}
 	
 	protected void onExecuteSucc() {
-		// TODO Auto-generated method stub
+		int score = cmdSet.calcScore();
+		dbAccess.updateScriptStatus(script.getId(), 1);
+		dbAccess.updateSolutionScore(script.getId(), score);
 		if (managerListener != null) {
-			managerListener.onExecuteSucc();
+			managerListener.onExecuteSucc(script.getBaseScore(), score);
 		}
 	}
 

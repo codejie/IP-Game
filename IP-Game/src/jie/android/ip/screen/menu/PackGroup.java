@@ -62,14 +62,14 @@ public class PackGroup extends ScreenGroup {
 			LabelActor tl = new LabelActor(title, bitmapFont);
 			tl.setColor(Color.BLUE);
 //			tl.setScale(2.8f);
-			TextBounds tb = tl.getBounds();
-			tl.setBounds((Const.Pack.WIDTH - tb.width) / 2, Const.Pack.HEIGHT * 0.8f, tb.width, tb.height);
+//			TextBounds tb = tl.getBounds();
+			tl.setPosition((Const.Pack.WIDTH - tl.getWidth()) / 2, Const.Pack.HEIGHT * 0.8f);//, tb.width, tb.height);
 			this.addActor(tl);
 			
 			LabelActor i = new LabelActor(info, bitmapFont);
 			i.setScale(0.8f);
-			tb = i.getBounds();
-			i.setBounds((Const.Pack.WIDTH - tb.width) / 2, Const.Pack.HEIGHT * 0.33f, tb.width, tb.height);
+			//tb = i.getBounds();
+			i.setPosition((Const.Pack.WIDTH - tl.getWidth()) / 2, Const.Pack.HEIGHT * 0.33f);//, tb.width, tb.height);
 			this.addActor(i);
 		}		
 	}

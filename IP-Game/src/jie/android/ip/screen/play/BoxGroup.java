@@ -56,10 +56,7 @@ public class BoxGroup {
 				float x = Const.Box.COLUMN_X + i * Const.Box.COLUMN_SPACE;
 				col.setBounds(x, Const.Box.COLUMN_Y, Const.Box.COLUMN_WIDTH, Const.Box.COLUMN_HEIGHT);
 				this.addActor(col);
-			}
-			
-//			NinePatchActor np = new NinePatchActor(textureAtlas.findRegion(Image.Lesson.FRAME), 8, 0, 0, 600, 200);
-//			this.addActor(np);			
+			}		
 		}
 		
 		private int colToBlockX(int col) {
@@ -98,6 +95,12 @@ public class BoxGroup {
 		private final ImageActor makeActor(int value, int style) {
 			if (value == 0) {
 				return new ImageActor(textureAtlas.findRegion(Image.Box.BOX_0));// adapter.getResources().getSkin().getRegion("ic"));
+			} else if (value == 1) {
+				return new ImageActor(textureAtlas.findRegion(Image.Box.BOX_1));
+			} else if (value == 2) {
+				return new ImageActor(textureAtlas.findRegion(Image.Box.BOX_2));
+			} else if (value == 3) {
+				return new ImageActor(textureAtlas.findRegion(Image.Box.BOX_3));				
 			} else {
 				return null;
 			}

@@ -218,6 +218,26 @@ public class CommandSet {
 		return null;
 	}
 	
+
+	public int calcScore() {
+		int ret = 0;		
+		for (int f = 0; f < functionSet.size(); ++ f) {
+			final CommandQueue que = functionSet.get(f);
+			if (que == null || que.size() == 0) {
+				break;
+			}
+			for (int i = 0; i < que.size(); ++ i) {
+				final Command cmd = que.get(i);
+				if (cmd == null || (cmd.isEmpty() && cmd.getParam(0) == EmptyType.ACT)) {
+					break;
+				}
+				ret += cmd.getType().getScore();				
+			}
+		}
+		
+		return (ret != 0 ? ret : -1);
+	}	
+	
 	public static final CommandSet loadFromFile(final String file) {
 		try {
 			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -330,38 +350,10 @@ public class CommandSet {
 			cmdq.add(CommandSet.makeCommand(CommandType.EMPTY, p1));				
 			++ idx;			
 		}
-
-//		for (int i = 0; i < cmd.getLength(); ++ i) {
-//			NamedNodeMap attr = cmd.item(i).getAttributes();
-//			
-//			final String type = attr.getNamedItem("type").getNodeValue();
-//			if (type.equals(CommandType.ACT.getTitle())) {
-//				int p1 = Integer.valueOf(attr.getNamedItem("p1").getNodeValue()).intValue();
-//				if (p1 == ActType.MOVE_LEFT.getId() || p1 == ActType.MOVE_RIGHT.getId()) { //move
-//					int p2 = Integer.valueOf(attr.getNamedItem("p2").getNodeValue()).intValue();
-//					cmdq.add(CommandSet.makeCommand(CommandType.ACT, p1, p2));
-//				} else if (p1 == ActType.ACTION.getId()) { // action
-//					cmdq.add(CommandSet.makeCommand(CommandType.ACT, p1));
-//				}
-//			} else if (type.equals(CommandType.CHECK.getTitle())) {
-//				int p1 = Integer.valueOf(attr.getNamedItem("p1").getNodeValue()).intValue();
-//				int p2 = Integer.valueOf(attr.getNamedItem("p2").getNodeValue()).intValue();
-//				cmdq.add(CommandSet.makeCommand(CommandType.CHECK, p1, p2));
-//			} else if (type.equals(CommandType.CALL.getTitle())) {
-//				int p1 = Integer.valueOf(attr.getNamedItem("p1").getNodeValue()).intValue();
-//				cmdq.add(CommandSet.makeCommand(CommandType.CALL, p1));
-//			} else if (type.equals(CommandType.EMPTY.getTitle())) {
-//				int p1 = Integer.valueOf(attr.getNamedItem("p1").getNodeValue()).intValue();
-//				cmdq.add(CommandSet.makeCommand(CommandType.EMPTY, p1));
-//			} else {
-//				//
-//			}
-//		}
 		
 		if (cmdq.size() > 0) {
 			cmdset.put(id, cmdq);
 		}
 	}
-	
 	
 }

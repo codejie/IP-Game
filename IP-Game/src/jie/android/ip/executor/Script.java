@@ -43,11 +43,17 @@ public class Script {
 	}
 	
 	private final int id;
-			
-	public String comment;
-	public ArrayList<BlockData> source;
-	public ArrayList<BlockData> target;
-	public TrayData tray;
+	
+	private int status;
+	private int base_score;
+	
+	private String author;
+	private String title;
+	private String comment;
+	
+	private ArrayList<BlockData> source;
+	private ArrayList<BlockData> target;
+	private TrayData tray;
 	
 	public Script(int id) {
 		this.id = id;
@@ -57,6 +63,22 @@ public class Script {
 		return id;
 	}
 	
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public int getBaseScore() {
+		return base_score;
+	}
+
+	public void setBaseScore(int score) {
+		this.base_score = score;
+	}
+
 	public boolean loadFile(final String file) {
 		
 		try {
@@ -78,8 +100,24 @@ public class Script {
 			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 			Document doc = builder.parse(is);
 			
+			NodeList tl = doc.getElementsByTagName("Title");
+			if (tl != null && tl.getLength() > 0) {
+				this.title = tl.item(0).getNodeValue();
+			} else {
+				this.title = "No Title";
+			}
+			NodeList au = doc.getElementsByTagName("Author");
+			if (au != null && au.getLength() > 0) {
+				this.author = au.item(0).getNodeValue();
+			} else {
+				this.author = "Unknown";
+			}
 			NodeList ct = doc.getElementsByTagName("Comment");
-			this.comment = ct.item(0).getNodeValue();
+			if (ct != null && ct.getLength() > 0) {
+				this.comment = ct.item(0).getNodeValue();
+			} else {
+				this.comment = "";
+			}
 			
 			NodeList src = doc.getElementsByTagName("Source").item(0).getChildNodes();
 			source = new ArrayList<BlockData>();
@@ -145,5 +183,18 @@ public class Script {
 	public final TrayData getTray() {
 		return tray;
 	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
 
 }

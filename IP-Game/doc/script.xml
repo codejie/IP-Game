@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <IP-Script-Format>
     <Information>
+        <Title></Title>
     	<Author></Author>
-    	<Addr></Addr>
-    	<Date></Date>
     	<Comment>
         	This is the template of script.
     	</Comment>

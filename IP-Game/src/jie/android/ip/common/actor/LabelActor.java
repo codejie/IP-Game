@@ -9,7 +9,6 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 public class LabelActor extends Actor {
 
 	private String text;
-//	private BitmapFont font;
 	private BitmapFontCache cache;
 	
 	private final float oldX, oldY;
@@ -20,8 +19,10 @@ public class LabelActor extends Actor {
 		
 		this.text = text;
 		this.cache = new BitmapFontCache(font, true);
+		
+		this.getBounds();
 	}
-
+	
 	@Override
 	public void draw(Batch batch, float parentAlpha) {
 		final BitmapFont font = cache.getFont();
@@ -36,6 +37,7 @@ public class LabelActor extends Actor {
 	
 	public void setText(final String text) {
 		this.text = text;
+		this.getBounds();
 	}
 	
 	public final TextBounds getBounds() {
@@ -45,7 +47,53 @@ public class LabelActor extends Actor {
 		TextBounds tb = cache.setText(text, getX(), getY());
 		
 		font.setScale(oldX, oldY);
+		
+		super.setWidth(tb.width);
+		super.setHeight(tb.height);
+		
 		return tb;
+	}
+
+	@Override
+	public void setScaleX(float scaleX) {
+		super.setScaleX(scaleX);
+		this.getBounds();
+	}
+
+	@Override
+	public void setScaleY(float scaleY) {
+		super.setScaleY(scaleY);
+		this.getBounds();
+	}
+
+	@Override
+	public void setScale(float scale) {
+		super.setScale(scale);
+		this.getBounds();
+	}
+
+	@Override
+	public void setScale(float scaleX, float scaleY) {
+		super.setScale(scaleX, scaleY);
+		this.getBounds();
+	}
+
+	@Override
+	public void scale(float scale) {
+		super.scale(scale);
+		this.getBounds();
+	}
+
+	@Override
+	public void scale(float scaleX, float scaleY) {
+		super.scale(scaleX, scaleY);
+		this.getBounds();
+	}
+
+	@Override
+	public void setPosition(float x, float y) {
+		this.getBounds();		
+		super.setPosition(x, y + getHeight());
 	}
 	
 }

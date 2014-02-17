@@ -2,7 +2,6 @@ package jie.android.ip.screen;
 
 import jie.android.ip.IPGame;
 import jie.android.ip.CommonConsts.ScreenConfig;
-import jie.android.ip.screen.ActorStage.OnKeyDownListener;
 import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.Gdx;
@@ -35,18 +34,9 @@ public class BaseScreen implements Screen {
 		Gdx.input.setInputProcessor(actorStage.getInputProcessor());
 		Gdx.input.setCatchBackKey(true);
 		
-		//setDefaultKeyDownListener();
 		setOnKeyDownListener();
 		setOnTouchDownListener();
 	}
-//	
-//	protected void setDefaultKeyDownListener() {
-//		this.setOnKeyDownListener(new DefaultStageKeyDownListener(this ));
-//	}
-//	
-//	protected void removeDefaultKeyDownListener() {
-//		this.setOnKeyDownListener(null);
-//	}
 
 	public final IPGame getGame() {
 		return game;

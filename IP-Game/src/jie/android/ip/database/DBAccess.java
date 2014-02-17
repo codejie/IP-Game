@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DBAccess {
 	
@@ -98,8 +100,9 @@ public class DBAccess {
 		sql = "CREATE TABLE IF NOT EXISTS script ("
 				+ "id INTEGER,"
 				+ "pack_id INTEGER,"
-				+ "status INTEGER,"
 				+ "script TEXT,"
+				+ "status INTEGER,"
+				+ "base_score INTEGER,"
 				+ "ctime TEXT"
 				+ ")";
 		if (execSQL(sql) == -1) {
@@ -119,21 +122,9 @@ public class DBAccess {
 		return true;
 	}
 	
-	public final String loadScript(int id) {
-		final String sql = "SELECT script FROM script WHERE id=" + id;
-		final ResultSet rs = querySQL(sql);
-		try {
-			try {
-				if (rs.next()) {
-					return rs.getString(1);
-				}
-			} finally {
-				rs.close();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
+	public final ResultSet loadScript(int id) {
+		final String sql = "SELECT script, status, base_score FROM script WHERE id=" + id;
+		return querySQL(sql);
 	}
 
 	public void saveSolution(int scriptid, final String cmd) {
@@ -141,8 +132,8 @@ public class DBAccess {
 		ArrayList<String> val = new ArrayList<String>();
 		val.add(String.valueOf(scriptid));
 		val.add(cmd);
-		val.add("0");
-		val.add("1000-10-10");		
+		val.add("-1");
+		val.add(new SimpleDateFormat("yyyy/MM/dd").format(new Date()));		
 		execSQL(sql, val);
 	}
 	
@@ -222,6 +213,22 @@ public class DBAccess {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public void updateScriptStatus(int id, int status) {
+		final String sql = "UPDATE script SET status=? WHERE id=?";
+		final ArrayList<String> val = new ArrayList<String>();
+		val.add(String.valueOf(status));
+		val.add(String.valueOf(id));
+		execSQL(sql, val);
+	}
+
+	public void updateSolutionScore(int id, int score) {
+		final String sql = "UPDATE solution SET score=? WHERE script_id=?";
+		final ArrayList<String> val = new ArrayList<String>();
+		val.add(String.valueOf(score));
+		val.add(String.valueOf(id));
+		execSQL(sql, val);		
 	}
 
 	

@@ -6,12 +6,15 @@ import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenManager;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.CommonConsts.PackConfig;
 import jie.android.ip.common.actor.ImageActor;
 import jie.android.ip.common.actor.ImageActorAccessor;
+import jie.android.ip.common.actor.LabelActor;
 import jie.android.ip.common.dialog.ScreenGroup;
 import jie.android.ip.screen.BaseScreen;
 import jie.android.ip.screen.play.PlayConfig.Const;
@@ -44,12 +47,13 @@ public class ResultGroup extends ScreenGroup {
 	
 	@Override
 	protected void initStage() {
-		backGround = new ImageActor(textureAtlas.findRegion(Image.Result.BG));
-		backGround.setBounds(-Const.Result.WIDTH, ScreenConfig.HEIGHT / 2.5f/*Const.Result.BASE_Y*/, Const.Result.WIDTH, Const.Result.HEIGHT / 3.5f);
 		this.setBounds(Const.Result.BASE_X, Const.Result.BASE_Y, Const.Result.WIDTH, Const.Result.HEIGHT);
-		this.addActor(backGround);
 		
-		this.setBounds(Const.Result.BASE_X, Const.Result.BASE_Y, Const.Result.WIDTH, Const.Result.HEIGHT);
+//		backGround = new ImageActor(textureAtlas.findRegion(Image.Result.BG));
+//		backGround.setBounds(-Const.Result.WIDTH, ScreenConfig.HEIGHT / 2.5f/*Const.Result.BASE_Y*/, Const.Result.WIDTH, Const.Result.HEIGHT / 3.5f);
+//		//this.setBounds(Const.Result.BASE_X, Const.Result.BASE_Y, Const.Result.WIDTH, Const.Result.HEIGHT);
+//		this.addActor(backGround);
+		
 		this.setVisible(false);
 		screen.addActor(this);		
 	}
@@ -86,7 +90,7 @@ public class ResultGroup extends ScreenGroup {
 		current = which;
 	}
 	
-	public void showSuccStage() {
+	public void showSuccStage(final int base_score, final int score) {
 		updateResult(Which.SUCC);
 		
 		final float zoom = 20.0f;
@@ -102,7 +106,21 @@ public class ResultGroup extends ScreenGroup {
 			
 			.push(Tween.to(result, ImageActorAccessor.OPACITY, 0.2f).target(1.0f))
 			.push(Tween.to(result, ImageActorAccessor.SCALE_XY, 0.2f).target(1.0f, 1.0f))
-			.push(Tween.to(result, ImageActorAccessor.POSITION_XY, 0.2f).target(x, y))			
+			.push(Tween.to(result, ImageActorAccessor.POSITION_XY, 0.2f).target(x, y))
+			.setCallback(new TweenCallback() {
+				@Override
+				public void onEvent(int type, BaseTween<?> source) {
+					final BitmapFont font = ResultGroup.this.resources.getBitmapTrueFont(95);
+					final LabelActor label = new LabelActor(String.format("%d/%d", score, base_score), font);
+					label.setColor(Color.RED);
+//					label.getBounds();
+					float x = (Const.Result.WIDTH - label.getWidth()) / 2;
+					float y = Const.Result.BASE_Y_RESULT - label.getHeight();
+					ResultGroup.this.addActor(label);
+					label.setPosition(x, y);
+
+				}				
+			})
 			.start(tweenManager);
 	}
 

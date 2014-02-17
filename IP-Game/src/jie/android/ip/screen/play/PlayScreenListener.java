@@ -11,7 +11,7 @@ public interface PlayScreenListener {
 		public void onCodeLineLoadCompleted(final Code.Lines lines);
 		public void onCodeLineUpdated(final Code.Lines lines, int index, int pos);
 		public void onCodeLineResetCompleted(final Code.Lines lines);
-		public void onExecuteSucc();
+		public void onExecuteSucc(int base_score, int score);
 		public void onExecuteFail();
 		public void onExecuteFinished();		
 	}

@@ -152,9 +152,9 @@ public class BaseDialog extends ScreenGroup {
 		LabelActor label = new LabelActor(text,font);
 		label.setColor(color);
 		
-		TextBounds tb = label.getBounds();
-		float x = Const.BASE_X_WINDOW + (Const.WIDTH_WINDOW - tb.width) / 2;
-		float y = Const.TEXT_BASE_Y + (Const.TEXT_HEIGHT - tb.height) / 2;
+//		TextBounds tb = label.getBounds();
+		float x = Const.BASE_X_WINDOW + (Const.WIDTH_WINDOW - label.getWidth()) / 2;
+		float y = Const.TEXT_BASE_Y + (Const.TEXT_HEIGHT - label.getHeight()) / 2;
 		
 		label.setPosition(x, y);
 		this.addActor(label);
