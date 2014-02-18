@@ -31,8 +31,9 @@ public class ResultGroup extends ScreenGroup {
 	
 	final PlayScreenListener.RendererInternalEventListener internalListener;
 	
-	private ImageActor backGround;
+//	private ImageActor backGround;
 	private ImageActor result;
+	private LabelActor labelScore;
 	
 	private Which current;
 	
@@ -111,13 +112,12 @@ public class ResultGroup extends ScreenGroup {
 				@Override
 				public void onEvent(int type, BaseTween<?> source) {
 					final BitmapFont font = ResultGroup.this.resources.getBitmapTrueFont(95);
-					final LabelActor label = new LabelActor(String.format("%d/%d", score, base_score), font);
-					label.setColor(Color.RED);
-//					label.getBounds();
-					float x = (Const.Result.WIDTH - label.getWidth()) / 2;
-					float y = Const.Result.BASE_Y_RESULT - label.getHeight();
-					ResultGroup.this.addActor(label);
-					label.setPosition(x, y);
+					labelScore = new LabelActor(String.format("%d/%d", score, base_score), font);
+					labelScore.setColor(Color.RED);
+					float x = (Const.Result.WIDTH - labelScore.getWidth()) / 2;
+					float y = Const.Result.BASE_Y_RESULT - labelScore.getHeight();
+					ResultGroup.this.addActor(labelScore);
+					labelScore.setPosition(x, y);
 
 				}				
 			})
@@ -159,13 +159,14 @@ public class ResultGroup extends ScreenGroup {
 			@Override
 			public void onEvent(int type, BaseTween<?> source) {
 				ResultGroup.this.setVisible(false);
+				ResultGroup.this.removeActor(labelScore);
 			}			
 		};
 		
 		if (current == Which.SUCC) {
 			Timeline.createSequence()
 				.push(Tween.to(result, ImageActorAccessor.SCALE_XY, 0.05f).target(0.0f, 0.0f))		
-				.push(Tween.to(backGround, ImageActorAccessor.POSITION_X, 0.05f).target(-Const.Result.WIDTH))
+//				.push(Tween.to(backGround, ImageActorAccessor.POSITION_X, 0.05f).target(-Const.Result.WIDTH))
 				.setCallback(callback)
 				.start(tweenManager);
 		} else {

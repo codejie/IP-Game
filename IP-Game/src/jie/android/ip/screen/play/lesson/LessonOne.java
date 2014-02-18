@@ -19,6 +19,8 @@ public class LessonOne extends BaseLesson {
 			return stage0();
 		case 1:
 			return stage1();
+		case 2:
+			return stage2();
 		default:
 			return false;
 		}
@@ -47,5 +49,9 @@ public class LessonOne extends BaseLesson {
 		makeTrapActor(100, 215, 150, 90);
 		
 		return true;
+	}
+	
+	private boolean stage2() {
+		return false;
 	}
 }

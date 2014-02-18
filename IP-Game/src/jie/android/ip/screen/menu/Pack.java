@@ -1,6 +1,9 @@
 package jie.android.ip.screen.menu;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import jie.android.ip.executor.Script;
 
 public class Pack {
 
@@ -8,33 +11,40 @@ public class Pack {
 	
 	public class Item {
 
-		private final int id;
-		private final int status;
-		private final int score;
-		private final String script;
+		private final Script script;
 		
-		public Item(int id, int status, int score, final String script) {
-			this.id = id;
+		private final int status;
+		private final int base_score;
+		private final int score;
+		
+		public Item(final Script script, int status,int base_score, int score) {
+			this.script = script;		
+
 			this.status = status;
+			this.base_score = base_score;
 			this.score = score;
-			this.script = script;
+		}
+		
+		public final Script getScript() {
+			return script;
 		}
 
 		public int getId() {
-			return id;
+			return script.getId();
 		}
-
+//
 		public int getStatus() {
 			return status;
 		}
 
+		public int getBaseScore() {
+			return base_score;
+		}
+		
 		public int getScore() {
 			return score;
 		}
-
-		public String getScript() {
-			return script;
-		}		
+		
 	}
 	
 	//
@@ -74,8 +84,13 @@ public class Pack {
 		return items.toArray(ret);
 	}
 	
-	public void addItem(int id, int status, int score, final String script) {
-		items.add(new Item(id, status, score, script));
+	public void addItem(int id, int status, int base_score, int score, final String script) {
+		final Script sc = new Script(id);
+		if(!sc.loadString(script)) {
+			return;
+		}
+		
+		items.add(new Item(sc, status, base_score, score)); 
 	}
 	
 }

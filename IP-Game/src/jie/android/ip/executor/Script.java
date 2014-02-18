@@ -44,8 +44,8 @@ public class Script {
 	
 	private final int id;
 	
-	private int status;
-	private int base_score;
+//	private int status;
+//	private int base_score;
 	
 	private String author;
 	private String title;
@@ -63,21 +63,21 @@ public class Script {
 		return id;
 	}
 	
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
-	}
-
-	public int getBaseScore() {
-		return base_score;
-	}
-
-	public void setBaseScore(int score) {
-		this.base_score = score;
-	}
+//	public int getStatus() {
+//		return status;
+//	}
+//
+//	public void setStatus(int status) {
+//		this.status = status;
+//	}
+//
+//	public int getBaseScore() {
+//		return base_score;
+//	}
+//
+//	public void setBaseScore(int score) {
+//		this.base_score = score;
+//	}
 
 	public boolean loadFile(final String file) {
 		

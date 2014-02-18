@@ -29,7 +29,7 @@ public class BaseScreen implements Screen {
 		this.game = game;
 		
 		screenCanvas = new ScreenCanvas(game.getSpriteBatch());		
-		actorStage = new ActorStage(game.getSpriteBatch());
+		actorStage = new ActorStage(game.getCamera(), game.getSpriteBatch());
 		
 		Gdx.input.setInputProcessor(actorStage.getInputProcessor());
 		Gdx.input.setCatchBackKey(true);

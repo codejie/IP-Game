@@ -13,17 +13,19 @@ import jie.android.ip.screen.play.Code.Lines;
 import jie.android.ip.utils.Utils;
 
 public class PlayManager implements Disposable {
-	
+
 	protected static final String Tag = PlayManager.class.getSimpleName();
-	
+
 	private final PlayScreen screen;
 	private final DBAccess dbAccess;
-	
+
 	private Script script;
+	private int script_status = 0;
+	private int script_base_score = 0;
 	private CommandSet cmdSet;
-	
+
 	private PlayScreenListener.ManagerEventListener managerListener;
-	
+
 	private final Box box;;
 	private final Code.Lines codeLines;
 	private final PlayExecutor executor;
@@ -33,17 +35,17 @@ public class PlayManager implements Disposable {
 		@Override
 		public void onBoxMoveStart() {
 			// TODO Auto-generated method stub
-			
+
 		}
 
 		@Override
 		public void onBoxkMoveEnd() {
-			
+
 			if (!box.checkResult()) {
 				executor.next();
 			} else {
 				executor.stop(PlayExecutor.StopReason.SUCC);
-//				onExecuteEnd(true);
+				// onExecuteEnd(true);
 			}
 		}
 
@@ -63,25 +65,25 @@ public class PlayManager implements Disposable {
 			} else if (type == Cmd.Type.CLOSE || type == Cmd.Type.CLOSE2) {
 				onCmdClose(state);
 			} else if (type == Cmd.Type.SETTING) {
-				
+
 			} else if (type == Cmd.Type.INFO) {
-				
-			}			
+
+			}
 		}
 
 	};
-	
+
 	private final PlayScreenListener.ManagerInternalEventListener internalListener = new PlayScreenListener.ManagerInternalEventListener() {
-		
+
 		@Override
 		public void onExecuteMove(boolean right) {
 			box.tryMoveTray(right);
 		}
-		
+
 		@Override
 		public void onExecuteCompleted(final PlayExecutor.StopReason reason) {
 			Utils.log(Tag, "executeCompleted : " + reason);
-			
+
 			if (reason == PlayExecutor.StopReason.SUCC) {
 				onExecuteSucc();
 			} else if (reason == PlayExecutor.StopReason.RESET) {
@@ -94,7 +96,7 @@ public class PlayManager implements Disposable {
 				Utils.log(Tag, "Unsupport execute stop reason - " + reason);
 			}
 		}
-		
+
 		@Override
 		public void onExecuteAction() {
 			box.tryMoveBlock();
@@ -118,36 +120,36 @@ public class PlayManager implements Disposable {
 		public void onCodeLineLoadCompleted(final Code.Lines lines) {
 			if (managerListener != null) {
 				managerListener.onCodeLineLoadCompleted(lines);
-			}			
+			}
 		}
 
 		@Override
 		public void onCodeLineUpdated(final Code.Lines lines, int index, int pos) {
 			if (managerListener != null) {
 				managerListener.onCodeLineUpdated(lines, index, pos);
-			}			
+			}
 		}
 
 		@Override
 		public void onCodeLineResetCompleted(Lines lines) {
 			if (managerListener != null) {
 				managerListener.onCodeLineResetCompleted(lines);
-			}			
-		}		
+			}
+		}
 
 		@Override
 		public void onBoxMoved(final Box.Tray tray, final Box.Block block, int col, int row, int tcol, int trow) {
-			
+
 			if (tray == null && block != null) { // block moved
 				if (row - trow > 0) { // down
 					executor.setRTVariant(0, block.value);
 					executor.setRTVariant(1, 1);
 				} else {
-					executor.clearRTVariant(0);				
-					executor.setRTVariant(1, 0);					
+					executor.clearRTVariant(0);
+					executor.setRTVariant(1, 0);
 				}
 			}
-			
+
 			if (managerListener != null) {
 				managerListener.onBoxMoved(tray, block, col, row, tcol, trow);
 			}
@@ -159,36 +161,36 @@ public class PlayManager implements Disposable {
 				managerListener.onBoxMoveEmpty();
 			}
 		}
-		
+
 		@Override
 		public void onBoxMoveException(int error) {
 			Utils.log(Tag, "onBoxMoveException : " + error);
 			executor.stop(PlayExecutor.StopReason.EXCEPTION);
-//			onExecuteEnd(false);
+			// onExecuteEnd(false);
 		}
 
 	};
 
 	//
-	
+
 	public PlayManager(final PlayScreen screen) {
 		this.screen = screen;
 		this.dbAccess = this.screen.getGame().getDBAccess();
-		
+
 		this.box = new Box(internalListener);
 		this.codeLines = new Code.Lines(internalListener);
-		this.executor = new PlayExecutor(internalListener);		
+		this.executor = new PlayExecutor(internalListener);
 	}
 
 	@Override
 	public void dispose() {
 		executor.dispose();
-	}	
-	
+	}
+
 	public boolean loadScript(final int packId, final int scriptId) {
-		
+
 		script = new Script(scriptId);
-		
+
 		final ResultSet rs = dbAccess.loadScript(scriptId);
 		if (rs != null) {
 			try {
@@ -201,8 +203,8 @@ public class PlayManager implements Disposable {
 						if (!script.loadString(str)) {
 							return false;
 						}
-						script.setStatus(rs.getInt(2));
-						script.setBaseScore(rs.getInt(3));
+						script_status = rs.getInt(2);
+						script_base_score = rs.getInt(3);
 					} else {
 						return false;
 					}
@@ -216,14 +218,14 @@ public class PlayManager implements Disposable {
 		} else {
 			return false;
 		}
-		
+
 		final String str = dbAccess.loadSolution(scriptId);
 		if (str != null) {
 			cmdSet = CommandSet.loadFromString(str);
 		}
-		
+
 		init();
-		
+
 		return true;
 	}
 
@@ -235,7 +237,7 @@ public class PlayManager implements Disposable {
 		// TODO Auto-generated method stub
 		return rendererListener;
 	}
-	
+
 	private void init() {
 		box.loadScript(script);
 		codeLines.loadCmdSet(cmdSet);
@@ -255,31 +257,31 @@ public class PlayManager implements Disposable {
 	protected void onCmdClear(final Cmd.State state) {
 		box.reload(script);
 		executor.reset();
-		
+
 		dbAccess.clearSolution(script.getId());
 		codeLines.reset();
-	}	
+	}
 
 	protected void onCmdNext(final Cmd.State state) {
 		screen.setNextScreen();
 	}
-	
+
 	protected void onCmdClose(State state) {
 		screen.returnMenuScreen();
 	}
-	
+
 	protected void onExecuteSucc() {
 		int score = cmdSet.calcScore();
 		dbAccess.updateScriptStatus(script.getId(), 1);
 		dbAccess.updateSolutionScore(script.getId(), score);
 		if (managerListener != null) {
-			managerListener.onExecuteSucc(script.getBaseScore(), score);
+			managerListener.onExecuteSucc(script_base_score, score);
 		}
 	}
 
 	protected void onExecuteReset() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	protected void onExecuteFinished() {
@@ -292,7 +294,7 @@ public class PlayManager implements Disposable {
 		if (managerListener != null) {
 			managerListener.onExecuteFail();
 		}
-		
+
 	}
-	
+
 }

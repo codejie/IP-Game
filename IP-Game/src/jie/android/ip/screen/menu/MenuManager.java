@@ -82,7 +82,7 @@ public class MenuManager {
 				try {
 					try {
 						while (rs.next()) {
-							pack.addItem(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4));
+							pack.addItem(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(5), rs.getString(4));
 						}
 					} finally {
 						rs.close();
