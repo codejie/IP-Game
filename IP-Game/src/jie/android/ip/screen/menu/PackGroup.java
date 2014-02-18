@@ -57,14 +57,14 @@ public class PackGroup extends ScreenGroup {
 				this.addActor(bg);
 			}
 			LabelActor tl = new LabelActor(title, titleBitmapFont);
-			tl.setColor(new Color(0.40f, 0.9f, 0.70f, 1.0f));
+			tl.setColor(new Color(0x243c45ff));
 			tl.setPosition((Const.Pack.WIDTH - tl.getWidth()) / 2, Const.Pack.HEIGHT * 0.6f);// ,
 																								// tb.width,
 																								// tb.height);
 			this.addActor(tl);
 
 			LabelActor i = new LabelActor(info, infoBitmapFont);
-			i.setColor(new Color(0xF0E68CFF));
+			i.setColor(new Color(0x3d4524ff));
 			i.setPosition((Const.Pack.WIDTH - i.getWidth()) / 2, Const.Pack.HEIGHT * 0.2f);// ,
 																							// tb.width,
 																							// tb.height);
@@ -113,9 +113,9 @@ public class PackGroup extends ScreenGroup {
 			// title
 			final LabelActor title = new LabelActor(item.getScript().getTitle(), titleBitmapFont);
 			if (item.getStatus() == 0) {
-				title.setColor(new Color(0x20B2AAF0));
+				title.setColor(new Color(0x243c45f2));
 			} else {
-				title.setColor(new Color(0x00FA9AF0));
+				title.setColor(new Color(0x3c5f96f2));
 			}
 			title.setPosition((Const.Pack.WIDTH - title.getWidth()) / 2, Const.Pack.HEIGHT * 0.6f);
 			this.addActor(title);
@@ -123,7 +123,7 @@ public class PackGroup extends ScreenGroup {
 			if (item.getStatus() != 0) {
 				final LabelActor sc = new LabelActor(String.format("%d/%d", item.getScore(), item.getBaseScore()),
 						infoBitmapFont);
-				sc.setColor(Color.YELLOW);
+				sc.setColor(new Color(0x597780f0));
 				sc.setPosition((Const.Pack.WIDTH - sc.getWidth()) / 2, Const.Pack.HEIGHT * 0.2f);
 				this.addActor(sc);
 			}
