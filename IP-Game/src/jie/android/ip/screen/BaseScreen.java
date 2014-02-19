@@ -2,6 +2,7 @@ package jie.android.ip.screen;
 
 import jie.android.ip.IPGame;
 import jie.android.ip.CommonConsts.ScreenConfig;
+import jie.android.ip.utils.Utils;
 import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.Gdx;
@@ -19,8 +20,11 @@ public class BaseScreen implements Screen {
 	private final ActorStage actorStage;
 	private final ScreenCanvas screenCanvas; 
 	
-	private static final float ASPECT_RATIO = (float)ScreenConfig.WIDTH/(float)ScreenConfig.HEIGHT;
-	private Rectangle viewport;
+//	private static final float ASPECT_RATIO = (float)ScreenConfig.WIDTH/(float)ScreenConfig.HEIGHT;
+//	private Rectangle viewport;
+	
+//	protected float RATIO_WIDTH = 1.0f;
+//	protected float RATIO_HEIGHT = 1.0F;	
 	
 	protected TweenManager tweenManager = new TweenManager();	
 	
@@ -35,7 +39,7 @@ public class BaseScreen implements Screen {
 		Gdx.input.setCatchBackKey(true);
 		
 		setOnKeyDownListener();
-		setOnTouchDownListener();
+//		setOnTouchDownListener();
 	}
 
 	public final IPGame getGame() {
@@ -58,7 +62,7 @@ public class BaseScreen implements Screen {
 		screenCanvas.addSprite(sprite);
 	}
 	
-	private void setOnKeyDownListener() {
+	public void setOnKeyDownListener() {
 		actorStage.setOnKeyDownListener(new ActorStage.OnKeyDownListener() {
 
 			@Override
@@ -69,7 +73,7 @@ public class BaseScreen implements Screen {
 		});
 	}
 	
-	private void setOnTouchDownListener() {
+	public void setOnTouchDownListener() {
 		actorStage.setOnTouchDownListener(new ActorStage.OnTouchDownListener() {
 
 			@Override
@@ -94,7 +98,7 @@ public class BaseScreen implements Screen {
 		Gdx.graphics.getGL10().glClear(GL10.GL_COLOR_BUFFER_BIT);
 		Gdx.graphics.getGL10().glEnable(GL10.GL_BLEND);
 		Gdx.graphics.getGL10().glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
-//        Gdx.gl.glViewport((int) viewport.x, (int) viewport.y, (int) viewport.width, (int) viewport.height);
+       // Gdx.graphics.getGL10().glViewport((int) viewport.x, (int) viewport.y, (int) viewport.width, (int) viewport.height);
 		
 		tweenManager.update(delta);
 		
@@ -106,7 +110,8 @@ public class BaseScreen implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
-		
+//		RATIO_WIDTH = width / ScreenConfig.WIDTH;
+//		RATIO_HEIGHT = height / ScreenConfig.HEIGHT;
 //        float aspectRatio = (float)width/(float)height;
 //        float scale = 1f;
 //        Vector2 crop = new Vector2(0f, 0f);
@@ -129,6 +134,8 @@ public class BaseScreen implements Screen {
 //        float w = (float)ScreenConfig.WIDTH*scale;
 //        float h = (float)ScreenConfig.HEIGHT*scale;
 //        viewport = new Rectangle(crop.x, crop.y, w, h);
+//		Utils.log("===", "width = " + width + " height = " + height);
+//        viewport = new Rectangle(0, 0, width + 80, height + 50);
 	}
 
 	@Override

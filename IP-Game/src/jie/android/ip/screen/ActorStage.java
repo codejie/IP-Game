@@ -1,6 +1,8 @@
 package jie.android.ip.screen;
 
 import jie.android.ip.CommonConsts.ScreenConfig;
+import jie.android.ip.utils.Utils;
+
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -22,6 +24,7 @@ public class ActorStage extends Stage {
 	private OnTouchDownListener onTouchDownListener;
 	
 	private final OrthographicCamera camera;
+	//private final float ratioWidth, ratioHeight;
 	
 	public ActorStage(final OrthographicCamera camera, final Batch spriteBatch) {
 		super(ScreenConfig.WIDTH, ScreenConfig.HEIGHT, true, spriteBatch);
@@ -57,7 +60,10 @@ public class ActorStage extends Stage {
 		if (onTouchDownListener != null) {
 			Vector3 pos = new Vector3(screenX, screenY, 0);
 			camera.unproject(pos);
-			if (onTouchDownListener.isHandled((int)(ScreenConfig.WIDTH / 2 + ScreenConfig.WIDTH / 2 * pos.x), (int)(ScreenConfig.HEIGHT / 2 + ScreenConfig.HEIGHT / 2 * pos.y), pointer, button)) {
+			
+//			Utils.log("==", "sx = " + screenX + " sy = " + screenY + " px = " + pos.x + " py = " + pos.y + " rw = " + ratioWidth + " rh = " + ratioHeight);
+			
+			if (onTouchDownListener.isHandled((int)(ScreenConfig.WIDTH / 2 + pos.x), (int)(ScreenConfig.HEIGHT / 2 + pos.y), pointer, button)) {
 				return true;
 			}
 		}

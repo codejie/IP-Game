@@ -60,6 +60,7 @@ public class PlayScreen extends BaseScreen {
 	private void loadScript() {
 		manager.loadScript(packId, scriptId);
 		if (packId == 1) {//Tutorials
+			super.setOnTouchDownListener();
 			renderer.loadLesson(packId, scriptId);
 		}
 	}
