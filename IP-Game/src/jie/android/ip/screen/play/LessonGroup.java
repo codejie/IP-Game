@@ -38,6 +38,14 @@ public class LessonGroup extends ScreenGroup {
 		screen.addActor(this);
 	}
 	
+	private void loadNextStage() {
+		if (lesson != null) {
+			if (!lesson.loadNextStage()) {
+				closeLesson();
+			}
+		}
+	}
+	
 	public void closeLesson() {
 		if (internalListener != null) {
 			internalListener.onLessonGroupRemoved();
@@ -46,11 +54,7 @@ public class LessonGroup extends ScreenGroup {
 	}
 	
 	protected void onTrapActorHit(float x, float y) {
-		if (lesson != null) {
-			if (!lesson.loadNextStage()) {
-				closeLesson();
-			}
-		}
+		loadNextStage();
 	}
 	
 	public boolean loadLesson(int id) {
@@ -88,6 +92,9 @@ public class LessonGroup extends ScreenGroup {
 			}
 		}
 		return false;
+	}
+	public void onExecuteEnd(boolean succ) {
+		loadNextStage();
 	}
 
 

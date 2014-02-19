@@ -86,6 +86,10 @@ public abstract class BaseLesson {
 	}
 
 	public boolean hitTrap(int x, int y) {
+		if (trapActor == null) {
+			return false;
+		}
+		
 		return ((x >= trapActor.getX() && x <= (trapActor.getX() + trapActor.getWidth()))
 				&& (y >= trapActor.getY() && y <= (trapActor.getY() + trapActor.getHeight())));
 //		Utils.log("===", "hitTrap : x = " + x + " y = " + y + " ret = " + ret);

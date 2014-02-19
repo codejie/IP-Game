@@ -1,5 +1,7 @@
 package jie.android.ip;
 
+import com.badlogic.gdx.Gdx;
+
 public interface CommonConsts {
 
 	public interface SystemConfig {

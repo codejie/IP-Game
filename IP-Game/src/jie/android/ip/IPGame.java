@@ -66,8 +66,8 @@ public class IPGame extends Game {
 	}
 	
 	private void initCamera() {
-		camera = new OrthographicCamera();
-		camera.position.set(ScreenConfig.WIDTH / 3, ScreenConfig.HEIGHT / 3, 0);		
+		camera = new OrthographicCamera();//ScreenConfig.WIDTH, ScreenConfig.HEIGHT);
+		camera.position.set(ScreenConfig.WIDTH / 2, ScreenConfig.HEIGHT / 2, 0);		
 	}
 
 	public final Setup getSetup() {

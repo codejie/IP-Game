@@ -3,11 +3,12 @@ package jie.android.ip.screen.play.lesson;
 
 import com.badlogic.gdx.graphics.Color;
 
+import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.screen.play.LessonGroup;
 import jie.android.ip.screen.play.PlayConfig.Image;
 
 public class LessonOne extends BaseLesson {
-
+	
 	public LessonOne(final LessonGroup group) {
 		super(group);
 	}
@@ -23,6 +24,20 @@ public class LessonOne extends BaseLesson {
 			return stage2();
 		case 3:
 			return stage3();
+		case 4:
+			return stage4();
+		case 5:
+			return stage5();
+		case 6:
+			return stage6();
+		case 7:
+			return stage7();
+		case 8:
+			return stage8();
+		case 9:
+			return stage9();
+		case 10:
+			return stage10();			
 		default:
 			return false;
 		}
@@ -36,7 +51,7 @@ public class LessonOne extends BaseLesson {
 		makeLabelActor(850, 540, "RIGHT", 80, Color.CYAN);
 		
 //		makeLabelActor(100, 465, "Code Panel used to input your operation code", 38, Color.CYAN);
-		makeLabelActor(70, 420, "Click here to enter EDIT mode", 36, Color.RED);
+		makeLabelActor(70, 420, "Click here to enter EDIT mode", 36, new Color(0x243c45fe));
 		makeImageActor(100, 360, 0.5f, Image.Lesson.ARROW_LB);
 		makeTrapActor(30, 280, 675, 80);
 		
@@ -44,25 +59,26 @@ public class LessonOne extends BaseLesson {
 	}
 	
 	private boolean stage1() {
-		makeLabelActor(90, 400, "Click here to pick your operation code", 36, Color.RED);
-		makeLabelActor(155, 370, "to control Tray action", 36, Color.RED);
-		makeImageActor(135, 300, 0.5f, Image.Lesson.ARROW_LB);
+		makeLabelActor(90, 405, "Click here to pick your operation code", 36, new Color(0x243c45fe));
+		makeLabelActor(155, 370, "to control Tray action", 36, new Color(0x243c45fe));
+		makeImageActor(145, 300, 0.5f, Image.Lesson.ARROW_LB);
 		
-		makeTrapActor(100, 215, 150, 90);
+		makeTrapActor(102, 215, 142, 90);
 		
 		return true;
 	}
 	
 	private boolean stage2() {
-		makeLabelActor(210, 300, "Click the 'charge' operation icon", 36, Color.RED);
+		makeLabelActor(180, 310, "The above list shows the usage of operation icon", 36, new Color(0x243c45fe));
+		makeLabelActor(210, 270, "Now, click the 'charge' operation icon", 36, new Color(0x243c45fe));
 		makeImageActor(280, 210, 0.5f, Image.Lesson.ARROW_LB);
 		
 		makeTrapActor(240, 125, 90, 90);
 		
-		makeImageActor(80, 650, 1.0f, Image.Lines.Panel.CODE_LEFT);
-		makeLabelActor(150, 670, "'left': move Tray to left", 36, new Color(0x243c45ff));
-		makeImageActor(80, 560, 1.0f, Image.Lines.Panel.CODE_RIGHT);
-		makeLabelActor(150, 580, "'right': move Tray to right", 36, new Color(0x243c45ff));
+		makeImageActor(80, 650, 1.0f, Image.Lines.Panel.CODE_RIGHT);
+		makeLabelActor(150, 670, "'right': move Tray to right", 36, new Color(0x243c45ff));
+		makeImageActor(80, 560, 1.0f, Image.Lines.Panel.CODE_LEFT);
+		makeLabelActor(150, 580, "'left': move Tray to left", 36, new Color(0x243c45ff));
 		makeImageActor(80, 470, 1.0f, Image.Lines.Panel.CODE_ACT);
 		makeLabelActor(150, 490, "'charge': catch/release the brick above/on Tray", 36, new Color(0x243c45ff));		
 		
@@ -70,12 +86,105 @@ public class LessonOne extends BaseLesson {
 	}
 	
 	private boolean stage3() {
-		makeLabelActor(90, 360, "Click here to pick your operation code", 36, Color.RED);
-		makeImageActor(135, 300, 0.5f, Image.Lesson.ARROW_LB);
+		makeLabelActor(180, 360, "Click here to pick the second operation code", 36, new Color(0x243c45fe));
+		makeImageActor(285, 300, 0.5f, Image.Lesson.ARROW_LB);
 		
-		makeTrapActor(100, 215, 150, 90);
+		makeTrapActor(240, 215, 142, 90);
 		
 		return true;
-
 	}
+	
+	private boolean stage4() {
+		makeLabelActor(130, 270, "Click the 'right' operation icon", 36, new Color(0x243c45fe));
+		makeImageActor(200, 210, 0.5f, Image.Lesson.ARROW_LB);
+		
+		makeTrapActor(170, 125, 90, 90);
+		
+		makeImageActor(80, 650, 1.0f, Image.Lines.Panel.CODE_RIGHT);
+		makeLabelActor(150, 670, "'right': move Tray to right", 36, new Color(0x243c45ff));
+		makeImageActor(80, 560, 1.0f, Image.Lines.Panel.CODE_LEFT);
+		makeLabelActor(150, 580, "'left': move Tray to left", 36, new Color(0x243c45ff));
+		makeImageActor(80, 470, 1.0f, Image.Lines.Panel.CODE_ACT);
+		makeLabelActor(150, 490, "'charge': catch/release the brick above/on Tray", 36, new Color(0x243c45ff));		
+		
+		return true;
+	}
+	
+	private boolean stage5() {
+		makeLabelActor(280, 360, "Click here to pick the third operation code", 36, new Color(0x243c45fe));
+		makeImageActor(400, 300, 0.5f, Image.Lesson.ARROW_LB);
+		
+		makeTrapActor(378, 215, 140, 90);
+		
+		return true;		
+	}
+	
+	private boolean stage6() {
+		makeLabelActor(330, 260, "Click the 'charge' operation icon again", 36, new Color(0x243c45fe));
+		makeImageActor(460, 210, 0.5f, Image.Lesson.ARROW_LB);
+		
+		makeTrapActor(420, 125, 90, 90);
+		
+		makeImageActor(80, 650, 1.0f, Image.Lines.Panel.CODE_RIGHT);
+		makeLabelActor(150, 670, "'right': move Tray to right", 36, new Color(0x243c45ff));
+		makeImageActor(80, 560, 1.0f, Image.Lines.Panel.CODE_LEFT);
+		makeLabelActor(150, 580, "'left': move Tray to left", 36, new Color(0x243c45ff));
+		makeImageActor(80, 470, 1.0f, Image.Lines.Panel.CODE_ACT);
+		makeLabelActor(150, 490, "'charge': catch/release the brick above/on Tray", 36, new Color(0x243c45ff));	
+		
+		return true;
+	}
+	
+	private boolean stage7() {
+		makeLabelActor(120, 600, "Click anywhere except the area used to input the operation code", 36, new Color(0x243c45ff));
+		makeLabelActor(160, 560, "to close the EDIT mode", 36, new Color(0x243c45ff));
+		makeImageActor(1000, 650, 0.5f, Image.Lesson.ARROW_RU);
+		
+		makeTrapActor(0, 0, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);
+		
+		return true;
+	}
+	
+	private boolean stage8() {
+		makeLabelActor(400, 150, "Now, click 'run' button to execute your code", 36, new Color(0x243c45ff));
+		makeImageActor(1050, 70, 0.5f, Image.Lesson.ARROW_RB);
+		
+		makeTrapActor(1145, 0, 140, 138);
+		
+		makeImageActor(80, 620, 1.0f, Image.Cmd.CLEAR_UP);
+		makeLabelActor(210, 640, "'clean': removes all codes in line", 36, new Color(0x243c45ff));
+		makeImageActor(80, 520, 1.0f, Image.Cmd.MENU_UP);
+		makeLabelActor(210, 540, "'more': shows more menu items", 36, new Color(0x243c45ff));
+		
+		return true;
+	}
+	
+	private boolean stage9() {
+		
+		makeLabelActor(200, 640, "Please wait when your code is being executed...", 40, new Color(0x243c45ff));
+		
+		return true;
+	}
+	
+	private boolean stage10() {
+		
+		makeTrapActor(1145, 350, 140, 410);
+		
+		makeLabelActor(340, 675, "'share': share current screen to your friends", 36, new Color(0x243c45ff));
+		makeImageActor(1080,670, 0.5f, Image.Lesson.ARROW_RU);
+
+		makeLabelActor(620, 555, "'next': go to next mission", 36, new Color(0x243c45ff));
+		makeImageActor(1080,550, 0.5f, Image.Lesson.ARROW_RU);
+
+		makeLabelActor(540, 440, "'back': back to current mission", 36, new Color(0x243c45ff));
+		makeImageActor(1080,435, 0.5f, Image.Lesson.ARROW_RU);
+
+		makeLabelActor(560, 325, "'close': return to menu stage", 36, new Color(0x243c45ff));
+		makeImageActor(1080,320, 0.5f, Image.Lesson.ARROW_RU);
+
+		makeLabelActor(200, 250, "Congratulate, you have passed Lesson One !", 45, new Color(0x243c45ff));		
+		
+		return true;
+	}
+	
 }

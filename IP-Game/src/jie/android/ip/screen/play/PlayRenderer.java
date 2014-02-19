@@ -56,6 +56,10 @@ public class PlayRenderer {
 		
 		@Override
 		public void onExecuteSucc(int base_score, int score) {
+			if (groupLesson != null) {
+				groupLesson.onExecuteEnd(true);
+			}
+			
 			groupCmdPanel.showMenu(Cmd.Layer.THIRD);
 			groupResult.showSuccStage(base_score, score);			
 		}
