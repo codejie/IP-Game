@@ -20,8 +20,9 @@ public class BaseScreen implements Screen {
 	private final ActorStage actorStage;
 	private final ScreenCanvas screenCanvas; 
 	
-//	private static final float ASPECT_RATIO = (float)ScreenConfig.WIDTH/(float)ScreenConfig.HEIGHT;
-//	private Rectangle viewport;
+	private static final float ASPECT_RATIO = (float)ScreenConfig.WIDTH/(float)ScreenConfig.HEIGHT;
+	private boolean resized = false; 
+	private Rectangle viewport;
 	
 //	protected float RATIO_WIDTH = 1.0f;
 //	protected float RATIO_HEIGHT = 1.0F;	
@@ -98,7 +99,10 @@ public class BaseScreen implements Screen {
 		Gdx.graphics.getGL10().glClear(GL10.GL_COLOR_BUFFER_BIT);
 		Gdx.graphics.getGL10().glEnable(GL10.GL_BLEND);
 		Gdx.graphics.getGL10().glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
-       // Gdx.graphics.getGL10().glViewport((int) viewport.x, (int) viewport.y, (int) viewport.width, (int) viewport.height);
+		if (resized) {
+			Gdx.graphics.getGL10().glViewport((int) viewport.x, (int) viewport.y, (int) viewport.width, (int) viewport.height);
+			resized = false;
+		}
 		
 		tweenManager.update(delta);
 		
@@ -110,6 +114,25 @@ public class BaseScreen implements Screen {
 
 	@Override
 	public void resize(int width, int height) {
+		if (((float)width/(float)height) == ((float)ScreenConfig.WIDTH/(float)ScreenConfig.HEIGHT)) {
+			return;
+		}
+		
+		float w = width;
+		float h = height;
+		
+		float rw = w / ScreenConfig.WIDTH;
+		float rh = h / ScreenConfig.HEIGHT;
+		
+		if (rw < rh) {
+			h = h * (2 - rw);
+		} else {
+			w = w * (2 - rh);
+		}
+//		Utils.log("===", "rw = " + rw + " rh = " + rh +  " width = " + width + " height = " + height + " w = " + w + " h = " + h);		
+		viewport = new Rectangle(0, 0, w, h); 
+		resized = true;
+		
 //		RATIO_WIDTH = width / ScreenConfig.WIDTH;
 //		RATIO_HEIGHT = height / ScreenConfig.HEIGHT;
 //        float aspectRatio = (float)width/(float)height;
@@ -134,7 +157,8 @@ public class BaseScreen implements Screen {
 //        float w = (float)ScreenConfig.WIDTH*scale;
 //        float h = (float)ScreenConfig.HEIGHT*scale;
 //        viewport = new Rectangle(crop.x, crop.y, w, h);
-//		Utils.log("===", "width = " + width + " height = " + height);
+		
+//		Utils.log("===", "width = " + width + " height = " + height + " w = " + w + " h = " + h);
 //        viewport = new Rectangle(0, 0, width + 80, height + 50);
 	}
 

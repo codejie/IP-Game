@@ -57,14 +57,14 @@ public class PackGroup extends ScreenGroup {
 				this.addActor(bg);
 			}
 			LabelActor tl = new LabelActor(title, titleBitmapFont);
-			tl.setColor(new Color(0x243c45ff));
+			tl.setColor(new Color(0xFFD700ff));
 			tl.setPosition((Const.Pack.WIDTH - tl.getWidth()) / 2, Const.Pack.HEIGHT * 0.6f);// ,
 																								// tb.width,
 																								// tb.height);
 			this.addActor(tl);
 
 			LabelActor i = new LabelActor(info, infoBitmapFont);
-			i.setColor(new Color(0x3d4524ff));
+			i.setColor(new Color(0xFFD700ff));
 			i.setPosition((Const.Pack.WIDTH - i.getWidth()) / 2, Const.Pack.HEIGHT * 0.2f);// ,
 																							// tb.width,
 																							// tb.height);
@@ -113,9 +113,9 @@ public class PackGroup extends ScreenGroup {
 			// title
 			final LabelActor title = new LabelActor(item.getScript().getTitle(), titleBitmapFont);
 			if (item.getStatus() == 0) {
-				title.setColor(new Color(0x243c45f2));
+				title.setColor(new Color(0x8B4513f0));
 			} else {
-				title.setColor(new Color(0x3c5f96f2));
+				title.setColor(new Color(0xD2691Ef0));
 			}
 			title.setPosition((Const.Pack.WIDTH - title.getWidth()) / 2, Const.Pack.HEIGHT * 0.6f);
 			this.addActor(title);

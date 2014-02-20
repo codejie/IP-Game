@@ -6,8 +6,10 @@ import jie.android.ip.screen.menu.MenuScreen;
 import jie.android.ip.screen.play.PlayScreen;
 import jie.android.ip.screen.start.StartScreen;
 import jie.android.ip.setup.Setup;
+import jie.android.ip.utils.Utils;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -67,7 +69,7 @@ public class IPGame extends Game {
 	
 	private void initCamera() {
 		camera = new OrthographicCamera(ScreenConfig.WIDTH, ScreenConfig.HEIGHT);
-		//camera.position.set(ScreenConfig.WIDTH / 2, ScreenConfig.HEIGHT / 2, 0);		
+		//camera.position.set(ScreenConfig.WIDTH / 2, ScreenConfig.HEIGHT / 2, 0);
 	}
 
 	public final Setup getSetup() {
