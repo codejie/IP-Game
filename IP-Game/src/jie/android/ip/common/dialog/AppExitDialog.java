@@ -24,7 +24,7 @@ public class AppExitDialog extends AlertDialog {
 	};
 	
 	public AppExitDialog(final BaseScreen screen) {
-		super(screen, "Are you sure to exit I;P ?", screen.getGame().getResources().getBitmapTrueFont(65), Color.CYAN, pListener, null);		
+		super(screen, "Are you sure to exit ?", screen.getGame().getResources().getBitmapTrueFont(65), Color.CYAN, pListener, null);
 	}
 	
 	public final BaseScreen getScreen() {

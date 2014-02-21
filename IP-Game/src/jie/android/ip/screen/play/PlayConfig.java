@@ -196,7 +196,7 @@ public interface PlayConfig {
 			public static final int BASE_Y = 0;
 			
 			public static final int WIDTH = 128;
-			public static final int HEIGHT = ScreenConfig.HEIGHT - 16;
+			public static final int HEIGHT = ScreenConfig.HEIGHT;// - 16;
 			
 			public static final int BASE_BUTTON_X = 0;
 			public static final int BASE_BUTTON_Y = 0;

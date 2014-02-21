@@ -70,7 +70,7 @@ public class LessonOne extends BaseLesson {
 	
 	private boolean stage2() {
 		makeLabelActor(180, 310, "The above list shows the usage of operation icons", 36, new Color(0xFFFF00FF));
-		makeLabelActor(210, 270, "Now, pick up the 'charge' operation icon", 36, new Color(0xFFFF00FF));
+		makeLabelActor(210, 270, "Now, click 'charge' operation icon", 36, new Color(0xFFFF00FF));
 		makeImageActor(280, 210, 0.5f, Image.Lesson.ARROW_LB);
 		
 		makeTrapActor(240, 125, 90, 90);
@@ -136,7 +136,7 @@ public class LessonOne extends BaseLesson {
 	}
 	
 	private boolean stage7() {
-		makeLabelActor(120, 600, "Click anywhere except the area used to input the operation code", 36, new Color(0xFFFF00FF));
+		makeLabelActor(120, 600, "Click anywhere except the current column used to input the operation code", 36, new Color(0xFFFF00FF));
 		makeLabelActor(160, 560, "to close the EDIT mode", 36, new Color(0xFFFF00FF));
 		makeImageActor(1000, 650, 0.5f, Image.Lesson.ARROW_RU);
 		

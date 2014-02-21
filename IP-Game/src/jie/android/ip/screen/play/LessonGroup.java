@@ -10,6 +10,7 @@ import jie.android.ip.Resources;
 import jie.android.ip.common.dialog.ScreenGroup;
 import jie.android.ip.screen.play.lesson.BaseLesson;
 import jie.android.ip.screen.play.lesson.LessonOne;
+import jie.android.ip.screen.play.lesson.LessonThree;
 import jie.android.ip.screen.play.lesson.LessonTwo;
 
 public class LessonGroup extends ScreenGroup {
@@ -34,6 +35,7 @@ public class LessonGroup extends ScreenGroup {
 	}
 	@Override
 	protected void initStage() {
+//		this.setColor(1.0f, 1.0f, 1.0f, 0.4f);
 		this.setTouchable(Touchable.disabled);
 		this.setBounds(0, 0, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);
 		screen.addActor(this);
@@ -65,6 +67,9 @@ public class LessonGroup extends ScreenGroup {
 			break;
 		case 2:
 			lesson = new LessonTwo(this);
+			break;
+		case 3:
+			lesson = new LessonThree(this);
 			break;
 		default:
 			return false;

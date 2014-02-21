@@ -148,7 +148,7 @@ public class LessonTwo extends BaseLesson {
 	}
 	
 	private boolean stage7() {
-		makeLabelActor(120, 600, "Click anywhere except the area used to input the operation code", 36, new Color(0xFFFF00FF));
+		makeLabelActor(120, 600, "Click anywhere except current column used to input the operation code", 36, new Color(0xFFFF00FF));
 		makeLabelActor(160, 560, "to close current code column", 36, new Color(0xFFFF00FF));
 		makeImageActor(1000, 520, 0.5f, Image.Lesson.ARROW_LB);
 		
@@ -242,7 +242,7 @@ public class LessonTwo extends BaseLesson {
 	}
 	
 	private boolean stage15() {
-		makeLabelActor(120, 560, "Click anywhere except current column area to ready to run", 36, new Color(0xFFFF00FF));
+		makeLabelActor(120, 560, "Click anywhere except current column to ready to run", 36, new Color(0xFFFF00FF));
 		makeImageActor(1000, 610, 0.5f, Image.Lesson.ARROW_RU);
 		
 		makeTrapActor(0, 0, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);

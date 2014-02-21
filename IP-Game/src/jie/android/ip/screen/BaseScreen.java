@@ -64,7 +64,7 @@ public class BaseScreen implements Screen {
 	}
 	
 	public void setOnKeyDownListener() {
-		actorStage.setOnKeyDownListener(new ActorStage.OnKeyDownListener() {
+		actorStage.setOnKeyDownListener(new ActorStage.OnKeyHandledListener() {
 
 			@Override
 			public boolean isHandled(int keyCode) {
@@ -75,15 +75,24 @@ public class BaseScreen implements Screen {
 	}
 	
 	public void setOnTouchDownListener() {
-		actorStage.setOnTouchDownListener(new ActorStage.OnTouchDownListener() {
+		actorStage.setOnTouchDownListener(new ActorStage.OnTouchHandledListener() {
 
 			@Override
 			public boolean isHandled(int x, int y, int pointer, int button) {
 				return onTouchDown(x, y, pointer, button);
-			}
-			
+			}			
 		});
 	}
+	
+	public void setOnTouchUpListener() {
+		actorStage.setOnTouchUpListener(new ActorStage.OnTouchHandledListener() {
+
+			@Override
+			public boolean isHandled(int x, int y, int pointer, int button) {
+				return onTouchUp(x, y, pointer, button);
+			}			
+		});
+	}	
 	
 	public int screenToStageX(int screenX) {
 		return screenX;
@@ -183,6 +192,7 @@ public class BaseScreen implements Screen {
 		
 		actorStage.setOnKeyDownListener(null);
 		actorStage.setOnTouchDownListener(null);
+		actorStage.setOnTouchUpListener(null);
 		
 		tweenManager.killAll();
 		actorStage.dispose();
@@ -197,5 +207,8 @@ public class BaseScreen implements Screen {
 		return false;
 	}
 	
+	protected boolean onTouchUp(int x, int y, int pointer, int button) {
+		return false;
+	}	
 
 }
