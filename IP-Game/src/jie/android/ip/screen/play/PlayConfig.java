@@ -196,7 +196,7 @@ public interface PlayConfig {
 			public static final int BASE_Y = 0;
 			
 			public static final int WIDTH = 128;
-			public static final int HEIGHT = ScreenConfig.HEIGHT - 72;
+			public static final int HEIGHT = ScreenConfig.HEIGHT - 32;//72;
 			
 			public static final int BASE_BUTTON_X = 0;
 			public static final int BASE_BUTTON_Y = 0;
@@ -213,14 +213,14 @@ public interface PlayConfig {
 			public static final int X_MENU = BASE_BUTTON_X;//0;//ScreenConfig.WIDTH - 128;
 			public static final int Y_MENU = BASE_BUTTON_Y + (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 2;// + 198;
 			
-			public static final int X_BACK = BASE_BUTTON_X;//0;
-			public static final int Y_BACK = HEIGHT - HEIGHT_BUTTON;//80;
+			public static final int X_SETTING = BASE_BUTTON_X;//0;
+			public static final int Y_SETTING = HEIGHT - HEIGHT_BUTTON;//80;
 
 			public static final float X_INFO = BASE_BUTTON_X;//0;
 			public static final float Y_INFO = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 1;
 			
-			public static final float X_SETTING = BASE_BUTTON_X;//0;
-			public static final float Y_SETTING = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 2;
+			public static final float X_BACK = BASE_BUTTON_X;//0;
+			public static final float Y_BACK = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 2;
 			
 			public static final float X_CLOSE = BASE_BUTTON_X;//0;
 			public static final float Y_CLOSE = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 3;

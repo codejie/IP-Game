@@ -168,7 +168,7 @@ public class LessonOne extends BaseLesson {
 	
 	private boolean stage10() {
 		
-		makeTrapActor(1145, 296, 140, 410);
+		makeTrapActor(1145, 334, 140, 410);
 		
 		makeLabelActor(340, 675, "'share': share current screen to your friends", 36, new Color(0xFFFF00FF));
 		makeImageActor(1080,670, 0.5f, Image.Lesson.ARROW_RU);

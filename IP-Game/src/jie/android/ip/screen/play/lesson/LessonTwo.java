@@ -10,7 +10,6 @@ public class LessonTwo extends BaseLesson {
 
 	public LessonTwo(LessonGroup group) {
 		super(group);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -273,7 +272,7 @@ public class LessonTwo extends BaseLesson {
 
 	private boolean stage18() {
 		
-		makeTrapActor(1145, 296, 140, 410);
+		makeTrapActor(1145, 334, 140, 410);
 		
 		makeLabelActor(340, 675, "'share': share current screen to your friends", 36, new Color(0xFFFF00FF));
 		makeImageActor(1080,670, 0.5f, Image.Lesson.ARROW_RU);
