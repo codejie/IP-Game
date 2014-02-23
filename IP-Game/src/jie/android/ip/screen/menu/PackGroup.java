@@ -106,8 +106,8 @@ public class PackGroup extends ScreenGroup {
 		}
 
 		private void renderScript() {
-			// loadBlock(st.getSource());
-			loadBlock(item.getScript().getTarget());
+			loadBlock(item.getScript().getSource());
+			//loadBlock(item.getScript().getTarget());
 			loadTray(item.getScript().getTray());
 
 			// title
@@ -138,11 +138,11 @@ public class PackGroup extends ScreenGroup {
 		}
 
 		private int colToTrayX(int col) {
-			return Const.Item.TRAY_SPACE + (col - 1) * (Const.Item.TRAY_WIDTH);
+			return Const.Item.TRAY_COL_BASE + (col - 1) * (Const.Item.TRAY_WIDTH + Const.Item.TRAY_SPACE);
 		}
 
 		private int rowToTrayY() {
-			return Const.Item.TRAY_BASE;
+			return Const.Item.TRAY_ROW_BASE;
 		}
 
 		private void loadBlock(final ArrayList<Script.BlockData> blockData) {

@@ -4,7 +4,7 @@ import jie.android.ip.CommonConsts.ScreenConfig;
 
 public interface PlayConfig {
 
-	public static float DELAY	=	0.1f;
+	public static float DELAY	=	0.05f;
 	
 	public interface Image {
 		public static final String BACKGROUND = "background";
@@ -196,7 +196,7 @@ public interface PlayConfig {
 			public static final int BASE_Y = 0;
 			
 			public static final int WIDTH = 128;
-			public static final int HEIGHT = ScreenConfig.HEIGHT;// - 16;
+			public static final int HEIGHT = ScreenConfig.HEIGHT - 72;
 			
 			public static final int BASE_BUTTON_X = 0;
 			public static final int BASE_BUTTON_Y = 0;

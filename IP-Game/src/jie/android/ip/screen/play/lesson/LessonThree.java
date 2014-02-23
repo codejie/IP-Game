@@ -262,7 +262,7 @@ public class LessonThree extends BaseLesson {
 	
 	private boolean stage17() {
 		
-		makeLabelActor(200, 640, "Please wait when your code is being executed...", 40, new Color(0xFFFF00FF));
+		makeLabelActor(200, 640, "Please wait when your code is executing...", 40, new Color(0xFFFF00FF));
 		
 		return true;
 	}
@@ -270,7 +270,7 @@ public class LessonThree extends BaseLesson {
 	private boolean stage18() {
 
 		makeLabelActor(160, 560, "Congratulate, you have finished all lessons !", 45, new Color(0xFFFF00FF));		
-		makeLabelActor(240, 500, "Enjoy it yourself now !", 45, new Color(0xFFFF00FF));
+		makeLabelActor(350, 500, "Enjoy it yourself now !", 45, new Color(0xFFFF00FF));
 
 		makeTrapActor(0, 0, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);
 		

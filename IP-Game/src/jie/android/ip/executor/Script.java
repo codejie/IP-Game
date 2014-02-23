@@ -102,19 +102,19 @@ public class Script {
 			
 			NodeList tl = doc.getElementsByTagName("Title");
 			if (tl != null && tl.getLength() > 0) {
-				this.title = tl.item(0).getNodeValue();
+				this.title = tl.item(0).getChildNodes().item(0).getNodeValue();
 			} else {
 				this.title = "No Title";
 			}
 			NodeList au = doc.getElementsByTagName("Author");
 			if (au != null && au.getLength() > 0) {
-				this.author = au.item(0).getNodeValue();
+				this.author = au.item(0).getChildNodes().item(0).getNodeValue();
 			} else {
 				this.author = "Unknown";
 			}
 			NodeList ct = doc.getElementsByTagName("Comment");
 			if (ct != null && ct.getLength() > 0) {
-				this.comment = ct.item(0).getNodeValue();
+				this.comment = ct.item(0).getChildNodes().item(0).getNodeValue();
 			} else {
 				this.comment = "";
 			}

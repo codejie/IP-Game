@@ -266,14 +266,14 @@ public class LessonTwo extends BaseLesson {
 	
 	private boolean stage17() {
 		
-		makeLabelActor(200, 640, "Please wait when your code is being executed...", 40, new Color(0xFFFF00FF));
+		makeLabelActor(200, 640, "Please wait when your code is executing...", 40, new Color(0xFFFF00FF));
 		
 		return true;
 	}	
 
 	private boolean stage18() {
 		
-		makeTrapActor(1145, 350, 140, 410);
+		makeTrapActor(1145, 296, 140, 410);
 		
 		makeLabelActor(340, 675, "'share': share current screen to your friends", 36, new Color(0xFFFF00FF));
 		makeImageActor(1080,670, 0.5f, Image.Lesson.ARROW_RU);

@@ -108,8 +108,10 @@ public interface MenuConfig {
 			public static final int TRAY_WIDTH = 36;
 			public static final float TRAY_HEIGHT = 16;
 			
-			public static final int TRAY_BASE = 16;
-			public static final int TRAY_SPACE = 42;		
+			public static final int TRAY_COL_BASE = 42;
+			public static final int TRAY_ROW_BASE = 16;
+			public static final int TRAY_SPACE = -8;		
+		
 		}
 
 	}
