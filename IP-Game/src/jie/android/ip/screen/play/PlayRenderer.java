@@ -74,6 +74,10 @@ public class PlayRenderer {
 		public void onExecuteFinished() {
 			groupResult.showFinishedStage();
 		}
+		@Override
+		public void onScriptLoaded(int packId, int scriptId, final String packTitle, final String scriptTitle) {
+			groupTitle.setTitle(packTitle, scriptTitle);
+		}
 	};	
 	
 	private final PlayScreenListener.RendererInternalEventListener internalListener = new PlayScreenListener.RendererInternalEventListener() {

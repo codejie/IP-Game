@@ -176,6 +176,26 @@ public class DBAccess {
 		final ResultSet rs = querySQL(sql);
 		return rs;
 	}
+	
+	public final String getPackTitle(int id) {
+		final String sql = "select title from pack where id = " + id;
+		final ResultSet rs = querySQL(sql);
+		try {
+			try {
+				if (rs.next()) {
+					return rs.getString(1);
+				}
+			} finally {
+				rs.close();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "No Title";
+	}
+	
 
 	public ResultSet loadPackItems(int id) {
 		final String sql = "select script.id, script.status, script.base_score, script.script, solution.score from script left join solution on (script.id=solution.script_id) where script.pack_id=? order by script.id";
@@ -238,7 +258,5 @@ public class DBAccess {
 		val.add(String.valueOf(id));
 		execSQL(sql, val);		
 	}
-
-	
 	
 }

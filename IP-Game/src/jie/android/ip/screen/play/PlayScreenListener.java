@@ -3,6 +3,8 @@ package jie.android.ip.screen.play;
 public interface PlayScreenListener {
 
 	public interface ManagerEventListener {
+		public void onScriptLoaded(int packId, int scriptId, final String packTitle, final String scriptTitle);
+		
 		public void onBoxLoadCompleted(final Box.Tray tray, final Box.BlockArray source, final Box.BlockArray target);
 		public void onBoxPreReload(final Box.Tray tray, final Box.BlockArray source, final Box.BlockArray target);
 		public void onBoxMoved(final Box.Tray tray, final Box.Block block, int col, int row, int tcol, int trow);
@@ -13,7 +15,7 @@ public interface PlayScreenListener {
 		public void onCodeLineResetCompleted(final Code.Lines lines);
 		public void onExecuteSucc(int base_score, int score);
 		public void onExecuteFail();
-		public void onExecuteFinished();		
+		public void onExecuteFinished();
 	}
 	
 	public interface RendererEventListener {

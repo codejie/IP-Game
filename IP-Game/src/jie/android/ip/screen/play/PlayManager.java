@@ -226,7 +226,13 @@ public class PlayManager implements Disposable {
 
 		init();
 
+		managerListener.onScriptLoaded(packId, scriptId, getPackTitle(packId), script.getTitle());
+		
 		return true;
+	}
+
+	private final String getPackTitle(int id) {
+		return dbAccess.getPackTitle(id);
 	}
 
 	public void setEventListener(final PlayScreenListener.ManagerEventListener listener) {

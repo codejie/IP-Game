@@ -151,7 +151,7 @@ public interface PlayConfig {
 		}
 		
 		public interface Title {
-			public static final String FRAME = "title_frame"; 
+			public static final String FRAME = "title_frame";
 		}
 	}
 	
@@ -338,18 +338,18 @@ public interface PlayConfig {
 		}
 		
 		public interface Title {
-			public static final int WIDTH = 0;
-			public static final int HEIGHT = 0;
+			public static final int WIDTH = 320;
+			public static final int HEIGHT = 120;
 			
-			public static final int A_X = 0;
-			public static final int A_Y = 0;			
-			public static final int B_X = 0;
-			public static final int B_Y = 0;
+			public static final int A_X = 760;
+			public static final int A_Y = 24;			
+			public static final int B_X = 900;
+			public static final int B_Y = 330;
 			
-			public static final int X_PACK = 0;
-			public static final int Y_PACK = 0;
-			public static final int X_SCRIPT = 0;
-			public static final int Y_SCRIPT = 0;			
+//			public static final int X_PACK = 50;
+			public static final int Y_PACK = 88;
+//			public static final int X_SCRIPT = 80;
+			public static final int Y_SCRIPT = 28;			
 		}
 	}
 }

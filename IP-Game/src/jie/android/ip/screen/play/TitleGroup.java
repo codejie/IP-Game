@@ -3,6 +3,7 @@ package jie.android.ip.screen.play;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenManager;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 import jie.android.ip.CommonConsts.PackConfig;
@@ -44,13 +45,17 @@ public class TitleGroup extends ScreenGroup {
 		super.screen.addActor(this);
 	}
 	
-	public void setScript(final String pack, final String script) {
-		packTitle = new LabelActor(pack, super.resources.getBitmapTrueFont(45));
-		packTitle.setPosition(Const.Title.X_PACK, Const.Title.Y_PACK);
+	public void setTitle(final String pack, final String script) {
+		packTitle = new LabelActor(pack, super.resources.getBitmapTrueFont(40));
+		float x = (Const.Title.WIDTH - packTitle.getWidth()) / 2;
+		packTitle.setColor(new Color(0.58f, 0.43f, 0.27f, 1.f));
+		packTitle.setPosition(x, Const.Title.Y_PACK);
 		this.addActor(packTitle);
 		
-		scriptTitle = new LabelActor(pack, super.resources.getBitmapTrueFont(45));
-		scriptTitle.setPosition(Const.Title.X_SCRIPT, Const.Title.Y_SCRIPT);
+		scriptTitle = new LabelActor(script, super.resources.getBitmapTrueFont(45));
+		x = (Const.Title.WIDTH - scriptTitle.getWidth()) / 2;		
+		scriptTitle.setPosition(x, Const.Title.Y_SCRIPT);
+		scriptTitle.setColor(new Color(0.56f, 0.99f, 0.43f, 1.f));
 		this.addActor(scriptTitle);		
 	}
 	
