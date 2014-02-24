@@ -124,13 +124,6 @@ public class PlayExecutor implements Disposable {
 				stopReason = StopReason.FINISHED;
 			}
 			onExecuteCompleted(stopReason);
-			
-//			
-//			if (scriptFinished) {
-//				onExecuteCompleted(false);
-//			} else {
-//				onExecuteBroken(isScriptSucc);
-//			}
 		}
 
 		@Override

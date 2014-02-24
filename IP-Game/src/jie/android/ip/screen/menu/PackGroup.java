@@ -22,7 +22,7 @@ import jie.android.ip.common.actor.BaseGroupAccessor;
 import jie.android.ip.common.actor.ButtonActor;
 import jie.android.ip.common.actor.ImageActor;
 import jie.android.ip.common.actor.LabelActor;
-import jie.android.ip.common.dialog.ScreenGroup;
+import jie.android.ip.common.actor.ScreenGroup;
 import jie.android.ip.executor.Script;
 import jie.android.ip.screen.BaseScreen;
 import jie.android.ip.screen.menu.MenuConfig.Const;

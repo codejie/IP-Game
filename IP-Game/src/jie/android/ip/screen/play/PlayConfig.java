@@ -149,6 +149,10 @@ public interface PlayConfig {
 			public static final String ARROW_LU = "lesson_arrow_lu";
 			public static final String ARROW_LB = "lesson_arrow_lb";
 		}
+		
+		public interface Title {
+			public static final String FRAME = "title_frame"; 
+		}
 	}
 	
 	public interface Const {
@@ -331,6 +335,21 @@ public interface PlayConfig {
 		
 		public interface Lesson {
 			public static final int FRAME_SIZE = 8;
+		}
+		
+		public interface Title {
+			public static final int WIDTH = 0;
+			public static final int HEIGHT = 0;
+			
+			public static final int A_X = 0;
+			public static final int A_Y = 0;			
+			public static final int B_X = 0;
+			public static final int B_Y = 0;
+			
+			public static final int X_PACK = 0;
+			public static final int Y_PACK = 0;
+			public static final int X_SCRIPT = 0;
+			public static final int Y_SCRIPT = 0;			
 		}
 	}
 }

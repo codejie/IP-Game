@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import jie.android.ip.CommonConsts.PackConfig;
 import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.Resources;
-import jie.android.ip.common.dialog.ScreenGroup;
+import jie.android.ip.common.actor.ScreenGroup;
 import jie.android.ip.screen.play.lesson.BaseLesson;
 import jie.android.ip.screen.play.lesson.LessonOne;
 import jie.android.ip.screen.play.lesson.LessonThree;

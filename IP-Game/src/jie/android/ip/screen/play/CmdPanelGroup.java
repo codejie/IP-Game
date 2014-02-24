@@ -16,7 +16,7 @@ import jie.android.ip.CommonConsts.PackConfig;
 import jie.android.ip.common.actor.BaseGroupAccessor;
 import jie.android.ip.common.actor.ButtonActor;
 import jie.android.ip.common.actor.ButtonActorAccessor;
-import jie.android.ip.common.dialog.ScreenGroup;
+import jie.android.ip.common.actor.ScreenGroup;
 import jie.android.ip.screen.BaseScreen;
 import jie.android.ip.screen.play.PlayConfig.Const;
 import jie.android.ip.screen.play.PlayConfig.Image;

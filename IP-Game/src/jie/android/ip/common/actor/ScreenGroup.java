@@ -1,7 +1,6 @@
-package jie.android.ip.common.dialog;
+package jie.android.ip.common.actor;
 
 import jie.android.ip.Resources;
-import jie.android.ip.common.actor.BaseGroup;
 import jie.android.ip.screen.BaseScreen;
 
 public class ScreenGroup extends BaseGroup {

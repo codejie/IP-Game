@@ -11,6 +11,7 @@ public class PlayRenderer {
 	private PlayScreenListener.RendererEventListener rendererListener;
 
 	private BoxGroup groupBox;
+	private TitleGroup groupTitle;
 	private CodeLineGroup groupCodeLine;
 	private CmdPanelGroup groupCmdPanel;
 	private ResultGroup groupResult;
@@ -175,6 +176,7 @@ public class PlayRenderer {
 
 	public void initGroups() {
 		groupBox = new BoxGroup(screen, internalListener);
+		groupTitle = new TitleGroup(screen, internalListener);
 		groupCodeLine = new CodeLineGroup(screen, internalListener);
 		groupResult = new ResultGroup(screen, internalListener);		
 		groupCmdPanel = new CmdPanelGroup(screen, internalListener);
@@ -185,6 +187,7 @@ public class PlayRenderer {
 		groupCmdPanel.focusRun(show);
 		
 		groupBox.focusSource(show);
+		groupTitle.toggle();
 		groupCodeLine.minimizeLines(show);
 		groupCmdPanel.setChecked(Cmd.Type.RUN, show);
 	}	

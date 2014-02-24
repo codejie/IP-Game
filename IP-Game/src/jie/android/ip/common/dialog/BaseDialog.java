@@ -15,6 +15,7 @@ import jie.android.ip.CommonConsts.PackConfig;
 import jie.android.ip.common.actor.ButtonActor;
 import jie.android.ip.common.actor.ImageActor;
 import jie.android.ip.common.actor.LabelActor;
+import jie.android.ip.common.actor.ScreenGroup;
 import jie.android.ip.common.dialog.DialogConfig.Const;
 import jie.android.ip.common.dialog.DialogConfig.Image;
 import jie.android.ip.screen.BaseScreen;
@@ -57,8 +58,6 @@ public class BaseDialog extends ScreenGroup {
 		this.setBounds(Const.BASE_X, Const.BASE_Y, Const.WIDTH, Const.HEIGHT);
 		//this.setScale(0.01f);
 		
-		ScrollPane sp = new ScrollPane(this);
-		
 		background = new ImageActor(textureAtlas.findRegion(Image.BACKGROUND));
 		background.setBounds(Const.BASE_X, Const.BASE_Y, Const.WIDTH, Const.HEIGHT);
 		this.addActor(background);		
@@ -69,7 +68,6 @@ public class BaseDialog extends ScreenGroup {
 	}
 	
 	public void show() {
-//		Tween.to(this, BaseGroupAccessor.SCALE_XY, duration)		
 		this.screen.addActor(this);
 		this.setZIndex(0x1f);
 		isShow = true;
@@ -152,12 +150,19 @@ public class BaseDialog extends ScreenGroup {
 		LabelActor label = new LabelActor(text,font);
 		label.setColor(color);
 		
-//		TextBounds tb = label.getBounds();
 		float x = Const.BASE_X_WINDOW + (Const.WIDTH_WINDOW - label.getWidth()) / 2;
 		float y = Const.TEXT_BASE_Y + (Const.TEXT_HEIGHT - label.getHeight()) / 2;
 		
 		label.setPosition(x, y);
 		this.addActor(label);
 		label.setZIndex(0x0f);
+	}
+	
+	public void setTextString(int x, int y, final String text, final BitmapFont font, final Color color) {
+		LabelActor label = new LabelActor(text,font);
+		label.setColor(color);
+
+		label.setPosition(x, y);
+		this.addActor(label);		
 	}
 }
