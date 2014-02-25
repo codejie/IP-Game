@@ -52,3 +52,24 @@ bg
   orig: 128, 128
   offset: 0, 0
   index: -1
+setting_normal_check
+  rotate: false
+  xy: 259, 163
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
+setting_normal_down
+  rotate: false
+  xy: 1027, 530
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
+setting_normal_up
+  rotate: false
+  xy: 1285, 628
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1

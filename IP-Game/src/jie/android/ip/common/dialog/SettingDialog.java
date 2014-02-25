@@ -20,8 +20,7 @@ public class SettingDialog extends BaseDialog {
 	public SettingDialog(BaseScreen screen) {
 		super(screen);
 		
-		font = super.resources.getBitmapTrueFont(80);
-		dbAccess = super.screen.getGame().getDBAccess();
+		font = super.resources.getBitmapTrueFont(30);
 		
 		setPositiveButton(new BaseDialog.ButtonClickListener() {
 			
@@ -30,45 +29,47 @@ public class SettingDialog extends BaseDialog {
 				SettingDialog.this.dismiss();
 			}
 		});
-	}
-
-	@Override
-	protected void initStage() {
-		super.initStage();
-
+		
 		initSpeedItem();
-		initMusicItem();
-		initSoundItem();
 	}
+
+//	@Override
+//	protected void initStage() {
+//		super.initStage();
+//
+//		initSpeedItem();
+////		initMusicItem();
+////		initSoundItem();
+//	}
 
 	private void initSpeedItem() {
 		final LabelActor title = new LabelActor("Speed", font);
 		title.setPosition(Const.Setting.X_SPEED_TITLE, Const.Setting.Y_SPEED_TITLE);
 		this.addActor(title);
 		
-		final ButtonActor slow = new ButtonActor(skin, Image.Setting.SLOW_UP, Image.Setting.SLOW_DOWN, Image.Setting.SLOW_CHECK);
-		slow.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				settingChanged(SystemConfig.SYS_ATTR_SPEED, 1);
-			}
-			
-		});
-		slow.setPosition(Const.Setting.X_SPEED_BUTTON_SLOW, Const.Setting.Y_SPEED_BUTTON_SLOW);
-		this.addActor(slow);
-		
-		final ButtonActor fast = new ButtonActor(skin, Image.Setting.FAST_UP, Image.Setting.FAST_DOWN, Image.Setting.NORMAL_CHECK);
-		fast.addListener(new ClickListener() {
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				settingChanged(SystemConfig.SYS_ATTR_SPEED, 2);
-			}
-			
-		});		
-		fast.setPosition(Const.Setting.X_SPEED_BUTTON_FAST, Const.Setting.Y_SPEED_BUTTON_FAST);		
-		this.addActor(fast);
+//		final ButtonActor slow = new ButtonActor(skin, Image.Setting.SLOW_UP, Image.Setting.SLOW_DOWN, Image.Setting.SLOW_CHECK);
+//		slow.addListener(new ClickListener() {
+//			@Override
+//			public void clicked(InputEvent event, float x, float y) {
+//				settingChanged(SystemConfig.SYS_ATTR_SPEED, 1);
+//			}
+//			
+//		});
+//		slow.setPosition(Const.Setting.X_SPEED_BUTTON_SLOW, Const.Setting.Y_SPEED_BUTTON_SLOW);
+//		this.addActor(slow);
+//		
+//		final ButtonActor fast = new ButtonActor(skin, Image.Setting.FAST_UP, Image.Setting.FAST_DOWN, Image.Setting.NORMAL_CHECK);
+//		fast.addListener(new ClickListener() {
+//			@Override
+//			public void clicked(InputEvent event, float x, float y) {
+//				settingChanged(SystemConfig.SYS_ATTR_SPEED, 2);
+//			}
+//			
+//		});		
+//		fast.setPosition(Const.Setting.X_SPEED_BUTTON_FAST, Const.Setting.Y_SPEED_BUTTON_FAST);		
+//		this.addActor(fast);
 
-		final ButtonActor normal = new ButtonActor(skin, Image.Setting.NORMAL_UP, Image.Setting.NORMAL_DOWN, Image.Setting.FAST_CHECK);
+		final ButtonActor normal = new ButtonActor(skin, Image.Setting.NORMAL_UP, Image.Setting.NORMAL_DOWN, Image.Setting.NORMAL_CHECK);
 		normal.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -138,7 +139,7 @@ public class SettingDialog extends BaseDialog {
 
 	private void settingChanged(int id, int value) {
 		final DBAccess dbAccess = super.screen.getGame().getDBAccess();
-		dbAccess.updateSys
+		dbAccess.setSysData(id, value, null);
 	}
 	
 }

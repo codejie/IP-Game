@@ -63,8 +63,8 @@ public interface DialogConfig {
 			
 			public static final int X_SPEED_BUTTON_SLOW = 0;
 			public static final int Y_SPEED_BUTTON_SLOW = 0;
-			public static final int X_SPEED_BUTTON_NORMAL = 0;
-			public static final int Y_SPEED_BUTTON_NORMAL = 0;
+			public static final int X_SPEED_BUTTON_NORMAL = BASE_X_WINDOW + 100;
+			public static final int Y_SPEED_BUTTON_NORMAL = BASE_Y_WINDOW + 200;
 			public static final int X_SPEED_BUTTON_FAST = 0;
 			public static final int Y_SPEED_BUTTON_FAST = 0;
 			

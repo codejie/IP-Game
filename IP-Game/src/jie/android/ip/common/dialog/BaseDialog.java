@@ -60,7 +60,7 @@ public class BaseDialog extends ScreenGroup {
 		background.setBounds(Const.BASE_X, Const.BASE_Y, Const.WIDTH, Const.HEIGHT);
 		this.addActor(background);		
 		
-		window = new ImageActor(textureAtlas.findRegion(Image.BACKGROUND));
+		window = new ImageActor(textureAtlas.findRegion(Image.WINDOW));
 		window.setBounds(Const.BASE_X_WINDOW, Const.BASE_Y_WINDOW, Const.WIDTH_WINDOW, Const.HEIGHT_WINDOW);
 		this.addActor(window);
 	}

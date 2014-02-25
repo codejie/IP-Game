@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -55,7 +56,12 @@ public class DBAccess {
 		try {
 			PreparedStatement  stat = connection.prepareStatement(sql);
 			for (int i = 0; i < bindValues.size(); ++ i) {
-				stat.setString(i+1, bindValues.get(i));
+				final String val = bindValues.get(i);
+				if (val != null) {
+					stat.setString(i + 1, bindValues.get(i));
+				} else {
+					stat.setNull(i + 1, Types.NULL);
+				}
 			}
 			
 			return stat.executeUpdate();
@@ -70,7 +76,12 @@ public class DBAccess {
 		try {
 			PreparedStatement  stat = connection.prepareStatement(sql);
 			for (int i = 0; i < bindValues.size(); ++ i) {
-				stat.setString(i+1, bindValues.get(i));
+				final String val = bindValues.get(i);
+				if (val != null) {
+					stat.setString(i + 1, bindValues.get(i));
+				} else {
+					stat.setNull(i + 1, Types.NULL);
+				}
 			}
 			
 			return stat.executeQuery();
@@ -244,7 +255,12 @@ public class DBAccess {
 	}
 	
 	public final void setSysData(int attr, int i, final String str) {
-		final String sql = ;
+		final String sql = "INSERT OR REPLACE INTO (attr, int, str) sys VALUES (?,?, ?)";
+		final ArrayList<String> val = new ArrayList<String>();
+		val.add(String.valueOf(attr));
+		val.add(String.valueOf(i));
+		val.add(str);
+		execSQL(sql, val);
 	}
 
 	

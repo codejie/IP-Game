@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import jie.android.ip.common.dialog.AlertDialog;
 import jie.android.ip.common.dialog.BaseDialog;
 import jie.android.ip.common.dialog.DialogConfig;
+import jie.android.ip.common.dialog.SettingDialog;
 
 public class PlayRenderer {
 	
@@ -260,8 +261,12 @@ public class PlayRenderer {
 
 	protected boolean onCmdSetting(final Cmd.State state) {
 		//Setting Dialog
-		final AlertDialog dlg = new AlertDialog(this.screen, "Come Soon...", this.screen.getGame().getResources().getBitmapTrueFont(96), Color.YELLOW, null);
+//		final AlertDialog dlg = new AlertDialog(this.screen, "Come Soon...", this.screen.getGame().getResources().getBitmapTrueFont(96), Color.YELLOW, null);
+//		dlg.show();
+		
+		final SettingDialog dlg = new SettingDialog(this.screen);
 		dlg.show();
+		
 		
 		return false;
 	}
