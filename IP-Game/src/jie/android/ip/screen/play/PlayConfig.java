@@ -344,10 +344,10 @@ public interface PlayConfig {
 			public static final int A_X = 760;
 			public static final int A_Y = 24;			
 			public static final int B_X = 900;
-			public static final int B_Y = 330;
+			public static final int B_Y = 340;
 			
 //			public static final int X_PACK = 50;
-			public static final int Y_PACK = 88;
+			public static final int Y_PACK = 78;
 //			public static final int X_SCRIPT = 80;
 			public static final int Y_SCRIPT = 28;			
 		}

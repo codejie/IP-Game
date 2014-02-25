@@ -1,13 +1,14 @@
 package jie.android.ip;
 
-import com.badlogic.gdx.Gdx;
-
 public interface CommonConsts {
 
 	public interface SystemConfig {
 		public static final String DATABASE_FILE = "ip.db3";
 		
 		public static final int SYS_ATTR_VERSION = 1;
+		public static final int SYS_ATTR_SPEED = 2;
+		public static final int SYS_ATTR_MUSIC = 3;
+		public static final int SYS_ATTR_SOUND = 4;
 	}
 	
 	public interface ScreenConfig {

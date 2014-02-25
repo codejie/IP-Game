@@ -5,9 +5,7 @@ import aurelienribon.tweenengine.TweenManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
@@ -31,9 +29,9 @@ public class BaseDialog extends ScreenGroup {
 		public void onClick(int id);
 	}
 	
-	private final TextureAtlas textureAtlas;
-	private final Skin skin;
-	private final TweenManager tweenManager;
+	protected final TextureAtlas textureAtlas;
+	protected final Skin skin;
+	protected final TweenManager tweenManager;
 	
 	private ImageActor background;
 	private ImageActor window;
@@ -62,7 +60,7 @@ public class BaseDialog extends ScreenGroup {
 		background.setBounds(Const.BASE_X, Const.BASE_Y, Const.WIDTH, Const.HEIGHT);
 		this.addActor(background);		
 		
-		window = new ImageActor(textureAtlas.findRegion(Image.WINDOW));
+		window = new ImageActor(textureAtlas.findRegion(Image.BACKGROUND));
 		window.setBounds(Const.BASE_X_WINDOW, Const.BASE_Y_WINDOW, Const.WIDTH_WINDOW, Const.HEIGHT_WINDOW);
 		this.addActor(window);
 	}

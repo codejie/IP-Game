@@ -70,7 +70,7 @@ public class LessonThree extends BaseLesson {
 	}
 	
 	private boolean stage1() {
-		makeLabelActor(90, 370, "Pick the first code to catch the Green brick", 36, new Color(0xFFFF00FF));
+		makeLabelActor(90, 370, "Put the first code to catch the Green brick", 36, new Color(0xFFFF00FF));
 		makeImageActor(145, 300, 0.5f, Image.Lesson.ARROW_LB);
 		
 		makeTrapActor(102, 215, 142, 90);
@@ -79,7 +79,7 @@ public class LessonThree extends BaseLesson {
 	}
 	
 	private boolean stage2() {
-		makeLabelActor(210, 270, "Click up the 'charge' icon to catch it", 36, new Color(0xFFFF00FF));
+		makeLabelActor(210, 270, "Click the 'charge' icon to catch it", 36, new Color(0xFFFF00FF));
 		makeImageActor(280, 210, 0.5f, Image.Lesson.ARROW_LB);
 		
 		makeTrapActor(240, 125, 90, 90);
@@ -134,7 +134,7 @@ public class LessonThree extends BaseLesson {
 	}
 	
 	private boolean stage6() {
-		makeLabelActor(180, 270, "So, let's pick the 'right' icon again first", 36, new Color(0xFFFF00FF));
+		makeLabelActor(180, 270, "So, let's click the 'right' icon again", 36, new Color(0xFFFF00FF));
 		makeImageActor(300, 210, 0.5f, Image.Lesson.ARROW_LB);
 		
 		makeTrapActor(260, 125, 90, 90);
@@ -234,7 +234,7 @@ public class LessonThree extends BaseLesson {
 	}
 	
 	private boolean stage14() {
-		makeLabelActor(420, 270, "Yes, we just need call current column again, pick 'f0'", 36, new Color(0xFFFF00FF));
+		makeLabelActor(420, 270, "Yes, we just need call current column again, click 'f0'", 36, new Color(0xFFFF00FF));
 		makeImageActor(810, 210, 0.5f, Image.Lesson.ARROW_LB);
 		
 		makeTrapActor(773, 125, 90, 90);

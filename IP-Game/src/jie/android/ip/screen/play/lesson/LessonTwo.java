@@ -64,7 +64,7 @@ public class LessonTwo extends BaseLesson {
 		makeLabelActor(210, 540, "LEFT", 80, Color.CYAN);
 		makeLabelActor(850, 540, "RIGHT", 80, Color.CYAN);
 		
-		makeLabelActor(70, 345, "First,click here to pick your code in 'f1' column", 36, new Color(0xFFFF00FF));
+		makeLabelActor(70, 345, "First,click here to add your code in 'f1' column", 36, new Color(0xFFFF00FF));
 		makeImageActor(100, 275, 0.5f, Image.Lesson.ARROW_LB);
 		makeTrapActor(30, 191, 675, 80);		
 		
@@ -72,7 +72,7 @@ public class LessonTwo extends BaseLesson {
 	}
 	
 	private boolean stage1() {
-		makeLabelActor(110, 300, "Pick your first code to catch the brick", 36, new Color(0xFFFF00FF));
+		makeLabelActor(110, 300, "Select your first code to catch the brick", 36, new Color(0xFFFF00FF));
 		makeImageActor(145, 210, 0.5f, Image.Lesson.ARROW_LB);
 		
 		makeTrapActor(102, 127, 142, 90);
@@ -97,7 +97,7 @@ public class LessonTwo extends BaseLesson {
 	}
 	
 	private boolean stage3() {
-		makeLabelActor(180, 280, "Pick next code to move Tray right one step", 36, new Color(0xFFFF00FF));
+		makeLabelActor(180, 280, "Select next code to move Tray right one step", 36, new Color(0xFFFF00FF));
 		makeImageActor(285, 220, 0.5f, Image.Lesson.ARROW_LB);
 		
 		makeTrapActor(240, 130, 142, 90);
@@ -160,7 +160,7 @@ public class LessonTwo extends BaseLesson {
 		makeLabelActor(210, 540, "LEFT", 80, Color.CYAN);
 		makeLabelActor(850, 540, "RIGHT", 80, Color.CYAN);
 		
-		makeLabelActor(70, 420, "Second, click here to pick your codes of 'f0'", 36, new Color(0xFFFF00FF));
+		makeLabelActor(70, 420, "Second, click here to call 'f0' column", 36, new Color(0xFFFF00FF));
 		makeImageActor(100, 360, 0.5f, Image.Lesson.ARROW_LB);
 		makeTrapActor(30, 280, 675, 80);
 		
@@ -177,7 +177,7 @@ public class LessonTwo extends BaseLesson {
 	}
 	
 	private boolean stage10() {
-		makeLabelActor(290, 275, "Pick the 'f1' icon to call f1 colum", 36, new Color(0xFFFF00FF));
+		makeLabelActor(290, 275, "Click 'f1' icon to call f1 colum", 36, new Color(0xFFFF00FF));
 		makeImageActor(430, 210, 0.5f, Image.Lesson.ARROW_LB);
 		
 		makeTrapActor(400, 125, 90, 90);

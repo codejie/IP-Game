@@ -242,7 +242,12 @@ public class DBAccess {
 		}
 		return null;
 	}
+	
+	public final void setSysData(int attr, int i, final String str) {
+		final String sql = ;
+	}
 
+	
 	public void updateScriptStatus(int id, int status) {
 		final String sql = "UPDATE script SET status=? WHERE id=?";
 		final ArrayList<String> val = new ArrayList<String>();

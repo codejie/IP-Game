@@ -59,7 +59,7 @@ public class LessonOne extends BaseLesson {
 	}
 	
 	private boolean stage1() {
-		makeLabelActor(90, 405, "Click here to pick your operation code", 36, new Color(0xFFFF00FF));
+		makeLabelActor(90, 405, "Click here to add your operation code", 36, new Color(0xFFFF00FF));
 		makeLabelActor(155, 370, "to control Tray action", 36, new Color(0xFFFF00FF));
 		makeImageActor(145, 300, 0.5f, Image.Lesson.ARROW_LB);
 		
@@ -86,7 +86,7 @@ public class LessonOne extends BaseLesson {
 	}
 	
 	private boolean stage3() {
-		makeLabelActor(180, 360, "Click here to pick the second operation code", 36, new Color(0xFFFF00FF));
+		makeLabelActor(180, 360, "Click here to add the second operation code", 36, new Color(0xFFFF00FF));
 		makeImageActor(285, 300, 0.5f, Image.Lesson.ARROW_LB);
 		
 		makeTrapActor(240, 215, 142, 90);
@@ -111,7 +111,7 @@ public class LessonOne extends BaseLesson {
 	}
 	
 	private boolean stage5() {
-		makeLabelActor(280, 360, "Click here to pick the third operation code", 36, new Color(0xFFFF00FF));
+		makeLabelActor(280, 360, "Click here to add the third operation code", 36, new Color(0xFFFF00FF));
 		makeImageActor(400, 300, 0.5f, Image.Lesson.ARROW_LB);
 		
 		makeTrapActor(378, 215, 140, 90);
