@@ -2,6 +2,7 @@ package jie.android.ip.common.dialog;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
+import jie.android.ip.common.actor.LabelActor;
 import jie.android.ip.screen.BaseScreen;
 
 public class ScriptInfoDialog extends BaseDialog {
@@ -24,5 +25,23 @@ public class ScriptInfoDialog extends BaseDialog {
 		
 		initAuthor();
 		initComment();
+	}
+	
+	private void initAuthor() {
+		final LabelActor title = new LabelActor("AUTHOR:", fontTitle);
+		
+	}
+
+	private void initComment() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setAuthor(final String author) {
+		
+	}
+	
+	public void setComment(final String comment) {
+		
 	}
 }

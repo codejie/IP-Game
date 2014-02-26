@@ -46,7 +46,7 @@ public class SettingDialog extends BaseDialog {
 		slow.setPosition(Const.Setting.X_SPEED_BUTTON_SLOW, Const.Setting.Y_SPEED_BUTTON_SLOW);
 		this.addActor(slow);
 		
-		final ButtonActor fast = new ButtonActor(skin, Image.Setting.FAST_UP, Image.Setting.FAST_DOWN, Image.Setting.NORMAL_CHECK);
+		final ButtonActor fast = new ButtonActor(skin, Image.Setting.FAST_UP, Image.Setting.FAST_DOWN, Image.Setting.FAST_CHECK);
 		fast.setPosition(Const.Setting.X_SPEED_BUTTON_FAST, Const.Setting.Y_SPEED_BUTTON_FAST);		
 		this.addActor(fast);
 
