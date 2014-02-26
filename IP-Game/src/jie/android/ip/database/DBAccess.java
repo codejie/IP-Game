@@ -99,7 +99,7 @@ public class DBAccess {
 	
 	public boolean createTables() {
 		String sql = "CREATE TABLE IF NOT EXISTS sys ("
-				+ "attr INTEGER,"
+				+ "attr INTEGER PRIMARY KEY,"
 				+ "int INTEGER,"
 				+ "str TEXT"
 				+ ")";
@@ -254,8 +254,25 @@ public class DBAccess {
 		return null;
 	}
 	
+	public int getSysDataAsInt(int attr) {
+		final String sql = "SELECT int FROM sys WHERE attr=" + attr;
+		final ResultSet rs = querySQL(sql);
+		try {
+			try {
+				if (rs.next()) {
+					return rs.getInt(1);
+				}
+			} finally {
+				rs.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}	
+	
 	public final void setSysData(int attr, int i, final String str) {
-		final String sql = "INSERT OR REPLACE INTO (attr, int, str) sys VALUES (?,?, ?)";
+		final String sql = "INSERT OR REPLACE INTO sys (attr, int, str) VALUES (?,?,?)";
 		final ArrayList<String> val = new ArrayList<String>();
 		val.add(String.valueOf(attr));
 		val.add(String.valueOf(i));

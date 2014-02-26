@@ -19,6 +19,9 @@ public class PlayRenderer {
 	
 	private LessonGroup groupLesson;
 	
+	private String scriptAuthor;
+	private String scriptComment;
+	
 	private final PlayScreenListener.ManagerEventListener managerListener = new PlayScreenListener.ManagerEventListener() {
 
 		@Override
@@ -76,8 +79,10 @@ public class PlayRenderer {
 			groupResult.showFinishedStage();
 		}
 		@Override
-		public void onScriptLoaded(int packId, int scriptId, final String packTitle, final String scriptTitle) {
+		public void onScriptLoaded(int packId, int scriptId, final String packTitle, final String scriptTitle, final String author, final String comment) {
 			groupTitle.setTitle(packTitle, scriptTitle);
+			scriptAuthor = author;
+			scriptComment = comment;
 		}
 	};	
 	
@@ -171,6 +176,11 @@ public class PlayRenderer {
 		initGroups();
 	}
 
+	public void setSpeed(float speed) {
+		// TODO Auto-generated method stub
+		
+	}		
+	
 	public final PlayScreenListener.ManagerEventListener getManagerEventListener() {
 		return managerListener;
 	}
@@ -230,26 +240,41 @@ public class PlayRenderer {
 	}	
 
 	protected boolean onCmdClear(final Cmd.State state) {
-		final BaseDialog dlg = new BaseDialog(screen);
-		dlg.setPositiveButton(new BaseDialog.ButtonClickListener() {
+		
+		final AlertDialog.ButtonClickListener listener = new AlertDialog.ButtonClickListener() {
 			
 			@Override
-			public void onClick(int id) {
+			public void onClick() {
 				if (rendererListener != null) {
 					rendererListener.onCmdButtonClicked(Cmd.Type.CLEAR, state);
 				}
-				dlg.dismiss();
 			}
-		});
-		dlg.setNegativeButton(new BaseDialog.ButtonClickListener() {
-			
-			@Override
-			public void onClick(int id) {
-				dlg.dismiss();				
-			}
-		});
-		dlg.setTextImage(DialogConfig.Image.TEXT_CLEAN_CODE);
+		};
+		
+		final AlertDialog dlg = new AlertDialog(this.screen, "Do you want to remove your code ?", this.screen.getGame().getResources().getBitmapTrueFont(80), Color.YELLOW, listener, null);
 		dlg.show();
+//		
+//		
+//		final BaseDialog dlg = new BaseDialog(screen);
+//		dlg.setYesButton(new BaseDialog.ButtonClickListener() {
+//			
+//			@Override
+//			public void onClick(int id) {
+//				if (rendererListener != null) {
+//					rendererListener.onCmdButtonClicked(Cmd.Type.CLEAR, state);
+//				}
+//				dlg.dismiss();
+//			}
+//		});
+//		dlg.setNoButton(new BaseDialog.ButtonClickListener() {
+//			
+//			@Override
+//			public void onClick(int id) {
+//				dlg.dismiss();				
+//			}
+//		});
+//		dlg.setTextImage(DialogConfig.Image.TEXT_CLEAN_CODE);
+//		dlg.show();
 		
 		return false;
 	}	
@@ -260,19 +285,14 @@ public class PlayRenderer {
 	}
 
 	protected boolean onCmdSetting(final Cmd.State state) {
-		//Setting Dialog
-//		final AlertDialog dlg = new AlertDialog(this.screen, "Come Soon...", this.screen.getGame().getResources().getBitmapTrueFont(96), Color.YELLOW, null);
-//		dlg.show();
-		
 		final SettingDialog dlg = new SettingDialog(this.screen);
 		dlg.show();
-		
 		
 		return false;
 	}
 
 	protected boolean onCmdInfo(final Cmd.State state) {
-		final AlertDialog dlg = new AlertDialog(this.screen, "Come Soon...", this.screen.getGame().getResources().getBitmapTrueFont(96), Color.YELLOW, null);
+		final AlertDialog dlg = new AlertDialog(this.screen, "Come Soonddddddddddddd...", this.screen.getGame().getResources().getBitmapTrueFont(96), Color.YELLOW, null);
 		dlg.show();
 
 		return false;
@@ -293,8 +313,16 @@ public class PlayRenderer {
 
 	public boolean onScreenTouchDown(int x, int y, int pointer, int button) {
 		if (groupLesson != null) {
-			return !groupLesson.hitTrap(x, y);
+			return !groupLesson.hitTrap(x, y, false);
 		}
 		return false;
-	}	
+	}
+
+	public boolean onScreenTouchUp(int x, int y, int pointer, int button) {
+		if (groupLesson != null) {
+			return !groupLesson.hitTrap(x, y, true);
+		}
+		return false;
+	}
+
 }

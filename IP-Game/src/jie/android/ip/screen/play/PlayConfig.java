@@ -218,16 +218,16 @@ public interface PlayConfig {
 			public static final int Y_MENU = BASE_BUTTON_Y + (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 2;// + 198;
 			
 			public static final int X_SETTING = BASE_BUTTON_X;//0;
-			public static final int Y_SETTING = HEIGHT - HEIGHT_BUTTON;//80;
+			public static final int Y_SETTING = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 1;
 
 			public static final float X_INFO = BASE_BUTTON_X;//0;
-			public static final float Y_INFO = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 1;
+			public static final float Y_INFO = HEIGHT - HEIGHT_BUTTON;//80;
 			
 			public static final float X_BACK = BASE_BUTTON_X;//0;
-			public static final float Y_BACK = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 2;
+			public static final float Y_BACK = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 3;
 			
 			public static final float X_CLOSE = BASE_BUTTON_X;//0;
-			public static final float Y_CLOSE = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 3;
+			public static final float Y_CLOSE = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 2;
 			
 			
 			public static final int X_SHARE = BASE_BUTTON_X;//0;
@@ -237,10 +237,10 @@ public interface PlayConfig {
 			public static final float Y_NEXT = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 1;
 			
 			public static final float X_BACK2 = BASE_BUTTON_X;//0;
-			public static final float Y_BACK2 = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 2;
+			public static final float Y_BACK2 = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 3;
 			
 			public static final float X_CLOSE2 = BASE_BUTTON_X;//0;
-			public static final float Y_CLOSE2 = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 3;
+			public static final float Y_CLOSE2 = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 2;
 			
 		}
 		

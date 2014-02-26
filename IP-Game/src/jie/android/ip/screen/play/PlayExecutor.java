@@ -14,7 +14,7 @@ public class PlayExecutor implements Disposable {
 	private static final String Tag = PlayExecutor.class.getSimpleName();
 	
 	public enum StopReason {
-		NONE, SUCC, RESET, FINISHED, BROKEN, EXCEPTION;
+		NONE, SUCC, RESET, FINISHED, BROKEN, EXCEPTION, OVERFLOW;
 	}
 	
 	private static class CallbackQueue implements Runnable {
@@ -40,6 +40,7 @@ public class PlayExecutor implements Disposable {
 		}
 		
 		private boolean stop = false;
+		private long delay = 100;
 		private Object callLock = new Object();
 		private LinkedList<Data> dataQue = new LinkedList<Data>();
 		
@@ -57,12 +58,12 @@ public class PlayExecutor implements Disposable {
 		}
 		
 		private void processData(final Data data) {
-			//delay
-			try {
-				Thread.sleep((long) (PlayConfig.DELAY * 1000));
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+//			//delay
+//			try {
+//				Thread.sleep(delay);
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
 			
 			if (!executor.isRunning()) {
 				return;
@@ -86,6 +87,10 @@ public class PlayExecutor implements Disposable {
 			callLock.notify();			
 		}
 		
+		public void setDelay(long delay) {
+			this.delay = delay;
+		}
+		
 		@Override
 		public void run() {
 			while (!stop) {
@@ -93,6 +98,8 @@ public class PlayExecutor implements Disposable {
 					synchronized(callLock) {
 						try {
 							callLock.wait();
+							//delay
+							Thread.sleep(delay);
 						} catch (InterruptedException e) {
 							e.printStackTrace();
 						}
@@ -127,6 +134,12 @@ public class PlayExecutor implements Disposable {
 		}
 
 		@Override
+		public void onStackOverflow() {
+			stopReason = StopReason.OVERFLOW;
+			onExecuteCompleted(stopReason);
+		}	
+		
+		@Override
 		public void onCall(int func, int index, Object funcIndex, boolean found) {
 			onExecuteCall(func, index, funcIndex, new Boolean(found));
 		}
@@ -143,7 +156,8 @@ public class PlayExecutor implements Disposable {
 
 		@Override
 		public void onBreakPoint(int func, int index, String cmd, Object param1, Object param2) {
-		}		
+		}
+	
 	};
 	
 	
@@ -168,6 +182,10 @@ public class PlayExecutor implements Disposable {
 	public void execute(final CommandSet cmdset) {
 		stopReason = StopReason.NONE;
 		executor.start(cmdset, cmdListener);
+	}
+	
+	public void setDelay(long delay) {
+		callbackQueue.setDelay(delay);
 	}
 
 	public void next() {
@@ -246,5 +264,6 @@ public class PlayExecutor implements Disposable {
 	protected void onExecuteCall(int func, int index, Object funcIndex, Boolean found) {
 		callbackQueue.putData(CallbackQueue.EventType.CALL, func, index, funcIndex, found);
 	}
+
 	
 }

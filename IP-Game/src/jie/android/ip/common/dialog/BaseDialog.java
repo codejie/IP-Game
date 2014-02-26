@@ -84,8 +84,8 @@ public class BaseDialog extends ScreenGroup {
 		return isShow;
 	}
 	
-	public void setPositiveButton(final ButtonClickListener listener) {
-		btnPositive = new ButtonActor(skin, Image.BUTTON_POSITIVE_UP, Image.BUTTON_POSITIVE_DOWN);
+	public void setYesButton(final ButtonClickListener listener) {
+		btnPositive = new ButtonActor(skin, Image.BUTTON_YES_UP, Image.BUTTON_YES_DOWN);
 		btnPositive.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -98,8 +98,8 @@ public class BaseDialog extends ScreenGroup {
 		this.addActor(btnPositive);
 	}
 	
-	public void setNegativeButton(final ButtonClickListener listener) {
-		btnNegative = new ButtonActor(skin, Image.BUTTON_NEGATIVE_UP, Image.BUTTON_NEGATIVE_DOWN);
+	public void setNoButton(final ButtonClickListener listener) {
+		btnNegative = new ButtonActor(skin, Image.BUTTON_NO_UP, Image.BUTTON_NO_DOWN);
 		btnNegative.addListener(new ClickListener() {
 			@Override
 			public void clicked(InputEvent event, float x, float y) {
@@ -111,6 +111,20 @@ public class BaseDialog extends ScreenGroup {
 		setButtonBounds();
 		this.addActor(btnNegative);		
 	}
+	
+	public void setOKButton(final ButtonClickListener listener) {
+		btnPositive = new ButtonActor(skin, Image.BUTTON_OK_UP, Image.BUTTON_OK_DOWN);
+		btnPositive.addListener(new ClickListener() {
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				if (listener != null) {
+					listener.onClick(BUTTON_POSITIVE);
+				}
+			}			
+		});
+		setButtonBounds();
+		this.addActor(btnPositive);
+	}	
 
 	private void setButtonBounds() {
 		float x = 0, y = 0;
@@ -134,21 +148,13 @@ public class BaseDialog extends ScreenGroup {
 		}
 	}
 	
-	public void setTextImage(final String res) {
-		ImageActor text = new ImageActor(textureAtlas.findRegion(res));
-		float x = Const.BASE_X_WINDOW + (Const.WIDTH_WINDOW - text.getWidth()) / 2;
-		float y = Const.TEXT_BASE_Y + (Const.TEXT_HEIGHT - text.getHeight()) / 2; 
-			
-		text.setPosition(x, y);// .setBounds(x, y, Const.TEXT_WIDTH, Const.TEXT_HEIGHT);
-		this.addActor(text);
-		text.setZIndex(0x0f);
-	}
-	
 	public void setTextString(final String text, final BitmapFont font, final Color color) {
 		LabelActor label = new LabelActor(text,font);
 		label.setColor(color);
+		label.setWrap(true);
+		label.setWrapWidth(Const.TEXT_WIDTH);
 		
-		float x = Const.BASE_X_WINDOW + (Const.WIDTH_WINDOW - label.getWidth()) / 2;
+		float x = Const.TEXT_BASE_X;// + (Const.TEXT_WIDTH - label.getWidth()) / 2;
 		float y = Const.TEXT_BASE_Y + (Const.TEXT_HEIGHT - label.getHeight()) / 2;
 		
 		label.setPosition(x, y);

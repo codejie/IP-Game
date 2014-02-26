@@ -168,6 +168,9 @@ public class BoxGroup {
 		groupTarget.clear();		
 	}
 	
+	private float delay() {
+		return screen.getClockSpeed();
+	}
 
 	public void clearActors(final Box.Tray tray, final Box.BlockArray source, final Box.BlockArray target) {
 		groupSource.clearActors(tray, source);
@@ -188,7 +191,7 @@ public class BoxGroup {
 	
 	private void moveBlock(final Box.Block block, final int scol, final int srow, final int tcol, final int trow) {
 		if (block.actor != null) {
-			float delay = Math.abs(trow - srow) * PlayConfig.DELAY;
+			float delay = Math.abs(trow - srow) * delay();
 			Tween.to(block.actor, ImageActorAccessor.POSITION_Y, delay).target(groupSource.rowToBlockY(trow)).ease(Quint.INOUT).setCallback(new TweenCallback() {
 				@Override
 				public void onEvent(int type, BaseTween<?> source) {
@@ -202,7 +205,7 @@ public class BoxGroup {
 		if (block.actor != null) {
 			float tbx = groupSource.colToBlockX(tcol);
 			float ttx = groupSource.colToTrayX(tcol);
-			float delay = Math.abs(tcol - scol) * PlayConfig.DELAY;
+			float delay = Math.abs(tcol - scol) * delay();
 			Timeline.createParallel()
 				.push(Tween.to(block.actor, ImageActorAccessor.POSITION_X, delay).target(tbx))
 				.push(Tween.to(tray.actor, ImageActorAccessor.POSITION_X, delay).target(ttx))
@@ -218,7 +221,7 @@ public class BoxGroup {
 
 	private void moveTray(final Box.Tray tray, final int scol, final int tcol) {
 		float ttx = groupSource.colToTrayX(tcol);
-		float delay = Math.abs(tcol - scol) * PlayConfig.DELAY;
+		float delay = Math.abs(tcol - scol) * delay();
 		Tween.to(tray.actor, ImageActorAccessor.POSITION_X, delay).target(ttx).setCallback(new TweenCallback() {
 			@Override
 			public void onEvent(int type, BaseTween<?> source) {

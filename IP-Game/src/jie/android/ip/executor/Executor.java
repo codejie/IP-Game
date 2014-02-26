@@ -116,11 +116,10 @@ public class Executor extends BaseExecutor {
 		private Object stepLock = new Object();
 		
 		private CommandStack cmdStack;
+		private boolean overflow = false;
 		
 		public CoreExecutor(final CommandSet cmdSet, OnCommandListener cmdListener) {
-			this.cmdSet = cmdSet;
-			this.isOneStep = false;
-			this.cmdListener = cmdListener;
+			this(cmdSet, false, cmdListener);
 		}
 
 		public CoreExecutor(final CommandSet cmdSet, boolean isOneStep, OnCommandListener cmdListener) {
@@ -199,6 +198,7 @@ public class Executor extends BaseExecutor {
 			
 			stopRun = false;			
 			isRunning = true;
+			overflow = false;
 			
 			if (cmdListener != null) {
 				cmdListener.onStart();
@@ -208,7 +208,11 @@ public class Executor extends BaseExecutor {
 		private void postExecute() {
 			isRunning = false;
 			if (cmdListener != null) {
-				cmdListener.onEnd(!stopRun);
+				if (overflow) {
+					cmdListener.onStackOverflow();
+				} else {
+					cmdListener.onEnd(!stopRun);
+				}
 			}
 		}
 		
@@ -258,6 +262,10 @@ public class Executor extends BaseExecutor {
 					int func = cmd.getParamAsInt(0, -1);
 					if (func != -1) {
 						cmdStack.loadCommand(cmdSet, func);
+						if (cmdStack.size() > 512) {
+							overflow = true;
+							break;
+						}
 					}
 					if (cmdListener != null) {
 						cmdListener.onCall(icmd.func, icmd.index, cmd.getParam(0), (func != -1));

@@ -92,6 +92,8 @@ public class PlayManager implements Disposable {
 				onExecuteFinished();
 			} else if (reason == PlayExecutor.StopReason.EXCEPTION) {
 				onExecuteException();
+			} else if (reason == PlayExecutor.StopReason.OVERFLOW) {
+				onExecuteOverflow();
 			} else {
 				Utils.log(Tag, "Unsupport execute stop reason - " + reason);
 			}
@@ -186,7 +188,7 @@ public class PlayManager implements Disposable {
 	public void dispose() {
 		executor.dispose();
 	}
-
+	
 	public boolean loadScript(final int packId, final int scriptId) {
 
 		script = new Script(scriptId);
@@ -226,7 +228,7 @@ public class PlayManager implements Disposable {
 
 		init();
 
-		managerListener.onScriptLoaded(packId, scriptId, getPackTitle(packId), script.getTitle());
+		managerListener.onScriptLoaded(packId, scriptId, getPackTitle(packId), script.getTitle(), script.getAuthor(), script.getComment());
 		
 		return true;
 	}
@@ -253,6 +255,7 @@ public class PlayManager implements Disposable {
 		if (state == Cmd.State.NONE) {
 			cmdSet = codeLines.makeCommandSet();
 			dbAccess.saveSolution(script.getId(), cmdSet.saveToString());
+			executor.setDelay((long)(screen.getClockSpeed() * 1000));
 			executor.execute(cmdSet);
 		} else {
 			box.reload(script);
@@ -303,4 +306,9 @@ public class PlayManager implements Disposable {
 
 	}
 
+	protected void onExecuteOverflow() {
+		if (managerListener != null) {
+			managerListener.onExecuteFail();
+		}		
+	}	
 }

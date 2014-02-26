@@ -12,8 +12,8 @@ public class Main {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "IP-Game";
 		cfg.useGL20 = false;
-		cfg.width = (int) ((int) ScreenConfig.WIDTH);// * 0.33f);
-		cfg.height = (int) ((int) ScreenConfig.HEIGHT);// * 0.33f);//320;
+		cfg.width = (int) ((int) ScreenConfig.WIDTH * 0.33f);
+		cfg.height = (int) ((int) ScreenConfig.HEIGHT * 0.33f);//320;
 		
 		final Setup setup = new DesktopSetup();
 		

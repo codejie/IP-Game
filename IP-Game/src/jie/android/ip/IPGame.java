@@ -1,6 +1,7 @@
 package jie.android.ip;
 
 import jie.android.ip.CommonConsts.ScreenConfig;
+import jie.android.ip.CommonConsts.SystemConfig;
 import jie.android.ip.database.DBAccess;
 import jie.android.ip.screen.menu.MenuScreen;
 import jie.android.ip.screen.play.PlayScreen;
@@ -105,6 +106,7 @@ public class IPGame extends Game {
 
 	private void initSounder() {
 		sounder = new Sounder(resources);
+		sounder.enabled(dbAccess.getSysDataAsInt(SystemConfig.SYS_ATTR_SOUND) != 0);
 	}
 	
 	public final Sounder getSounder() {
@@ -129,6 +131,14 @@ public class IPGame extends Game {
 			setPlayScreen(packId, id);
 		} else {
 			setMenuScreen();
+		}
+	}
+
+	public void onSettingChanged(int attr, int intVal, String strVal) {
+		if (attr == SystemConfig.SYS_ATTR_SOUND) {
+			sounder.enabled(intVal != 0);			
+		} else if (attr == SystemConfig.SYS_ATTR_MUSIC) {
+			
 		}
 	}
 	

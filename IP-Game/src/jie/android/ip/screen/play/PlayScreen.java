@@ -6,6 +6,7 @@ import aurelienribon.tweenengine.TweenCallback;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import jie.android.ip.CommonConsts.PackConfig;
+import jie.android.ip.CommonConsts.SystemConfig;
 import jie.android.ip.IPGame;
 import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.common.dialog.AppExitDialog;
@@ -19,6 +20,8 @@ public class PlayScreen extends BaseScreen {
 	
 	private PlayManager manager;
 	private PlayRenderer renderer;
+	
+	private float clockSpeed = 0.1f;
 	
 	public PlayScreen(IPGame game, int packId, int scriptId) {
 		super(game);
@@ -46,9 +49,26 @@ public class PlayScreen extends BaseScreen {
 		
 		manager = new PlayManager(this);
 		renderer = new PlayRenderer(this);
+
+		setClockSpeed(super.getGame().getDBAccess().getSysDataAsInt(SystemConfig.SYS_ATTR_SPEED));
 		
 		manager.setEventListener(renderer.getManagerEventListener());
 		renderer.setEventListener(manager.getRendererEventListener());
+	}
+	
+	private void setClockSpeed(int level) {
+		switch(level) {
+		case 1:
+			clockSpeed = 0.2f;
+			break;
+		case 3:
+			clockSpeed = 0.05f;
+			break;
+		case 2:
+		default:
+			clockSpeed = 0.1f;
+			break;
+		}		
 	}
 	
 	private void initBackgroup() {
@@ -57,10 +77,15 @@ public class PlayScreen extends BaseScreen {
 		this.addSprite(bg);
 	}
 	
+	public float getClockSpeed() {
+		return clockSpeed;
+	}
+	
 	private void loadScript() {
 		manager.loadScript(packId, scriptId);
 		if (packId == 1) {//Tutorials
 			super.setOnTouchDownListener();
+			super.setOnTouchUpListener();
 			renderer.loadLesson(packId, scriptId);
 		}
 	}
@@ -138,4 +163,25 @@ public class PlayScreen extends BaseScreen {
 		}
 		return super.onTouchDown(x, y, pointer, button);
 	}
+
+	
+	
+	@Override
+	protected boolean onTouchUp(int x, int y, int pointer, int button) {
+		if (renderer.onScreenTouchUp(x, y, pointer, button)) {
+			return true;
+		}
+		return super.onTouchUp(x, y, pointer, button);
+	}
+
+	@Override
+	public void onSettingChanged(int attr, int intVal, String strVal) {
+		super.onSettingChanged(attr, intVal, strVal);
+		
+		if (attr == SystemConfig.SYS_ATTR_SPEED) {
+			setClockSpeed(intVal); 
+		}
+		
+	}
+	
 }

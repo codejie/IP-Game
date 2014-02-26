@@ -210,4 +210,7 @@ public class BaseScreen implements Screen {
 		return false;
 	}	
 
+	public void onSettingChanged(int attr, int intVal, final String strVal) {
+		game.onSettingChanged(attr, intVal, strVal);
+	}
 }

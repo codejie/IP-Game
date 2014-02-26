@@ -15,54 +15,10 @@ public class AlertDialog extends BaseDialog {
 		super(screen);
 	}
 
-	public AlertDialog(final BaseScreen screen, final String textRes, final ButtonClickListener positiveListener, final ButtonClickListener negativeListener) {
-		super(screen);
-		
-		setPositiveButton(new BaseDialog.ButtonClickListener() {
-			
-			@Override
-			public void onClick(int id) {
-				if (positiveListener != null) {
-					positiveListener.onClick();
-				}
-				AlertDialog.this.dismiss();
-			}
-		});
-		setNegativeButton(new BaseDialog.ButtonClickListener() {
-			
-			@Override
-			public void onClick(int id) {
-				if (negativeListener != null) {
-					negativeListener.onClick();
-				}
-				AlertDialog.this.dismiss();
-			}
-		});
-		
-		setTextImage(textRes);
-	}
-
-	public AlertDialog(final BaseScreen screen, final String textRes, final ButtonClickListener positiveListener) {
-		super(screen);
-		
-		setPositiveButton(new BaseDialog.ButtonClickListener() {
-			
-			@Override
-			public void onClick(int id) {
-				if (positiveListener != null) {
-					positiveListener.onClick();
-				}
-				AlertDialog.this.dismiss();
-			}
-		});
-		
-		setTextImage(textRes);
-	}
-
 	public AlertDialog(final BaseScreen screen, final String text, final BitmapFont font, final Color color, final ButtonClickListener positiveListener, final ButtonClickListener negativeListener) {
 		super(screen);
 
-		setPositiveButton(new BaseDialog.ButtonClickListener() {
+		setYesButton(new BaseDialog.ButtonClickListener() {
 			
 			@Override
 			public void onClick(int id) {
@@ -72,7 +28,7 @@ public class AlertDialog extends BaseDialog {
 				AlertDialog.this.dismiss();
 			}
 		});
-		setNegativeButton(new BaseDialog.ButtonClickListener() {
+		setNoButton(new BaseDialog.ButtonClickListener() {
 			
 			@Override
 			public void onClick(int id) {
@@ -88,7 +44,7 @@ public class AlertDialog extends BaseDialog {
 	public AlertDialog(final BaseScreen screen, final String text, final BitmapFont font, final Color color, final ButtonClickListener positiveListener) {
 		super(screen);
 
-		setPositiveButton(new BaseDialog.ButtonClickListener() {
+		setOKButton(new BaseDialog.ButtonClickListener() {
 			
 			@Override
 			public void onClick(int id) {

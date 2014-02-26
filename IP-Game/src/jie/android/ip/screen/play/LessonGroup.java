@@ -93,10 +93,12 @@ public class LessonGroup extends ScreenGroup {
 		return tweenManager;
 	}
 
-	public boolean hitTrap(int x, int y) {
+	public boolean hitTrap(int x, int y, boolean up) {
 		if (lesson != null) {
 			if (lesson.hitTrap(x, y)) {
-				onTrapActorHit(x, y);
+				if (up) {
+					onTrapActorHit(x, y);
+				}
 				return true;
 			}
 		}
@@ -105,6 +107,4 @@ public class LessonGroup extends ScreenGroup {
 	public void onExecuteEnd(boolean succ) {
 		loadNextStage();
 	}
-
-
 }
