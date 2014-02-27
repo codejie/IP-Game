@@ -15,7 +15,7 @@ public class AudioPlayer implements Disposable {
 	private HashMap<String, Sound> mapSound = new HashMap<String, Sound>();
 	
 	private boolean musicEnabled = true;
-	private boolean soundEnabled = true;
+	private boolean soundEnabled = false;//true;
 	
 	private String currentMusic;
 	

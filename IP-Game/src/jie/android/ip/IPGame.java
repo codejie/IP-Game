@@ -108,7 +108,7 @@ public class IPGame extends Game {
 	private void initAudioPlayer() {
 		player = new AudioPlayer(resources);
 		player.enableSound(dbAccess.getSysDataAsInt(SystemConfig.SYS_ATTR_SOUND) != 0);
-		player.enableMusic(dbAccess.getSysDataAsInt(SystemConfig.SYS_ATTR_MUSIC) != 0);
+		//player.enableMusic(dbAccess.getSysDataAsInt(SystemConfig.SYS_ATTR_MUSIC) != 0);
 		
 		player.setDefaultMusic(AudioConfig.MUSIC_BACKGROUND);		
 	}
