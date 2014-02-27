@@ -90,8 +90,20 @@ public interface DialogConfig {
 			public static final int X_SPEED_BUTTON_SOUND_OPEN = X_SPEED_TITLE + 360 + 64;
 			public static final int Y_SPEED_BUTTON_SOUND_OPEN = Y_SOUND_TITLE - 24;
 			public static final int X_SPEED_BUTTON_SOUND_CLOSE = X_SPEED_BUTTON_SOUND_OPEN + WIDTH_BUTTON + 2 * SPACE_BUTTON;
-			public static final int Y_SPEED_BUTTON_SOUND_CLOSE = Y_SPEED_BUTTON_SOUND_OPEN;
+			public static final int Y_SPEED_BUTTON_SOUND_CLOSE = Y_SPEED_BUTTON_SOUND_OPEN;			
+		}
+		
+		public interface Info {
+			public static final int X_AUTHOR_TITLE = BASE_X_WINDOW + 64;
+			public static final int Y_AUTHOR_TITLE = 556;
+			public static final int X_AUTHOR_INFO = BASE_X_WINDOW + 128;
+			public static final int Y_AUTHOR_INFO = 500;
 			
+			public static final int X_COMMENT_TITLE = BASE_X_WINDOW + 64;
+			public static final int Y_COMMENT_TITLE = 430;
+			public static final int X_COMMENT_INFO = BASE_X_WINDOW + 128;
+			public static final int Y_COMMENT_INFO = 385;
+			public static final int WIDTH_COMMENT_INFO = WIDTH_WINDOW - 128 - 32;
 		}
 	}
 }

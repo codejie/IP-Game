@@ -15,6 +15,7 @@ import jie.android.ip.CommonConsts.PackConfig;
 import jie.android.ip.common.actor.ImageActor;
 import jie.android.ip.common.actor.ImageActorAccessor;
 import jie.android.ip.common.actor.LabelActor;
+import jie.android.ip.common.actor.LabelActorAccessor;
 import jie.android.ip.common.actor.ScreenGroup;
 import jie.android.ip.screen.BaseScreen;
 import jie.android.ip.screen.play.PlayConfig.Const;
@@ -91,6 +92,18 @@ public class ResultGroup extends ScreenGroup {
 		current = which;
 	}
 	
+	private void showScore(int base_score, int score) {
+		final BitmapFont font = ResultGroup.this.resources.getBitmapTrueFont(95);
+		labelScore = new LabelActor(String.format("%d/%d", score, base_score), font);
+		labelScore.setColor(Color.RED);
+		float x = (Const.Result.WIDTH - labelScore.getWidth()) / 2;
+		float y = Const.Result.BASE_Y_RESULT - labelScore.getHeight();
+		this.addActor(labelScore);
+		labelScore.setPosition(-labelScore.getWidth(), y);
+		
+		Tween.to(labelScore, LabelActorAccessor.POSITION_X, 0.2f).target(x).start(tweenManager);
+	}
+	
 	public void showSuccStage(final int base_score, final int score) {
 		updateResult(Which.SUCC);
 		
@@ -111,14 +124,7 @@ public class ResultGroup extends ScreenGroup {
 			.setCallback(new TweenCallback() {
 				@Override
 				public void onEvent(int type, BaseTween<?> source) {
-					final BitmapFont font = ResultGroup.this.resources.getBitmapTrueFont(95);
-					labelScore = new LabelActor(String.format("%d/%d", score, base_score), font);
-					labelScore.setColor(Color.RED);
-					float x = (Const.Result.WIDTH - labelScore.getWidth()) / 2;
-					float y = Const.Result.BASE_Y_RESULT - labelScore.getHeight();
-					ResultGroup.this.addActor(labelScore);
-					labelScore.setPosition(x, y);
-
+					showScore(base_score, score);
 				}				
 			})
 			.start(tweenManager);

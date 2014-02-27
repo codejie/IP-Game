@@ -7,6 +7,8 @@ import jie.android.ip.common.actor.ButtonActor;
 import jie.android.ip.common.actor.ButtonActorAccessor;
 import jie.android.ip.common.actor.ImageActor;
 import jie.android.ip.common.actor.ImageActorAccessor;
+import jie.android.ip.common.actor.LabelActor;
+import jie.android.ip.common.actor.LabelActorAccessor;
 import jie.android.ip.database.DBAccess;
 import aurelienribon.tweenengine.Tween;
 
@@ -18,6 +20,7 @@ public class Environment {
 		Tween.registerAccessor(ImageActor.class, new ImageActorAccessor());
 		Tween.registerAccessor(BaseGroup.class, new BaseGroupAccessor());
 		Tween.registerAccessor(ButtonActor.class, new ButtonActorAccessor());
+		Tween.registerAccessor(LabelActor.class, new LabelActorAccessor());
 	}
 	
 	public static void loadAppData(final DBAccess dbAccess) {

@@ -1,5 +1,6 @@
 package jie.android.ip;
 
+import jie.android.ip.CommonConsts.AudioConfig;
 import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.CommonConsts.SystemConfig;
 import jie.android.ip.database.DBAccess;
@@ -23,7 +24,7 @@ public class IPGame extends Game {
 	
 	private Resources resources;
 	private DBAccess dbAccess;
-	private Sounder sounder;
+	private AudioPlayer player;
 	
 	public IPGame(final Setup setup) {
 		this.setup = setup;
@@ -35,7 +36,7 @@ public class IPGame extends Game {
 	public void create() {
 		initDBAccess();
 		initResources();
-		initSounder();
+		initAudioPlayer();
 		
 		initCamera();
 		initSpriteBatch();
@@ -57,7 +58,7 @@ public class IPGame extends Game {
 		super.dispose();
 		
 		
-		sounder.dispose();
+		player.dispose();
 		resources.dispose();		
 		batch.dispose();
 		
@@ -104,13 +105,16 @@ public class IPGame extends Game {
 		batch.setProjectionMatrix(camera.combined);
 	}
 
-	private void initSounder() {
-		sounder = new Sounder(resources);
-		sounder.enabled(dbAccess.getSysDataAsInt(SystemConfig.SYS_ATTR_SOUND) != 0);
+	private void initAudioPlayer() {
+		player = new AudioPlayer(resources);
+		player.enableSound(dbAccess.getSysDataAsInt(SystemConfig.SYS_ATTR_SOUND) != 0);
+		player.enableMusic(dbAccess.getSysDataAsInt(SystemConfig.SYS_ATTR_MUSIC) != 0);
+		
+		player.setDefaultMusic(AudioConfig.MUSIC_BACKGROUND);		
 	}
 	
-	public final Sounder getSounder() {
-		return sounder;
+	public final AudioPlayer getAudioPlayer() {
+		return player;
 	}
 	
 	private void setStartScreen() {
@@ -136,9 +140,9 @@ public class IPGame extends Game {
 
 	public void onSettingChanged(int attr, int intVal, String strVal) {
 		if (attr == SystemConfig.SYS_ATTR_SOUND) {
-			sounder.enabled(intVal != 0);			
+			player.enableSound(intVal != 0);			
 		} else if (attr == SystemConfig.SYS_ATTR_MUSIC) {
-			
+			player.enableMusic(intVal != 0);
 		}
 	}
 	

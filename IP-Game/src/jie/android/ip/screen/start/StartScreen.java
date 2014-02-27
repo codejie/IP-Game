@@ -35,6 +35,7 @@ public class StartScreen extends BaseScreen {
 			
 			game.getResources().loadAssetManager();
 			game.setScreen(new MenuScreen(game));
+			game.getAudioPlayer().playMusic();
 		}
 		
 	};

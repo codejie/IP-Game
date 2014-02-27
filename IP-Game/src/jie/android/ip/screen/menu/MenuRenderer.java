@@ -1,7 +1,7 @@
 package jie.android.ip.screen.menu;
 
-import jie.android.ip.CommonConsts.SoundConfig;
-import jie.android.ip.Sounder;
+import jie.android.ip.AudioPlayer;
+import jie.android.ip.CommonConsts.AudioConfig;
 import jie.android.ip.common.dialog.BaseDialog;
 
 import com.badlogic.gdx.Gdx;
@@ -18,7 +18,7 @@ public class MenuRenderer {
 	}
 	
 	private final MenuScreen screen;
-	private final Sounder sounder;
+	private final AudioPlayer audioPlayer;
 //	private final Sound soundClick;
 	
 	private MenuScreenListener.RendererEventListener rendererListener;
@@ -86,7 +86,7 @@ public class MenuRenderer {
 	
 	public MenuRenderer(final MenuScreen screen) {
 		this.screen = screen;
-		this.sounder = this.screen.getGame().getSounder();
+		this.audioPlayer = this.screen.getGame().getAudioPlayer();
 		
 		initBackgroup();
 		
@@ -110,6 +110,6 @@ public class MenuRenderer {
 	}
 	
 	protected void playClick() {
-		sounder.play(SoundConfig.MENU_CLICK);
+		audioPlayer.playSound(AudioConfig.MENU_CLICK);
 	}	
 }

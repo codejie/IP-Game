@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import jie.android.ip.common.dialog.AlertDialog;
 import jie.android.ip.common.dialog.BaseDialog;
 import jie.android.ip.common.dialog.DialogConfig;
+import jie.android.ip.common.dialog.ScriptInfoDialog;
 import jie.android.ip.common.dialog.SettingDialog;
 
 public class PlayRenderer {
@@ -292,7 +293,10 @@ public class PlayRenderer {
 	}
 
 	protected boolean onCmdInfo(final Cmd.State state) {
-		final AlertDialog dlg = new AlertDialog(this.screen, "Come Soonddddddddddddd...", this.screen.getGame().getResources().getBitmapTrueFont(96), Color.YELLOW, null);
+//		final AlertDialog dlg = new AlertDialog(this.screen, "Come Soonddddddddddddd...", this.screen.getGame().getResources().getBitmapTrueFont(96), Color.YELLOW, null);
+//		dlg.show();
+		
+		final ScriptInfoDialog dlg = new ScriptInfoDialog(this.screen, this.scriptAuthor, this.scriptComment);
 		dlg.show();
 
 		return false;

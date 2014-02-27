@@ -33,8 +33,9 @@ public interface CommonConsts {
 		public static final String FONT_TRUE_CHARS = null;
 	}
 
-	public interface SoundConfig {
+	public interface AudioConfig {
 		public static final String MENU_CLICK = "data/sound/menu_click.mp3";
+		public static final String MUSIC_BACKGROUND = "data/sound/DST-DarkFuture.mp3";
 	}
 
 }

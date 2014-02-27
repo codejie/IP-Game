@@ -9,7 +9,7 @@ public class Sounder implements Disposable {
 
 	private final Resources resources; 
 	
-	private HashMap<String, Sound> mapSound = new HashMap<String, Sound>();
+	private HashMap<String, Sound> mapSound = new HashMap<String, Sound>();	
 	private boolean enabled = true;
 	
 	public Sounder(final Resources resources) {

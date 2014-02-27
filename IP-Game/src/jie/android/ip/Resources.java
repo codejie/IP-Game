@@ -2,7 +2,7 @@ package jie.android.ip;
 
 import jie.android.ip.CommonConsts.FontConfig;
 import jie.android.ip.CommonConsts.PackConfig;
-import jie.android.ip.CommonConsts.SoundConfig;
+import jie.android.ip.CommonConsts.AudioConfig;
 import jie.android.ip.common.ttf.BitmapTrueFont;
 import jie.android.ip.common.ttf.BitmapTrueFontLoader;
 
@@ -52,12 +52,12 @@ public class Resources implements Disposable {
 		assetManager.load(PackConfig.SCREEN_PLAY, TextureAtlas.class);
 		assetManager.load(PackConfig.SCREEN_MENU, TextureAtlas.class);
 		assetManager.load(PackConfig.SCREEN_DIALOG, TextureAtlas.class);
-		assetManager.load(FontConfig.FONT_18, BitmapFont.class);
-		assetManager.load(FontConfig.FONT_20, BitmapFont.class);
-		assetManager.load(FontConfig.FONT_24, BitmapFont.class);
+//		assetManager.load(FontConfig.FONT_18, BitmapFont.class);
+//		assetManager.load(FontConfig.FONT_20, BitmapFont.class);
+//		assetManager.load(FontConfig.FONT_24, BitmapFont.class);
 //		assetManager.load(ResourceConfig.CONSOLE_PACK_NAME, TextureAtlas.class);
 		
-		assetManager.load(SoundConfig.MENU_CLICK, Sound.class);
+		assetManager.load(AudioConfig.MENU_CLICK, Sound.class);
 		
 		assetManager.load(FontConfig.FONT_TRUE, BitmapTrueFont.class, new BitmapTrueFont.BitmapTrueFontParameter(FontConfig.FONT_TRUE_CHARS));
 		
@@ -68,21 +68,21 @@ public class Resources implements Disposable {
 		return assetManager.get(name, TextureAtlas.class);
 	}
 	
-	public final BitmapFont getBitmapFont(int size) {
-		BitmapFont font = null;
-		if (size == 18) {
-			 font = assetManager.get(FontConfig.FONT_18, BitmapFont.class);
-		} else if (size == 20) {
-			font = assetManager.get(FontConfig.FONT_20, BitmapFont.class);
-		} else {
-			font = assetManager.get(FontConfig.FONT_24, BitmapFont.class);
-		}
-		
-		if (font != null) {
-			font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-		}
-		return font;
-	}
+//	public final BitmapFont getBitmapFont(int size) {
+//		BitmapFont font = null;
+//		if (size == 18) {
+//			 font = assetManager.get(FontConfig.FONT_18, BitmapFont.class);
+//		} else if (size == 20) {
+//			font = assetManager.get(FontConfig.FONT_20, BitmapFont.class);
+//		} else {
+//			font = assetManager.get(FontConfig.FONT_24, BitmapFont.class);
+//		}
+//		
+//		if (font != null) {
+//			font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
+//		}
+//		return font;
+//	}
 	
 	public final Sound getSuond(final String name) {
 		return assetManager.get(name, Sound.class);
