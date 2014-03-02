@@ -16,6 +16,7 @@ public interface PlayScreenListener {
 		public void onExecuteSucc(int base_score, int score);
 		public void onExecuteFail();
 		public void onExecuteFinished();
+		public void onExecuteOverflow();
 	}
 	
 	public interface RendererEventListener {

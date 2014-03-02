@@ -1,6 +1,9 @@
 package jie.android.ip.screen.play;
 
 import com.badlogic.gdx.graphics.Color;
+
+import jie.android.ip.AudioPlayer;
+import jie.android.ip.CommonConsts.AudioConfig;
 import jie.android.ip.common.dialog.AlertDialog;
 import jie.android.ip.common.dialog.BaseDialog;
 import jie.android.ip.common.dialog.DialogConfig;
@@ -10,8 +13,10 @@ import jie.android.ip.common.dialog.SettingDialog;
 public class PlayRenderer {
 	
 	private final PlayScreen screen;
+	private final AudioPlayer audioPlayer;
+	
 	private PlayScreenListener.RendererEventListener rendererListener;
-
+	
 	private BoxGroup groupBox;
 	private TitleGroup groupTitle;
 	private CodeLineGroup groupCodeLine;
@@ -42,6 +47,13 @@ public class PlayRenderer {
 
 		@Override
 		public void onBoxMoved(final Box.Tray tray, final Box.Block block, int col, int row, int tcol, int trow) {
+			if (tray == null) {
+				if (row > trow) {
+					playTrayCatch();
+				} else {
+					playTrayRelease();
+				}
+			}
 			groupBox.move(tray, block, col, row, tcol, trow);
 		}
 		
@@ -79,6 +91,12 @@ public class PlayRenderer {
 		public void onExecuteFinished() {
 			groupResult.showFinishedStage();
 		}
+		
+		@Override
+		public void onExecuteOverflow() {
+			groupResult.showOverflowStage();			
+		}
+		
 		@Override
 		public void onScriptLoaded(int packId, int scriptId, final String packTitle, final String scriptTitle, final String author, final String comment) {
 			groupTitle.setTitle(packTitle, scriptTitle);
@@ -173,6 +191,7 @@ public class PlayRenderer {
 	
 	public PlayRenderer(final PlayScreen screen) {
 		this.screen = screen;
+		this.audioPlayer = screen.getGame().getAudioPlayer();
 		
 		initGroups();
 	}
@@ -254,28 +273,6 @@ public class PlayRenderer {
 		
 		final AlertDialog dlg = new AlertDialog(this.screen, "Do you want to remove your code ?", this.screen.getGame().getResources().getBitmapTrueFont(80), Color.YELLOW, listener, null);
 		dlg.show();
-//		
-//		
-//		final BaseDialog dlg = new BaseDialog(screen);
-//		dlg.setYesButton(new BaseDialog.ButtonClickListener() {
-//			
-//			@Override
-//			public void onClick(int id) {
-//				if (rendererListener != null) {
-//					rendererListener.onCmdButtonClicked(Cmd.Type.CLEAR, state);
-//				}
-//				dlg.dismiss();
-//			}
-//		});
-//		dlg.setNoButton(new BaseDialog.ButtonClickListener() {
-//			
-//			@Override
-//			public void onClick(int id) {
-//				dlg.dismiss();				
-//			}
-//		});
-//		dlg.setTextImage(DialogConfig.Image.TEXT_CLEAN_CODE);
-//		dlg.show();
 		
 		return false;
 	}	
@@ -329,4 +326,11 @@ public class PlayRenderer {
 		return false;
 	}
 
+	protected void playTrayCatch() {
+		audioPlayer.playSound(AudioConfig.TRAY_CATCH);
+	}
+	
+	protected void playTrayRelease() {
+		audioPlayer.playSound(AudioConfig.TRAY_RELEASE);
+	}	
 }

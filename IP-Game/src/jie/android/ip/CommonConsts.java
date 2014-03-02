@@ -24,10 +24,10 @@ public interface CommonConsts {
 	}
 	
 	public interface FontConfig {
-		public static final String FONT_18 = "data/font/arial-18.fnt";
-		public static final String FONT_20 = "data/font/arial-20.fnt";
-		public static final String FONT_24 = "data/font/arial-24.fnt";
-		
+//		public static final String FONT_18 = "data/font/arial-18.fnt";
+//		public static final String FONT_20 = "data/font/arial-20.fnt";
+//		public static final String FONT_24 = "data/font/arial-24.fnt";
+//		
 		public static final String FONT_TRUE = "data/font/segoeuib.ttf";
 //		public static final String FONT_TRUE = "data/font/simli.ttf";
 		public static final String FONT_TRUE_CHARS = null;
@@ -35,7 +35,10 @@ public interface CommonConsts {
 
 	public interface AudioConfig {
 		public static final String MENU_CLICK = "data/sound/menu_click.mp3";
-		public static final String MUSIC_BACKGROUND = "data/sound/DST-DarkFuture.mp3";
+		public static final String TRAY_CATCH = "data/sound/Pickup_Coin106.wav";
+		public static final String TRAY_RELEASE = "data/sound/Pickup_Coin119.wav";
+		
+		public static final String MUSIC_BACKGROUND = "data/sound/Gaiaires.mp3";//DST-DarkFuture.mp3";
 	}
 
 }

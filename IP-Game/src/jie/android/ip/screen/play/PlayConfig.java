@@ -132,7 +132,8 @@ public interface PlayConfig {
 			public static final String BG = "result_bg";			
 			public static final String SUCC = "result_succ";
 			public static final String FAIL = "result_failed";
-			public static final String FINISHED = "result_finished";			
+			public static final String FINISHED = "result_finished";
+			public static final String OVERFLOW = "result_overflow";
 		}
 		
 		public interface Toggle {

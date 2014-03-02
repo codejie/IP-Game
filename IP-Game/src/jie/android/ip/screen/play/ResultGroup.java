@@ -24,7 +24,7 @@ import jie.android.ip.screen.play.PlayConfig.Image;
 public class ResultGroup extends ScreenGroup {
 
 	private enum Which {
-		SUCC, FAIL, FINISHED;
+		SUCC, FAIL, FINISHED, OVERFLOW;
 	}
 	
 	private final TextureAtlas textureAtlas;
@@ -76,9 +76,11 @@ public class ResultGroup extends ScreenGroup {
 		} else if (which == Which.FAIL) {
 			result = new ImageActor(textureAtlas.findRegion(Image.Result.FAIL));
 			//result.setBounds(Const.Result.BASE_X_FAIL, Const.Result.BASE_Y_FAIL, Const.Result.WIDTH_FAIL, Const.Result.HEIGHT_FAIL);
-		} else { // if (which == Which.FINISHED) {
+		} else if (which == Which.FINISHED) {
 			result = new ImageActor(textureAtlas.findRegion(Image.Result.FINISHED));
 			//result.setBounds(Const.Result.BASE_X_FINISHED, Const.Result.BASE_Y_FINISHED, Const.Result.WIDTH_FINISHED, Const.Result.HEIGHT_FINISHED);
+		} else if (which == Which.OVERFLOW) {
+			result = new ImageActor(textureAtlas.findRegion(Image.Result.OVERFLOW));
 		}
 
 		float x = (Const.Result.WIDTH - result.getWidth()) / 2;
@@ -154,6 +156,26 @@ public class ResultGroup extends ScreenGroup {
 		updateResult(Which.FINISHED);
 		this.setVisible(true);		
 		Tween.to(result, ImageActorAccessor.SCALE_XY, 0.2f).target(1.0f, 1.0f).start(tweenManager);
+	}
+	
+	public void showOverflowStage() {
+		updateResult(Which.OVERFLOW);
+		
+		final float zoom = 20.0f;
+		float x = (Const.Result.WIDTH - result.getWidth()) / 2;
+		float y = Const.Result.BASE_Y_RESULT;
+		
+		this.setVisible(true);
+
+		Timeline.createParallel()
+			.push(Tween.set(result, ImageActorAccessor.OPACITY).target(0.0f))
+			.push(Tween.set(result, ImageActorAccessor.SCALE_XY).target(zoom, zoom))
+			.push(Tween.set(result, ImageActorAccessor.POSITION_XY).target(0, 0))
+			
+			.push(Tween.to(result, ImageActorAccessor.OPACITY, 0.2f).target(1.0f))
+			.push(Tween.to(result, ImageActorAccessor.SCALE_XY, 0.2f).target(1.0f, 1.0f))
+			.push(Tween.to(result, ImageActorAccessor.POSITION_XY, 0.2f).target(x, y))			
+			.start(tweenManager);		
 	}
 	
 	public void hideStage() {

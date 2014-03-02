@@ -58,6 +58,8 @@ public class Resources implements Disposable {
 //		assetManager.load(ResourceConfig.CONSOLE_PACK_NAME, TextureAtlas.class);
 		
 		assetManager.load(AudioConfig.MENU_CLICK, Sound.class);
+		assetManager.load(AudioConfig.TRAY_CATCH, Sound.class);
+		assetManager.load(AudioConfig.TRAY_RELEASE, Sound.class);
 		
 		assetManager.load(FontConfig.FONT_TRUE, BitmapTrueFont.class, new BitmapTrueFont.BitmapTrueFontParameter(FontConfig.FONT_TRUE_CHARS));
 		
