@@ -23,6 +23,7 @@ import jie.android.ip.common.actor.ButtonActor;
 import jie.android.ip.common.actor.ImageActor;
 import jie.android.ip.common.actor.LabelActor;
 import jie.android.ip.common.actor.ScreenGroup;
+import jie.android.ip.common.dialog.SettingDialog;
 import jie.android.ip.executor.Script;
 import jie.android.ip.screen.BaseScreen;
 import jie.android.ip.screen.menu.MenuConfig.Const;
@@ -57,14 +58,14 @@ public class PackGroup extends ScreenGroup {
 				this.addActor(bg);
 			}
 			LabelActor tl = new LabelActor(title, titleBitmapFont);
-			tl.setColor(new Color(0xFFD700ff));
+			tl.setColor(new Color(0x00008Bff));
 			tl.setPosition((Const.Pack.WIDTH - tl.getWidth()) / 2, Const.Pack.HEIGHT * 0.6f);// ,
 																								// tb.width,
 																								// tb.height);
 			this.addActor(tl);
 
 			LabelActor i = new LabelActor(info, infoBitmapFont);
-			i.setColor(new Color(0xFFD700ff));
+			i.setColor(new Color(0x00008Bff));
 			i.setPosition((Const.Pack.WIDTH - i.getWidth()) / 2, Const.Pack.HEIGHT * 0.2f);// ,
 																							// tb.width,
 																							// tb.height);
@@ -113,7 +114,7 @@ public class PackGroup extends ScreenGroup {
 			// title
 			final LabelActor title = new LabelActor(item.getScript().getTitle(), titleBitmapFont);
 			if (item.getStatus() == 0) {
-				title.setColor(new Color(0x8B4513f0));
+				title.setColor(new Color(0xA52A2Af0));
 			} else {
 				title.setColor(new Color(0xD2691Ef0));
 			}
@@ -123,7 +124,7 @@ public class PackGroup extends ScreenGroup {
 			if (item.getStatus() != 0) {
 				final LabelActor sc = new LabelActor(String.format("%d/%d", item.getScore(), item.getBaseScore()),
 						infoBitmapFont);
-				sc.setColor(new Color(0x597780f0));
+				sc.setColor(new Color(0xD2691Ef0));
 				sc.setPosition((Const.Pack.WIDTH - sc.getWidth()) / 2, Const.Pack.HEIGHT * 0.2f);
 				this.addActor(sc);
 			}
@@ -261,6 +262,14 @@ public class PackGroup extends ScreenGroup {
 		title.setBounds(Const.TITLE_X, Const.TITLE_Y, Const.TITLE_WIDTH, Const.TITLE_HEIGHT);
 		this.addActor(title);
 		title.setZIndex(0x0f);
+		title.addListener(new ClickListener() {
+
+			@Override
+			public void clicked(InputEvent event, float x, float y) {
+				onTitleClicked();
+			}
+			
+		});
 
 		btnBack = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Button.BACK_UP),
 				skin.getDrawable(Image.Button.BACK_DOWN), null));
@@ -300,6 +309,10 @@ public class PackGroup extends ScreenGroup {
 
 		});
 		this.addActor(btnPrev);
+	}
+
+	protected void onTitleClicked() {
+		new SettingDialog(this.screen).show();
 	}
 
 	public void loadPacks(final Pack[] packs) {

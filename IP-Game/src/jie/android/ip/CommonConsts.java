@@ -38,6 +38,9 @@ public interface CommonConsts {
 		public static final String TRAY_CATCH = "data/sound/Pickup_Coin106.wav";
 		public static final String TRAY_RELEASE = "data/sound/Pickup_Coin119.wav";
 		
+		public static final String RESULT_SUCC = "data/sound/Pickup_Coin106.wav";
+		public static final String RESULT_FAIL = "data/sound/Pickup_Coin119.wav";
+		
 		public static final String MUSIC_BACKGROUND = "data/sound/Gaiaires.mp3";//DST-DarkFuture.mp3";
 	}
 

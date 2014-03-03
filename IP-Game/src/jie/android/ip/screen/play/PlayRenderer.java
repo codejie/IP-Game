@@ -78,22 +78,27 @@ public class PlayRenderer {
 				groupLesson.onExecuteEnd(true);
 			}
 			
+			playResultSucc();
+			
 			groupCmdPanel.showMenu(Cmd.Layer.THIRD);
 			groupResult.showSuccStage(base_score, score);			
 		}
 		
 		@Override
 		public void onExecuteFail() {
+			playResultFail();
 			groupResult.showFailStage();
 		}
 		
 		@Override
 		public void onExecuteFinished() {
+			playResultFail();
 			groupResult.showFinishedStage();
 		}
 		
 		@Override
 		public void onExecuteOverflow() {
+			playResultFail();
 			groupResult.showOverflowStage();			
 		}
 		
@@ -290,8 +295,6 @@ public class PlayRenderer {
 	}
 
 	protected boolean onCmdInfo(final Cmd.State state) {
-//		final AlertDialog dlg = new AlertDialog(this.screen, "Come Soonddddddddddddd...", this.screen.getGame().getResources().getBitmapTrueFont(96), Color.YELLOW, null);
-//		dlg.show();
 		
 		final ScriptInfoDialog dlg = new ScriptInfoDialog(this.screen, this.scriptAuthor, this.scriptComment);
 		dlg.show();
@@ -327,10 +330,19 @@ public class PlayRenderer {
 	}
 
 	protected void playTrayCatch() {
-		audioPlayer.playSound(AudioConfig.TRAY_CATCH);
+//		audioPlayer.playSound(AudioConfig.TRAY_CATCH);
 	}
 	
 	protected void playTrayRelease() {
-		audioPlayer.playSound(AudioConfig.TRAY_RELEASE);
-	}	
+//		audioPlayer.playSound(AudioConfig.TRAY_RELEASE);
+	}
+	
+	protected void playResultSucc() {
+		audioPlayer.playSound(AudioConfig.RESULT_SUCC);
+	}
+	
+	protected void playResultFail() {
+		audioPlayer.playSound(AudioConfig.RESULT_FAIL);
+	}
+	
 }

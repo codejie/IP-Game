@@ -51,7 +51,7 @@ public interface DialogConfig {
 		public static final int BASE_Y_WINDOW = 128;
 		
 //		public static final int BUTTON_BASE_X = 0;
-		public static final int BUTTON_BASE_Y = BASE_Y_WINDOW + 24;
+		public static final int BUTTON_BASE_Y = BASE_Y_WINDOW + 12;
 		public static final int BUTTON_WIDTH = 128 * 2;
 		public static final int BUTTON_HEIGHT = 96;
 		public static final int BUTTON_SPACE_X = 128;

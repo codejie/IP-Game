@@ -48,14 +48,14 @@ public class TitleGroup extends ScreenGroup {
 	public void setTitle(final String pack, final String script) {
 		packTitle = new LabelActor(pack, super.resources.getBitmapTrueFont(40));
 		float x = (Const.Title.WIDTH - packTitle.getWidth()) / 2;
-		packTitle.setColor(new Color(0.58f, 0.43f, 0.27f, 1.f));
+		packTitle.setColor(new Color(0x00008Bff));
 		packTitle.setPosition(x, Const.Title.Y_PACK);
 		this.addActor(packTitle);
 		
-		scriptTitle = new LabelActor(script, super.resources.getBitmapTrueFont(45));
+		scriptTitle = new LabelActor(script, super.resources.getBitmapTrueFont(52));
 		x = (Const.Title.WIDTH - scriptTitle.getWidth()) / 2;		
 		scriptTitle.setPosition(x, Const.Title.Y_SCRIPT);
-		scriptTitle.setColor(new Color(0.56f, 0.99f, 0.43f, 1.f));
+		scriptTitle.setColor(new Color(0xA52A2Aff));
 		this.addActor(scriptTitle);		
 	}
 	

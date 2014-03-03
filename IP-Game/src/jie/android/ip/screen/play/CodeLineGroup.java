@@ -255,19 +255,7 @@ public class CodeLineGroup extends ScreenGroup {
 			for (int i = 0; i < nodes.length; ++ i) {
 				final ImageActor small = makeImageActor(nodes[i], i, true);
 				final ImageActor big = makeImageActor(nodes[i], i, false);
-				lineButton.setActor(i, small, big);
-				
-//				//small
-//				buttons[i].smallActor = makeImageActor(buttons[i], i, true);
-//				this.addActor(buttons[i].smallActor);
-//				if (i % 2 != 0) {
-//					if (buttons[i - 1].smallActor != null) {
-//						buttons[i - 1].smallActor.setZIndex(buttons[i].smallActor.getZIndex() + 1);
-//					}
-//				}				
-//				//big
-//				buttons[i].bigActor = makeImageActor(buttons[i], i, false);
-//				this.addActor(buttons[i].bigActor);				
+				lineButton.setActor(i, small, big);			
 			}
 		}
 		
@@ -622,18 +610,18 @@ public class CodeLineGroup extends ScreenGroup {
 			
 			if (index == 0 || index == 1) {
 				if (pos % 2 == 0) {				
-					y = ly + Const.Lines.Small.HEIGHT_BG;
+					y = ly + Const.Lines.Small.HEIGHT_BG + 2;
 				} else {
 					y = ly - (Const.Lines.Big.HEIGHT_BG - Const.Lines.Small.HEIGHT_BG) - Const.Lines.Panel.Order.HEIGHT_BG;
 				}
 			} else if (index == 2) {
 				if (pos % 2 == 0) {				
-					y = ly + Const.Lines.Big.HEIGHT_BG;
+					y = ly + Const.Lines.Big.HEIGHT_BG + 2;
 				} else {
 					y = ly - Const.Lines.Panel.Order.HEIGHT_BG;
 				}
 			} else {
-				y = ly + Const.Lines.Big.HEIGHT_BG;
+				y = ly + Const.Lines.Big.HEIGHT_BG + 2;
 			}
 			
 			float sx = x + (Const.Lines.Panel.SPACE_X + Const.Lines.Panel.WIDTH_BUTTON) * (3 + 0.5f);

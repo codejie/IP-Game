@@ -139,8 +139,8 @@ public interface PlayConfig {
 		public interface Toggle {
 
 			public static final String BG = "cmd_bg";//"toggle_bg";
-			public static final String RIGHT = "panel_order_bg";// "toggle_right";
-			public static final String LEFT = "panel_order_bg";//"toggle_left";			
+			public static final String RIGHT = "toggle";// "toggle_right";
+			public static final String LEFT = "toggle";//"toggle_left";			
 		}
 		
 		public interface Lesson {
@@ -188,7 +188,7 @@ public interface PlayConfig {
 			public static final int COLUMN_X = COL_BASE - 24 - 2;// 48;
 			public static final int COLUMN_Y = 144;
 			public static final int COLUMN_SPACE = 144;//48 + 96;
-			public static final float COLUMN_WIDTH = 4;
+			public static final float COLUMN_WIDTH = 6;
 			public static final float COLUMN_HEIGHT = 592;
 		}	
 		
