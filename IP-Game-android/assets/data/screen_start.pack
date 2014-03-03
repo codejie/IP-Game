@@ -5,77 +5,77 @@ filter: Nearest,Nearest
 repeat: none
 p1
   rotate: false
-  xy: 1, 135
+  xy: 1, 156
   size: 882, 99
   orig: 882, 99
   offset: 0, 0
   index: -1
 title
   rotate: false
-  xy: 1, 104
+  xy: 1, 125
   size: 271, 29
   orig: 271, 29
   offset: 0, 0
   index: -1
 am
   rotate: false
-  xy: 1, 2
+  xy: 1, 23
   size: 141, 100
   orig: 141, 100
   offset: 0, 0
   index: -1
 loading
   rotate: false
-  xy: 274, 98
+  xy: 274, 119
   size: 176, 35
   orig: 176, 35
   offset: 0, 0
   index: -1
 a
   rotate: false
-  xy: 885, 139
+  xy: 885, 160
   size: 99, 95
   orig: 99, 95
   offset: 0, 0
   index: -1
 p
   rotate: false
-  xy: 144, 7
+  xy: 144, 28
   size: 80, 95
   orig: 80, 95
   offset: 0, 0
   index: -1
 author
   rotate: false
-  xy: 452, 118
+  xy: 452, 139
   size: 149, 15
   orig: 149, 15
   offset: 0, 0
   index: -1
+ver
+  rotate: false
+  xy: 1, 5
+  size: 140, 16
+  orig: 140, 16
+  offset: 0, 0
+  index: -1
 semi
   rotate: false
-  xy: 226, 6
+  xy: 226, 27
   size: 42, 96
   orig: 42, 96
   offset: 0, 0
   index: -1
 I
   rotate: false
-  xy: 270, 1
+  xy: 270, 22
   size: 59, 95
   orig: 59, 95
   offset: 0, 0
   index: -1
-ver
-  rotate: false
-  xy: 452, 105
-  size: 96, 11
-  orig: 96, 11
-  offset: 0, 0
-  index: -1
 s-bg
   rotate: false
-  xy: 270, 100
+  xy: 1, 1
   size: 2, 2
   orig: 2, 2
   offset: 0, 0

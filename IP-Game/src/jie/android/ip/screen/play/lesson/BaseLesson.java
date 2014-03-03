@@ -16,6 +16,8 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public abstract class BaseLesson {
 	
+	protected static final int COLOR_TEXT = 0x191970ff;
+	
 	protected final LessonGroup group;
 	protected final TextureAtlas textureAtlas;
 	
