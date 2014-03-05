@@ -49,15 +49,6 @@ public class Code {
 	}
 
 	public interface OnButtonListener {
-		
-//		public enum Which {
-//			BASE_GROUP, PANEL_GROUP, PANEL, LINE_GROUP, LINE;
-//			
-//			public int getId() {
-//				return this.ordinal();
-//			}
-//		}
-		//void onClick(final Which which, int index, int pos);
 		void onBaseGroupClick();
 		void onLineGroupClick(int index);
 		void onLineClick(int index, int pos);

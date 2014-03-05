@@ -113,6 +113,8 @@ public class CodeLineGroup extends ScreenGroup {
 		private ImageActor smallTitle, bigTitle;		
 		private LineButton lineButton;
 		
+		private ImageActor orderHighlight, judgeHighlight;
+		
 		public LineGroup(int index, final Resources resources, final TextureAtlas textureAtlas, final Code.OnButtonListener listener) {
 			this.index = index;
 			this.textureAtlas = textureAtlas;
@@ -323,35 +325,91 @@ public class CodeLineGroup extends ScreenGroup {
 			return ret;	
 		}
 		
-		private void setButtonBounds(final ImageActor actor, int pos, boolean judge, boolean small) {
-			float x = 0, y = 0;
-			float w = 0, h = 0;
+		private int getButtonX(int pos, boolean small) {
 			if (small) {
 				if (pos % 2 == 0) {				
-					x = Const.Lines.Small.WIDTH_TITLE + (Const.Lines.Small.WIDTH_BUTTON_ORDER + Const.Lines.Small.SPACE_X) * (pos / 2) + Const.Lines.Small.SPACE_X;
-					y = Const.Lines.Small.SPACE_Y + Const.Lines.Small.HEIGHT_BUTTON_ORDER - Const.Lines.Small.HEIGHT_BUTTON_JUDGE;
+					return Const.Lines.Small.WIDTH_TITLE + (Const.Lines.Small.WIDTH_BUTTON_ORDER + Const.Lines.Small.SPACE_X) * (pos / 2) + Const.Lines.Small.SPACE_X;
+				} else {
+					//order
+					return Const.Lines.Small.WIDTH_TITLE + (Const.Lines.Small.WIDTH_BUTTON_ORDER + Const.Lines.Small.SPACE_X) * ((pos - 1) / 2) + Const.Lines.Small.SPACE_X;
+				}
+			} else {
+				if (pos % 2 == 0) {				
+					return Const.Lines.Big.WIDTH_TITLE + (Const.Lines.Big.WIDTH_BUTTON_JUDGE + Const.Lines.Big.SPACE_X) * (pos / 2) + Const.Lines.Big.SPACE_X;
+				} else {
+					return Const.Lines.Big.WIDTH_TITLE + (Const.Lines.Big.WIDTH_BUTTON_ORDER + Const.Lines.Big.SPACE_X) * ((pos - 1) / 2) + Const.Lines.Big.SPACE_X;
+				}
+			}			
+		}
+		
+		private int getButtonY(int pos, boolean small) {
+			if (small) {
+				if (pos % 2 == 0) {				
+					return Const.Lines.Small.SPACE_Y + Const.Lines.Small.HEIGHT_BUTTON_ORDER - Const.Lines.Small.HEIGHT_BUTTON_JUDGE;
+				} else {
+					//order
+					return Const.Lines.Small.SPACE_Y;
+				}
+			} else {
+				if (pos % 2 == 0) {				
+					return Const.Lines.Big.SPACE_Y + Const.Lines.Big.HEIGHT_BUTTON_ORDER;// - Const.Lines.Big.HEIGHT_BUTTON_JUDGE;
+				} else {
+					return Const.Lines.Big.SPACE_Y;
+				}
+			}			
+		}
+		
+		private void setButtonBounds(final ImageActor actor, int pos, boolean judge, boolean small) {
+//			float x = 0, y = 0;
+//			float w = 0, h = 0;
+//			if (small) {
+//				if (pos % 2 == 0) {				
+//					x = Const.Lines.Small.WIDTH_TITLE + (Const.Lines.Small.WIDTH_BUTTON_ORDER + Const.Lines.Small.SPACE_X) * (pos / 2) + Const.Lines.Small.SPACE_X;
+//					y = Const.Lines.Small.SPACE_Y + Const.Lines.Small.HEIGHT_BUTTON_ORDER - Const.Lines.Small.HEIGHT_BUTTON_JUDGE;
+//					w = Const.Lines.Small.WIDTH_BUTTON_JUDGE;
+//					h = Const.Lines.Small.HEIGHT_BUTTON_JUDGE;				
+//				} else {
+//					//order
+//					x = Const.Lines.Small.WIDTH_TITLE + (Const.Lines.Small.WIDTH_BUTTON_ORDER + Const.Lines.Small.SPACE_X) * ((pos - 1) / 2) + Const.Lines.Small.SPACE_X;
+//					y = Const.Lines.Small.SPACE_Y;
+//					w = Const.Lines.Small.WIDTH_BUTTON_ORDER;
+//					h = Const.Lines.Small.HEIGHT_BUTTON_ORDER;
+//				}
+//			} else {
+//				if (pos % 2 == 0) {				
+//					x = Const.Lines.Big.WIDTH_TITLE + (Const.Lines.Big.WIDTH_BUTTON_JUDGE + Const.Lines.Big.SPACE_X) * (pos / 2) + Const.Lines.Big.SPACE_X;
+//					y = Const.Lines.Big.SPACE_Y + Const.Lines.Big.HEIGHT_BUTTON_ORDER;// - Const.Lines.Big.HEIGHT_BUTTON_JUDGE;
+//					w = Const.Lines.Big.WIDTH_BUTTON_JUDGE;
+//					h = Const.Lines.Big.HEIGHT_BUTTON_JUDGE;					
+//				} else {
+//					x = Const.Lines.Big.WIDTH_TITLE + (Const.Lines.Big.WIDTH_BUTTON_ORDER + Const.Lines.Big.SPACE_X) * ((pos - 1) / 2) + Const.Lines.Big.SPACE_X;
+//					y = Const.Lines.Big.SPACE_Y;
+//					w = Const.Lines.Big.WIDTH_BUTTON_ORDER;
+//					h = Const.Lines.Big.HEIGHT_BUTTON_ORDER;				
+//				}
+//			}
+			
+			int x = getButtonX(pos, small);
+			int y = getButtonY(pos, small);
+			int w, h;
+			if (small) {
+				if (pos % 2 == 0) {				
 					w = Const.Lines.Small.WIDTH_BUTTON_JUDGE;
 					h = Const.Lines.Small.HEIGHT_BUTTON_JUDGE;				
 				} else {
 					//order
-					x = Const.Lines.Small.WIDTH_TITLE + (Const.Lines.Small.WIDTH_BUTTON_ORDER + Const.Lines.Small.SPACE_X) * ((pos - 1) / 2) + Const.Lines.Small.SPACE_X;
-					y = Const.Lines.Small.SPACE_Y;
 					w = Const.Lines.Small.WIDTH_BUTTON_ORDER;
 					h = Const.Lines.Small.HEIGHT_BUTTON_ORDER;
 				}
 			} else {
 				if (pos % 2 == 0) {				
-					x = Const.Lines.Big.WIDTH_TITLE + (Const.Lines.Big.WIDTH_BUTTON_JUDGE + Const.Lines.Big.SPACE_X) * (pos / 2) + Const.Lines.Big.SPACE_X;
-					y = Const.Lines.Big.SPACE_Y + Const.Lines.Big.HEIGHT_BUTTON_ORDER;// - Const.Lines.Big.HEIGHT_BUTTON_JUDGE;
 					w = Const.Lines.Big.WIDTH_BUTTON_JUDGE;
 					h = Const.Lines.Big.HEIGHT_BUTTON_JUDGE;					
 				} else {
-					x = Const.Lines.Big.WIDTH_TITLE + (Const.Lines.Big.WIDTH_BUTTON_ORDER + Const.Lines.Big.SPACE_X) * ((pos - 1) / 2) + Const.Lines.Big.SPACE_X;
-					y = Const.Lines.Big.SPACE_Y;
 					w = Const.Lines.Big.WIDTH_BUTTON_ORDER;
 					h = Const.Lines.Big.HEIGHT_BUTTON_ORDER;				
 				}
-			}
+			}			
 			
 			actor.setBounds(x, y, w, h);
 		}
@@ -376,6 +434,9 @@ public class CodeLineGroup extends ScreenGroup {
 				}
 			};
 			
+			
+			removeHighlight();
+			
 			final Vector2 vct = getCodeLinePosition();
 			float scale = 0.6f;
 			
@@ -396,6 +457,46 @@ public class CodeLineGroup extends ScreenGroup {
 				.setCallbackTriggers(TweenCallback.COMPLETE | TweenCallback.START)
 				.setCallback(callback)
 			.start(tweenManager);			
+		}
+
+		public void setHighlight(int pos) {
+			
+			int x = getButtonX(pos, false);
+			int y = getButtonY(pos, false);
+			
+			if (pos % 2 == 0) {
+				if (orderHighlight != null) {
+					orderHighlight.setVisible(false);
+				}
+				
+				if (judgeHighlight == null) {
+					judgeHighlight = new ImageActor(textureAtlas.findRegion(Image.Lines.Big.HIGHLIGHT_JUDEG));
+					this.addActor(judgeHighlight);
+				} 
+				judgeHighlight.setPosition(x, y);
+				judgeHighlight.setVisible(true);
+
+			} else {
+				if (judgeHighlight != null) {
+					judgeHighlight.setVisible(false);
+				}
+				
+				if (orderHighlight == null) {
+					orderHighlight = new ImageActor(textureAtlas.findRegion(Image.Lines.Big.HIGHLIGHT_ORDER));
+					this.addActor(orderHighlight);
+				} 
+				orderHighlight.setPosition(x, y);
+				orderHighlight.setVisible(true);
+			}
+		}
+		
+		private void removeHighlight() {
+			if (orderHighlight != null) {
+				orderHighlight.setVisible(false);
+			}
+			if (judgeHighlight != null) {
+				judgeHighlight.setVisible(false);
+			}			
 		}
 	}
 	//
@@ -805,9 +906,11 @@ public class CodeLineGroup extends ScreenGroup {
 		}
 	}
 	
-	protected void onLineClicked(int index, int pos) {
+	protected void onLineClicked(int index, int pos) {		
 		cacheLinePos = pos;
 
+		groupLine[index].setHighlight(pos);
+		
 		final Vector2 vct = groupLine[index].getCodeLinePosition();
 		groupPanel.show(index, pos, vct.x, vct.y, tweenManager);
 	}
