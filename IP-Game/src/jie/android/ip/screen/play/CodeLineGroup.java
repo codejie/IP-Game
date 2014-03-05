@@ -475,6 +475,7 @@ public class CodeLineGroup extends ScreenGroup {
 				} 
 				judgeHighlight.setPosition(x, y);
 				judgeHighlight.setVisible(true);
+				judgeHighlight.setZIndex(0xF1);
 
 			} else {
 				if (judgeHighlight != null) {
@@ -487,6 +488,7 @@ public class CodeLineGroup extends ScreenGroup {
 				} 
 				orderHighlight.setPosition(x, y);
 				orderHighlight.setVisible(true);
+				orderHighlight.setZIndex(0xF1);
 			}
 		}
 		

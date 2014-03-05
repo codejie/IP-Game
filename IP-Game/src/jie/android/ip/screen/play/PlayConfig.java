@@ -105,8 +105,8 @@ public interface PlayConfig {
 				public static final String CODE_CALL_2 = "lines_big_code_call_c";
 				public static final String CODE_CALL_3 = "lines_big_code_call_d";
 				
-				public static final String HIGHLIGHT_JUDEG = "lines_big_code_if_a";//"lines_big_highlight_judeg";
-				public static final String HIGHLIGHT_ORDER = "lines_big_code_call_d";//"lines_big_highlight_order";
+				public static final String HIGHLIGHT_JUDEG = "lines_big_highlight_judeg";
+				public static final String HIGHLIGHT_ORDER = "lines_big_highlight_order";
 			}
 			
 			public interface Panel {
