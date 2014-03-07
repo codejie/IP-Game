@@ -244,7 +244,7 @@ public class LessonTwo extends BaseLesson {
 		makeLabelActor(120, 560, "Click anywhere except current column to ready to run", 36, new Color(COLOR_TEXT));
 		makeImageActor(1000, 610, 0.5f, Image.Lesson.ARROW_RU);
 		
-		makeTrapActor(0, 0, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);
+		makeTrapActor(0, ScreenConfig.HEIGHT / 2, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);
 		
 		return true;
 	}
