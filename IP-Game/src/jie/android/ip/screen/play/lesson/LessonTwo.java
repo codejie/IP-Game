@@ -151,7 +151,7 @@ public class LessonTwo extends BaseLesson {
 		makeLabelActor(160, 560, "to close current code column", 36, new Color(COLOR_TEXT));
 		makeImageActor(1000, 520, 0.5f, Image.Lesson.ARROW_LB);
 		
-		makeTrapActor(0, 0, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);
+		makeTrapActor(0, ScreenConfig.HEIGHT / 2, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);
 		
 		return true;
 	}

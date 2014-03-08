@@ -113,6 +113,7 @@ public class CodeLineGroup extends ScreenGroup {
 		private ImageActor smallTitle, bigTitle;		
 		private LineButton lineButton;
 		
+		private ImageActor orderFocus, judgeFocus;
 		private ImageActor orderHighlight, judgeHighlight;
 		
 		public LineGroup(int index, final Resources resources, final TextureAtlas textureAtlas, final Code.OnButtonListener listener) {
@@ -435,6 +436,7 @@ public class CodeLineGroup extends ScreenGroup {
 			};
 			
 			
+			removeFocus();
 			removeHighlight();
 			
 			final Vector2 vct = getCodeLinePosition();
@@ -459,10 +461,51 @@ public class CodeLineGroup extends ScreenGroup {
 			.start(tweenManager);			
 		}
 
-		public void setHighlight(int pos) {
+		public void setFocus(int pos) {
 			
 			int x = getButtonX(pos, false);
 			int y = getButtonY(pos, false);
+			
+			if (pos % 2 == 0) {
+				if (orderFocus != null) {
+					orderFocus.setVisible(false);
+				}
+				
+				if (judgeFocus == null) {
+					judgeFocus = new ImageActor(textureAtlas.findRegion(Image.Lines.Big.FOCUS_JUDEG));
+					this.addActor(judgeFocus);
+				} 
+				judgeFocus.setPosition(x, y);
+				judgeFocus.setVisible(true);
+				judgeFocus.setZIndex(0xF1);
+
+			} else {
+				if (judgeFocus != null) {
+					judgeFocus.setVisible(false);
+				}
+				
+				if (orderFocus == null) {
+					orderFocus = new ImageActor(textureAtlas.findRegion(Image.Lines.Big.FOCUS_ORDER));
+					this.addActor(orderFocus);
+				} 
+				orderFocus.setPosition(x, y);
+				orderFocus.setVisible(true);
+				orderFocus.setZIndex(0xF1);
+			}
+		}
+		
+		private void removeFocus() {
+			if (orderFocus != null) {
+				orderFocus.setVisible(false);
+			}
+			if (judgeFocus != null) {
+				judgeFocus.setVisible(false);
+			}			
+		}
+
+		public void setHighlight(int pos) {
+			int x = getButtonX(pos, true);
+			int y = getButtonY(pos, true);						
 			
 			if (pos % 2 == 0) {
 				if (orderHighlight != null) {
@@ -498,7 +541,7 @@ public class CodeLineGroup extends ScreenGroup {
 			}
 			if (judgeHighlight != null) {
 				judgeHighlight.setVisible(false);
-			}			
+			}	
 		}
 	}
 	//
@@ -811,10 +854,6 @@ public class CodeLineGroup extends ScreenGroup {
 		// TODO Auto-generated method stub
 	}
 	
-//	public void setRendererEventListener(final PlayScreenListener.RendererEventListener listener) {
-//		rendererListener = listener;
-//	}
-
 	private void initGroups() {
 		final Group base = this;
 		base.setBounds(0, 0, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);
@@ -856,6 +895,10 @@ public class CodeLineGroup extends ScreenGroup {
 		for (int i = 0; i < groupLine.length; ++ i) {
 			groupLine[i].loadButtons(lines.getFuncNode(i));
 		}
+//		if (cacheLineIndex != -1) {
+//			groupLine[cacheLineIndex].removeHighlight();
+//		}
+//		cacheLineIndex = -1;
 	}
 	
 	public void minimizeLines(boolean show) {
@@ -890,6 +933,11 @@ public class CodeLineGroup extends ScreenGroup {
 		}
 		
 		isMinimized = show;
+		
+		if (cacheLineIndex != -1) {
+			groupLine[cacheLineIndex].removeHighlight();
+		}
+		cacheLineIndex = -1;		
 	}	
 	
 	protected void onLineGroupClicked(int index) {
@@ -911,7 +959,7 @@ public class CodeLineGroup extends ScreenGroup {
 	protected void onLineClicked(int index, int pos) {		
 		cacheLinePos = pos;
 
-		groupLine[index].setHighlight(pos);
+		groupLine[index].setFocus(pos);
 		
 		final Vector2 vct = groupLine[index].getCodeLinePosition();
 		groupPanel.show(index, pos, vct.x, vct.y, tweenManager);
@@ -931,6 +979,17 @@ public class CodeLineGroup extends ScreenGroup {
 			groupLine[cacheLineIndex].toggleState(tweenManager);
 			cacheLineIndex = -1;
 		}		
+	}
+
+	public void setHighlight(int type, int index, int pos) {
+		if (cacheLineIndex != index) {
+			if (cacheLineIndex != -1) {
+				groupLine[cacheLineIndex].removeHighlight();
+			}
+			cacheLineIndex = index;
+		}
+
+		groupLine[index].setHighlight(pos);
 	}
 
 }

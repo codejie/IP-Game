@@ -32,10 +32,13 @@ public abstract class BaseExecutor {
 		private static final long serialVersionUID = 1L;
 
 		public void loadCommand(final CommandSet cmdset, int func) {
+			int index = super.size();
 			CommandSet.CommandQueue cmds = cmdset.get(func);
 			if (cmds != null) {
-				CommandSet.CommandQueue tmp = CommandSet.makeCommandQueue();
+				int idx = 0; 
+				//CommandSet.CommandQueue tmp = CommandSet.makeCommandQueue();
 				for (final Command cmd : cmds) {
+					++ idx;
 					if (cmd.getType() == CommandType.EMPTY) {
 						int type = cmd.getParamAsInt(0, -1);
 						if (type == EmptyType.ACT.getId()) {
@@ -44,13 +47,15 @@ public abstract class BaseExecutor {
 							continue;
 						}
 					}
-					tmp.add(cmd);
+//					tmp.add(cmd);
+					
+					super.insertElementAt(new InnerCommand(cmd, func, idx - 1), index);
 				}
 				
-				int idx = tmp.size();
-				for (final ListIterator<Command> iterator = tmp.listIterator(tmp.size()); iterator.hasPrevious(); -- idx) {
-					super.push(new InnerCommand(iterator.previous(), func, idx));
-				}				
+//				int idx = tmp.size();
+//				for (final ListIterator<Command> iterator = tmp.listIterator(tmp.size()); iterator.hasPrevious(); -- idx) {
+//					super.push(new InnerCommand(iterator.previous(), func, idx));
+//				}				
 			}			
 		}
 	}

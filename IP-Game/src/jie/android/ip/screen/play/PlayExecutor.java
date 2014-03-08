@@ -4,10 +4,12 @@ import java.util.LinkedList;
 
 import com.badlogic.gdx.utils.Disposable;
 
+import jie.android.ip.executor.CommandConsts.CommandType;
 import jie.android.ip.executor.CommandSet;
 import jie.android.ip.executor.Executor;
 import jie.android.ip.executor.OnCommandListener;
 import jie.android.ip.executor.CommandConsts.ActType;
+import jie.android.ip.utils.Utils;
 
 public class PlayExecutor implements Disposable {
 
@@ -140,17 +142,23 @@ public class PlayExecutor implements Disposable {
 		}	
 		
 		@Override
-		public void onCall(int func, int index, Object funcIndex, boolean found) {
+		public void onCall(int func, int index, Object funcIndex, boolean found) {			 
+			onCodeCalled(CommandType.CALL.getId(), func, index);
+			Utils.log("====", "call index = " + index);
 			onExecuteCall(func, index, funcIndex, new Boolean(found));
 		}
 
 		@Override
 		public void onAct(int func, int index, Object actType, Object step) {
+			onCodeCalled(CommandType.ACT.getId(), func, index);
+			Utils.log("====", "act index = " + index);
 			onExecuteAct(func, index, actType, step);			
 		}
 
 		@Override
 		public void onCheck(int func, int index, Object left, Object right) {
+			onCodeCalled(CommandType.CHECK.getId(), func, index);
+			Utils.log("====", "check index = " + index);
 			onExecuteCheck(func, index, left, right);			
 		}
 
@@ -265,5 +273,9 @@ public class PlayExecutor implements Disposable {
 		callbackQueue.putData(CallbackQueue.EventType.CALL, func, index, funcIndex, found);
 	}
 
-	
+	protected void onCodeCalled(int cmdType, int func, int index) {
+		if (internalListener != null) {
+			internalListener.onCodeCalled(cmdType, func, index);
+		}
+	}	
 }

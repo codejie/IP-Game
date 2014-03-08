@@ -108,6 +108,10 @@ public class PlayRenderer {
 			scriptAuthor = author;
 			scriptComment = comment;
 		}
+		@Override
+		public void onCodeCalled(int type, int index, int pos) {
+			groupCodeLine.setHighlight(type, index, pos);
+		}
 	};	
 	
 	private final PlayScreenListener.RendererInternalEventListener internalListener = new PlayScreenListener.RendererInternalEventListener() {

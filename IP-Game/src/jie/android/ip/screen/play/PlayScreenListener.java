@@ -17,6 +17,8 @@ public interface PlayScreenListener {
 		public void onExecuteFail();
 		public void onExecuteFinished();
 		public void onExecuteOverflow();
+
+		public void onCodeCalled(int type, int func, int index);
 	}
 	
 	public interface RendererEventListener {
@@ -41,6 +43,8 @@ public interface PlayScreenListener {
 		public void onExecuteMove(boolean right);
 		public void onExecuteCompleted(final PlayExecutor.StopReason reason);
 		public void onBoxMoveException(int error);
+		
+		public void onCodeCalled(int type, int func, int index);
 	}
 	
 	public interface RendererInternalEventListener {

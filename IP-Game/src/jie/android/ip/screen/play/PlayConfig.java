@@ -105,8 +105,11 @@ public interface PlayConfig {
 				public static final String CODE_CALL_2 = "lines_big_code_call_c";
 				public static final String CODE_CALL_3 = "lines_big_code_call_d";
 				
-				public static final String HIGHLIGHT_JUDEG = "lines_big_highlight_judeg";
-				public static final String HIGHLIGHT_ORDER = "lines_big_highlight_order";
+				public static final String FOCUS_JUDEG = "lines_big_focus_judge";
+				public static final String FOCUS_ORDER = "lines_big_focus_order";
+				
+				public static final String HIGHLIGHT_JUDEG = "lines_small_highlight_judge";
+				public static final String HIGHLIGHT_ORDER = "lines_small_highlight_order";
 			}
 			
 			public interface Panel {
@@ -288,10 +291,10 @@ public interface PlayConfig {
 				public static final int WIDTH_BUTTON_JUDGE = 128;
 				public static final int HEIGHT_BUTTON_JUDGE = 48;
 				
-				public static final float WIDTH_HIGHLIGHT_JUDGE = WIDTH_BUTTON_JUDGE;
-				public static final float HEIGHT_HIGHLIGHT_JUDGE = HEIGHT_BUTTON_JUDGE;
-				public static final float WIDTH_HIGHLIGHT_ORDER = WIDTH_BUTTON_ORDER;
-				public static final float HEIGHT_HIGHLIGHT_ORDER = HEIGHT_BUTTON_ORDER;
+				public static final float WIDTH_FOCUS_JUDGE = WIDTH_BUTTON_JUDGE;
+				public static final float HEIGHT_FOCUS_JUDGE = HEIGHT_BUTTON_JUDGE;
+				public static final float WIDTH_FOCUS_ORDER = WIDTH_BUTTON_ORDER;
+				public static final float HEIGHT_FOCUS_ORDER = HEIGHT_BUTTON_ORDER;
 			}
 			
 			public interface Panel {

@@ -34,8 +34,6 @@ public class PlayManager implements Disposable {
 
 		@Override
 		public void onBoxMoveStart() {
-			// TODO Auto-generated method stub
-
 		}
 
 		@Override
@@ -169,6 +167,13 @@ public class PlayManager implements Disposable {
 			Utils.log(Tag, "onBoxMoveException : " + error);
 			executor.stop(PlayExecutor.StopReason.EXCEPTION);
 			// onExecuteEnd(false);
+		}
+
+		@Override
+		public void onCodeCalled(int type, int func, int index) {
+			if (managerListener != null) {
+				managerListener.onCodeCalled(type, func, index);
+			}
 		}
 
 	};
