@@ -30,4 +30,8 @@ public class Environment {
 	public static final String getVersion() {
 		return version;
 	}
+	
+	public static final boolean hasPackPatch() {
+		return false;
+	}
 }

@@ -1,6 +1,5 @@
 package jie.android.ip.setup;
 
-import java.io.File;
 import java.sql.Connection;
 
 import jie.android.ip.CommonConsts.SystemConfig;
@@ -9,12 +8,12 @@ import jie.android.ip.database.DesktopConnectionAdapter;
 
 public class DesktopSetup extends Setup {
 
-	private final ConnectionAdapter connectionAdapter;
+//	private final ConnectionAdapter connectionAdapter;
 	
 	public DesktopSetup() {
 		super();
 		
-		connectionAdapter = new DesktopConnectionAdapter(getStorageDirectory() + SystemConfig.DATABASE_FILE);
+//		connectionAdapter = new DesktopConnectionAdapter(getStorageDirectory() + SystemConfig.DATABASE_FILE);
 	}
 
 	@Override
@@ -27,9 +26,20 @@ public class DesktopSetup extends Setup {
 	public final String getStorageDirectory() {
 		return "./doc/";
 	}
+	
+	@Override
+	public final String getAppDirectory() {
+		return "./doc/";
+	}
+
+	@Override
+	public final String getCacheDirectory() {
+		return "./doc/cache/";
+	}	
 
 	@Override
 	public final Connection getDatabaseConnection() {
+		final ConnectionAdapter connectionAdapter = new DesktopConnectionAdapter(getStorageDirectory() + SystemConfig.DATABASE_FILE);
 		return connectionAdapter.getConnection();
 	}
 

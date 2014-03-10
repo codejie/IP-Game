@@ -24,28 +24,43 @@ public class AndroidSetup extends Setup {
 	private static final String ASSETS_FILE = "assets.zip";
 	
 	private final Context context;
-	private final ConnectionAdapter connectionAdapter;
+//	private final ConnectionAdapter connectionAdapter;
 	
 	public AndroidSetup(Context context) {
 		this.context = context;
 		
 		create();
 		
-		this.connectionAdapter = new AndroidConnectionAdapter(getStorageDirectory() + APP_ROOT + SystemConfig.DATABASE_FILE);
+//		this.connectionAdapter = new AndroidConnectionAdapter(getStorageDirectory() + APP_ROOT + SystemConfig.DATABASE_FILE);
 	}
 
 	@Override
 	public void create() {
-		final String root = getStorageDirectory() + APP_ROOT;
-		final File ipPath = new File(root);
-		if (!ipPath.exists()) {
-			ipPath.mkdirs();
+		checkFiles();
+	}
+	
+	private void checkFiles() {
+		final File cache = new File(getCacheDirectory());
+		if (!cache.exists()) {
+			cache.mkdirs();
 		}
-		final File dbFile = new File(root + SystemConfig.DATABASE_FILE);
-		if (!dbFile.exists()) {
-			unzipAssets(root);
+		unzipAssets(getCacheDirectory());
+		
+		final File db = new File(getAppDirectory() + SystemConfig.DATABASE_FILE);
+		if (!db.exists()) {
+			(new File(getCacheDirectory() + SystemConfig.DATABASE_FILE)).renameTo(db);
 		}
-	}	
+//		
+//		final String root = this.getAppDirectory();
+//		final File ipPath = new File(root);
+//		if (!ipPath.exists()) {
+//			ipPath.mkdirs();
+//		}
+//		final File dbFile = new File(root + SystemConfig.DATABASE_FILE);
+//		if (!dbFile.exists()) {
+//			unzipAssets(root);
+//		}		
+	}
 	
 	private void unzipAssets(final String root) {
 		try {
@@ -62,7 +77,18 @@ public class AndroidSetup extends Setup {
 	}
 
 	@Override
+	public final String getAppDirectory() {
+		return getStorageDirectory() + APP_ROOT;
+	}
+
+	@Override
+	public final String getCacheDirectory() {
+		return getStorageDirectory() + APP_CACHE;
+	}
+	
+	@Override
 	public final Connection getDatabaseConnection() {
+		final ConnectionAdapter connectionAdapter = new AndroidConnectionAdapter(getStorageDirectory() + APP_ROOT + SystemConfig.DATABASE_FILE);		
 		return connectionAdapter.getConnection();
 	}
 

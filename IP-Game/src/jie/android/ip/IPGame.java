@@ -50,6 +50,8 @@ public class IPGame extends Game {
 		
 		Environment.loadAppData(dbAccess);
 		
+		//if
+		
 		setStartScreen();
 	}
 
