@@ -88,10 +88,16 @@ public class AndroidSetup extends Setup {
 	
 	@Override
 	public final Connection getDatabaseConnection() {
-		final ConnectionAdapter connectionAdapter = new AndroidConnectionAdapter(getStorageDirectory() + APP_ROOT + SystemConfig.DATABASE_FILE);		
+		final ConnectionAdapter connectionAdapter = new AndroidConnectionAdapter(getAppDirectory() + SystemConfig.DATABASE_FILE);		
 		return connectionAdapter.getConnection();
 	}
 
+	@Override
+	public final Connection getPatchConnection() {
+		final ConnectionAdapter connectionAdapter = new AndroidConnectionAdapter(getCacheDirectory() + SystemConfig.DATABASE_FILE);
+		return connectionAdapter.getConnection();
+	}
+	
 	@Override
 	public boolean shareScreen() {
 		final String root = getStorageDirectory() + APP_CACHE;

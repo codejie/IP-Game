@@ -4,7 +4,7 @@ public interface CommonConsts {
 
 	public interface SystemConfig {
 		public static final String DATABASE_FILE = "ip.db3";
-		public static final String PACK_PATCH_FILE = "ip_pack_patch.db3";
+		public static final String PATCH_FILE = "ip_patch.db3";
 		
 		public static final int SYS_ATTR_VERSION = 1;
 		public static final int SYS_ATTR_SPEED = 2;

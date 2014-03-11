@@ -10,9 +10,12 @@ import aurelienribon.tweenengine.equations.Bounce;
 import aurelienribon.tweenengine.equations.Expo;
 import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.CommonConsts.PackConfig;
+import jie.android.ip.CommonConsts.SystemConfig;
 import jie.android.ip.IPGame;
 import jie.android.ip.common.actor.ImageActor;
 import jie.android.ip.common.actor.ImageActorAccessor;
+import jie.android.ip.database.DBAccess;
+import jie.android.ip.database.PatchAccess;
 import jie.android.ip.screen.BaseScreen;
 import jie.android.ip.screen.menu.MenuScreen;
 import jie.android.ip.screen.start.StartConfig.Image;
@@ -33,6 +36,8 @@ public class StartScreen extends BaseScreen {
 		public void onEvent(int type, BaseTween<?> source) {
 //			Utils.log("tween event", "type = " + type + " source = " + source.toString());
 			
+			packPatchCheck(game);
+
 			game.getResources().loadAssetManager();
 			game.setScreen(new MenuScreen(game));
 			game.getAudioPlayer().playMusic();
@@ -40,14 +45,14 @@ public class StartScreen extends BaseScreen {
 		
 	};
 
-	public StartScreen(IPGame game) {
+	public StartScreen(final IPGame game) {
 		super(game);
 		
 		textureAtlas = game.getResources().getTextureAtlas(PackConfig.SCREEN_START);
 
 		initActors();
 
-		initTween();
+		initTween();		
 	}
 
 	private void initActors() {
@@ -179,6 +184,25 @@ public class StartScreen extends BaseScreen {
 				//author
 				.push(Tween.to(author, ImageActorAccessor.POSITION_X, Const.DURATION_4).target(Const.LINE5_X_2));
 
+	}
+
+	private void packPatchCheck(final IPGame game) {
+		if (!game.getSetup().hasPatch()) {
+			return;
+		}
+		
+		final DBAccess dbAccess = game.getDBAccess();
+		final PatchAccess ppAccess = new PatchAccess(game.getSetup().getPatchConnection());
+		
+		int ver = dbAccess.getSysDataAsInt(SystemConfig.SYS_ATTR_VERSION);
+		int patch = ppAccess.getTargetVersion();
+		
+		if (patch >= ver) {
+			ppAccess.patch(dbAccess);
+		}
+		ppAccess.close();
+		
+		game.getSetup().removePatch();
 	}
 	
 }

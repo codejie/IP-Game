@@ -8,10 +8,7 @@ import jie.android.ip.screen.menu.MenuScreen;
 import jie.android.ip.screen.play.PlayScreen;
 import jie.android.ip.screen.start.StartScreen;
 import jie.android.ip.setup.Setup;
-import jie.android.ip.utils.Utils;
-
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -49,8 +46,6 @@ public class IPGame extends Game {
 		//this.setScreen(new MenuScreen(this));
 		
 		Environment.loadAppData(dbAccess);
-		
-		//if
 		
 		setStartScreen();
 	}
@@ -95,9 +90,9 @@ public class IPGame extends Game {
 	private void initDBAccess() {
 		dbAccess = new DBAccess(setup.getDatabaseConnection());
 		
-		dbAccess.check();
+//		dbAccess.check(setup.getPackPatchConnection());
 	}
-	
+
 	private void initResources() {
 		resources = new Resources();
 	}
@@ -118,7 +113,7 @@ public class IPGame extends Game {
 	public final AudioPlayer getAudioPlayer() {
 		return player;
 	}
-	
+
 	private void setStartScreen() {
 		this.setScreen(new StartScreen(this));		
 	}

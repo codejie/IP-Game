@@ -1,5 +1,6 @@
 package jie.android.ip.setup;
 
+import java.io.File;
 import java.sql.Connection;
 
 import jie.android.ip.CommonConsts.SystemConfig;
@@ -43,6 +44,12 @@ public class DesktopSetup extends Setup {
 		return connectionAdapter.getConnection();
 	}
 
+	@Override
+	public Connection getPatchConnection() {
+		final ConnectionAdapter connectionAdapter = new DesktopConnectionAdapter(getStorageDirectory() + SystemConfig.PATCH_FILE);
+		return connectionAdapter.getConnection();
+	}
+	
 	@Override
 	public boolean shareScreen() {
 		return false;
