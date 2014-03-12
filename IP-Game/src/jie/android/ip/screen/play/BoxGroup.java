@@ -18,6 +18,7 @@ import jie.android.ip.common.actor.BaseGroup;
 import jie.android.ip.common.actor.BaseGroupAccessor;
 import jie.android.ip.common.actor.ImageActor;
 import jie.android.ip.common.actor.ImageActorAccessor;
+import jie.android.ip.screen.play.Box.BlockArray;
 import jie.android.ip.screen.play.PlayConfig.Const;
 import jie.android.ip.screen.play.PlayConfig.Image;
 import jie.android.ip.utils.Extended.Pair;
@@ -129,6 +130,8 @@ public class BoxGroup {
 	private BlockGroup groupSource;
 	private BlockGroup groupTarget;
 	
+	private Box.BlockArray cloneSource;
+	
 	public BoxGroup(final PlayScreen screen, final PlayScreenListener.RendererInternalEventListener internalListener) {
 		this.screen = screen;
 		this.tweenManager = this.screen.getTweenManager();
@@ -151,6 +154,8 @@ public class BoxGroup {
 	}
 
 	public void load(final Box.Tray tray, final Box.BlockArray source, final Box.BlockArray target) {
+		cloneSource = source.deepClone();
+		
 		groupSource.loadBlock(source);
 		groupSource.loadTray(tray);
 		
@@ -165,7 +170,7 @@ public class BoxGroup {
 
 	public void clearAll() {
 		groupSource.clear();
-		groupTarget.clear();		
+		groupTarget.clear();
 	}
 	
 	private float delay() {
@@ -255,4 +260,8 @@ public class BoxGroup {
 		}
 	}
 
+	public void showSourceClone() {
+		groupTarget.clear();
+		groupTarget.loadBlock(cloneSource);
+	}
 }

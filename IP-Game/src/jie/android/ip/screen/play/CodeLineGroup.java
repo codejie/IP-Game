@@ -936,8 +936,8 @@ public class CodeLineGroup extends ScreenGroup {
 		
 		if (cacheLineIndex != -1) {
 			groupLine[cacheLineIndex].removeHighlight();
+			cacheLineIndex = -1;
 		}
-		cacheLineIndex = -1;		
 	}	
 	
 	protected void onLineGroupClicked(int index) {
@@ -966,8 +966,9 @@ public class CodeLineGroup extends ScreenGroup {
 	}
 
 	protected void onPanelClicked(final Code.Type type) {
-		
-		internalListener.onPanelButtonClicked(cacheLineIndex, cacheLinePos, type);
+		if (cacheLineIndex != -1) {
+			internalListener.onPanelButtonClicked(cacheLineIndex, cacheLinePos, type);
+		}
 		
 		groupPanel.hide(cacheLineIndex, tweenManager);
 		cacheLinePos = -1;

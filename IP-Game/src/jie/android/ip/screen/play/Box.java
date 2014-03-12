@@ -1,6 +1,8 @@
 package jie.android.ip.screen.play;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import jie.android.ip.executor.Script;
 import jie.android.ip.executor.Script.BlockData;
@@ -39,6 +41,16 @@ public class Box {
 		public BlockArray(int maxrow, int maxcol) {
 			this.maxRow = maxrow;
 			this.maxCol = maxcol;
+		}
+		
+		public final BlockArray deepClone() {
+			BlockArray ret = new BlockArray(this.maxRow, this.maxCol);
+			Iterator<Map.Entry<Pair<Integer, Integer>, Block>> it = this.entrySet().iterator();  
+			while (it.hasNext()) {
+				final Map.Entry<Pair<Integer, Integer>, Block> entry = it.next();
+				ret.add(entry.getKey().first(), entry.getKey().second(), new Block(entry.getValue().value, entry.getValue().style));				
+			}
+			return ret;
 		}
 		
 		public final Block get(int row, int col) {

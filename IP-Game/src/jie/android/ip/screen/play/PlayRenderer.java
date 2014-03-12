@@ -79,7 +79,7 @@ public class PlayRenderer {
 			}
 			
 			playResultSucc();
-			
+			groupBox.showSourceClone();
 			groupCmdPanel.showMenu(Cmd.Layer.THIRD);
 			groupResult.showSuccStage(base_score, score);			
 		}
