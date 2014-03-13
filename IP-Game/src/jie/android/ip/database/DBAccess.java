@@ -22,11 +22,10 @@ public class DBAccess extends BaseAccess {
 	}
 
 	public void saveSolution(int scriptid, final String cmd) {
-		final String sql = "REPLACE INTO solution (script_id, command, score, utime) VALUES(?, ?, ?, ?)";
+		final String sql = "REPLACE INTO solution (script_id, command, utime) VALUES(?, ?, ?)";
 		ArrayList<String> val = new ArrayList<String>();
 		val.add(String.valueOf(scriptid));
 		val.add(cmd);
-		val.add("-1");
 		val.add(new SimpleDateFormat("yyyy/MM/dd").format(new Date()));		
 		execSQL(sql, val);
 	}

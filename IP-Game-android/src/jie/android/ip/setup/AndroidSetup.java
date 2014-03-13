@@ -46,6 +46,11 @@ public class AndroidSetup extends Setup {
 		}
 		unzipAssets(getCacheDirectory());
 		
+		final File ipPath = new File(getAppDirectory());
+		if (!ipPath.exists()) {
+			ipPath.mkdirs();
+		}		
+		
 		final File db = new File(getAppDirectory() + SystemConfig.DATABASE_FILE);
 		if (!db.exists()) {
 			(new File(getCacheDirectory() + SystemConfig.DATABASE_FILE)).renameTo(db);
