@@ -22,14 +22,24 @@ public class DBAccess extends BaseAccess {
 	}
 
 	public void saveSolution(int scriptid, final String cmd) {
-		final String sql = "REPLACE INTO solution (script_id, command, utime) VALUES(?, ?, ?)";
-		ArrayList<String> val = new ArrayList<String>();
-		val.add(String.valueOf(scriptid));
-		val.add(cmd);
-		val.add(new SimpleDateFormat("yyyy/MM/dd").format(new Date()));		
-		execSQL(sql, val);
-	}
-	
+		final String s = loadSolution(scriptid);
+		if (s == null) {
+			final String sql = "INSERT INTO solution (script_id, command, score, utime) VALUES(?, ?, ?, ?)";
+			ArrayList<String> val = new ArrayList<String>();
+			val.add(String.valueOf(scriptid));
+			val.add(cmd);
+			val.add("0");
+			val.add(new SimpleDateFormat("yyyy/MM/dd").format(new Date()));		
+			execSQL(sql, val);			
+		} else if (s != cmd){
+			final String sql = "UPDATE solution SET command=? WHERE script_id=?";
+			ArrayList<String> val = new ArrayList<String>();
+			val.add(cmd);
+			val.add(String.valueOf(scriptid));			
+			execSQL(sql, val);
+		}
+//		final String sql = "REPLACE INTO solution (script_id, command, utime) VALUES(?, ?, ?)";
+	}	
 
 	public void clearSolution(int id) {
 		final String sql = "DELETE FROM solution WHERE script_id=" + id;
@@ -177,7 +187,7 @@ public class DBAccess extends BaseAccess {
 		try {
 			try {
 				if (rs.next()) {
-					return rs.getInt(0) > 0;
+					return rs.getInt(1) > 0;
 				}
 			} finally {
 				rs.close();
@@ -201,6 +211,6 @@ public class DBAccess extends BaseAccess {
 
 	public void deleteScript(int id) {
 		execSQL("DELETE FROM script WHERE id=" + id);
-		execSQL("DELETE FROM solution WHERE id=" + id);		
+		execSQL("DELETE FROM solution WHERE script_id=" + id);		
 	}	
 }

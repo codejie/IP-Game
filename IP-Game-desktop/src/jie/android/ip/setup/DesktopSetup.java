@@ -46,7 +46,7 @@ public class DesktopSetup extends Setup {
 
 	@Override
 	public Connection getPatchConnection() {
-		final ConnectionAdapter connectionAdapter = new DesktopConnectionAdapter(getStorageDirectory() + SystemConfig.PATCH_FILE);
+		final ConnectionAdapter connectionAdapter = new DesktopConnectionAdapter(getCacheDirectory() + SystemConfig.PATCH_FILE);
 		return connectionAdapter.getConnection();
 	}
 	

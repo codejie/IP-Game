@@ -73,7 +73,7 @@ public class PlayRenderer {
 		}
 		
 		@Override
-		public void onExecuteSucc(int base_score, int score) {
+		public void onExecuteSucc(int base_score, int score, int execStep) {
 			if (groupLesson != null) {
 				groupLesson.onExecuteEnd(true);
 			}
@@ -81,7 +81,7 @@ public class PlayRenderer {
 			playResultSucc();
 			groupBox.showSourceClone();
 			groupCmdPanel.showMenu(Cmd.Layer.THIRD);
-			groupResult.showSuccStage(base_score, score);			
+			groupResult.showSuccStage(base_score, score, execStep);			
 		}
 		
 		@Override

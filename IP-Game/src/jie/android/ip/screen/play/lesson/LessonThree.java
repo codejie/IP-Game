@@ -272,7 +272,7 @@ public class LessonThree extends BaseLesson {
 		makeLabelActor(160, 560, "Congratulate, you have finished all lessons !", 45, new Color(COLOR_TEXT));		
 		makeLabelActor(350, 500, "Enjoy it yourself now !", 45, new Color(COLOR_TEXT));
 
-		makeTrapActor(0, ScreenConfig.HEIGHT / 2, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);
+		makeTrapActor(0, 0, ScreenConfig.WIDTH, ScreenConfig.HEIGHT);
 		
 		return true;
 	}	

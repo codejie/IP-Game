@@ -15,7 +15,7 @@ public abstract class Setup {
 	public abstract Connection getPatchConnection();
 	
 	public boolean hasPatch() {
-		final File patch = new File(getStorageDirectory() + SystemConfig.PATCH_FILE);
+		final File patch = new File(getCacheDirectory() + SystemConfig.PATCH_FILE);
 		return patch.exists();
 	}
 

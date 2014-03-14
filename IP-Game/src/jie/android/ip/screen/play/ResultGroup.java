@@ -94,7 +94,7 @@ public class ResultGroup extends ScreenGroup {
 		current = which;
 	}
 	
-	private void showScore(int base_score, int score) {
+	private void showScore(final int base_score, final int score, final int execStep) {
 		final BitmapFont font = ResultGroup.this.resources.getBitmapTrueFont(95);
 		labelScore = new LabelActor(String.format("%d/%d", score, base_score), font);
 		labelScore.setColor(Color.RED);
@@ -103,10 +103,23 @@ public class ResultGroup extends ScreenGroup {
 		this.addActor(labelScore);
 		labelScore.setPosition(-labelScore.getWidth(), y);
 		
-		Tween.to(labelScore, LabelActorAccessor.POSITION_X, 0.2f).target(x).start(tweenManager);
+		Tween.to(labelScore, LabelActorAccessor.POSITION_X, 0.2f).target(x)
+			.setCallback(new TweenCallback() {
+
+				@Override
+				public void onEvent(int type, BaseTween<?> source) {
+					final BitmapFont font = ResultGroup.this.resources.getBitmapTrueFont(45);
+					final LabelActor step = new LabelActor(String.format("%d", execStep), font);
+					step.setColor(Color.WHITE);
+					step.setPosition(8, 8);
+					ResultGroup.this.addActor(step);
+				}
+				
+			})
+			.start(tweenManager);
 	}
 	
-	public void showSuccStage(final int base_score, final int score) {
+	public void showSuccStage(final int base_score, final int score, final int execStep) {
 		updateResult(Which.SUCC);
 		
 		final float zoom = 20.0f;
@@ -126,7 +139,7 @@ public class ResultGroup extends ScreenGroup {
 			.setCallback(new TweenCallback() {
 				@Override
 				public void onEvent(int type, BaseTween<?> source) {
-					showScore(base_score, score);
+					showScore(base_score, score, execStep);
 				}				
 			})
 			.start(tweenManager);

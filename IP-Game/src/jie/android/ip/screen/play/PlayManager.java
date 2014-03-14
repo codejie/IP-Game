@@ -23,6 +23,7 @@ public class PlayManager implements Disposable {
 	private int script_status = 0;
 	private int script_base_score = 0;
 	private CommandSet cmdSet;
+	private int execStep = 0;
 
 	private PlayScreenListener.ManagerEventListener managerListener;
 
@@ -148,6 +149,8 @@ public class PlayManager implements Disposable {
 					executor.clearRTVariant(0);
 					executor.setRTVariant(1, 0);
 				}
+			} else {
+				++ execStep;
 			}
 
 			if (managerListener != null) {
@@ -260,6 +263,7 @@ public class PlayManager implements Disposable {
 		if (state == Cmd.State.NONE) {
 			cmdSet = codeLines.makeCommandSet();
 			dbAccess.saveSolution(script.getId(), cmdSet.saveToString());
+			execStep = 0;
 			executor.setDelay((long)(screen.getClockSpeed() * 1000));
 			executor.execute(cmdSet);
 		} else {
@@ -289,7 +293,7 @@ public class PlayManager implements Disposable {
 		dbAccess.updateScriptStatus(script.getId(), 1);
 		dbAccess.updateSolutionScore(script.getId(), score);
 		if (managerListener != null) {
-			managerListener.onExecuteSucc(script_base_score, score);
+			managerListener.onExecuteSucc(script_base_score, score, execStep);
 		}
 	}
 

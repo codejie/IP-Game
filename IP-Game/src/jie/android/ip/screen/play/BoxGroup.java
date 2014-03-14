@@ -108,7 +108,7 @@ public class BoxGroup {
 		}
 
 		public void clearActors(final Box.Tray tray, final Box.BlockArray blockArray) {
-			if (tray.actor != null) {
+			if (tray != null && tray.actor != null) {
 				this.removeActor(tray.actor);
 			}
 			
@@ -131,6 +131,7 @@ public class BoxGroup {
 	private BlockGroup groupTarget;
 	
 	private Box.BlockArray cloneSource;
+	private Box.BlockArray cloneTarget;
 	
 	public BoxGroup(final PlayScreen screen, final PlayScreenListener.RendererInternalEventListener internalListener) {
 		this.screen = screen;
@@ -154,11 +155,17 @@ public class BoxGroup {
 	}
 
 	public void load(final Box.Tray tray, final Box.BlockArray source, final Box.BlockArray target) {
+		
+		if (cloneSource != null) {
+			groupTarget.clearActors(null, cloneSource);
+		}
+		
 		cloneSource = source.deepClone();
 		
 		groupSource.loadBlock(source);
 		groupSource.loadTray(tray);
 		
+		cloneTarget = target;
 		groupTarget.loadBlock(target);
 	}
 	
@@ -261,7 +268,7 @@ public class BoxGroup {
 	}
 
 	public void showSourceClone() {
-		groupTarget.clear();
+		groupTarget.clearActors(null, cloneTarget);
 		groupTarget.loadBlock(cloneSource);
 	}
 }

@@ -44,8 +44,7 @@ public class CodeLineGroup extends ScreenGroup {
 		private LineButtonActor[] node = new LineButtonActor[Code.NUM_CODE_PER_LINE];
 		
 		public LineButton(final BaseGroup group) {
-			this.group = group;
-			
+			this.group = group;			
 		}
 		
 		public void clear() {
