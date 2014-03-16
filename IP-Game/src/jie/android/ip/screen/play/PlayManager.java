@@ -236,7 +236,7 @@ public class PlayManager implements Disposable {
 
 		init();
 
-		managerListener.onScriptLoaded(packId, scriptId, getPackTitle(packId), script.getTitle(), script.getAuthor(), script.getComment());
+		managerListener.onScriptLoaded(packId, scriptId, getPackTitle(packId), script.getSelfId(), script.getTitle(), script.getAuthor(), script.getComment());
 		
 		return true;
 	}

@@ -3,7 +3,7 @@ package jie.android.ip.screen.play;
 public interface PlayScreenListener {
 
 	public interface ManagerEventListener {
-		public void onScriptLoaded(int packId, int scriptId, final String packTitle, final String scriptTitle, final String author, final String comment);
+		public void onScriptLoaded(int packId, int scriptId, final String packTitle, int scriptSelfId, final String scriptTitle, final String author, final String comment);
 		
 		public void onBoxLoadCompleted(final Box.Tray tray, final Box.BlockArray source, final Box.BlockArray target);
 		public void onBoxPreReload(final Box.Tray tray, final Box.BlockArray source, final Box.BlockArray target);

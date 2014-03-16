@@ -103,8 +103,9 @@ public class PlayRenderer {
 		}
 		
 		@Override
-		public void onScriptLoaded(int packId, int scriptId, final String packTitle, final String scriptTitle, final String author, final String comment) {
-			groupTitle.setTitle(packTitle, scriptTitle);
+		public void onScriptLoaded(int packId, int scriptId, final String packTitle, final int scriptSelfId, final String scriptTitle, final String author, final String comment) {
+			//groupTitle.setTitle(packTitle, scriptTitle);
+			groupTitle.setTitle(packTitle, String.format("Stage %d",  scriptSelfId));
 			scriptAuthor = author;
 			scriptComment = comment;
 		}

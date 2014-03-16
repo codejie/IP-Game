@@ -33,6 +33,7 @@ public class PatchAccess extends BaseAccess {
 	public void patch(final DBAccess dbAccess) {
 		check_add(dbAccess);
 		check_update(dbAccess);
+		check_update_solution(dbAccess);
 		check_delete(dbAccess);
 	}
 
@@ -89,6 +90,24 @@ public class PatchAccess extends BaseAccess {
 		}
 	}
 
+
+	private void check_update_solution(final DBAccess dbAccess) {
+		final String sql = "SELECT script_id, new_script_id FROM solution_update";
+		final ResultSet rs = querySQL(sql);
+		try {
+			try {
+				while(rs.next()) {
+					updateSolution(dbAccess, rs.getInt(1), rs.getInt(2));
+				}
+			} finally {
+				rs.close();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	private void check_delete(DBAccess dbAccess) {
 		final String sql = "SELECT id FROM script_delete";
 		final ResultSet rs = querySQL(sql);
@@ -115,9 +134,12 @@ public class PatchAccess extends BaseAccess {
 	}
 
 	private void updateScript(final DBAccess dbAccess, final ArrayList<String> val) {
-		dbAccess.updateScript(val);
-		
+		dbAccess.updateScript(val);		
 	}
+	
+	private void updateSolution(final DBAccess dbAccess, int id, int new_id) {
+		dbAccess.updateSolutionId(id, new_id);
+	}	
 
 	private void deleteScript(final DBAccess dbAccess, int id) {
 		dbAccess.deleteScript(id);		

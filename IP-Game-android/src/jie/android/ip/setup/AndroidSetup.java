@@ -99,7 +99,7 @@ public class AndroidSetup extends Setup {
 
 	@Override
 	public final Connection getPatchConnection() {
-		final ConnectionAdapter connectionAdapter = new AndroidConnectionAdapter(getCacheDirectory() + SystemConfig.DATABASE_FILE);
+		final ConnectionAdapter connectionAdapter = new AndroidConnectionAdapter(getCacheDirectory() + SystemConfig.PATCH_FILE);
 		return connectionAdapter.getConnection();
 	}
 	

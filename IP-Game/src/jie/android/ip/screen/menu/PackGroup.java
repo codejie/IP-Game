@@ -91,14 +91,11 @@ public class PackGroup extends ScreenGroup {
 			this.addActor(bg);
 
 			ImageActor top = new ImageActor(textureAtlas.findRegion(Image.Item.FRAME_TOP));
-			// top.setBounds(4, ScreenConfig.HEIGHT - 16, ScreenConfig.WIDTH -
-			// 4, 16);
 			top.setBounds(Const.Item.FRAME_X, Const.Item.FRAME_Y_TOP, Const.Item.FRAME_WIDTH,
 					Const.Item.FRAME_HEIGHT_TOP);
 			this.addActor(top);
 
 			ImageActor bottom = new ImageActor(textureAtlas.findRegion(Image.Item.FRAME_BOTTOM));
-			// bottom.setBounds(4, 0, ScreenConfig.WIDTH - 4, 16);
 			bottom.setBounds(Const.Item.FRAME_X, Const.Item.FRAME_Y_BOTTOM, Const.Item.FRAME_WIDTH,
 					Const.Item.FRAME_HEIGHT_BOTTOM);
 			this.addActor(bottom);
@@ -108,11 +105,12 @@ public class PackGroup extends ScreenGroup {
 
 		private void renderScript() {
 			loadBlock(item.getScript().getSource());
-			//loadBlock(item.getScript().getTarget());
+			// loadBlock(item.getScript().getTarget());
 			loadTray(item.getScript().getTray());
 
 			// title
-			final LabelActor title = new LabelActor(item.getScript().getTitle(), titleBitmapFont);
+			//final LabelActor title = new LabelActor(item.getScript().getTitle(), titleBitmapFont);
+			final LabelActor title = new LabelActor(String.format("Stage %d", item.getScript().getSelfId()), titleBitmapFont);
 			if (item.getStatus() == 0) {
 				title.setColor(new Color(0xA52A2Af0));
 			} else {
@@ -268,7 +266,7 @@ public class PackGroup extends ScreenGroup {
 			public void clicked(InputEvent event, float x, float y) {
 				onTitleClicked();
 			}
-			
+
 		});
 
 		btnBack = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Button.BACK_UP),

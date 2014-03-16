@@ -212,5 +212,10 @@ public class DBAccess extends BaseAccess {
 	public void deleteScript(int id) {
 		execSQL("DELETE FROM script WHERE id=" + id);
 		execSQL("DELETE FROM solution WHERE script_id=" + id);		
+	}
+
+	public void updateSolutionId(int id, int new_id) {
+		final String sql = "UPDATE solution SET script_id=" + new_id + " WHERE script_id=" + id;
+		execSQL(sql);
 	}	
 }
