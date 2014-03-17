@@ -20,7 +20,7 @@ public abstract class Setup {
 	}
 
 	public void removePatch() {
-		final File patch = new File(getStorageDirectory() + SystemConfig.PATCH_FILE);
+		final File patch = new File(getCacheDirectory() + SystemConfig.PATCH_FILE);
 		patch.delete();
 	}
 	

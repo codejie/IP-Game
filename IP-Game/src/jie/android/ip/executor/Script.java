@@ -67,14 +67,12 @@ public class Script {
 	
 	private int getSelfId(int id) {
 		int base = id;
-		int ret = 0;
 		int pos = 0;
 		while (base > 10) {
-			ret += (base % 10^pos) * 10^pos;
-			base = base / 10^pos;
+			base = base / 10;
 			++ pos;
 		}
-		return ret / 10;
+		return (int) (id - base * Math.pow(10, pos));
 	}	
 	
 //	public int getStatus() {

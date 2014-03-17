@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import jie.android.ip.CommonConsts.SystemConfig;
+
 public class DBAccess extends BaseAccess {
 
 	public DBAccess(final Connection connection) {
@@ -163,7 +165,6 @@ public class DBAccess extends BaseAccess {
 		val.add(str);
 		execSQL(sql, val);
 	}
-
 	
 	public void updateScriptStatus(int id, int status) {
 		final String sql = "UPDATE script SET status=? WHERE id=?";
@@ -205,7 +206,7 @@ public class DBAccess extends BaseAccess {
 	}
 
 	public void updateScript(final ArrayList<String> val) {
-		final String sql = "UPDATE script SET pack_id=?,base_score=?,ctime=? WHERE id=?";
+		final String sql = "UPDATE script SET id=?, pack_id=?,base_score=? WHERE id=?";
 		execSQL(sql, val);		
 	}
 
@@ -216,6 +217,11 @@ public class DBAccess extends BaseAccess {
 
 	public void updateSolutionId(int id, int new_id) {
 		final String sql = "UPDATE solution SET script_id=" + new_id + " WHERE script_id=" + id;
+		execSQL(sql);
+	}
+
+	public void updateDBVersion(int ver) {
+		final String sql = "UPDATE sys SET int=" + ver + " WHERE attr=" + SystemConfig.SYS_ATTR_VERSION;
 		execSQL(sql);
 	}	
 }
