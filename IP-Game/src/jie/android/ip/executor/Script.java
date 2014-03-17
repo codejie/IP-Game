@@ -66,6 +66,10 @@ public class Script {
 	}
 	
 	private int getSelfId(int id) {
+		if (id < 10) {
+			return id;
+		}
+		
 		int base = id;
 		int pos = 0;
 		while (base > 10) {
