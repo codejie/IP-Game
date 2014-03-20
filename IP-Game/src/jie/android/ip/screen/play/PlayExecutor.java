@@ -1,6 +1,7 @@
 package jie.android.ip.screen.play;
 
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
 
 import com.badlogic.gdx.utils.Disposable;
 
@@ -67,7 +68,7 @@ public class PlayExecutor implements Disposable {
 //				e.printStackTrace();
 //			}
 			
-			if (!executor.isRunning()) {
+			if (!executor.isRunning() || data == null) {
 				return;
 			}
 			
@@ -107,14 +108,17 @@ public class PlayExecutor implements Disposable {
 						}
 					}
 				}
-				processData(dataQue.pop());
+				try {
+					processData(dataQue.pop());
+				} catch (NoSuchElementException e) {
+					Utils.log(Tag, "No data need be processed.");
+					e.printStackTrace();
+				}
 			}			
 		}		
 	}
 
-	
 	//
-	
 	private final Executor executor;
 	private final CallbackQueue callbackQueue;
 	private final PlayScreenListener.ManagerInternalEventListener internalListener;

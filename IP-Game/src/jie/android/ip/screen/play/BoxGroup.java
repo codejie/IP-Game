@@ -1,6 +1,7 @@
 package jie.android.ip.screen.play;
 
 
+import java.util.ConcurrentModificationException;
 import java.util.Map.Entry;
 
 import aurelienribon.tweenengine.BaseTween;
@@ -21,9 +22,12 @@ import jie.android.ip.common.actor.ImageActorAccessor;
 import jie.android.ip.screen.play.Box.BlockArray;
 import jie.android.ip.screen.play.PlayConfig.Const;
 import jie.android.ip.screen.play.PlayConfig.Image;
+import jie.android.ip.utils.Utils;
 import jie.android.ip.utils.Extended.Pair;
 
 public class BoxGroup {
+	
+	private static final String Tag = BoxGroup.class.getSimpleName();
 	
 	private class BlockGroup extends BaseGroup {
 
@@ -111,16 +115,18 @@ public class BoxGroup {
 			if (tray != null && tray.actor != null) {
 				this.removeActor(tray.actor);
 			}
-			
-			for (final Entry<Pair<Integer, Integer>, Box.Block> entry : blockArray.entrySet()) {
-				final Box.Block block = entry.getValue();
-				if (block.actor != null) {
-					this.removeActor(block.actor);
+			try {			
+				for (final Entry<Pair<Integer, Integer>, Box.Block> entry : blockArray.entrySet()) {
+					final Box.Block block = entry.getValue();
+					if (block.actor != null) {
+						this.removeActor(block.actor);
+					}
 				}
+			} catch (ConcurrentModificationException e) {
+				Utils.log(Tag, "BlockArray changed.");
 			}
 		}		
 	}
-	
 	
 	private final PlayScreen screen;
 	private final TweenManager tweenManager;
@@ -186,7 +192,7 @@ public class BoxGroup {
 
 	public void clearActors(final Box.Tray tray, final Box.BlockArray source, final Box.BlockArray target) {
 		groupSource.clearActors(tray, source);
-//		groupTarget.clearActors(target);
+//		groupTarget.clearActors(null, target);
 	}
 	
 	public void move(final Box.Tray tray, final Box.Block block, int col, int row, int tcol, int trow) {
