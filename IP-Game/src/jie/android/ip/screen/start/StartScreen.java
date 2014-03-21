@@ -197,8 +197,8 @@ public class StartScreen extends BaseScreen {
 		int ver = dbAccess.getSysDataAsInt(SystemConfig.SYS_ATTR_VERSION);
 		int patch = ppAccess.getTargetVersion();
 		
-		if (patch >= ver) {
-			ppAccess.patch(dbAccess);
+		if (patch > ver) {
+			ppAccess.patch(dbAccess, ver, patch);
 		}
 		ppAccess.close();
 		

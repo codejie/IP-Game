@@ -43,6 +43,10 @@ public class AndroidSetup extends Setup {
 		final File cache = new File(getCacheDirectory());
 		if (!cache.exists()) {
 			cache.mkdirs();
+		} else {
+			for(File file: cache.listFiles()) {
+				file.delete();			 
+			}
 		}
 		unzipAssets(getCacheDirectory());
 		

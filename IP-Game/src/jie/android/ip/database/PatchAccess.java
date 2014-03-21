@@ -31,18 +31,23 @@ public class PatchAccess extends BaseAccess {
 		return -1;
 	}
 
-	public void patch(final DBAccess dbAccess) {
-		check_add(dbAccess);
-		check_update(dbAccess);
-//		check_update_solution(dbAccess);
-		check_delete(dbAccess);
-		
-		update_db_version(dbAccess);
+	public void patch(final DBAccess dbAccess, int ver, int target) {
+		ver = ver + 1;
+		while (ver <= target) {
+			check_add(dbAccess, ver);
+			check_update(dbAccess, ver);
+	//		check_update_solution(dbAccess);
+			check_delete(dbAccess, ver);
+			
+			update_db_version(dbAccess, ver);
+			
+			++ ver;
+		}
 	}
 
-	private void check_add(final DBAccess dbAccess) {
+	private void check_add(final DBAccess dbAccess, int ver) {
 		
-		final String sql = "SELECT id,pack_id,script, status, base_score, ctime FROM script_add";
+		final String sql = "SELECT id,pack_id,script, status, base_score, ctime FROM script_add WHERE target = " + ver;
 		final ResultSet rs = querySQL(sql);
 		try {
 			try {
@@ -68,8 +73,8 @@ public class PatchAccess extends BaseAccess {
 		}
 	}
 
-	private void check_update(DBAccess dbAccess) {
-		final String sql = "SELECT id, base_score, new_id, new_pack_id FROM script_update";
+	private void check_update(DBAccess dbAccess, int ver) {
+		final String sql = "SELECT id,base_score,new_id,new_pack_id FROM script_update WHERE target = " + ver;
 		final ResultSet rs = querySQL(sql);
 		try {
 			try {
@@ -114,8 +119,8 @@ public class PatchAccess extends BaseAccess {
 //		}
 //	}
 
-	private void check_delete(DBAccess dbAccess) {
-		final String sql = "SELECT id FROM script_delete";
+	private void check_delete(DBAccess dbAccess, int ver) {
+		final String sql = "SELECT id FROM script_delete WHERE target=" + ver;
 		final ResultSet rs = querySQL(sql);
 		try {
 			try {
@@ -151,19 +156,7 @@ public class PatchAccess extends BaseAccess {
 		dbAccess.deleteScript(id);		
 	}
 
-	private void update_db_version(final DBAccess dbAccess) {
-		final String sql = "SELECT int FROM info WHERE attr=" + ATTR_UPDATE_VERSION;
-		final ResultSet rs = querySQL(sql);
-		try {
-			try {
-				if (rs.next()) {
-					dbAccess.updateDBVersion(rs.getInt(1));
-				}
-			} finally {
-				rs.close();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	private void update_db_version(final DBAccess dbAccess, int ver) {
+		dbAccess.updateDBVersion(ver);
 	}	
 }
