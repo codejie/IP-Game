@@ -5,8 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import jie.android.ip.utils.Utils;
+
 public class PatchAccess extends BaseAccess {
 
+	private static final String Tag = PatchAccess.class.getSimpleName(); 
+	
 	private static final int ATTR_TARGET_VERSION	=	1;
 	private static final int ATTR_UPDATE_VERSION	=	2;
 	
@@ -84,6 +88,8 @@ public class PatchAccess extends BaseAccess {
 					val.add(rs.getString(4));					
 					val.add(rs.getString(2));
 					val.add(rs.getString(1));
+					
+					Utils.log(Tag, "target[" + ver + "] Update " + rs.getInt(1) + " --> " + rs.getInt(3));
 					
 					if (scriptExist(dbAccess, rs.getInt(1))) {
 						updateScript(dbAccess, val);
