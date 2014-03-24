@@ -227,8 +227,8 @@ public class PackGroup extends ScreenGroup {
 
 	private final ActorCache cacheActor;
 
-	private ImageActor title;
-	private ImageActor background;
+//	private ImageActor title;
+//	private ImageActor background;
 	private ButtonActor btnBack, btnNext, btnPrev;
 
 	public PackGroup(final BaseScreen screen, final PackGroupEventListener listener) {
@@ -251,23 +251,23 @@ public class PackGroup extends ScreenGroup {
 
 	@Override
 	protected void initStage() {
-		background = new ImageActor(textureAtlas.findRegion(Image.BACKGROUND));
-		background.setBounds(Const.BG_X, Const.BG_Y, Const.BG_WIDTH, Const.BG_HEIGHT);
-		this.addActor(background);
-		background.setZIndex(0);
-
-		title = new ImageActor(textureAtlas.findRegion(Image.TITLE));
-		title.setBounds(Const.TITLE_X, Const.TITLE_Y, Const.TITLE_WIDTH, Const.TITLE_HEIGHT);
-		this.addActor(title);
-		title.setZIndex(0x0f);
-		title.addListener(new ClickListener() {
-
-			@Override
-			public void clicked(InputEvent event, float x, float y) {
-				onTitleClicked();
-			}
-
-		});
+//		background = new ImageActor(textureAtlas.findRegion(Image.BACKGROUND));
+//		background.setBounds(Const.BG_X, Const.BG_Y, Const.BG_WIDTH, Const.BG_HEIGHT);
+//		this.addActor(background);
+//		background.setZIndex(0);
+//
+//		title = new ImageActor(textureAtlas.findRegion(Image.TITLE));
+//		title.setBounds(Const.TITLE_X, Const.TITLE_Y, Const.TITLE_WIDTH, Const.TITLE_HEIGHT);
+//		this.addActor(title);
+//		title.setZIndex(0x0f);
+//		title.addListener(new ClickListener() {
+//
+//			@Override
+//			public void clicked(InputEvent event, float x, float y) {
+//				onTitleClicked();
+//			}
+//
+//		});
 
 		btnBack = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Button.BACK_UP),
 				skin.getDrawable(Image.Button.BACK_DOWN), null));
@@ -309,9 +309,9 @@ public class PackGroup extends ScreenGroup {
 		this.addActor(btnPrev);
 	}
 
-	protected void onTitleClicked() {
-		new SettingDialog(this.screen).show();
-	}
+//	protected void onTitleClicked() {
+//		new SettingDialog(this.screen).show();
+//	}
 
 	public void loadPacks(final Pack[] packs) {
 

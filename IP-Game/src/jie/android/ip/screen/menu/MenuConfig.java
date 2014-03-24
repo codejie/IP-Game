@@ -32,6 +32,17 @@ public interface MenuConfig {
 			public static final String BOX_1 = "box_b";
 			public static final String BOX_2 = "box_c";
 			public static final String BOX_3 = "box_d";
+		}
+		
+		public interface Cmd {
+			public static final String SHARE_DOWN = "cmd_share_down";
+			public static final String SHARE_UP = "cmd_share_up";
+
+			public static final String SETTING_UP = "cmd_setup_up";
+			public static final String SETTING_DOWN = "cmd_setup_down";
+			
+			public static final String CLOSE_UP = "cmd_close_up";
+			public static final String CLOSE_DOWN = "cmd_close_down";			
 		}		
 	}
 	
@@ -110,9 +121,34 @@ public interface MenuConfig {
 			
 			public static final int TRAY_COL_BASE = 42;
 			public static final int TRAY_ROW_BASE = 16;
-			public static final int TRAY_SPACE = -8;		
-		
+			public static final int TRAY_SPACE = -8;
 		}
+		
+		public interface Cmd {
+			
+			public static final int WIDTH_BUTTON = 128;
+			public static final int HEIGHT_BUTTON = 64;
+			
+			public static final int BASE_X = ScreenConfig.WIDTH;
+			public static final int BASE_Y = 0;
+			public static final int TARGET_X = ScreenConfig.WIDTH - WIDTH_BUTTON; 
+			
+			public static final int WIDTH = 128;
+			public static final int HEIGHT = ScreenConfig.HEIGHT - 128;//72;
+			
+			public static final int BASE_BUTTON_X = 0;
+			public static final int BASE_BUTTON_Y = 0;
+			public static final int SPACE_BUTTON_Y = 48;			
+			
+			public static final int X_SETTING = BASE_BUTTON_X;//0;
+			public static final int Y_SETTING = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 1;
+			
+			public static final int X_SHARE = BASE_BUTTON_X;//0;
+			public static final int Y_SHARE = HEIGHT - HEIGHT_BUTTON;//80;
+			
+			public static final float X_CLOSE = BASE_BUTTON_X;//0;
+			public static final float Y_CLOSE = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 2;			
+		}		
 
 	}
 	

@@ -66,16 +66,44 @@ back_up
   orig: 64, 128
   offset: 0, 0
   index: -1
-next_up
+cmd_setup_down
   rotate: false
   xy: 1283, 491
   size: 128, 64
   orig: 128, 64
   offset: 0, 0
   index: -1
-prev_up
+cmd_setup_up
   rotate: false
   xy: 1605, 955
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
+cmd_share_down
+  rotate: false
+  xy: 389, 187
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
+cmd_share_up
+  rotate: false
+  xy: 1283, 425
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
+next_up
+  rotate: false
+  xy: 1413, 491
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
+prev_up
+  rotate: false
+  xy: 1605, 889
   size: 128, 64
   orig: 128, 64
   offset: 0, 0
@@ -89,28 +117,28 @@ tray
   index: -1
 box_a
   rotate: false
-  xy: 389, 227
+  xy: 1735, 995
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 box_b
   rotate: false
-  xy: 1283, 465
+  xy: 389, 161
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 box_c
   rotate: false
-  xy: 1413, 531
+  xy: 519, 227
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 box_d
   rotate: false
-  xy: 1605, 929
+  xy: 1283, 399
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
