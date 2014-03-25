@@ -97,12 +97,14 @@ public class CmdPanelGroup extends ScreenGroup {
 	}
 	
 	protected void onShareClicked() {
-		show(new TweenCallback() {
-			@Override
-			public void onEvent(int type, BaseTween<?> source) {
-				CmdPanelGroup.this.screen.getGame().getSetup().shareScreen();				
-			}			
-		});
+		show();
+		CmdPanelGroup.this.screen.getGame().getSetup().shareScreen();
+//		show(new TweenCallback() {
+//			@Override
+//			public void onEvent(int type, BaseTween<?> source) {
+//				CmdPanelGroup.this.screen.getGame().getSetup().shareScreen();
+//			}			
+//		});
 	}
 
 	protected void onSettingClicked() {
