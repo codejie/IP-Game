@@ -23,7 +23,6 @@ import jie.android.ip.common.actor.ButtonActor;
 import jie.android.ip.common.actor.ImageActor;
 import jie.android.ip.common.actor.LabelActor;
 import jie.android.ip.common.actor.ScreenGroup;
-import jie.android.ip.common.dialog.SettingDialog;
 import jie.android.ip.executor.Script;
 import jie.android.ip.screen.BaseScreen;
 import jie.android.ip.screen.menu.MenuConfig.Const;
@@ -230,6 +229,7 @@ public class PackGroup extends ScreenGroup {
 //	private ImageActor title;
 //	private ImageActor background;
 	private ButtonActor btnBack, btnNext, btnPrev;
+	private LabelActor packTitle;
 
 	public PackGroup(final BaseScreen screen, final PackGroupEventListener listener) {
 		super(screen);
@@ -374,7 +374,7 @@ public class PackGroup extends ScreenGroup {
 
 		loadPackItem(items, itemStart, end);
 
-		moveOutPackGroup(itemStart, end, items.length);
+		moveOutPackGroup(pack, itemStart, end, items.length);
 	}
 
 	private void loadPackItem(final Pack.Item[] items, int start, int end) {
@@ -449,12 +449,13 @@ public class PackGroup extends ScreenGroup {
 			}
 		};
 
+		hidePackTitle();
 		hideButtons();
 
 		movePackGroup(-ScreenConfig.HEIGHT, callback);
 	}
 
-	private void moveOutPackGroup(final int start, final int end, final int total) {
+	private void moveOutPackGroup(final Pack pack, final int start, final int end, final int total) {
 
 		final TweenCallback callback = new TweenCallback() {
 
@@ -462,6 +463,7 @@ public class PackGroup extends ScreenGroup {
 			public void onEvent(int type, BaseTween<?> source) {
 				cacheActor.swapCache();
 				showButtons(start, end, total);
+				showPackTitle(pack);
 			}
 		};
 
@@ -478,6 +480,26 @@ public class PackGroup extends ScreenGroup {
 		btnBack.setVisible(true);
 		btnPrev.setVisible(start != 0);
 		btnNext.setVisible(end < total);
+	}
+	
+	protected void showPackTitle(final Pack pack) {
+		if (packTitle != null) {
+			return;
+		}
+		
+		packTitle = new LabelActor(pack.getTitle(), titleBitmapFont);
+		packTitle.setColor(new Color(0x42428Bff));
+		float x = (Const.BG_WIDTH - packTitle.getWidth()) / 2;
+		packTitle.setPosition(x, Const.TITLE_PACK_Y);
+		
+		this.addActor(packTitle);
+	}
+	
+	protected void hidePackTitle() {
+		if (packTitle != null) {
+			this.removeActor(packTitle);
+			packTitle = null;
+		}
 	}
 
 	protected void onBtnBackClicked() {

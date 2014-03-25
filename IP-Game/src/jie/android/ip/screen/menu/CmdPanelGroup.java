@@ -1,6 +1,8 @@
 package jie.android.ip.screen.menu;
 
+import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenManager;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -71,20 +73,36 @@ public class CmdPanelGroup extends ScreenGroup {
 		
 		this.screen.addActor(this);
 	}
+
+	public boolean isShowing() {
+		return show;
+	}
 	
 	public void show() {
+		show(null);
+	}
+
+	public void show(final TweenCallback callback) {
 		show = !show;
 
 		if (show) {
-			Tween.to(this, BaseGroupAccessor.POSITION_X, 0.2f).target(Const.Cmd.TARGET_X).start(tweenManager);
+			Tween.to(this, BaseGroupAccessor.POSITION_X, 0.1f).target(Const.Cmd.TARGET_X)
+				.setCallback(callback)
+				.start(tweenManager);
 		} else {
-			Tween.to(this, BaseGroupAccessor.POSITION_X, 0.2f).target(Const.Cmd.BASE_X).start(tweenManager);
-		}
+			Tween.to(this, BaseGroupAccessor.POSITION_X, 0.1f).target(Const.Cmd.BASE_X)
+				.setCallback(callback)
+				.start(tweenManager);
+		}		
 	}
-
+	
 	protected void onShareClicked() {
-		show();
-		this.screen.getGame().getSetup().shareScreen();
+		show(new TweenCallback() {
+			@Override
+			public void onEvent(int type, BaseTween<?> source) {
+				CmdPanelGroup.this.screen.getGame().getSetup().shareScreen();				
+			}			
+		});
 	}
 
 	protected void onSettingClicked() {

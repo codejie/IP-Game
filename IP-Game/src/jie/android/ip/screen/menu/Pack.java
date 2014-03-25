@@ -1,6 +1,5 @@
 package jie.android.ip.screen.menu;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import jie.android.ip.executor.Script;

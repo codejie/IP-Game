@@ -4,12 +4,13 @@ import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.TweenCallback;
 
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import jie.android.ip.CommonConsts.PackConfig;
 import jie.android.ip.CommonConsts.SystemConfig;
 import jie.android.ip.IPGame;
 import jie.android.ip.CommonConsts.ScreenConfig;
-import jie.android.ip.common.dialog.AppExitDialog;
+import jie.android.ip.common.dialog.AlertDialog;
 import jie.android.ip.screen.BaseScreen;
 import jie.android.ip.screen.play.PlayConfig.Image;
 
@@ -147,10 +148,22 @@ public class PlayScreen extends BaseScreen {
 	protected boolean onKeyDown(int keyCode) {
 		if (keyCode == Keys.BACK) {
 			renderer.unloadLesson();
-			AppExitDialog dlg = AppExitDialog.getInstance(this);
-			if (!dlg.isShow()) {
-				dlg.show();
-			}
+			
+			final AlertDialog.ButtonClickListener listener = new AlertDialog.ButtonClickListener() {
+				
+				@Override
+				public void onClick() {
+					returnMenuScreen();
+				}
+			};
+			
+			final AlertDialog dlg = new AlertDialog(PlayScreen.this, "Are you sure close and return to Menu screen ?", PlayScreen.this.getGame().getResources().getBitmapTrueFont(70), Color.YELLOW, listener, null);
+			dlg.show();			
+			
+//			AppExitDialog dlg = AppExitDialog.getInstance(this);
+//			if (!dlg.isShow()) {
+//				dlg.show();
+//			}
 			return true;
 		}
 		return super.onKeyDown(keyCode);

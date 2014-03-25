@@ -56,6 +56,7 @@ public interface MenuConfig {
 		public static final int BG_Y = 0;
 		public static final int BG_WIDTH = ScreenConfig.WIDTH;
 		public static final int BG_HEIGHT = ScreenConfig.HEIGHT - 128;
+		public static final int TITLE_PACK_Y = 24; 
 		
 		public interface Button {
 			public static final int BACK_WIDTH = 64;
@@ -129,7 +130,7 @@ public interface MenuConfig {
 			public static final int WIDTH_BUTTON = 128;
 			public static final int HEIGHT_BUTTON = 64;
 			
-			public static final int BASE_X = ScreenConfig.WIDTH;
+			public static final int BASE_X = ScreenConfig.WIDTH + 4;
 			public static final int BASE_Y = 0;
 			public static final int TARGET_X = ScreenConfig.WIDTH - WIDTH_BUTTON; 
 			

@@ -54,6 +54,7 @@ public class MenuRenderer {
 		@Override
 		public void onPackClick(int id) {
 			playClick();
+			hideCmdPanel();
 			if (rendererListener != null) {
 				rendererListener.onPackClicked(id);
 			}
@@ -62,6 +63,7 @@ public class MenuRenderer {
 		@Override
 		public void onPackItemClick(int pack, int id) {
 			playClick();
+			hideCmdPanel();
 			if (rendererListener != null) {
 				rendererListener.onPackItemClicked(pack, id);
 			}
@@ -70,6 +72,7 @@ public class MenuRenderer {
 		@Override
 		public void onBtnBackClicked(int curPack) {
 			playClick();
+			hideCmdPanel();
 			if (rendererListener != null) {
 				rendererListener.onLoadPack();
 			}
@@ -78,6 +81,7 @@ public class MenuRenderer {
 		@Override
 		public void onBtnNextClicked(int curPack) {
 			playClick();
+			hideCmdPanel();
 			if (rendererListener != null) {
 				rendererListener.onPackClicked(curPack);
 			}			
@@ -86,6 +90,7 @@ public class MenuRenderer {
 		@Override
 		public void onBtnPrevCllicked(int curPack) {
 			playClick();
+			hideCmdPanel();
 			if (rendererListener != null) {
 				rendererListener.onPackClicked(curPack);
 			}
@@ -126,17 +131,23 @@ public class MenuRenderer {
 	}
 
 	protected void onTitleClicked() {
-		showCmdPanel();
+		toggleCmdPanel();
 		
 		
 //		new SettingDialog(this.screen).show();
 	}
 
-	private void showCmdPanel() {
+	private void toggleCmdPanel() {
 		if (groupCmd == null) {
 			groupCmd = new CmdPanelGroup(this.screen);
 		}
 		groupCmd.show();		
+	}
+	
+	private void hideCmdPanel() {
+		if (groupCmd != null  && groupCmd.isShowing()) {
+			groupCmd.show();
+		}
 	}
 	
 	private void initGroups() {
