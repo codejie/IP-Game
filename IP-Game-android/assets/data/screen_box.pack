@@ -227,6 +227,20 @@ cmd_back_down
   orig: 128, 64
   offset: 0, 0
   index: -1
+cmd_debug_down
+  rotate: false
+  xy: 1543, 1271
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
+cmd_enable_debug_down
+  rotate: false
+  xy: 1543, 1271
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
 lines_big_code_left
   rotate: false
   xy: 1673, 1303
@@ -304,7 +318,21 @@ box_c
   orig: 96, 96
   offset: 0, 0
   index: -1
-cmd_info_down
+cmd_debug_checked
+  rotate: false
+  xy: 1673, 1237
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
+cmd_enable_debug_checked
+  rotate: false
+  xy: 1673, 1237
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
+cmd_more_down
   rotate: false
   xy: 1673, 1237
   size: 128, 64
@@ -325,6 +353,20 @@ lines_big_focus_order
   orig: 128, 80
   offset: 0, 0
   index: -1
+cmd_debug_up
+  rotate: false
+  xy: 391, 463
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
+cmd_enable_debug_up
+  rotate: false
+  xy: 391, 463
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
 cmd_info_up
   rotate: false
   xy: 391, 463
@@ -332,7 +374,7 @@ cmd_info_up
   orig: 128, 64
   offset: 0, 0
   index: -1
-cmd_more_down
+cmd_info_down
   rotate: false
   xy: 261, 381
   size: 128, 64

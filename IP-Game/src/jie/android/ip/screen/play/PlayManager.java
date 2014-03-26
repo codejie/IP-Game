@@ -307,6 +307,11 @@ public class PlayManager implements Disposable {
 		
 	}
 
+	protected void onCmdEnableDebug(State state) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	protected void onExecuteSucc() {
 		int score = cmdSet.calcScore();
 		dbAccess.updateScriptStatus(script.getId(), 1);

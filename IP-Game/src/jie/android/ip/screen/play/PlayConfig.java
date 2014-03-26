@@ -54,6 +54,10 @@ public interface PlayConfig {
 
 			public static final String CLOSE_UP = "cmd_close_up";
 			public static final String CLOSE_DOWN = "cmd_close_down";
+			
+			public static final String ENABLE_DEBUG_UP = "cmd_enable_debug_up";
+			public static final String ENABLE_DEBUG_DOWN = "cmd_enable_debug_down";
+			public static final String ENABLE_DEBUG_CHECKED = "cmd_enable_debug_checked";			
 
 			public static final String BACK2_UP = "cmd_back_up";
 			public static final String BACK2_DOWN = "cmd_back_down";
@@ -244,6 +248,8 @@ public interface PlayConfig {
 			public static final float X_CLOSE = BASE_BUTTON_X;//0;
 			public static final float Y_CLOSE = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 2;
 			
+			public static final float X_ENABLE_DEBUG = BASE_BUTTON_X;//0;
+			public static final float Y_ENABLE_DEBUG = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 4;
 			
 			public static final int X_SHARE = BASE_BUTTON_X;//0;
 			public static final int Y_SHARE = HEIGHT - HEIGHT_BUTTON;//80;

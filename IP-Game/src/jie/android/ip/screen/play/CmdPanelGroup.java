@@ -31,6 +31,8 @@ public class CmdPanelGroup extends ScreenGroup {
 	
 	private final Cmd.Panel cmdPanel;
 	
+	private boolean debugEnabled = true;//false; 
+	
 //	private ImageActor backGround;
 	
 	private Cmd.OnButtonListener cmdListener = new Cmd.OnButtonListener() {
@@ -98,7 +100,7 @@ public class CmdPanelGroup extends ScreenGroup {
 				btn.actor.setBounds(Const.Cmd.X_CLOSE, Const.Cmd.Y_CLOSE, btn.actor.getWidth(), btn.actor.getHeight());
 			} else if (btn.type == Cmd.Type.ENABLE_DEBUG) {
 				btn.actor = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Cmd.ENABLE_DEBUG_UP), skin.getDrawable(Image.Cmd.ENABLE_DEBUG_DOWN), skin.getDrawable(Image.Cmd.ENABLE_DEBUG_CHECKED)));
-				btn.actor.setBounds(Const.Cmd.X_SETTING, Const.Cmd.Y_SETTING, btn.actor.getWidth(), btn.actor.getHeight());				
+				btn.actor.setBounds(Const.Cmd.X_ENABLE_DEBUG, Const.Cmd.Y_ENABLE_DEBUG, btn.actor.getWidth(), btn.actor.getHeight());				
 			} else if (btn.type == Cmd.Type.SHARE) {
 				btn.actor = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Cmd.SHARE_UP), skin.getDrawable(Image.Cmd.SHARE_DOWN), null));
 				btn.actor.setBounds(Const.Cmd.X_SHARE, Const.Cmd.Y_SHARE, btn.actor.getWidth(), btn.actor.getHeight());								
@@ -166,12 +168,19 @@ public class CmdPanelGroup extends ScreenGroup {
 	public void focusRun(boolean show) {
 		final Cmd.Button btnClear = cmdPanel.getButton(Cmd.Type.CLEAR);
 		final Cmd.Button btnMenu = cmdPanel.getButton(Cmd.Type.MENU);
+		final Cmd.Button btnDebug = cmdPanel.getButton(Cmd.Type.DEBUG);
 		if (show) {			
 			Tween.to(btnClear.actor, ButtonActorAccessor.POSITION_X, 0.1f).target(Const.Cmd.WIDTH_BUTTON).start(tweenManager);
 			Tween.to(btnMenu.actor, ButtonActorAccessor.POSITION_X, 0.1f).target(Const.Cmd.WIDTH_BUTTON).start(tweenManager);
+			if (debugEnabled) {
+				Tween.to(btnDebug.actor, ButtonActorAccessor.POSITION_X, 0.1f).target(Const.Cmd.BASE_BUTTON_X).start(tweenManager);
+			}
 		} else {
 			Tween.to(btnClear.actor, ButtonActorAccessor.POSITION_X, 0.1f).target(Const.Cmd.BASE_BUTTON_X).start(tweenManager);
 			Tween.to(btnMenu.actor, ButtonActorAccessor.POSITION_X, 0.1f).target(Const.Cmd.BASE_BUTTON_X).start(tweenManager);
+			if (debugEnabled) {
+				Tween.to(btnDebug.actor, ButtonActorAccessor.POSITION_X, 0.1f).target(Const.Cmd.WIDTH_BUTTON).start(tweenManager);
+			}
 		}
 	}
 
@@ -188,4 +197,9 @@ public class CmdPanelGroup extends ScreenGroup {
 		.start(tweenManager);		
 	}
 
+	public void enabledDebug(boolean enabled) {
+		debugEnabled = enabled;
+		final Cmd.Button btnDebug = cmdPanel.getButton(Cmd.Type.DEBUG);
+		btnDebug.actor.setVisible(false);
+	}
 }
