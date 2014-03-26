@@ -148,21 +148,21 @@ public class PlayExecutor implements Disposable {
 		@Override
 		public void onCall(int func, int index, Object funcIndex, boolean found) {			 
 			onCodeCalled(CommandType.CALL.getId(), func, index);
-			Utils.log("====", "call index = " + index);
+			Utils.log(Tag, "call index = " + index);
 			onExecuteCall(func, index, funcIndex, new Boolean(found));
 		}
 
 		@Override
 		public void onAct(int func, int index, Object actType, Object step) {
 			onCodeCalled(CommandType.ACT.getId(), func, index);
-			Utils.log("====", "act index = " + index);
+			Utils.log(Tag, "act index = " + index);
 			onExecuteAct(func, index, actType, step);			
 		}
 
 		@Override
 		public void onCheck(int func, int index, Object left, Object right) {
 			onCodeCalled(CommandType.CHECK.getId(), func, index);
-			Utils.log("====", "check index = " + index);
+			Utils.log(Tag, "check index = " + index);
 			onExecuteCheck(func, index, left, right);			
 		}
 
@@ -201,7 +201,12 @@ public class PlayExecutor implements Disposable {
 	}
 
 	public void next() {
-		executor.stepOver();		
+		if (internalListener != null) {
+			if(internalListener.onExecutePause()) {
+				return;
+			}
+		}
+		executor.stepOver();
 	}	
 
 	public void reset() {
@@ -261,7 +266,7 @@ public class PlayExecutor implements Disposable {
 				internalListener.onExecuteMove(true);
 			}
 		} else { 
-			executor.stepOver();
+			next();
 		}
 	}
 

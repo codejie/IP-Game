@@ -44,7 +44,7 @@ public class DBAccess extends BaseAccess {
 	}	
 
 	public void clearSolution(int id) {
-		final String sql = "DELETE FROM solution WHERE script_id=" + id;
+		final String sql = "UPDATE solution SET command=NULL WHERE script_id=" + id;
 		execSQL(sql);
 	}	
 

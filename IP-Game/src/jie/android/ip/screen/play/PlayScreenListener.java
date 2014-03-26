@@ -18,6 +18,7 @@ public interface PlayScreenListener {
 		public void onExecuteFinished();
 		public void onExecuteOverflow();
 
+		public boolean onExecutePause();
 		public void onCodeCalled(int type, int func, int index);
 	}
 	
@@ -34,6 +35,7 @@ public interface PlayScreenListener {
 		public void onBoxPreReload(final Box.Tray tray, final Box.BlockArray source, final Box.BlockArray target);
 		public void onBoxMoved(final Box.Tray tray, final Box.Block block, int col, int row, int tcol, int trow);
 		public void onBoxMoveEmpty();
+		public void onBoxMoveException(int error);
 
 		public void onCodeLineLoadCompleted(final Code.Lines lines);
 		public void onCodeLineUpdated(final Code.Lines lines, int index, int pos);
@@ -42,8 +44,8 @@ public interface PlayScreenListener {
 		public void onExecuteAction();
 		public void onExecuteMove(boolean right);
 		public void onExecuteCompleted(final PlayExecutor.StopReason reason);
-		public void onBoxMoveException(int error);
 		
+		public boolean onExecutePause();		
 		public void onCodeCalled(int type, int func, int index);
 	}
 	

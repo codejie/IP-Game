@@ -9,6 +9,7 @@ import jie.android.ip.common.dialog.BaseDialog;
 import jie.android.ip.common.dialog.DialogConfig;
 import jie.android.ip.common.dialog.ScriptInfoDialog;
 import jie.android.ip.common.dialog.SettingDialog;
+import jie.android.ip.screen.play.Cmd.State;
 
 public class PlayRenderer {
 	
@@ -24,6 +25,8 @@ public class PlayRenderer {
 	private ResultGroup groupResult;
 	
 	private LessonGroup groupLesson;
+	
+	private boolean debugEnabled = false;
 	
 	private String scriptAuthor;
 	private String scriptComment;
@@ -113,6 +116,14 @@ public class PlayRenderer {
 		public void onCodeCalled(int type, int index, int pos) {
 			groupCodeLine.setHighlight(type, index, pos);
 		}
+		@Override
+		public boolean onExecutePause() {
+			if (debugEnabled) {
+				//showDebugButton();
+				return true;
+			}
+			return false;
+		}
 	};	
 	
 	private final PlayScreenListener.RendererInternalEventListener internalListener = new PlayScreenListener.RendererInternalEventListener() {
@@ -134,6 +145,10 @@ public class PlayRenderer {
 
 			if (type == Cmd.Type.RUN) {
 				if (!onCmdRun(state)) {
+					return;
+				}
+			} else if (type == Cmd.Type.DEBUG) {
+				if (!onCmdDebug(state)) {
 					return;
 				}
 			} else if (type == Cmd.Type.MENU) {
@@ -245,6 +260,11 @@ public class PlayRenderer {
 
 		return true;
 	}
+	
+	protected boolean onCmdDebug(State state) {
+		// TODO Auto-generated method stub
+		return false;
+	}	
 
 	protected boolean onCmdMenu(final Cmd.State state) {
 		//groupCmdPanel.showSecondMenu(true);		
@@ -348,6 +368,10 @@ public class PlayRenderer {
 	
 	protected void playResultFail() {
 		audioPlayer.playSound(AudioConfig.RESULT_FAIL);
+	}
+	
+	protected void setDebugEnabled(boolean enabled) {
+		debugEnabled = enabled; 
 	}
 	
 }

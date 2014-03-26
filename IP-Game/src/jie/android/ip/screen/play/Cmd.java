@@ -9,8 +9,8 @@ public final class Cmd {
 	
 	public enum Type { 
 		NONE, 
-		RUN, CLEAR, MENU,
-		BACK, INFO, SETTING, CLOSE,
+		RUN, CLEAR, MENU, DEBUG,
+		BACK, INFO, SETTING, CLOSE, ENABLE_DEBUG,
 		SHARE, NEXT, BACK2, CLOSE2;
 		
 		public int getId() {
@@ -61,9 +61,9 @@ public final class Cmd {
 
 		public Panel(final OnButtonListener listener) {
 			for (final Type type : Type.values()) {				
-				if (type == Type.RUN || type == Type.CLEAR || type ==Type.MENU) {
+				if (type == Type.RUN || type == Type.CLEAR || type ==Type.MENU || type == Type.DEBUG) {
 					super.add(new Button(type, Layer.FIRST));
-				} else if (type == Type.BACK || type == Type.INFO || type == Type.SETTING|| type == Type.CLOSE){
+				} else if (type == Type.BACK || type == Type.INFO || type == Type.SETTING|| type == Type.CLOSE || type == Type.ENABLE_DEBUG){
 					super.add(new Button(type, Layer.SECOND));
 				} else {
 					super.add(new Button(type, Layer.THIRD));

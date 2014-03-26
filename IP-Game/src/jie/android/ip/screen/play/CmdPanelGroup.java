@@ -74,6 +74,10 @@ public class CmdPanelGroup extends ScreenGroup {
 			if (btn.type == Cmd.Type.RUN) {
 				btn.actor = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Cmd.RUN_UP), skin.getDrawable(Image.Cmd.RUN_DOWN), skin.getDrawable(Image.Cmd.RUN_CHECKED)));//down, checked) new ImageActor(textureAtlas.findRegion(Image.Cmd.RUN));
 				btn.actor.setBounds(Const.Cmd.X_RUN, Const.Cmd.Y_RUN, btn.actor.getWidth(), btn.actor.getHeight());
+			} else if (btn.type == Cmd.Type.DEBUG) {
+				btn.actor = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Cmd.DEBUG_UP), skin.getDrawable(Image.Cmd.DEBUG_DOWN), skin.getDrawable(Image.Cmd.DEBUG_CHECKED)));//down, checked) new ImageActor(textureAtlas.findRegion(Image.Cmd.DEBUG));
+				btn.actor.setBounds(Const.Cmd.X_DEBUG, Const.Cmd.Y_DEBUG, btn.actor.getWidth(), btn.actor.getHeight());
+				btn.actor.setVisible(false);
 			} else if (btn.type == Cmd.Type.CLEAR) {
 				btn.actor = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Cmd.CLEAR_UP), skin.getDrawable(Image.Cmd.CLEAR_DOWN), null));// new ImageActor(textureAtlas.findRegion(Image.Cmd.CLEAR));
 				btn.actor.setBounds(Const.Cmd.X_CLEAR, Const.Cmd.Y_CLEAR, btn.actor.getWidth(), btn.actor.getHeight());
@@ -92,6 +96,9 @@ public class CmdPanelGroup extends ScreenGroup {
 			} else if (btn.type == Cmd.Type.CLOSE) {
 				btn.actor = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Cmd.CLOSE_UP), skin.getDrawable(Image.Cmd.CLOSE_DOWN), null));
 				btn.actor.setBounds(Const.Cmd.X_CLOSE, Const.Cmd.Y_CLOSE, btn.actor.getWidth(), btn.actor.getHeight());
+			} else if (btn.type == Cmd.Type.ENABLE_DEBUG) {
+				btn.actor = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Cmd.ENABLE_DEBUG_UP), skin.getDrawable(Image.Cmd.ENABLE_DEBUG_DOWN), skin.getDrawable(Image.Cmd.ENABLE_DEBUG_CHECKED)));
+				btn.actor.setBounds(Const.Cmd.X_SETTING, Const.Cmd.Y_SETTING, btn.actor.getWidth(), btn.actor.getHeight());				
 			} else if (btn.type == Cmd.Type.SHARE) {
 				btn.actor = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Cmd.SHARE_UP), skin.getDrawable(Image.Cmd.SHARE_DOWN), null));
 				btn.actor.setBounds(Const.Cmd.X_SHARE, Const.Cmd.Y_SHARE, btn.actor.getWidth(), btn.actor.getHeight());								
@@ -103,7 +110,7 @@ public class CmdPanelGroup extends ScreenGroup {
 				btn.actor.setBounds(Const.Cmd.X_BACK2, Const.Cmd.Y_BACK2, btn.actor.getWidth(), btn.actor.getHeight());
 			} else if (btn.type == Cmd.Type.CLOSE2) {
 				btn.actor = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Cmd.CLOSE2_UP), skin.getDrawable(Image.Cmd.CLOSE2_DOWN), null));
-				btn.actor.setBounds(Const.Cmd.X_CLOSE2, Const.Cmd.Y_CLOSE2, btn.actor.getWidth(), btn.actor.getHeight());				
+				btn.actor.setBounds(Const.Cmd.X_CLOSE2, Const.Cmd.Y_CLOSE2, btn.actor.getWidth(), btn.actor.getHeight());
 			} else {
 				continue;
 			}

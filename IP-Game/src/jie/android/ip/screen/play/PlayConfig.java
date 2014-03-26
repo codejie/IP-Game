@@ -28,6 +28,11 @@ public interface PlayConfig {
 			public static final String RUN_UP = "cmd_run_up";
 			public static final String RUN_DOWN = "cmd_run_down";
 			public static final String RUN_CHECKED = "cmd_run_checked";
+			
+			public static final String DEBUG_UP = "cmd_debug_up";
+			public static final String DEBUG_DOWN = "cmd_debug_down";
+			public static final String DEBUG_CHECKED = "cmd_debug_checked";			
+			
 			public static final String CLEAR_UP = "cmd_clean_up";
 			public static final String CLEAR_DOWN = "cmd_clean_down";
 			public static final String MENU_UP = "cmd_more_up";
@@ -217,6 +222,9 @@ public interface PlayConfig {
 			public static final int Y_RUN = BASE_BUTTON_Y;//16;
 			public static final int X_RUN_WIDTH = WIDTH_BUTTON;
 			public static final int X_RUN_HEIGHT = 128;
+			
+			public static final int X_DEBUG = BASE_BUTTON_X;//0;//ScreenConfig.WIDTH - 128;
+			public static final int Y_DEBUG = BASE_BUTTON_Y + (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 3;//300;			
 			
 			public static final int X_CLEAR = BASE_BUTTON_X;//0;//ScreenConfig.WIDTH - 128;
 			public static final int Y_CLEAR = BASE_BUTTON_Y + (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 3;//300;

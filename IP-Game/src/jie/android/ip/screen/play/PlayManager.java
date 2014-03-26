@@ -66,7 +66,12 @@ public class PlayManager implements Disposable {
 			} else if (type == Cmd.Type.SETTING) {
 
 			} else if (type == Cmd.Type.INFO) {
-
+				
+			} else if (type == Cmd.Type.ENABLE_DEBUG) {
+				onCmdEnableDebug(state);
+				
+			} else if (type == Cmd.Type.DEBUG) {
+				onCmdDebug(state);
 			}
 		}
 
@@ -179,6 +184,15 @@ public class PlayManager implements Disposable {
 			}
 		}
 
+		@Override
+		public boolean onExecutePause() {
+			if (managerListener != null) {
+				if (managerListener.onExecutePause()) {
+					return true;
+				}
+			}
+			return false;
+		}
 	};
 
 	//
@@ -286,6 +300,11 @@ public class PlayManager implements Disposable {
 
 	protected void onCmdClose(State state) {
 		screen.returnMenuScreen();
+	}
+	
+	protected void onCmdDebug(State state) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	protected void onExecuteSucc() {
