@@ -31,7 +31,10 @@ public interface PlayConfig {
 			
 			public static final String DEBUG_UP = "cmd_debug_up";
 			public static final String DEBUG_DOWN = "cmd_debug_down";
-			public static final String DEBUG_CHECKED = "cmd_debug_checked";			
+			public static final String DEBUG_DISABLED = "cmd_debug_disabled";			
+
+			public static final String DEBUG_OVER_UP = "cmd_debug_over_up";
+			public static final String DEBUG_OVER_DOWN = "cmd_debug_over_down";
 			
 			public static final String CLEAR_UP = "cmd_clean_up";
 			public static final String CLEAR_DOWN = "cmd_clean_down";
@@ -203,8 +206,8 @@ public interface PlayConfig {
 			public static final int COLUMN_X = COL_BASE - 24 - 2;// 48;
 			public static final int COLUMN_Y = 144;
 			public static final int COLUMN_SPACE = 144;//48 + 96;
-			public static final float COLUMN_WIDTH = 6;
-			public static final float COLUMN_HEIGHT = 592;
+			public static final int COLUMN_WIDTH = 6;
+			public static final int COLUMN_HEIGHT = 592;
 		}	
 		
 		public interface Cmd {
@@ -229,6 +232,9 @@ public interface PlayConfig {
 			
 			public static final int X_DEBUG = BASE_BUTTON_X;//0;//ScreenConfig.WIDTH - 128;
 			public static final int Y_DEBUG = BASE_BUTTON_Y + (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 3;//300;			
+
+			public static final int X_DEBUG_OVER = BASE_BUTTON_X;//0;//ScreenConfig.WIDTH - 128;
+			public static final int Y_DEBUG_OVER = BASE_BUTTON_Y + (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 2;//300;
 			
 			public static final int X_CLEAR = BASE_BUTTON_X;//0;//ScreenConfig.WIDTH - 128;
 			public static final int Y_CLEAR = BASE_BUTTON_Y + (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 3;//300;
@@ -239,29 +245,29 @@ public interface PlayConfig {
 			public static final int X_SETTING = BASE_BUTTON_X;//0;
 			public static final int Y_SETTING = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 1;
 
-			public static final float X_INFO = BASE_BUTTON_X;//0;
-			public static final float Y_INFO = HEIGHT - HEIGHT_BUTTON;//80;
+			public static final int X_INFO = BASE_BUTTON_X;//0;
+			public static final int Y_INFO = HEIGHT - HEIGHT_BUTTON;//80;
 			
-			public static final float X_BACK = BASE_BUTTON_X;//0;
-			public static final float Y_BACK = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 3;
+			public static final int X_BACK = BASE_BUTTON_X;//0;
+			public static final int Y_BACK = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 3;
 			
-			public static final float X_CLOSE = BASE_BUTTON_X;//0;
-			public static final float Y_CLOSE = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 2;
+			public static final int X_CLOSE = BASE_BUTTON_X;//0;
+			public static final int Y_CLOSE = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 2;
 			
-			public static final float X_ENABLE_DEBUG = BASE_BUTTON_X;//0;
-			public static final float Y_ENABLE_DEBUG = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 4;
+			public static final int X_ENABLE_DEBUG = BASE_BUTTON_X;//0;
+			public static final int Y_ENABLE_DEBUG = (int)(HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 4.5f);
 			
 			public static final int X_SHARE = BASE_BUTTON_X;//0;
 			public static final int Y_SHARE = HEIGHT - HEIGHT_BUTTON;//80;
 			
-			public static final float X_NEXT = BASE_BUTTON_X;//0;
-			public static final float Y_NEXT = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 1;
+			public static final int X_NEXT = BASE_BUTTON_X;//0;
+			public static final int Y_NEXT = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 1;
 			
-			public static final float X_BACK2 = BASE_BUTTON_X;//0;
-			public static final float Y_BACK2 = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 3;
+			public static final int X_BACK2 = BASE_BUTTON_X;//0;
+			public static final int Y_BACK2 = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 3;
 			
-			public static final float X_CLOSE2 = BASE_BUTTON_X;//0;
-			public static final float Y_CLOSE2 = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 2;
+			public static final int X_CLOSE2 = BASE_BUTTON_X;//0;
+			public static final int Y_CLOSE2 = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 2;
 			
 		}
 		
@@ -305,10 +311,10 @@ public interface PlayConfig {
 				public static final int WIDTH_BUTTON_JUDGE = 128;
 				public static final int HEIGHT_BUTTON_JUDGE = 48;
 				
-				public static final float WIDTH_FOCUS_JUDGE = WIDTH_BUTTON_JUDGE;
-				public static final float HEIGHT_FOCUS_JUDGE = HEIGHT_BUTTON_JUDGE;
-				public static final float WIDTH_FOCUS_ORDER = WIDTH_BUTTON_ORDER;
-				public static final float HEIGHT_FOCUS_ORDER = HEIGHT_BUTTON_ORDER;
+				public static final int WIDTH_FOCUS_JUDGE = WIDTH_BUTTON_JUDGE;
+				public static final int HEIGHT_FOCUS_JUDGE = HEIGHT_BUTTON_JUDGE;
+				public static final int WIDTH_FOCUS_ORDER = WIDTH_BUTTON_ORDER;
+				public static final int HEIGHT_FOCUS_ORDER = HEIGHT_BUTTON_ORDER;
 			}
 			
 			public interface Panel {

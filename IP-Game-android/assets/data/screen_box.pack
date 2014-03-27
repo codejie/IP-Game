@@ -234,6 +234,13 @@ cmd_debug_down
   orig: 128, 64
   offset: 0, 0
   index: -1
+cmd_debug_over_down
+  rotate: false
+  xy: 1543, 1271
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
 cmd_enable_debug_down
   rotate: false
   xy: 1543, 1271
@@ -318,7 +325,7 @@ box_c
   orig: 96, 96
   offset: 0, 0
   index: -1
-cmd_debug_checked
+cmd_debug_disabled
   rotate: false
   xy: 1673, 1237
   size: 128, 64
@@ -351,6 +358,13 @@ lines_big_focus_order
   xy: 261, 447
   size: 128, 80
   orig: 128, 80
+  offset: 0, 0
+  index: -1
+cmd_debug_over_up
+  rotate: false
+  xy: 391, 463
+  size: 128, 64
+  orig: 128, 64
   offset: 0, 0
   index: -1
 cmd_debug_up

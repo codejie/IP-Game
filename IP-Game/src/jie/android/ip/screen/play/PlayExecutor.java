@@ -207,7 +207,11 @@ public class PlayExecutor implements Disposable {
 			}
 		}
 		executor.stepOver();
-	}	
+	}
+	
+	public void stepOver() {
+		executor.stepOver();
+	}
 
 	public void reset() {
 		stopReason = StopReason.RESET;

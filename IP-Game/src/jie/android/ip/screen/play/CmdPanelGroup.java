@@ -18,6 +18,7 @@ import jie.android.ip.common.actor.ButtonActor;
 import jie.android.ip.common.actor.ButtonActorAccessor;
 import jie.android.ip.common.actor.ScreenGroup;
 import jie.android.ip.screen.BaseScreen;
+import jie.android.ip.screen.play.Cmd.Type;
 import jie.android.ip.screen.play.PlayConfig.Const;
 import jie.android.ip.screen.play.PlayConfig.Image;
 
@@ -31,7 +32,8 @@ public class CmdPanelGroup extends ScreenGroup {
 	
 	private final Cmd.Panel cmdPanel;
 	
-	private boolean debugEnabled = true;//false; 
+	private boolean debugEnabled = false;
+	private boolean debugOver = false;
 	
 //	private ImageActor backGround;
 	
@@ -77,9 +79,15 @@ public class CmdPanelGroup extends ScreenGroup {
 				btn.actor = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Cmd.RUN_UP), skin.getDrawable(Image.Cmd.RUN_DOWN), skin.getDrawable(Image.Cmd.RUN_CHECKED)));//down, checked) new ImageActor(textureAtlas.findRegion(Image.Cmd.RUN));
 				btn.actor.setBounds(Const.Cmd.X_RUN, Const.Cmd.Y_RUN, btn.actor.getWidth(), btn.actor.getHeight());
 			} else if (btn.type == Cmd.Type.DEBUG) {
-				btn.actor = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Cmd.DEBUG_UP), skin.getDrawable(Image.Cmd.DEBUG_DOWN), skin.getDrawable(Image.Cmd.DEBUG_CHECKED)));//down, checked) new ImageActor(textureAtlas.findRegion(Image.Cmd.DEBUG));
+				final Button.ButtonStyle buttonStyle = new Button.ButtonStyle(skin.getDrawable(Image.Cmd.DEBUG_UP), skin.getDrawable(Image.Cmd.DEBUG_DOWN),null);
+				buttonStyle.disabled = skin.getDrawable(Image.Cmd.DEBUG_DISABLED);
+				btn.actor = new ButtonActor(buttonStyle);//new Button.ButtonStyle(skin.getDrawable(Image.Cmd.DEBUG_UP), skin.getDrawable(Image.Cmd.DEBUG_DOWN), skin.getDrawable(Image.Cmd.DEBUG_CHECKED)));//down, checked) new ImageActor(textureAtlas.findRegion(Image.Cmd.DEBUG));
 				btn.actor.setBounds(Const.Cmd.X_DEBUG, Const.Cmd.Y_DEBUG, btn.actor.getWidth(), btn.actor.getHeight());
 				btn.actor.setVisible(false);
+			} else if (btn.type == Cmd.Type.DEBUG_OVER) {
+				btn.actor = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Cmd.DEBUG_OVER_UP), skin.getDrawable(Image.Cmd.DEBUG_OVER_DOWN), null));
+				btn.actor.setBounds(Const.Cmd.X_DEBUG_OVER, Const.Cmd.Y_DEBUG_OVER, btn.actor.getWidth(), btn.actor.getHeight());
+				btn.actor.setVisible(false);				
 			} else if (btn.type == Cmd.Type.CLEAR) {
 				btn.actor = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Cmd.CLEAR_UP), skin.getDrawable(Image.Cmd.CLEAR_DOWN), null));// new ImageActor(textureAtlas.findRegion(Image.Cmd.CLEAR));
 				btn.actor.setBounds(Const.Cmd.X_CLEAR, Const.Cmd.Y_CLEAR, btn.actor.getWidth(), btn.actor.getHeight());
@@ -148,7 +156,15 @@ public class CmdPanelGroup extends ScreenGroup {
 	private void showButtons(final Cmd.Layer layer) {
 		for (final Cmd.Button btn : cmdPanel.getButtons()) {
 			if (btn.actor != null) {
-				btn.actor.setVisible(btn.layer == layer);
+				if (layer == Cmd.Layer.FIRST) {
+					if (btn.type != Cmd.Type.DEBUG && btn.type != Cmd.Type.DEBUG_OVER) {
+						btn.actor.setVisible(btn.layer == layer);
+					} else {
+	//					btn.actor.setVisible(btn.layer == layer && debugEnabled);
+					}
+				} else {
+					btn.actor.setVisible(btn.layer == layer);
+				}
 			}
 		}
 	}
@@ -165,25 +181,47 @@ public class CmdPanelGroup extends ScreenGroup {
 		cmdPanel.setState(type, checked ? Cmd.State.SELECTED : Cmd.State.NONE);
 	}
 	
+	public boolean isChecked(final Cmd.Type type) {
+		return cmdPanel.isChecked(type);
+	}
+	
+	public void setDisabled(final Cmd.Type type, boolean disabled) {
+		cmdPanel.setState(type, disabled ? Cmd.State.DISABLED : Cmd.State.NONE);
+	}	
+	
 	public void focusRun(boolean show) {
 		final Cmd.Button btnClear = cmdPanel.getButton(Cmd.Type.CLEAR);
 		final Cmd.Button btnMenu = cmdPanel.getButton(Cmd.Type.MENU);
-		final Cmd.Button btnDebug = cmdPanel.getButton(Cmd.Type.DEBUG);
+
 		if (show) {			
 			Tween.to(btnClear.actor, ButtonActorAccessor.POSITION_X, 0.1f).target(Const.Cmd.WIDTH_BUTTON).start(tweenManager);
 			Tween.to(btnMenu.actor, ButtonActorAccessor.POSITION_X, 0.1f).target(Const.Cmd.WIDTH_BUTTON).start(tweenManager);
-			if (debugEnabled) {
-				Tween.to(btnDebug.actor, ButtonActorAccessor.POSITION_X, 0.1f).target(Const.Cmd.BASE_BUTTON_X).start(tweenManager);
-			}
 		} else {
 			Tween.to(btnClear.actor, ButtonActorAccessor.POSITION_X, 0.1f).target(Const.Cmd.BASE_BUTTON_X).start(tweenManager);
 			Tween.to(btnMenu.actor, ButtonActorAccessor.POSITION_X, 0.1f).target(Const.Cmd.BASE_BUTTON_X).start(tweenManager);
-			if (debugEnabled) {
+		}
+		
+		if (debugEnabled) {
+			final Cmd.Button btnDebug = cmdPanel.getButton(Cmd.Type.DEBUG);
+			if(!btnDebug.actor.isVisible()) {
+				btnDebug.actor.setVisible(true);
+			}
+			final Cmd.Button btnDebugOver = cmdPanel.getButton(Cmd.Type.DEBUG_OVER);
+			if (!btnDebugOver.actor.isVisible()) {
+				btnDebugOver.actor.setVisible(true);
+			}
+			
+			if (show) {
+				Tween.to(btnDebug.actor, ButtonActorAccessor.POSITION_X, 0.1f).target(Const.Cmd.BASE_BUTTON_X).start(tweenManager);
+				Tween.to(btnDebugOver.actor, ButtonActorAccessor.POSITION_X, 0.1f).target(Const.Cmd.BASE_BUTTON_X).start(tweenManager);
+			} else {
 				Tween.to(btnDebug.actor, ButtonActorAccessor.POSITION_X, 0.1f).target(Const.Cmd.WIDTH_BUTTON).start(tweenManager);
+				Tween.to(btnDebugOver.actor, ButtonActorAccessor.POSITION_X, 0.1f).target(Const.Cmd.WIDTH_BUTTON).start(tweenManager);
 			}
 		}
+		
+		debugOver = false;
 	}
-
 	
 	public void showMenu(final Cmd.Layer layer) {
 		Tween.to(this, BaseGroupAccessor.POSITION_X, 0.1f).target(ScreenConfig.WIDTH)
@@ -201,5 +239,20 @@ public class CmdPanelGroup extends ScreenGroup {
 		debugEnabled = enabled;
 		final Cmd.Button btnDebug = cmdPanel.getButton(Cmd.Type.DEBUG);
 		btnDebug.actor.setVisible(false);
+		final Cmd.Button btnDebugOver = cmdPanel.getButton(Cmd.Type.DEBUG_OVER);
+		btnDebugOver.actor.setVisible(false);
+		
+		this.setChecked(Cmd.Type.ENABLE_DEBUG, debugEnabled);
+		
+		debugOver = false;
 	}
+
+	public boolean isDebugOver() {
+		return debugOver;
+	}
+
+	public void setDebugOver(boolean enabled) {
+		debugOver = enabled;
+	}
+
 }

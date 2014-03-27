@@ -119,8 +119,10 @@ public class PlayRenderer {
 		@Override
 		public boolean onExecutePause() {
 			if (debugEnabled) {
-				//showDebugButton();
-				return true;
+				if (!groupCmdPanel.isDebugOver()) {
+					groupCmdPanel.setDisabled(Cmd.Type.DEBUG, false);
+					return true;
+				}
 			}
 			return false;
 		}
@@ -149,6 +151,14 @@ public class PlayRenderer {
 				}
 			} else if (type == Cmd.Type.DEBUG) {
 				if (!onCmdDebug(state)) {
+					return;
+				}
+			} else if (type == Cmd.Type.DEBUG_OVER) {
+				if (!onCmdDebugOver(state)) {
+					return;
+				}
+			} else if (type == Cmd.Type.ENABLE_DEBUG) {
+				if (!onCmdEnableDebug(state)) {
 					return;
 				}
 			} else if (type == Cmd.Type.MENU) {
@@ -254,7 +264,7 @@ public class PlayRenderer {
 	
 	protected boolean onCmdRun(final Cmd.State state) {
 		changeRunStage(state == Cmd.State.NONE);
-		if (state == Cmd.State.NONE) {					
+		if (state == Cmd.State.NONE) {
 			return false;
 		}
 
@@ -262,19 +272,34 @@ public class PlayRenderer {
 	}
 	
 	protected boolean onCmdDebug(State state) {
-		// TODO Auto-generated method stub
-		return false;
+		groupCmdPanel.setDisabled(Cmd.Type.DEBUG, true);
+		return true;
 	}	
 
+	protected boolean onCmdDebugOver(final Cmd.State state) {
+		groupCmdPanel.setDisabled(Cmd.Type.DEBUG, true);
+		groupCmdPanel.setDebugOver(true);
+		return true;
+	}
+	
+	protected boolean onCmdEnableDebug(final Cmd.State state) {
+		
+		debugEnabled = (state == State.NONE); 		
+		groupCmdPanel.enabledDebug(debugEnabled);
+		
+		return false;
+	}
+	
 	protected boolean onCmdMenu(final Cmd.State state) {
-		//groupCmdPanel.showSecondMenu(true);		
 		groupCmdPanel.showMenu(Cmd.Layer.SECOND);
 		return true;
 	}	
 
 	protected boolean onCmdBack(final Cmd.State state) {
-		//groupCmdPanel.showSecondMenu(false);
 		groupCmdPanel.showMenu(Cmd.Layer.FIRST);
+		if (groupCmdPanel.isChecked(Cmd.Type.RUN)) {
+			changeRunStage(false);			
+		}
 		return true;
 	}
 
@@ -370,8 +395,8 @@ public class PlayRenderer {
 		audioPlayer.playSound(AudioConfig.RESULT_FAIL);
 	}
 	
-	protected void setDebugEnabled(boolean enabled) {
-		debugEnabled = enabled; 
-	}
+//	protected void setDebugEnabled(boolean enabled) {
+//		debugEnabled = enabled; 
+//	}
 	
 }

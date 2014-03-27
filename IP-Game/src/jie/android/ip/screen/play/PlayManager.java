@@ -63,15 +63,12 @@ public class PlayManager implements Disposable {
 				onCmdNext(state);
 			} else if (type == Cmd.Type.CLOSE || type == Cmd.Type.CLOSE2) {
 				onCmdClose(state);
-			} else if (type == Cmd.Type.SETTING) {
-
-			} else if (type == Cmd.Type.INFO) {
-				
-			} else if (type == Cmd.Type.ENABLE_DEBUG) {
-				onCmdEnableDebug(state);
-				
 			} else if (type == Cmd.Type.DEBUG) {
 				onCmdDebug(state);
+			} else if (type == Cmd.Type.DEBUG_OVER) {
+				onCmdDebugOver(state);
+			} else if (type == Cmd.Type.BACK || type == Cmd.Type.BACK2) {
+				onCmdBack(state);
 			}
 		}
 
@@ -275,15 +272,23 @@ public class PlayManager implements Disposable {
 
 	protected void onCmdRun(final Cmd.State state) {
 		if (state == Cmd.State.NONE) {
-			cmdSet = codeLines.makeCommandSet();
-			dbAccess.saveSolution(script.getId(), cmdSet.saveToString());
-			execStep = 0;
-			executor.setDelay((long)(screen.getClockSpeed() * 1000));
-			executor.execute(cmdSet);
+			executeScript();
 		} else {
-			box.reload(script);
-			executor.reset();
+			stopScript();
 		}
+	}
+	
+	private void executeScript() {
+		cmdSet = codeLines.makeCommandSet();
+		dbAccess.saveSolution(script.getId(), cmdSet.saveToString());
+		execStep = 0;
+		executor.setDelay((long)(screen.getClockSpeed() * 1000));
+		executor.execute(cmdSet);		
+	}
+	
+	private void stopScript() {
+		box.reload(script);
+		executor.reset();		
 	}
 
 	protected void onCmdClear(final Cmd.State state) {
@@ -298,18 +303,20 @@ public class PlayManager implements Disposable {
 		screen.setNextScreen();
 	}
 
-	protected void onCmdClose(State state) {
+	protected void onCmdClose(final Cmd.State state) {
 		screen.returnMenuScreen();
 	}
 	
-	protected void onCmdDebug(State state) {
-		// TODO Auto-generated method stub
-		
+	protected void onCmdDebug(final Cmd.State state) {
+		executor.stepOver();	
 	}
 
-	protected void onCmdEnableDebug(State state) {
-		// TODO Auto-generated method stub
-		
+	protected void onCmdDebugOver(final Cmd.State state) {
+		executor.stepOver();		
+	}	
+
+	protected void onCmdBack(final Cmd.State state) {
+		stopScript();
 	}
 	
 	protected void onExecuteSucc() {
