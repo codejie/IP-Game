@@ -9,6 +9,7 @@ import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.Resources;
 import jie.android.ip.common.actor.ScreenGroup;
 import jie.android.ip.screen.play.lesson.BaseLesson;
+import jie.android.ip.screen.play.lesson.LessonFour;
 import jie.android.ip.screen.play.lesson.LessonOne;
 import jie.android.ip.screen.play.lesson.LessonThree;
 import jie.android.ip.screen.play.lesson.LessonTwo;
@@ -70,6 +71,9 @@ public class LessonGroup extends ScreenGroup {
 			break;
 		case 3:
 			lesson = new LessonThree(this);
+			break;
+		case 4:
+			lesson = new LessonFour(this);
 			break;
 		default:
 			return false;
