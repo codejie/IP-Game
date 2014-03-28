@@ -52,7 +52,7 @@ public class LessonFour extends BaseLesson {
 		makeImageActor(1080, 360, 0.5f, Image.Lesson.ARROW_RB);
 		makeTrapActor(1145, 330, 140, 74);
 
-		makeLabelActor(180, 270, "'DEBUG' buttion is checked, we have entered DEBUG mode now.", 36, new Color(COLOR_TEXT));
+		makeLabelActor(180, 280, "'DEBUG' buttion is checked, we have entered DEBUG mode now.", 36, new Color(COLOR_TEXT));
 		makeImageActor(1080, 210, 0.5f, Image.Lesson.ARROW_RB);
 		
 		return true;
