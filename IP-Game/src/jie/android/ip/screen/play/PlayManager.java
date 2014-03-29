@@ -280,7 +280,12 @@ public class PlayManager implements Disposable {
 	
 	private void executeScript() {
 		cmdSet = codeLines.makeCommandSet();
-		dbAccess.saveSolution(script.getId(), cmdSet.saveToString());
+		final String cmd = cmdSet.saveToString();
+		if (cmd != null) {
+			dbAccess.saveSolution(script.getId(), cmd);
+		} else {
+			Utils.log(Tag, "ERROR! - solution command is NULL.");
+		}
 		execStep = 0;
 		executor.setDelay((long)(screen.getClockSpeed() * 1000));
 		executor.execute(cmdSet);		

@@ -31,13 +31,14 @@ public class DBAccess extends BaseAccess {
 			val.add(String.valueOf(scriptid));
 			val.add(cmd);
 			val.add("0");
-			val.add(new SimpleDateFormat("yyyy/MM/dd").format(new Date()));		
+			val.add(new SimpleDateFormat("yyyy/MM/dd").format(new Date()));
 			execSQL(sql, val);			
 		} else if (s != cmd){
-			final String sql = "UPDATE solution SET command=? WHERE script_id=?";
+			final String sql = "UPDATE solution SET command=?, utime=? WHERE script_id=?";
 			ArrayList<String> val = new ArrayList<String>();
 			val.add(cmd);
-			val.add(String.valueOf(scriptid));			
+			val.add(new SimpleDateFormat("yyyy/MM/dd").format(new Date()));			
+			val.add(String.valueOf(scriptid));
 			execSQL(sql, val);
 		}
 //		final String sql = "REPLACE INTO solution (script_id, command, utime) VALUES(?, ?, ?)";

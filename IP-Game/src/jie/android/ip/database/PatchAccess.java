@@ -38,10 +38,9 @@ public class PatchAccess extends BaseAccess {
 	public void patch(final DBAccess dbAccess, int ver, int target) {
 		ver = ver + 1;
 		while (ver <= target) {
-			check_add(dbAccess, ver);
-			check_update(dbAccess, ver);
-	//		check_update_solution(dbAccess);
 			check_delete(dbAccess, ver);
+			check_update(dbAccess, ver);
+			check_add(dbAccess, ver);
 			
 			update_db_version(dbAccess, ver);
 			

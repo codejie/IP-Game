@@ -125,6 +125,12 @@ public class BoxGroup {
 			} catch (ConcurrentModificationException e) {
 				Utils.log(Tag, "BlockArray changed.");
 			}
+		}
+
+		public void reloadWithBlock(final BlockArray blockArray) {
+			clear();
+			initStage();
+			this.loadBlock(blockArray);
 		}		
 	}
 	
@@ -137,7 +143,7 @@ public class BoxGroup {
 	private BlockGroup groupTarget;
 	
 	private Box.BlockArray cloneSource;
-	private Box.BlockArray cloneTarget;
+//	private Box.BlockArray cloneTarget;
 	
 	public BoxGroup(final PlayScreen screen, final PlayScreenListener.RendererInternalEventListener internalListener) {
 		this.screen = screen;
@@ -171,7 +177,7 @@ public class BoxGroup {
 		groupSource.loadBlock(source);
 		groupSource.loadTray(tray);
 		
-		cloneTarget = target;
+//		cloneTarget = target;
 		groupTarget.loadBlock(target);
 	}
 	
@@ -274,7 +280,8 @@ public class BoxGroup {
 	}
 
 	public void showSourceClone() {
-		groupTarget.clearActors(null, cloneTarget);
-		groupTarget.loadBlock(cloneSource);
+//		groupTarget.clearActors(null, cloneTarget);
+//		groupTarget.loadBlock(cloneSource);
+		groupTarget.reloadWithBlock(cloneSource); // no idea, force reload it!
 	}
 }

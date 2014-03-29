@@ -360,35 +360,6 @@ public class CodeLineGroup extends ScreenGroup {
 		}
 		
 		private void setButtonBounds(final ImageActor actor, int pos, boolean judge, boolean small) {
-//			float x = 0, y = 0;
-//			float w = 0, h = 0;
-//			if (small) {
-//				if (pos % 2 == 0) {				
-//					x = Const.Lines.Small.WIDTH_TITLE + (Const.Lines.Small.WIDTH_BUTTON_ORDER + Const.Lines.Small.SPACE_X) * (pos / 2) + Const.Lines.Small.SPACE_X;
-//					y = Const.Lines.Small.SPACE_Y + Const.Lines.Small.HEIGHT_BUTTON_ORDER - Const.Lines.Small.HEIGHT_BUTTON_JUDGE;
-//					w = Const.Lines.Small.WIDTH_BUTTON_JUDGE;
-//					h = Const.Lines.Small.HEIGHT_BUTTON_JUDGE;				
-//				} else {
-//					//order
-//					x = Const.Lines.Small.WIDTH_TITLE + (Const.Lines.Small.WIDTH_BUTTON_ORDER + Const.Lines.Small.SPACE_X) * ((pos - 1) / 2) + Const.Lines.Small.SPACE_X;
-//					y = Const.Lines.Small.SPACE_Y;
-//					w = Const.Lines.Small.WIDTH_BUTTON_ORDER;
-//					h = Const.Lines.Small.HEIGHT_BUTTON_ORDER;
-//				}
-//			} else {
-//				if (pos % 2 == 0) {				
-//					x = Const.Lines.Big.WIDTH_TITLE + (Const.Lines.Big.WIDTH_BUTTON_JUDGE + Const.Lines.Big.SPACE_X) * (pos / 2) + Const.Lines.Big.SPACE_X;
-//					y = Const.Lines.Big.SPACE_Y + Const.Lines.Big.HEIGHT_BUTTON_ORDER;// - Const.Lines.Big.HEIGHT_BUTTON_JUDGE;
-//					w = Const.Lines.Big.WIDTH_BUTTON_JUDGE;
-//					h = Const.Lines.Big.HEIGHT_BUTTON_JUDGE;					
-//				} else {
-//					x = Const.Lines.Big.WIDTH_TITLE + (Const.Lines.Big.WIDTH_BUTTON_ORDER + Const.Lines.Big.SPACE_X) * ((pos - 1) / 2) + Const.Lines.Big.SPACE_X;
-//					y = Const.Lines.Big.SPACE_Y;
-//					w = Const.Lines.Big.WIDTH_BUTTON_ORDER;
-//					h = Const.Lines.Big.HEIGHT_BUTTON_ORDER;				
-//				}
-//			}
-			
 			int x = getButtonX(pos, small);
 			int y = getButtonY(pos, small);
 			int w, h;
