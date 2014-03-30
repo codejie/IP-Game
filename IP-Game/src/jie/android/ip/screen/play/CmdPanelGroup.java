@@ -250,8 +250,22 @@ public class CmdPanelGroup extends ScreenGroup {
 		return debugOver;
 	}
 
-	public void setDebugOver(boolean enabled) {
-		debugOver = enabled;
+	public boolean setDebugOver() {		
+		debugOver = !debugOver;
+
+		final Cmd.Button btn = cmdPanel.getButton(Cmd.Type.DEBUG_OVER);
+		
+		final Button.ButtonStyle style = btn.actor.getStyle();
+		if (debugOver) {
+			style.up = skin.getDrawable(Image.Cmd.DEBUG_BREAK_UP);
+			style.down = skin.getDrawable(Image.Cmd.DEBUG_BREAK_DOWN);
+		} else {
+			style.up = skin.getDrawable(Image.Cmd.DEBUG_OVER_UP);
+			style.down = skin.getDrawable(Image.Cmd.DEBUG_OVER_DOWN);			
+		}
+		btn.actor.setStyle(style);
+		
+		return debugOver;
 	}
 
 }

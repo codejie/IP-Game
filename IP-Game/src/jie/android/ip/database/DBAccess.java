@@ -26,7 +26,7 @@ public class DBAccess extends BaseAccess {
 	public void saveSolution(int scriptid, final String cmd) {
 		final String s = loadSolution(scriptid);
 		if (s == null) {
-			final String sql = "INSERT INTO solution (script_id, command, score, utime) VALUES(?, ?, ?, ?)";
+			final String sql = "INSERT OR REPLACE INTO solution (script_id, command, score, utime) VALUES(?, ?, ?, ?)";
 			ArrayList<String> val = new ArrayList<String>();
 			val.add(String.valueOf(scriptid));
 			val.add(cmd);

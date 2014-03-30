@@ -124,6 +124,11 @@ public class PackGroup extends ScreenGroup {
 				sc.setColor(new Color(0xD2691Ef0));
 				sc.setPosition((Const.Pack.WIDTH - sc.getWidth()) / 2, Const.Pack.HEIGHT * 0.2f);
 				this.addActor(sc);
+			} else if (item.getBaseScore() != 0) {
+				final LabelActor sc = new LabelActor(String.format("%d", item.getBaseScore()), scoreBitmapFont);
+				sc.setColor(new Color(Color.GRAY));//0x444444f0));
+				sc.setPosition(16, 16);
+				this.addActor(sc);
 			}
 		}
 
@@ -216,7 +221,7 @@ public class PackGroup extends ScreenGroup {
 	//
 	private final TextureAtlas textureAtlas;
 	private final Skin skin;
-	private final BitmapFont titleBitmapFont, infoBitmapFont;
+	private final BitmapFont titleBitmapFont, infoBitmapFont, scoreBitmapFont;
 	private final TweenManager tweenManager;
 
 	private final PackGroupEventListener listener;
@@ -237,6 +242,7 @@ public class PackGroup extends ScreenGroup {
 		this.skin = new Skin(this.textureAtlas);
 		this.titleBitmapFont = super.resources.getBitmapTrueFont(54);// .getBitmapFont(24);
 		this.infoBitmapFont = super.resources.getBitmapTrueFont(45);
+		this.scoreBitmapFont = super.resources.getBitmapTrueFont(25);
 
 		this.tweenManager = screen.getTweenManager();
 		this.listener = listener;
@@ -251,23 +257,6 @@ public class PackGroup extends ScreenGroup {
 
 	@Override
 	protected void initStage() {
-//		background = new ImageActor(textureAtlas.findRegion(Image.BACKGROUND));
-//		background.setBounds(Const.BG_X, Const.BG_Y, Const.BG_WIDTH, Const.BG_HEIGHT);
-//		this.addActor(background);
-//		background.setZIndex(0);
-//
-//		title = new ImageActor(textureAtlas.findRegion(Image.TITLE));
-//		title.setBounds(Const.TITLE_X, Const.TITLE_Y, Const.TITLE_WIDTH, Const.TITLE_HEIGHT);
-//		this.addActor(title);
-//		title.setZIndex(0x0f);
-//		title.addListener(new ClickListener() {
-//
-//			@Override
-//			public void clicked(InputEvent event, float x, float y) {
-//				onTitleClicked();
-//			}
-//
-//		});
 
 		btnBack = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Button.BACK_UP),
 				skin.getDrawable(Image.Button.BACK_DOWN), null));

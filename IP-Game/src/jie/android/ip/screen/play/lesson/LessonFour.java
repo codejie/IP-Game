@@ -71,7 +71,7 @@ public class LessonFour extends BaseLesson {
 		makeLabelActor(120, 460, "This button is used to execute your solution step by step.", 36, new Color(COLOR_TEXT));
 		makeImageActor(1080, 360, 0.5f, Image.Lesson.ARROW_RB);
 		
-		makeLabelActor(120, 320, "And this button is used to execute your solution to end.", 36, new Color(COLOR_TEXT));
+		makeLabelActor(120, 320, "And this button is used to run/break your solution anytime.", 36, new Color(COLOR_TEXT));
 		makeImageActor(1080, 240, 0.5f, Image.Lesson.ARROW_RB);
 		
 		makeLabelActor(320, 180, "Press 'RUN' button to stop RUN mode, and complete", 36, new Color(COLOR_TEXT));

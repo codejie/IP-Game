@@ -35,6 +35,8 @@ public interface PlayConfig {
 
 			public static final String DEBUG_OVER_UP = "cmd_debug_over_up";
 			public static final String DEBUG_OVER_DOWN = "cmd_debug_over_down";
+			public static final String DEBUG_BREAK_UP = "cmd_debug_break_up";
+			public static final String DEBUG_BREAK_DOWN = "cmd_debug_break_down";			
 			
 			public static final String CLEAR_UP = "cmd_clean_up";
 			public static final String CLEAR_DOWN = "cmd_clean_down";

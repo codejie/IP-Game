@@ -271,15 +271,18 @@ public class PlayRenderer {
 		return true;
 	}
 	
-	protected boolean onCmdDebug(State state) {
+	protected boolean onCmdDebug(final Cmd.State state) {
 		groupCmdPanel.setDisabled(Cmd.Type.DEBUG, true);
 		return true;
 	}	
 
 	protected boolean onCmdDebugOver(final Cmd.State state) {
-		groupCmdPanel.setDisabled(Cmd.Type.DEBUG, true);
-		groupCmdPanel.setDebugOver(true);
-		return true;
+		boolean over = groupCmdPanel.setDebugOver();
+		if (over) {
+			groupCmdPanel.setDisabled(Cmd.Type.DEBUG, true);
+			return true;
+		}
+		return false;
 	}
 	
 	protected boolean onCmdEnableDebug(final Cmd.State state) {

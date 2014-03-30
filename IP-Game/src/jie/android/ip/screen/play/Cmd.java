@@ -9,7 +9,7 @@ public final class Cmd {
 	
 	public enum Type { 
 		NONE, 
-		RUN, CLEAR, MENU, DEBUG, DEBUG_OVER,
+		RUN, CLEAR, MENU, BREAK, DEBUG, DEBUG_OVER,
 		BACK, INFO, SETTING, CLOSE, ENABLE_DEBUG,
 		SHARE, NEXT, BACK2, CLOSE2;
 		
@@ -61,7 +61,7 @@ public final class Cmd {
 
 		public Panel(final OnButtonListener listener) {
 			for (final Type type : Type.values()) {				
-				if (type == Type.RUN || type == Type.CLEAR || type ==Type.MENU || type == Type.DEBUG || type == Type.DEBUG_OVER) {
+				if (type == Type.RUN || type == Type.CLEAR || type ==Type.MENU || type == Type.BREAK || type == Type.DEBUG || type == Type.DEBUG_OVER) {
 					super.add(new Button(type, Layer.FIRST));
 				} else if (type == Type.BACK || type == Type.INFO || type == Type.SETTING|| type == Type.CLOSE || type == Type.ENABLE_DEBUG){
 					super.add(new Button(type, Layer.SECOND));
