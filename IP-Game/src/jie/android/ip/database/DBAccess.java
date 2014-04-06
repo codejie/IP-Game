@@ -18,6 +18,14 @@ public class DBAccess extends BaseAccess {
 		super(connection);
 	}
 	
+	public void upgrade() {
+		final String sql = "CREATE TABLE IF NOT EXISTS [play_service_id] ("
+				+ "[local_id] INTEGER," 
+				+ "[type] INTEGER," 
+				+ "[service_id] TEXT NOT NULL)"; 
+		execSQL(sql);		
+	}	
+	
 	public final ResultSet loadScript(int id) {
 		final String sql = "SELECT script, status, base_score FROM script WHERE id=" + id;
 		return querySQL(sql);
@@ -167,20 +175,20 @@ public class DBAccess extends BaseAccess {
 		execSQL(sql, val);
 	}
 	
-	public void updateScriptStatus(int id, int status) {
+	public int updateScriptStatus(int id, int status) {
 		final String sql = "UPDATE script SET status=? WHERE id=?";
 		final ArrayList<String> val = new ArrayList<String>();
 		val.add(String.valueOf(status));
 		val.add(String.valueOf(id));
-		execSQL(sql, val);
+		return execSQL(sql, val);
 	}
 
-	public void updateSolutionScore(int id, int score) {
+	public int updateSolutionScore(int id, int score) {
 		final String sql = "UPDATE solution SET score=? WHERE script_id=?";
 		final ArrayList<String> val = new ArrayList<String>();
 		val.add(String.valueOf(score));
 		val.add(String.valueOf(id));
-		execSQL(sql, val);		
+		return execSQL(sql, val);		
 	}
 	
 	public boolean scriptExist(int id) {
@@ -195,7 +203,6 @@ public class DBAccess extends BaseAccess {
 				rs.close();
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}			
 		return false;		
@@ -220,9 +227,54 @@ public class DBAccess extends BaseAccess {
 		final String sql = "UPDATE solution SET script_id=" + new_id + " WHERE script_id=" + id;
 		execSQL(sql);
 	}
-
+	
+	public void addPlayServiceId(ArrayList<String> val) {
+		final String sql = "INSERT INTO play_service_id (local_id, type, service_id) VALUES (?, ?, ?)";
+		execSQL(sql, val);		
+	}
+	
 	public void updateDBVersion(int ver) {
 		final String sql = "UPDATE sys SET int=" + ver + " WHERE attr=" + SystemConfig.SYS_ATTR_VERSION;
 		execSQL(sql);
+	}
+	
+	public boolean isPackAllUnlock(int id) {
+		final String sql = "SELECT COUNT(*), SUM(status) FROM script WHERE pack_id=" + id;
+		
+		final ResultSet rs = querySQL(sql);
+		try {
+			try {
+				if (rs.next()) {
+					return (rs.getInt(1) <= rs.getInt(2));
+				}
+			} finally {
+				rs.close();
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		return false;		
+	}
+
+	public String getPlayServiceId(int id, int type) {
+
+		final String sql = "SELECT service_id FROM play_service_id WHERE local_id=" + id + " AND type=" + type;
+		final ResultSet rs = querySQL(sql);
+		try {
+			try {
+				if (rs.next()) {
+					return rs.getString(1);
+				}
+			} finally {
+				rs.close();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return null;
 	}	
 }

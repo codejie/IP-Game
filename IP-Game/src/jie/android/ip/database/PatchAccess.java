@@ -42,6 +42,8 @@ public class PatchAccess extends BaseAccess {
 			check_update(dbAccess, ver);
 			check_add(dbAccess, ver);
 			
+			check_playservice_id_add(dbAccess, ver);
+			
 			update_db_version(dbAccess, ver);
 			
 			++ ver;
@@ -140,6 +142,29 @@ public class PatchAccess extends BaseAccess {
 			e.printStackTrace();
 		}		
 	}
+	
+	private void check_playservice_id_add(DBAccess dbAccess, int ver) {
+		final String sql = "SELECT local_id, type, service_id FROM play_service_id_add WHERE target=" + ver;
+		final ResultSet rs = querySQL(sql);
+		if (rs != null) {
+			try {
+				try {
+					while(rs.next()) {
+						final ArrayList<String> val = new ArrayList<String>();
+						val.add(rs.getString(1));
+						val.add(rs.getString(2));
+						val.add(rs.getString(3));
+						addPlayServiceId(dbAccess, val);
+					}
+				} finally {
+					rs.close();
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}	
 
 	private boolean scriptExist(final DBAccess dbAccess, int id) {
 		return dbAccess.scriptExist(id);
@@ -160,6 +185,10 @@ public class PatchAccess extends BaseAccess {
 	private void deleteScript(final DBAccess dbAccess, int id) {
 		dbAccess.deleteScript(id);		
 	}
+	
+	private void addPlayServiceId(final DBAccess dbAccess, final ArrayList<String> val) {
+		dbAccess.addPlayServiceId(val);
+	}	
 
 	private void update_db_version(final DBAccess dbAccess, int ver) {
 		dbAccess.updateDBVersion(ver);

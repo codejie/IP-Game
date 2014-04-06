@@ -1,6 +1,5 @@
 package jie.android.ip.screen.menu;
 
-import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
 import aurelienribon.tweenengine.TweenManager;
@@ -12,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import jie.android.ip.CommonConsts.PackConfig;
+import jie.android.ip.common.actor.BaseGroup;
 import jie.android.ip.common.actor.BaseGroupAccessor;
 import jie.android.ip.common.actor.ButtonActor;
 import jie.android.ip.common.actor.ScreenGroup;
@@ -32,7 +32,7 @@ public class CmdPanelGroup extends ScreenGroup {
 	public CmdPanelGroup(final BaseScreen screen) {
 		super(screen);
 		
-		this.textureAtlas = super.resources.getTextureAtlas(PackConfig.SCREEN_PLAY);
+		this.textureAtlas = super.resources.getTextureAtlas(PackConfig.SCREEN_MENU);
 		this.skin = new Skin(this.textureAtlas);
 		this.tweenManager = this.screen.getTweenManager();	
 		
@@ -41,6 +41,7 @@ public class CmdPanelGroup extends ScreenGroup {
 
 	@Override
 	protected void initStage() {
+
 		this.setBounds(Const.Cmd.BASE_X, Const.Cmd.BASE_Y, Const.Cmd.WIDTH, Const.Cmd.HEIGHT);
 		
 		final ButtonActor share = new ButtonActor(new Button.ButtonStyle(skin.getDrawable(Image.Cmd.SHARE_UP), skin.getDrawable(Image.Cmd.SHARE_DOWN), null));

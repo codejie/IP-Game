@@ -4,6 +4,7 @@ import jie.android.ip.CommonConsts.AudioConfig;
 import jie.android.ip.CommonConsts.ScreenConfig;
 import jie.android.ip.CommonConsts.SystemConfig;
 import jie.android.ip.database.DBAccess;
+import jie.android.ip.playservice.PlayService;
 import jie.android.ip.screen.menu.MenuScreen;
 import jie.android.ip.screen.play.PlayScreen;
 import jie.android.ip.screen.start.StartScreen;
@@ -15,6 +16,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class IPGame extends Game {
 
 	private final Setup setup;
+	private final PlayService playService;
 	
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
@@ -23,8 +25,11 @@ public class IPGame extends Game {
 	private DBAccess dbAccess;
 	private AudioPlayer player;
 	
-	public IPGame(final Setup setup) {
+	private PlayEventListener playEventListener;
+	
+	public IPGame(final Setup setup, final PlayService playService) {
 		this.setup = setup;
+		this.playService = playService;
 		
 		Environment.init();
 	}
@@ -34,6 +39,8 @@ public class IPGame extends Game {
 		initDBAccess();
 		initResources();
 		initAudioPlayer();
+		
+		initPlayEventListener();
 		
 		initCamera();
 		initSpriteBatch();
@@ -75,6 +82,10 @@ public class IPGame extends Game {
 		return setup;
 	}
 	
+	public final PlayService getPlayService() {
+		return playService;
+	}
+	
 	public SpriteBatch getSpriteBatch() {
 		return batch;
 	}
@@ -96,7 +107,15 @@ public class IPGame extends Game {
 	private void initResources() {
 		resources = new Resources();
 	}
+	
+	private void initPlayEventListener() {
+		playEventListener = new PlayEventListener(this);		
+	}
 
+	public final PlayEventListener getPlayEventListener() {
+		return playEventListener;
+	}
+	
 	private void initSpriteBatch() {
 		batch = new SpriteBatch();
 		batch.setProjectionMatrix(camera.combined);

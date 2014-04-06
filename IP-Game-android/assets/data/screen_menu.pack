@@ -45,65 +45,107 @@ pack_bg
   orig: 320, 232
   offset: 0, 0
   index: -1
+cmd_achieve_down
+  rotate: false
+  xy: 1605, 959
+  size: 256, 64
+  orig: 256, 64
+  offset: 0, 0
+  index: -1
+cmd_achieve_up
+  rotate: false
+  xy: 323, 187
+  size: 256, 64
+  orig: 256, 64
+  offset: 0, 0
+  index: -1
+cmd_board_down
+  rotate: false
+  xy: 1283, 491
+  size: 256, 64
+  orig: 256, 64
+  offset: 0, 0
+  index: -1
+cmd_board_up
+  rotate: false
+  xy: 1605, 893
+  size: 256, 64
+  orig: 256, 64
+  offset: 0, 0
+  index: -1
 frame_top
   rotate: false
-  xy: 1605, 1021
+  xy: 581, 249
   size: 304, 2
   orig: 304, 2
   offset: 0, 0
   index: -1
 back_down
   rotate: false
-  xy: 323, 123
+  xy: 1863, 895
   size: 64, 128
   orig: 64, 128
   offset: 0, 0
   index: -1
 back_up
   rotate: false
-  xy: 323, 123
+  xy: 1863, 895
   size: 64, 128
   orig: 64, 128
   offset: 0, 0
   index: -1
-cmd_setup_down
+cmd_close_down
   rotate: false
-  xy: 1283, 491
+  xy: 323, 121
   size: 128, 64
   orig: 128, 64
   offset: 0, 0
   index: -1
-cmd_setup_up
-  rotate: false
-  xy: 1605, 955
-  size: 128, 64
-  orig: 128, 64
-  offset: 0, 0
-  index: -1
-cmd_share_down
-  rotate: false
-  xy: 389, 187
-  size: 128, 64
-  orig: 128, 64
-  offset: 0, 0
-  index: -1
-cmd_share_up
+cmd_close_up
   rotate: false
   xy: 1283, 425
   size: 128, 64
   orig: 128, 64
   offset: 0, 0
   index: -1
+cmd_setup_down
+  rotate: false
+  xy: 1605, 827
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
+cmd_setup_up
+  rotate: false
+  xy: 323, 55
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
+cmd_share_down
+  rotate: false
+  xy: 1283, 359
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
+cmd_share_up
+  rotate: false
+  xy: 1605, 761
+  size: 128, 64
+  orig: 128, 64
+  offset: 0, 0
+  index: -1
 next_up
   rotate: false
-  xy: 1413, 491
+  xy: 1283, 293
   size: 128, 64
   orig: 128, 64
   offset: 0, 0
   index: -1
 prev_up
   rotate: false
-  xy: 1605, 889
+  xy: 1605, 695
   size: 128, 64
   orig: 128, 64
   offset: 0, 0
@@ -117,28 +159,28 @@ tray
   index: -1
 box_a
   rotate: false
-  xy: 1735, 995
+  xy: 1541, 531
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 box_b
   rotate: false
-  xy: 389, 161
+  xy: 581, 223
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 box_c
   rotate: false
-  xy: 519, 227
+  xy: 1929, 999
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 box_d
   rotate: false
-  xy: 1283, 399
+  xy: 453, 161
   size: 24, 24
   orig: 24, 24
   offset: 0, 0

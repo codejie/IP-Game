@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="jie.android.ip"
-    android:versionCode="12"
+    package="jie.android.ip.preview"
+    android:versionCode="2"
     android:versionName="Preview" >
 
-    <uses-sdk android:minSdkVersion="5" android:targetSdkVersion="17" />
+    <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="17" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
@@ -12,7 +12,7 @@
         android:icon="@drawable/ip"
         android:label="@string/app_name" >
         <activity
-            android:name=".MainActivity"
+            android:name="jie.android.ip.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="landscape"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
@@ -21,6 +21,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data android:name="com.google.android.gms.games.APP_ID" android:value="@string/app_id" />
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>        
     </application>
 
 </manifest>

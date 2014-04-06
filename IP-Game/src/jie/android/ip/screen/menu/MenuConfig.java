@@ -43,7 +43,15 @@ public interface MenuConfig {
 			
 			public static final String CLOSE_UP = "cmd_close_up";
 			public static final String CLOSE_DOWN = "cmd_close_down";			
-		}		
+		}
+		
+		public interface PlayService {
+			public static final String ACHIEVE_DOWN = "cmd_achieve_down";
+			public static final String ACHIEVE_UP = "cmd_achieve_up";
+
+			public static final String BOARD_UP = "cmd_board_up";
+			public static final String BOARD_DOWN = "cmd_board_down";			
+		}
 	}
 	
 	public interface Const {
@@ -56,7 +64,7 @@ public interface MenuConfig {
 		public static final int BG_Y = 0;
 		public static final int BG_WIDTH = ScreenConfig.WIDTH;
 		public static final int BG_HEIGHT = ScreenConfig.HEIGHT - 128;
-		public static final int TITLE_PACK_Y = 24; 
+		public static final int TITLE_PACK_Y = 24;
 		
 		public interface Button {
 			public static final int BACK_WIDTH = 64;
@@ -149,7 +157,29 @@ public interface MenuConfig {
 			
 			public static final float X_CLOSE = BASE_BUTTON_X;//0;
 			public static final float Y_CLOSE = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 2;			
-		}		
+		}
+		
+		public interface PlayService {
+			public static final int WIDTH_BUTTON = 256;
+			public static final int HEIGHT_BUTTON = 64;
+			
+			public static final int BASE_X = - WIDTH_BUTTON;
+			public static final int BASE_Y = 0;
+			public static final int TARGET_X = 0; 
+			
+			public static final int WIDTH = 256;
+			public static final int HEIGHT = ScreenConfig.HEIGHT - 128;//72;
+			
+			public static final int BASE_BUTTON_X = 0;
+			public static final int BASE_BUTTON_Y = 0;
+			public static final int SPACE_BUTTON_Y = 48;			
+			
+			public static final int X_BOARD = BASE_BUTTON_X;//0;
+			public static final int Y_BOARD = HEIGHT - HEIGHT_BUTTON - (SPACE_BUTTON_Y + HEIGHT_BUTTON) * 1;
+			
+			public static final int X_ACHIEVE = BASE_BUTTON_X;//0;
+			public static final int Y_ACHIEVE = HEIGHT - HEIGHT_BUTTON;//80;			
+		}
 
 	}
 	

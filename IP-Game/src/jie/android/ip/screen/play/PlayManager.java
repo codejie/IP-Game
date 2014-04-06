@@ -19,7 +19,8 @@ public class PlayManager implements Disposable {
 	private final PlayScreen screen;
 	private final DBAccess dbAccess;
 
-	private Script script;
+	private int packId = -1;
+	private Script script = null;
 	private int script_status = 0;
 	private int script_base_score = 0;
 	private CommandSet cmdSet;
@@ -210,6 +211,7 @@ public class PlayManager implements Disposable {
 	
 	public boolean loadScript(final int packId, final int scriptId) {
 
+		this.packId = packId;
 		script = new Script(scriptId);
 
 		final ResultSet rs = dbAccess.loadScript(scriptId);
@@ -327,7 +329,11 @@ public class PlayManager implements Disposable {
 	protected void onExecuteSucc() {
 		int score = cmdSet.calcScore();
 		dbAccess.updateScriptStatus(script.getId(), 1);
-		dbAccess.updateSolutionScore(script.getId(), score);
+		
+		if(dbAccess.updateSolutionScore(script.getId(), score) > 0) {
+			this.screen.getGame().getPlayEventListener().onPackItemPlaySucc(packId, script.getId(), score);	
+		}
+		
 		if (managerListener != null) {
 			managerListener.onExecuteSucc(script_base_score, score, execStep);
 		}

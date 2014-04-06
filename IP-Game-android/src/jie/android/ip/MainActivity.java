@@ -1,8 +1,12 @@
 package jie.android.ip;
 
+import jie.android.ip.playservice.AndroidPlayService;
+import jie.android.ip.playservice.PlayService;
+import jie.android.ip.playservice.PlayServiceListener;
 import jie.android.ip.setup.AndroidSetup;
 import jie.android.ip.setup.Setup;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -13,6 +17,10 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.badlogic.gdx.backends.android.surfaceview.ResolutionStrategy;
 
 public class MainActivity extends AndroidApplication {
+	
+    private Setup setup;
+    private PlayService playService;
+	
 	@SuppressLint("NewApi")
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -27,8 +35,31 @@ public class MainActivity extends AndroidApplication {
 	        getWindow().setAttributes(params);
         }
         
-        final Setup setup = new AndroidSetup(this.getApplicationContext());
-        initialize(new IPGame(setup), cfg);
+        setup = new AndroidSetup(this.getApplicationContext());
+        playService = new AndroidPlayService(this);
+        playService.setPlayServiceListener(new PlayServiceListener() {
+
+			@Override
+			public void onSignInSucceeded() {
+			}
+
+			@Override
+			public void onSignInFailed() {
+				playService.showErrorDialog();
+			}
+        	
+        });
+        
+        initialize(new IPGame(setup, playService), cfg);
+        
+        playService.create();
     }
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+//		Log.d("======", "onActivityResult()" + " request = " + requestCode + " result = " + resultCode);
+		playService.onActivityResult(requestCode, resultCode);
+	}
     
 }

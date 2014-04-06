@@ -31,6 +31,7 @@ public class MenuRenderer {
 //	private final Sound soundClick;
 	
 	private CmdPanelGroup groupCmd;
+	private PlayServicePanelGroup groupPlayService;
 	
 	private MenuScreenListener.RendererEventListener rendererListener;
 	
@@ -132,22 +133,28 @@ public class MenuRenderer {
 
 	protected void onTitleClicked() {
 		toggleCmdPanel();
-		
-		
-//		new SettingDialog(this.screen).show();
 	}
 
 	private void toggleCmdPanel() {
 		if (groupCmd == null) {
 			groupCmd = new CmdPanelGroup(this.screen);
 		}
-		groupCmd.show();		
+		groupCmd.show();
+		
+		if (groupPlayService == null) {
+			groupPlayService = new PlayServicePanelGroup(this.screen);
+		}
+		groupPlayService.show();
 	}
 	
 	private void hideCmdPanel() {
 		if (groupCmd != null  && groupCmd.isShowing()) {
 			groupCmd.show();
 		}
+		
+		if (groupPlayService != null  && groupPlayService.isShowing()) {
+			groupPlayService.show();
+		}		
 	}
 	
 	private void initGroups() {

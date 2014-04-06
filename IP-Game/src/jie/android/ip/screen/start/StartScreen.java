@@ -16,6 +16,7 @@ import jie.android.ip.common.actor.ImageActor;
 import jie.android.ip.common.actor.ImageActorAccessor;
 import jie.android.ip.database.DBAccess;
 import jie.android.ip.database.PatchAccess;
+import jie.android.ip.playservice.PlayService;
 import jie.android.ip.screen.BaseScreen;
 import jie.android.ip.screen.menu.MenuScreen;
 import jie.android.ip.screen.start.StartConfig.Image;
@@ -35,6 +36,8 @@ public class StartScreen extends BaseScreen {
 		@Override
 		public void onEvent(int type, BaseTween<?> source) {
 //			Utils.log("tween event", "type = " + type + " source = " + source.toString());
+
+			signInPlayService(game);
 			
 			packPatchCheck(game);
 
@@ -195,6 +198,11 @@ public class StartScreen extends BaseScreen {
 		final PatchAccess ppAccess = new PatchAccess(game.getSetup().getPatchConnection());
 		
 		int ver = dbAccess.getSysDataAsInt(SystemConfig.SYS_ATTR_VERSION);
+		if (ver <= 7) {
+			//leaderboard
+			dbAccess.upgrade();
+		}
+		
 		int patch = ppAccess.getTargetVersion();
 		
 		if (patch > ver) {
@@ -204,5 +212,9 @@ public class StartScreen extends BaseScreen {
 		
 		game.getSetup().removePatch();
 	}
-	
+
+	protected void signInPlayService(final IPGame game) {
+		final PlayService play = game.getPlayService();
+		play.connect();
+	}	
 }

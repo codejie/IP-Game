@@ -22,6 +22,7 @@ public class PlayRenderer {
 	private TitleGroup groupTitle;
 	private CodeLineGroup groupCodeLine;
 	private CmdPanelGroup groupCmdPanel;
+	private PlayServicePanelGroup groupPlayServicePanel;
 	private ResultGroup groupResult;
 	
 	private LessonGroup groupLesson;
@@ -84,6 +85,7 @@ public class PlayRenderer {
 			playResultSucc();
 			groupBox.showSourceClone();
 			groupCmdPanel.showMenu(Cmd.Layer.THIRD);
+			groupPlayServicePanel.show();
 			groupResult.showSuccStage(base_score, score, execStep);			
 		}
 		
@@ -111,6 +113,8 @@ public class PlayRenderer {
 			groupTitle.setTitle(packTitle, String.format("Stage %d",  scriptSelfId));
 			scriptAuthor = author;
 			scriptComment = comment;
+			
+			groupPlayServicePanel.setId(packId, scriptId);
 		}
 		@Override
 		public void onCodeCalled(int type, int index, int pos) {
@@ -250,6 +254,7 @@ public class PlayRenderer {
 		groupCodeLine = new CodeLineGroup(screen, internalListener);
 		groupResult = new ResultGroup(screen, internalListener);		
 		groupCmdPanel = new CmdPanelGroup(screen, internalListener);
+		groupPlayServicePanel = new PlayServicePanelGroup(screen);
 	}
 
 	protected void changeRunStage(boolean show) {
@@ -295,6 +300,7 @@ public class PlayRenderer {
 	
 	protected boolean onCmdMenu(final Cmd.State state) {
 		groupCmdPanel.showMenu(Cmd.Layer.SECOND);
+		groupPlayServicePanel.show();
 		return true;
 	}	
 
@@ -303,6 +309,8 @@ public class PlayRenderer {
 		if (groupCmdPanel.isChecked(Cmd.Type.RUN)) {
 			changeRunStage(false);			
 		}
+		
+		groupPlayServicePanel.show();
 		return true;
 	}
 
