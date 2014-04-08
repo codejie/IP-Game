@@ -25,6 +25,10 @@ public class PlayEventListener {
 			onAchievementUnlock(packId);
 		}
 	}
+	
+	public void onTrackerDone(final PlayServiceTracker tracker) {
+		
+	}
 
 	private void onAchievementUnlock(int packId) {
 		
