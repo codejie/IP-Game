@@ -82,21 +82,21 @@ public class AndroidPlayService extends PlayService {
 
 	@Override
 	public void showLeaderboard(final String id) {
-		if (gameHelper.isSignedIn()) {
+		if (gameHelper.isSignedIn() && id != null) {
 			activity.startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient(), id), GameHelper.RC_UNUSED);
 		}
 	}
 
 	@Override
 	public void unlockAchievement(final String id) {
-		if (gameHelper.isSignedIn()) {
+		if (gameHelper.isSignedIn() && id != null) {
 			Games.Achievements.unlock(gameHelper.getApiClient(), id);
 		}
 	}
 
 	@Override
 	public void submitLeaderboardScore(String id, int score) {
-		if (gameHelper.isSignedIn()) {
+		if (gameHelper.isSignedIn() && id != null) {
 			Games.Leaderboards.submitScore(gameHelper.getApiClient(), id, score);
 		}
 	}
