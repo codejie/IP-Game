@@ -267,19 +267,20 @@ public class DBAccess extends BaseAccess {
 
 		final String sql = "SELECT service_id FROM play_service_id WHERE local_id=" + id + " AND type=" + type;
 		final ResultSet rs = querySQL(sql);
-		try {
+		if (rs != null) {
 			try {
-				if (rs.next()) {
-					return rs.getString(1);
+				try {
+					if (rs.next()) {
+						return rs.getString(1);
+					}
+				} finally {
+					rs.close();
 				}
-			} finally {
-				rs.close();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		
+		}		
 		return null;
 	}
 }

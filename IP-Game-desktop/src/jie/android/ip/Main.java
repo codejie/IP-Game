@@ -17,6 +17,6 @@ public class Main {
 		
 		final Setup setup = new DesktopSetup();
 		
-		new LwjglApplication(new IPGame(setup), cfg);
+		new LwjglApplication(new IPGame(setup, null), cfg);
 	}
 }

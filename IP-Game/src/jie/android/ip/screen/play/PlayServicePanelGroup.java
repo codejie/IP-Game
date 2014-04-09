@@ -86,7 +86,7 @@ public class PlayServicePanelGroup extends ScreenGroup {
 	}
 	
 	public void show() {
-		if (playService.isSignedIn()) {
+		if (playService != null && playService.isSignedIn()) {
 			show(null);
 		}
 	}

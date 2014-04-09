@@ -17,17 +17,19 @@ public class PlayEventListener {
 	}
 	
 	public void onPackItemPlaySucc(int packId, int itemId, int score) {
-		playService.submitLeaderboardScore(getLeaderboardIdByItemId(itemId), score);
-		onLeaderboardUpdate(packId, itemId, score);				
-
-		if (dbAccess.isPackAllUnlock(packId)) {
-			playService.unlockAchievement(getAchievementIdByPackId(packId));
-			onAchievementUnlock(packId);
+		if (playService != null) {
+			playService.submitLeaderboardScore(getLeaderboardIdByItemId(itemId), score);
+			onLeaderboardUpdate(packId, itemId, score);				
+	
+			if (dbAccess.isPackAllUnlock(packId)) {
+				playService.unlockAchievement(getAchievementIdByPackId(packId));
+				onAchievementUnlock(packId);
+			}
 		}
 	}
-	
-	public void onTrackerDone(final PlayServiceTracker tracker) {
-		
+
+	public void unlockTrackerAchievement(int id) {
+		playService.unlockAchievement(getAchievementIdByTrackerId(id));
 	}
 
 	private void onAchievementUnlock(int packId) {
@@ -46,5 +48,8 @@ public class PlayEventListener {
 		return dbAccess.getPlayServiceId(itemId, 1);
 	}
 	
+	private final String getAchievementIdByTrackerId(int id) {
+		return dbAccess.getPlayServiceId(id, 2);
+	}
 	
 }

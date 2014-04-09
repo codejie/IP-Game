@@ -215,6 +215,8 @@ public class StartScreen extends BaseScreen {
 
 	protected void signInPlayService(final IPGame game) {
 		final PlayService play = game.getPlayService();
-		play.connect();
+		if (play != null) {
+			play.connect();
+		}
 	}	
 }

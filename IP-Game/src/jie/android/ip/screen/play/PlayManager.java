@@ -8,6 +8,8 @@ import com.badlogic.gdx.utils.Disposable;
 import jie.android.ip.database.DBAccess;
 import jie.android.ip.executor.CommandSet;
 import jie.android.ip.executor.Script;
+import jie.android.ip.executor.CommandConsts.CommandType;
+import jie.android.ip.playservice.PlayServiceTracker;
 import jie.android.ip.screen.play.Cmd.State;
 import jie.android.ip.screen.play.Code.Lines;
 import jie.android.ip.utils.Utils;
@@ -31,6 +33,8 @@ public class PlayManager implements Disposable {
 	private final Box box;;
 	private final Code.Lines codeLines;
 	private final PlayExecutor executor;
+	
+	private final PlayServiceTracker playServiceTracker = new PlayServiceTracker();
 
 	private final PlayScreenListener.RendererEventListener rendererListener = new PlayScreenListener.RendererEventListener() {
 
@@ -80,6 +84,8 @@ public class PlayManager implements Disposable {
 		@Override
 		public void onExecuteMove(boolean right) {
 			box.tryMoveTray(right);
+			
+			playServiceTracker.update(right ? PlayServiceTracker.Type.MOVE_RIGHT : PlayServiceTracker.Type.MOVE_RIGHT);
 		}
 
 		@Override
@@ -90,15 +96,21 @@ public class PlayManager implements Disposable {
 				onExecuteSucc();
 			} else if (reason == PlayExecutor.StopReason.RESET) {
 				onExecuteReset();
+				playServiceTracker.update(PlayServiceTracker.Type.EXECUTE_MAX_RESET);
 			} else if (reason == PlayExecutor.StopReason.FINISHED) {
-				onExecuteFinished();
+				onExecuteFinished();				
+				playServiceTracker.update(PlayServiceTracker.Type.EXECUTE_MAX_FINISHED);
 			} else if (reason == PlayExecutor.StopReason.EXCEPTION) {
 				onExecuteException();
+				playServiceTracker.update(PlayServiceTracker.Type.EXECUTE_MAX_EXCEPTION);
 			} else if (reason == PlayExecutor.StopReason.OVERFLOW) {
 				onExecuteOverflow();
+				playServiceTracker.update(PlayServiceTracker.Type.EXECUTE_MAX_OVERFLOW);
 			} else {
 				Utils.log(Tag, "Unsupport execute stop reason - " + reason);
 			}
+			
+			playServiceTracker.update(PlayServiceTracker.Type.EXECUTE_MIN_SUCC);
 		}
 
 		@Override
@@ -154,6 +166,8 @@ public class PlayManager implements Disposable {
 				}
 			} else {
 				++ execStep;
+				
+				playServiceTracker.update(PlayServiceTracker.Type.STEP_MAX);
 			}
 
 			if (managerListener != null) {
@@ -163,6 +177,8 @@ public class PlayManager implements Disposable {
 
 		@Override
 		public void onBoxMoveEmpty() {
+			playServiceTracker.update(PlayServiceTracker.Type.ACTION_EMPTY);
+			
 			if (managerListener != null) {
 				managerListener.onBoxMoveEmpty();
 			}
@@ -172,11 +188,20 @@ public class PlayManager implements Disposable {
 		public void onBoxMoveException(int error) {
 			Utils.log(Tag, "onBoxMoveException : " + error);
 			executor.stop(PlayExecutor.StopReason.EXCEPTION);
+			
 			// onExecuteEnd(false);
 		}
 
 		@Override
 		public void onCodeCalled(int type, int func, int index) {
+			if (type == CommandType.CALL.getId()) {
+				playServiceTracker.update(PlayServiceTracker.Type.CALL_MAX);
+			} else if (type == CommandType.CHECK.getId()) {
+				playServiceTracker.update(PlayServiceTracker.Type.CHECK_MAX);
+			} else if (type == CommandType.ACT.getId()) {
+				playServiceTracker.update(PlayServiceTracker.Type.ACTION_MAX);
+			}
+			
 			if (managerListener != null) {
 				managerListener.onCodeCalled(type, func, index);
 			}
@@ -334,14 +359,15 @@ public class PlayManager implements Disposable {
 			this.screen.getGame().getPlayEventListener().onPackItemPlaySucc(packId, script.getId(), score);	
 		}
 		
+		playServiceTracker.check(this.screen.getGame().getPlayEventListener());
+		
 		if (managerListener != null) {
 			managerListener.onExecuteSucc(script_base_score, score, execStep);
 		}
 	}
 
 	protected void onExecuteReset() {
-		// TODO Auto-generated method stub
-
+		playServiceTracker.refresh(false);
 	}
 
 	protected void onExecuteFinished() {
