@@ -34,7 +34,7 @@ public class PlayManager implements Disposable {
 	private final Code.Lines codeLines;
 	private final PlayExecutor executor;
 	
-	//private final PlayServiceTracker playServiceTracker = new PlayServiceTracker();
+	private final PlayServiceTracker playServiceTracker = new PlayServiceTracker();
 
 	private final PlayScreenListener.RendererEventListener rendererListener = new PlayScreenListener.RendererEventListener() {
 
@@ -85,7 +85,7 @@ public class PlayManager implements Disposable {
 		public void onExecuteMove(boolean right) {
 			box.tryMoveTray(right);
 			
-//			playServiceTracker.update(right ? PlayServiceTracker.Type.MOVE_RIGHT : PlayServiceTracker.Type.MOVE_RIGHT);
+			playServiceTracker.update(right ? PlayServiceTracker.Type.MOVE_RIGHT : PlayServiceTracker.Type.MOVE_LEFT);
 		}
 
 		@Override
@@ -96,21 +96,21 @@ public class PlayManager implements Disposable {
 				onExecuteSucc();
 			} else if (reason == PlayExecutor.StopReason.RESET) {
 				onExecuteReset();
-//				playServiceTracker.update(PlayServiceTracker.Type.EXECUTE_MAX_RESET);
+				playServiceTracker.update(PlayServiceTracker.Type.EXECUTE_MAX_RESET);
 			} else if (reason == PlayExecutor.StopReason.FINISHED) {
 				onExecuteFinished();				
-//				playServiceTracker.update(PlayServiceTracker.Type.EXECUTE_MAX_FINISHED);
+				playServiceTracker.update(PlayServiceTracker.Type.EXECUTE_MAX_FINISHED);
 			} else if (reason == PlayExecutor.StopReason.EXCEPTION) {
 				onExecuteException();
-//				playServiceTracker.update(PlayServiceTracker.Type.EXECUTE_MAX_EXCEPTION);
+				playServiceTracker.update(PlayServiceTracker.Type.EXECUTE_MAX_EXCEPTION);
 			} else if (reason == PlayExecutor.StopReason.OVERFLOW) {
 				onExecuteOverflow();
-//				playServiceTracker.update(PlayServiceTracker.Type.EXECUTE_MAX_OVERFLOW);
+				playServiceTracker.update(PlayServiceTracker.Type.EXECUTE_MAX_OVERFLOW);
 			} else {
 				Utils.log(Tag, "Unsupport execute stop reason - " + reason);
 			}
 			
-//			playServiceTracker.update(PlayServiceTracker.Type.EXECUTE_MIN_SUCC);
+			playServiceTracker.update(PlayServiceTracker.Type.EXECUTE_MIN_SUCC);
 		}
 
 		@Override
@@ -167,7 +167,7 @@ public class PlayManager implements Disposable {
 			} else {
 				++ execStep;
 				
-//				playServiceTracker.update(PlayServiceTracker.Type.STEP_MAX);
+				playServiceTracker.update(PlayServiceTracker.Type.STEP_MAX);
 			}
 
 			if (managerListener != null) {
@@ -177,7 +177,7 @@ public class PlayManager implements Disposable {
 
 		@Override
 		public void onBoxMoveEmpty() {
-//			playServiceTracker.update(PlayServiceTracker.Type.ACTION_EMPTY);
+			playServiceTracker.update(PlayServiceTracker.Type.ACTION_EMPTY);
 			
 			if (managerListener != null) {
 				managerListener.onBoxMoveEmpty();
@@ -195,11 +195,11 @@ public class PlayManager implements Disposable {
 		@Override
 		public void onCodeCalled(int type, int func, int index) {
 			if (type == CommandType.CALL.getId()) {
-//				playServiceTracker.update(PlayServiceTracker.Type.CALL_MAX);
+				playServiceTracker.update(PlayServiceTracker.Type.CALL_MAX);
 			} else if (type == CommandType.CHECK.getId()) {
-//				playServiceTracker.update(PlayServiceTracker.Type.CHECK_MAX);
+				playServiceTracker.update(PlayServiceTracker.Type.CHECK_MAX);
 			} else if (type == CommandType.ACT.getId()) {
-//				playServiceTracker.update(PlayServiceTracker.Type.ACTION_MAX);
+				playServiceTracker.update(PlayServiceTracker.Type.ACTION_MAX);
 			}
 			
 			if (managerListener != null) {
@@ -359,7 +359,7 @@ public class PlayManager implements Disposable {
 			this.screen.getGame().getPlayEventListener().onPackItemPlaySucc(packId, script.getId(), score);	
 		}
 		
-//		playServiceTracker.check(this.screen.getGame().getPlayEventListener());
+		playServiceTracker.check(this.screen.getGame().getPlayEventListener());
 		
 		if (managerListener != null) {
 			managerListener.onExecuteSucc(script_base_score, score, execStep);
@@ -367,7 +367,7 @@ public class PlayManager implements Disposable {
 	}
 
 	protected void onExecuteReset() {
-//		playServiceTracker.refresh(false);
+		playServiceTracker.refresh(false);
 	}
 
 	protected void onExecuteFinished() {
