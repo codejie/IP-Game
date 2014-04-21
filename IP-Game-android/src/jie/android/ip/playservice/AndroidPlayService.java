@@ -69,21 +69,33 @@ public class AndroidPlayService extends PlayService {
 	@Override
 	public void showAchievements() {
 		if (gameHelper.isSignedIn()) {
-            activity.startActivityForResult(Games.Achievements.getAchievementsIntent(gameHelper.getApiClient()), GameHelper.RC_UNUSED);
+			try {
+				activity.startActivityForResult(Games.Achievements.getAchievementsIntent(gameHelper.getApiClient()), GameHelper.RC_UNUSED);
+			} catch (final SecurityException e){
+				gameHelper.disconnect();
+			}
 		}
 	}
 
 	@Override
 	public void showAllLeaderboards() {
 		if (gameHelper.isSignedIn()) {
-			activity.startActivityForResult(Games.Leaderboards.getAllLeaderboardsIntent(gameHelper.getApiClient()), GameHelper.RC_UNUSED);
+			try {
+				activity.startActivityForResult(Games.Leaderboards.getAllLeaderboardsIntent(gameHelper.getApiClient()), GameHelper.RC_UNUSED);
+			} catch (final SecurityException e){
+				gameHelper.disconnect();
+			}
 		}
 	}
 
 	@Override
 	public void showLeaderboard(final String id) {
 		if (gameHelper.isSignedIn() && id != null) {
-			activity.startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient(), id), GameHelper.RC_UNUSED);
+			try {
+				activity.startActivityForResult(Games.Leaderboards.getLeaderboardIntent(gameHelper.getApiClient(), id), GameHelper.RC_UNUSED);
+			} catch (final SecurityException e){
+				gameHelper.disconnect();
+			}				
 		}
 	}
 

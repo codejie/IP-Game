@@ -7,15 +7,29 @@ import jie.android.ip.utils.Utils;
 
 public class PlayServiceTracker {
 	
-	private final String Tag = PlayServiceTracker.class.getSimpleName();
+	private static final String Tag = PlayServiceTracker.class.getSimpleName();
+	
+	private static final int ID_MOVE_LEFT = 10;
+	private static final int ID_MOVE_RIGHT = 11;
+	private static final int ID_ACTION_EMPTY = 12;
+	private static final int ID_ACTION_MAX = 13;
+	private static final int ID_CALL_MAX = 14;
+	private static final int ID_CHECK_MAX = 15;
+	private static final int ID_STEP_MAX = 20;
+	private static final int ID_EXECUTE_MAX_EXCEPTIN = 30;
+	private static final int ID_EXECUTE_MAX_OVERFLOW = 31;
+	private static final int ID_EXECUTE_MAX_FINISHED = 32;
+	private static final int ID_EXECUTE_MAX_RESET = 33;
+	private static final int ID_EXECUTE_MIN_SUCC = 34;	
 	
 	public enum Type {
-		MOVE_LEFT(1, 50, true, false), MOVE_RIGHT(2, 50, true, false), ACTION_EMPTY(3, 30, true, false), ACTION_MAX(17, 150, true, false),
-		CALL_MAX(4, 30, true, false), CHECK_MAX(5, 50, true, false), STEP_MAX(6, 250, true, false),
+		MOVE_LEFT(ID_MOVE_LEFT, 50, true, false), MOVE_RIGHT(ID_MOVE_RIGHT, 50, true, false), ACTION_EMPTY(ID_ACTION_EMPTY, 30, true, false), 
+		ACTION_MAX(ID_ACTION_MAX, 150, true, false), CALL_MAX(ID_CALL_MAX, 30, true, false), CHECK_MAX(ID_CHECK_MAX, 50, true, false),
+		STEP_MAX(ID_STEP_MAX, 250, true, false),
 //		CHECK_MAX_0(7, 4, true, false), CHECK_MAX_1(8, 4, true, false), CHECK_MAX_2(9, 4, true, false), CHECK_MAX_3(10, 4, true, false),
 //		CHECK_MAX_ALL(11, 4, true, false), CHECK_MAX_NONE(12, 4, true, false),
-		EXECUTE_MAX_EXCEPTION(13, 10, true, true), EXECUTE_MAX_OVERFLOW(14, 10, true, true), EXECUTE_MAX_FINISHED(15, 10, true, true), EXECUTE_MAX_RESET(18, 10, true, true),
-		EXECUTE_MIN_SUCC(16, 1, false, true);
+		EXECUTE_MAX_EXCEPTION(ID_EXECUTE_MAX_EXCEPTIN, 10, true, true), EXECUTE_MAX_OVERFLOW(ID_EXECUTE_MAX_OVERFLOW, 10, true, true), EXECUTE_MAX_FINISHED(ID_EXECUTE_MAX_FINISHED, 10, true, true),
+		EXECUTE_MAX_RESET(ID_EXECUTE_MAX_RESET, 10, true, true), EXECUTE_MIN_SUCC(ID_EXECUTE_MIN_SUCC, 1, false, true);
 		
 		private final int id;
 		private final int target;

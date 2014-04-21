@@ -364,6 +364,8 @@ public class PlayManager implements Disposable {
 		if (managerListener != null) {
 			managerListener.onExecuteSucc(script_base_score, score, execStep);
 		}
+		
+		playServiceTracker.refresh(false);
 	}
 
 	protected void onExecuteReset() {
@@ -374,18 +376,23 @@ public class PlayManager implements Disposable {
 		if (managerListener != null) {
 			managerListener.onExecuteFinished();
 		}
+		
+		playServiceTracker.refresh(false);
 	}
 
 	protected void onExecuteException() {
 		if (managerListener != null) {
 			managerListener.onExecuteFail();
 		}
-
+		
+		playServiceTracker.refresh(false);
 	}
 
 	protected void onExecuteOverflow() {
 		if (managerListener != null) {
 			managerListener.onExecuteOverflow();
 		}		
+		
+		playServiceTracker.refresh(false);
 	}	
 }
