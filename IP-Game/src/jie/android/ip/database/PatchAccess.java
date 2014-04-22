@@ -97,6 +97,7 @@ public class PatchAccess extends BaseAccess {
 						updateScript(dbAccess, val);
 						if (rs.getInt(1) != rs.getInt(3)) {
 							updateSolution(dbAccess, rs.getInt(1), rs.getInt(3));
+							updatePlayServiceId(dbAccess, rs.getInt(1), rs.getInt(3));
 						}
 					}
 				}
@@ -203,6 +204,10 @@ public class PatchAccess extends BaseAccess {
 	
 	private void updateSolution(final DBAccess dbAccess, int id, int new_id) {
 		dbAccess.updateSolutionId(id, new_id);
+	}
+	
+	private void updatePlayServiceId(DBAccess dbAccess, int id, int new_id) {
+		dbAccess.updatePlayServiceLeaderboardId(id, new_id);
 	}	
 
 	private void deleteScript(final DBAccess dbAccess, int id) {

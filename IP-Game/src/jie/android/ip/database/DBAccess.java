@@ -227,8 +227,13 @@ public class DBAccess extends BaseAccess {
 		final String sql = "UPDATE solution SET script_id=" + new_id + " WHERE script_id=" + id;
 		execSQL(sql);
 	}
+	
+	public void updatePlayServiceLeaderboardId(int id, int new_id) {
+		final String sql = "UPDATE play_service_id SET local_id=" + new_id + " AND type=1 WHERE local_id=" + id;
+		execSQL(sql);
+	}	
 
-	public void deletePlayServiceId(ArrayList<String> val) {
+	public void deletePlayServiceId(final ArrayList<String> val) {
 		final String sql = "DELETE FROM play_service_id WHERE local_id=? AND type=?";
 		execSQL(sql, val);
 	}	
@@ -283,4 +288,5 @@ public class DBAccess extends BaseAccess {
 		}		
 		return null;
 	}
+
 }
