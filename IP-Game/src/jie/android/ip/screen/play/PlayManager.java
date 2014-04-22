@@ -96,21 +96,15 @@ public class PlayManager implements Disposable {
 				onExecuteSucc();
 			} else if (reason == PlayExecutor.StopReason.RESET) {
 				onExecuteReset();
-				playServiceTracker.update(PlayServiceTracker.Type.EXECUTE_MAX_RESET);
 			} else if (reason == PlayExecutor.StopReason.FINISHED) {
 				onExecuteFinished();				
-				playServiceTracker.update(PlayServiceTracker.Type.EXECUTE_MAX_FINISHED);
 			} else if (reason == PlayExecutor.StopReason.EXCEPTION) {
 				onExecuteException();
-				playServiceTracker.update(PlayServiceTracker.Type.EXECUTE_MAX_EXCEPTION);
 			} else if (reason == PlayExecutor.StopReason.OVERFLOW) {
 				onExecuteOverflow();
-				playServiceTracker.update(PlayServiceTracker.Type.EXECUTE_MAX_OVERFLOW);
 			} else {
 				Utils.log(Tag, "Unsupport execute stop reason - " + reason);
 			}
-			
-			playServiceTracker.update(PlayServiceTracker.Type.EXECUTE_MIN_SUCC);
 		}
 
 		@Override
@@ -352,6 +346,13 @@ public class PlayManager implements Disposable {
 	}
 	
 	protected void onExecuteSucc() {
+		
+		playServiceTracker.update(PlayServiceTracker.Type.EXECUTE_MIN_SUCC);
+		if (packId == 6) {
+			//unsolved pack
+			playServiceTracker.update(PlayServiceTracker.Type.EVENT_NO_UNSOLVED);
+		}
+		
 		int score = cmdSet.calcScore();
 		dbAccess.updateScriptStatus(script.getId(), 1);
 		
@@ -369,10 +370,14 @@ public class PlayManager implements Disposable {
 	}
 
 	protected void onExecuteReset() {
+		playServiceTracker.update(PlayServiceTracker.Type.EXECUTE_MAX_RESET);
+		
 		playServiceTracker.refresh(false);
 	}
 
-	protected void onExecuteFinished() {
+	protected void onExecuteFinished() {		
+		playServiceTracker.update(PlayServiceTracker.Type.EXECUTE_MAX_FINISHED);
+		
 		if (managerListener != null) {
 			managerListener.onExecuteFinished();
 		}
@@ -381,6 +386,8 @@ public class PlayManager implements Disposable {
 	}
 
 	protected void onExecuteException() {
+		playServiceTracker.update(PlayServiceTracker.Type.EXECUTE_MAX_EXCEPTION);
+		
 		if (managerListener != null) {
 			managerListener.onExecuteFail();
 		}
@@ -389,6 +396,8 @@ public class PlayManager implements Disposable {
 	}
 
 	protected void onExecuteOverflow() {
+		playServiceTracker.update(PlayServiceTracker.Type.EXECUTE_MAX_OVERFLOW);
+		
 		if (managerListener != null) {
 			managerListener.onExecuteOverflow();
 		}		
