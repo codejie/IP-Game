@@ -37,13 +37,13 @@ public class StartScreen extends BaseScreen {
 		public void onEvent(int type, BaseTween<?> source) {
 //			Utils.log("tween event", "type = " + type + " source = " + source.toString());
 
-			signInPlayService(game);
-			
 			packPatchCheck(game);
-
+			
 			game.getResources().loadAssetManager();
 			game.setScreen(new MenuScreen(game));
 			game.getAudioPlayer().playMusic();
+			
+			signInPlayService(game);			
 		}
 		
 	};

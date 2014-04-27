@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import jie.android.ip.CommonConsts.SystemConfig;
+import jie.android.ip.utils.Utils;
 
 public class DBAccess extends BaseAccess {
 
@@ -229,7 +230,7 @@ public class DBAccess extends BaseAccess {
 	}
 	
 	public void updatePlayServiceLeaderboardId(int id, int new_id) {
-		final String sql = "UPDATE play_service_id SET local_id=" + new_id + " AND type=1 WHERE local_id=" + id;
+		final String sql = "UPDATE play_service_id SET local_id=" + new_id + " WHERE type=1 AND local_id=" + id;
 		execSQL(sql);
 	}	
 
