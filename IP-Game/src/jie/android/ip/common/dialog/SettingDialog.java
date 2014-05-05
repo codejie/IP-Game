@@ -179,8 +179,7 @@ public class SettingDialog extends BaseDialog {
 				settingChanged(SystemConfig.SYS_ATTR_SOUND, 0);
 			}
 			
-		});		
-		
+		});
 	}
 
 	private void settingChanged(int id, int value) {

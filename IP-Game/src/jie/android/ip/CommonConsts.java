@@ -10,6 +10,7 @@ public interface CommonConsts {
 		public static final int SYS_ATTR_SPEED = 2;
 		public static final int SYS_ATTR_MUSIC = 3;
 		public static final int SYS_ATTR_SOUND = 4;
+		public static final int SYS_ATTR_PRIVATE = 5;
 	}
 	
 	public interface ScreenConfig {

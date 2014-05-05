@@ -195,13 +195,21 @@ public class StartScreen extends BaseScreen {
 		}
 		
 		final DBAccess dbAccess = game.getDBAccess();
+		//only set once
+		dbAccess.setPrivateFlag();
+		//check the private flag
+		int flag = dbAccess.getSysDataAsInt(SystemConfig.SYS_ATTR_PRIVATE);
+		if (flag != 1) {
+			return;
+		}
+		
 		final PatchAccess ppAccess = new PatchAccess(game.getSetup().getPatchConnection());
 		
 		int ver = dbAccess.getSysDataAsInt(SystemConfig.SYS_ATTR_VERSION);
 		if (ver <= 7) {
 			//leaderboard
 			dbAccess.upgrade();
-		}
+		}		
 		
 		int patch = ppAccess.getTargetVersion();
 		

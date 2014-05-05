@@ -25,7 +25,11 @@ public class DBAccess extends BaseAccess {
 				+ "[type] INTEGER," 
 				+ "[service_id] TEXT NOT NULL)"; 
 		execSQL(sql);		
-	}	
+	}
+	
+	public void setPrivateFlag() {
+		setSysData(SystemConfig.SYS_ATTR_PRIVATE, 1, null);
+	}
 	
 	public final ResultSet loadScript(int id) {
 		final String sql = "SELECT script, status, base_score FROM script WHERE id=" + id;
