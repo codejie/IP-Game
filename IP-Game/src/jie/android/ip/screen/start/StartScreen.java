@@ -195,8 +195,10 @@ public class StartScreen extends BaseScreen {
 		}
 		
 		final DBAccess dbAccess = game.getDBAccess();
-		//only set once
-		dbAccess.setPrivateFlag();
+		
+		//only set once		
+//		dbAccess.setPrivateFlag();
+		
 		//check the private flag
 		int flag = dbAccess.getSysDataAsInt(SystemConfig.SYS_ATTR_PRIVATE);
 		if (flag != 1) {
